@@ -1,0 +1,49 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:id="@+id/relativeTop"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="#888888" >
+
+        <ImageView
+            android:id="@+id/topMenuBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="15dp"
+            android:paddingTop="12dp"
+            android:paddingRight="15dp"
+            android:layout_centerVertical="true"
+            android:paddingBottom="12dp"
+            android:src="@drawable/back_btn" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:textSize="?android:attr/textAppearanceMedium"
+            android:textColor="@android:color/white"
+            android:layout_centerHorizontal="true"
+            android:text="@string/terms_conditions" />
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        tools:context="com.citrusbits.meehab.TermsAndConditionsActivity" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Terms 1 - 100" />
+    </ScrollView>
+
+</LinearLayout>

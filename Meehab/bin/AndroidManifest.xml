@@ -1,0 +1,401 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.citrusbits.meehab"
+    android:installLocation="auto"
+    android:versionCode="1"
+    android:versionName="build 0.2" >
+
+    <supports-screens
+        android:anyDensity="true"
+        android:largeScreens="true"
+        android:normalScreens="true"
+        android:smallScreens="true" />
+
+    <!-- App uses-permission -->
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" >
+    </uses-permission>
+
+    <!-- 4 GCM -->
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="com.citrusbits.meehab.permission.C2D_MESSAGE" />
+
+    <!-- This app has permission to register and receive data message. -->
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+
+    <permission
+        android:name="com.citrusbits.meehab.permission.MAPS_RECEIVE"
+        android:protectionLevel="signature" />
+
+    <uses-permission android:name="com.citrusbits.meehab.permission.MAPS_RECEIVE" />
+    <uses-permission android:name="android.permission.READ_CALENDAR" />
+    <uses-permission android:name="android.permission.WRITE_CALENDAR" />
+
+    <!-- The following four permissions -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
+
+    <!--
+         The following two permissions are not required to use
+         Google Maps Android API v2, but are recommended.     
+    -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
+    <!-- Sinch permissions -->
+
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.READ_CALL_LOG" />
+    <uses-permission android:name="android.permission.RECEIVE_SMS" />
+    <uses-permission android:name="android.permission.READ_SMS" />
+
+    <uses-feature
+        android:glEsVersion="0x00020000"
+        android:required="true" />
+
+    <uses-sdk
+        android:minSdkVersion="14"
+        android:targetSdkVersion="21" />
+
+    <application
+        android:name=".app.App"
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        <service android:name=".services.SocketService" />
+
+        <receiver android:name=".receivers.EventReceiver" >
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+                <action android:name="android.intent.action.ACTION_SHUTDOWN" />
+            </intent-filter>
+        </receiver>
+
+        <activity
+            android:name=".SplashActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.MULTIWINDOW_LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".LoginAndRegisterActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="com.citrusbits.meehab.ReportFriendActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="com.citrusbits.meehab.ChatActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden" >
+        </activity>
+        <activity
+            android:name=".LoginActivity"
+            android:label="@string/app_name"
+            android:parentActivityName=".LoginAndRegisterActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.citrusbits.meehab.LoginAndRegisterActivity" />
+        </activity>
+        <activity
+            android:name=".ForgetPasswordActivity"
+            android:label="@string/app_name"
+            android:parentActivityName=".LoginActivity"
+            android:screenOrientation="portrait" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.citrusbits.meehab.LoginActivity" />
+        </activity>
+        <activity
+            android:name=".SignupActivity"
+            android:label="@string/app_name"
+            android:parentActivityName=".LoginAndRegisterActivity"
+            
+            android:screenOrientation="portrait" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="LoginAndRegisterActivity" />
+        </activity>
+        <activity
+            android:name=".ProfileSetupActivity"
+            android:label="@string/app_name"
+            android:parentActivityName=".SignupActivity"
+            android:screenOrientation="portrait"
+          
+            android:windowSoftInputMode="stateAlwaysHidden" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="RegisterActivity" />
+        </activity>
+        <activity
+            android:name=".TermsAndConditionsActivity"
+            android:label="@string/app_name"
+            android:parentActivityName=".SignupActivity"
+           
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="RegisterActivity" />
+        </activity>
+        <activity
+            android:name=".ProfileSetupMoreActivity"
+            android:label="@string/app_name"
+            android:parentActivityName=".ProfileSetupActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="ProfileSetupActivity" />
+        </activity>
+        <activity
+            android:name=".MeetingsFilterActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden" >
+        </activity>
+        <activity
+            android:name=".UserFilterActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden" >
+        </activity>
+        <activity
+            android:name=".MeetingDetailsActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden" >
+        </activity>
+        <activity
+            android:name=".RehabDetailsActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden" >
+        </activity>
+        <activity
+            android:name=".HomeActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden" >
+        </activity>
+        <activity
+            android:name=".RehabsFilterActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden" >
+        </activity>
+        <activity
+            android:name=".FriendsFilterActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden" >
+        </activity>
+        <activity
+            android:name=".UserProfileActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden" >
+        </activity>
+        <activity
+            android:name=".EditMyProfileActivity"
+            android:label="@string/title_activity_edit_my_profile"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden" >
+        </activity>
+        <activity
+            android:name=".RequestMeetingAdditionActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden" >
+        </activity>
+        <activity
+            android:name=".RehabAdditionActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden" >
+        </activity>
+        <activity
+            android:name=".TwoOptionActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden" >
+        </activity>
+        <activity
+            android:name=".CannotFindInsuranceActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden" >
+        </activity>
+
+        <!-- Crop Activity -->
+        <activity
+            android:name="com.soundcloud.android.crop.CropImageActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+
+        <!-- facebook -->
+        <activity
+            android:name="com.facebook.FacebookActivity"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:label="@string/app_name"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/fb_app_id" />
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationName"
+            android:value="@string/facebook_app_name" />
+
+        <provider
+            android:name="com.facebook.FacebookContentProvider"
+            android:authorities="com.facebook.app.FacebookContentProvider1484896925141008"
+            android:exported="true" />
+
+        <receiver android:name=".receivers.MeehabFacebookBroadcastReceiver" >
+            <intent-filter>
+                <action android:name="com.facebook.platform.AppCallResultBroadcast" />
+            </intent-filter>
+        </receiver>
+
+        <!-- GCM -->
+        <receiver
+            android:name=".app.GcmBroadcastReceiver"
+            android:permission="com.google.android.c2dm.permission.SEND" >
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+                <action android:name="com.google.android.c2dm.intent.REGISTRATION" />
+
+                <category android:name="com.citrusbits.meehab" />
+            </intent-filter>
+        </receiver>
+
+        <service android:name=".app.GcmIntentService" />
+
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+
+        <!-- Google Map -->
+        <meta-data
+            android:name="com.google.android.maps.v2.API_KEY"
+            android:value="@string/map_key" />
+
+        <!-- Insta bug -->
+        <activity
+            android:name="com.instabug.wrapper.impl.v10.InstabugAnnotationActivity"
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name="com.instabug.wrapper.impl.support.InstabugAnnotationActivity"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name="com.instabug.library.InstabugFeedbackActivity"
+            android:windowSoftInputMode="adjustPan" />
+
+        <service android:name="com.instabug.library.network.UploadCacheService" />
+
+        <receiver android:name="com.instabug.library.network.InstabugNetworkReceiver" >
+            <intent-filter>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+            </intent-filter>
+        </receiver>
+
+        <meta-data
+            android:name="com.instabug.DevelopmentAppToken"
+            android:value="2dfe3b005171f96ba7b6151aa82be713" />
+        <meta-data
+            android:name="com.instabug.ProductionMode"
+            android:value="false" />
+
+        <activity
+            android:name=".ChangeEmailActivity"
+            android:label="@string/app_name"
+             android:windowSoftInputMode="stateAlwaysHidden"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+             android:windowSoftInputMode="stateAlwaysHidden"
+            android:name=".ChangePasswordActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".BlockFriendsActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden" >
+        </activity>
+        <activity
+            android:name=".ProvideAppFeedBackActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden" >
+        </activity>
+        <activity
+            android:name=".FullScreenMapActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden" >
+        </activity>
+        <activity
+            android:name=".AddReviewOverMeetingActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysVisible" >
+        </activity>
+        <activity
+            android:name=".ReportInaccuracyActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden" >
+        </activity>
+        <activity
+            android:name=".VerificationActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden" >
+        </activity>
+        <activity
+            android:name=".MyReviewDetailActivity"
+            android:label="@string/title_activity_my_review_detail" >
+        </activity>
+        <activity
+            android:name=".InsuranceActivity"
+            android:label="@string/title_activity_my_review_detail" >
+        </activity>
+        <activity
+            android:name="com.citrusbits.meehab.ActivityMoreReviews"
+            android:label="@string/title_activity_my_review_detail"
+            android:screenOrientation="portrait" >
+        </activity>
+
+        <service android:name="com.citrusbits.meehab.map.LocationService" >
+        </service>
+        
+        <service android:name="com.citrusbits.meehab.services.ContactSyncService" ></service>
+    </application>
+
+</manifest>

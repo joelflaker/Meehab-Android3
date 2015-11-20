@@ -1,0 +1,66 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:id="@+id/rlTopBar"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="#888888" >
+
+        <ImageButton
+            android:id="@+id/ibCancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:background="@null"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:src="@drawable/cancel_btn_small" />
+
+        <TextView
+            android:id="@+id/topCenterText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="@string/filter"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@android:color/white" />
+
+        <ImageButton
+            android:id="@+id/ibApply"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="6dp"
+            android:background="@null"
+            android:src="@drawable/apply_btn"
+            android:textColor="@android:color/white" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        tools:context="com.citrusbits.meehab.MeetingsFilterActivity" >
+
+        <ExpandableListView
+            android:id="@+id/expFriendsFilter"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:divider="@drawable/profile_divider"
+            android:dividerHeight="1dp"
+            android:groupIndicator="@null"
+            android:scrollbars="none" />
+    </LinearLayout>
+
+</LinearLayout>

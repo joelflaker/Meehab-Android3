@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.citrusbits.meehab.MeetingsFilterActivity" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/cbOnlineNow"
+            android:background="@android:color/transparent"
+            android:gravity="left|center_vertical"
+            android:text="@string/online_now"
+            android:textColor="#666666"
+            android:textSize="16sp" />
+
+        <CheckBox
+            android:id="@+id/cbOnlineNow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/toggle_selector"
+            android:button="@null"
+            android:checked="false" />
+    </RelativeLayout>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginBottom="7dp"
+        android:layout_marginTop="7dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/profile_divider" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/cbWillingToSponsor"
+            android:background="@android:color/transparent"
+            android:gravity="left|center_vertical"
+            android:text="@string/willing_to_sponsor"
+            android:textColor="#666666"
+            android:textSize="16sp" />
+
+        <CheckBox
+            android:id="@+id/cbWillingToSponsor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/toggle_selector"
+            android:button="@null"
+            android:checked="false" />
+    </RelativeLayout>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginBottom="7dp"
+        android:layout_marginTop="7dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/profile_divider" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/cbHasKids"
+            android:background="@android:color/transparent"
+            android:gravity="left|center_vertical"
+            android:text="@string/has_kids"
+            android:textColor="#666666"
+            android:textSize="16sp" />
+
+        <CheckBox
+            android:id="@+id/cbHasKids"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/toggle_selector"
+            android:button="@null"
+            android:checked="false" />
+    </RelativeLayout>
+    
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:visibility="invisible"
+        android:layout_marginTop="7dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/profile_divider" />
+
+</LinearLayout>

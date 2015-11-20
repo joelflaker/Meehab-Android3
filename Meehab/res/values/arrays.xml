@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Filter Days -->
+    <string-array name="daysValues">
+        <item>Select All</item>
+        <item>Monday</item>
+        <item>Tuesday</item>
+        <item>Wednesday</item>
+        <item>Thursday</item>
+        <item>Friday</item>
+        <item>Saturday</item>
+        <item>Sunday</item>
+    </string-array>
+    <string-array name="meeting_type_facility">
+        <item>Church</item>
+        <item>Park</item>
+        <item>Building</item>
+        <item>Club</item>
+        <item>Hall</item>
+        <item>School</item>
+    </string-array>
+
+    <!-- Filter Days -->
+    <string-array name="days_arr">
+        <item>Monday</item>
+        <item>Tuesday</item>
+        <item>Wednesday</item>
+        <item>Thursday</item>
+        <item>Friday</item>
+        <item>Saturday</item>
+        <item>Sunday</item>
+    </string-array>
+
+    <!-- Filter Days -->
+    <string-array name="timeRangeValues">
+        <item>Select All</item>
+        <item>06 AM - 09 AM</item>
+        <item>09 AM - 12 PM</item>
+        <item>12 PM - 03 PM</item>
+        <item>03 PM - 06 PM</item>
+        <item>06 PM - 09 PM</item>
+        <item>09 PM - 12 AM</item>
+    </string-array>
+
+    <!-- Filter Days -->
+    <string-array name="meetingsTypesValues">
+        <item>B - Beginners</item>
+        <item>BS - Book Study</item>
+        <item>C - Closed Meeting (Alcoholics Only)</item>
+        <item>CC - Child Care Availabe</item>
+        <item>D - Sign Language Available</item>
+        <item>G - Lesbian, Gay, Bisexual, Transgender</item>
+        <item>H - Handicapped Accessible</item>
+        <item>M - Men Stag</item>
+        <item>O - Open</item>
+        <item>P - Participation</item>
+        <item>S - Speakers</item>
+        <item>W - Women Stag</item>
+        <item>Y - Young People</item>
+    </string-array>
+
+    <!-- Marital Statuses -->
+    <string-array name="maritalStatuses">
+        <item>Single</item>
+        <item>In a Relationship</item>
+        <item>Married</item>
+        <item>Divorced</item>
+        <item>Widow/Widower</item>
+    </string-array>
+
+    <!-- Sextual Orientation -->
+    <string-array name="sextualOrientations">
+        <item>Straight</item>
+        <item>Gay</item>
+        <item>Bi-sexual</item>
+        <item>Other</item>
+    </string-array>
+
+    <!-- Ethnicities -->
+
+    <string-array name="ethnicities">
+        <item>Hispanic</item>
+        <item>American Indian</item>
+        <item>Asian</item>
+        <item>Black</item>
+        <item>White</item>
+    </string-array>
+
+    <!-- Drawer -->
+    <string-array name="drawer_items_titles">
+        <item>My Profile</item>
+        <item>My Favorites</item>
+        <item>Messages</item>
+        <item>Browse Meetings</item>
+        <item>Browse Friends</item>
+        <item>Browse Rehabs</item>
+        <item>Recovery Clock</item>
+        <item>Share</item>
+        <item>Big Book</item>
+        <item>Options</item>
+    </string-array>
+
+    <array name="drawer_items_icons">
+        <item>@drawable/ic_launcher</item>
+        <item>@drawable/ic_launcher</item>
+        <item>@drawable/ic_launcher</item>
+        <item>@drawable/ic_launcher</item>
+        <item>@drawable/ic_launcher</item>
+        <item>@drawable/ic_launcher</item>
+        <item>@drawable/ic_launcher</item>
+        <item>@drawable/ic_launcher</item>
+        <item>@drawable/ic_launcher</item>
+        <item>@drawable/ic_launcher</item>
+    </array>
+
+    <!-- FriendType -->
+    <string-array name="friend_type_arr">
+        <item>Select All</item>
+        <item>Contacts</item>
+        <item>Favourite</item>
+        <item>Facebook</item>
+    </string-array>
+
+    <!-- Gender Type -->
+    <string-array name="gender_arr">
+        <item>Select All</item>
+        <item>Male</item>
+        <item>Female</item>
+        <item>Other</item>
+    </string-array>
+
+    <!-- Age -->
+    <string-array name="age_arr">
+        <item>Select All</item>
+        <item>18-25 years</item>
+        <item>26-30 years</item>
+        <item>31-35 years</item>
+        <item>36-40 years</item>
+        <item>41-45 years</item>
+        <item>46-50 years</item>
+        <item>51-55 years</item>
+        <item>56-60 years</item>
+        <item>60+ years</item>
+    </string-array>
+
+    <!-- Gender Type -->
+    <string-array name="Ethenticity_arr">
+        <item>Select All</item>
+        <item>Hispanic</item>
+        <item>American Indian</item>
+        <item>Asian</item>
+        <item>Black</item>
+        <item>White</item>
+    </string-array>
+
+    <!-- Material Status -->
+    <string-array name="material_arr">
+        <item>Select All</item>
+        <item>Single</item>
+        <item>In a Relationship</item>
+        <item>Married</item>
+        <item>Divorced</item>
+        <item>Widow/Widower</item>
+    </string-array>
+
+    <!-- Interested in Status -->
+    <string-array name="Interested_in_arr">
+        <item>Select All</item>
+        <item>Fellowship</item>
+        <item>Dating</item>
+    </string-array>
+
+    <!-- Time sobar -->
+    <string-array name="time_sobar_arr">
+        <item>Select All</item>
+        <item>Less than 1 year</item>
+        <item>1-5 years</item>
+        <item>6-10 years</item>
+        <item>11-15 years</item>
+        <item>16-20 years</item>
+        <item>21-30 years</item>
+        <item>31-40 years</item>
+        <item>41+ years</item>
+    </string-array>
+
+    <!-- Height -->
+    <string-array name="height_arr">
+        <item>Select All</item>
+        <item>4\'5"-5\'0"</item>
+        <item>5\'1"-5\'5"</item>
+        <item>5\'6"-6\'0"</item>
+        <item>6\'1"-6\'5"</item>
+        <item>6\'6"-7\'0"</item>
+    </string-array>
+    <string-array name="insurance_arr">
+        <item>Aetna</item>
+        <item>AmeriHealth</item>
+        <item>Anthem</item>
+        <item>Assurant</item>
+        <item>BJC Behavioral</item>
+        <item>BlueCross BlueShield</item>
+        <item>Cigna</item>
+        <item>ComPsych</item>
+        <item>Consociate-Dansig</item>
+        <item>Core Source</item>
+        <item>Geha Health Plans</item>
+        <item>Greatwest</item>
+        <item>HealthLink</item>
+        <item>Health Alliance</item>
+        <item>Humana</item>
+        <item>Humana/LifeSync</item>
+        <item>Kaiser</item>
+        <item>Medicaid</item>
+        <item>Medical Mutual</item>
+        <item>MHN Managed Health Network</item>
+        <item>MH Net/Group Health Plan(GHP) </item>
+        <item>MVP HealthCare</item>
+        <item>Obamacare</item>
+        <item>Oxfort</item>
+        <item>Perspectivies</item>
+        <item>PHCS</item>
+        <item>Primary Physicians Care</item>
+        <item>St. John\'s Mercy Health Plan</item>
+        <item>United Health Care</item>
+        <item>Unite Behavioral Healthcare</item>
+        <item>ValueOptions</item>
+        <item>Vista</item>
+    </string-array>
+
+    <!-- RehabType -->
+    <string-array name="rehab_type_arr">
+        <item>Select All</item>
+        <item>Boarding House</item>
+        <item>Camp</item>
+        <item>Detox</item>
+        <item>Doctors Office</item>
+        <item>Government Organization</item>
+        <item>Half-way House</item>
+        <item>Hospital</item>
+        <item>Hypnotist</item>
+        <item>Inpatient</item>
+        <item>Mental Institution</item>
+        <item>Other</item>
+        <item>Outpatient</item>
+        <item>Place of Worship</item>
+        <item>Psychic</item>
+        <item>Residential</item>
+        <item>Resort</item>
+        <item>Seminar</item>
+        <item>Sober Coach</item>
+        <item>Sober Living</item>
+        <item>Spiritual Counselor</item>
+        <item>Therapist</item>
+        <item>Treatment Facility</item>
+    </string-array>
+    <string-array name="rehab_facility_arr">
+        <item>Boarding House</item>
+        <item>Camp</item>
+        <item>Detox</item>
+        <item>Doctors Office</item>
+        <item>Government Organization</item>
+        <item>Half-way House</item>
+        <item>Hospital</item>
+        <item>Hypnotist</item>
+        <item>Inpatient</item>
+        <item>Mental Institution</item>
+        <item>Other</item>
+        <item>Outpatient</item>
+        <item>Place of Worship</item>
+        <item>Psychic</item>
+        <item>Residential</item>
+        <item>Resort</item>
+        <item>Seminar</item>
+        <item>Sober Coach</item>
+        <item>Sober Living</item>
+        <item>Spiritual Counselor</item>
+        <item>Therapist</item>
+        <item>Treatment Facility</item>
+    </string-array>
+
+</resources>

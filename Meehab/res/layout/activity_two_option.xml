@@ -1,0 +1,108 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:weightSum="2"
+    tools:context="com.citrusbits.meehab.TwoOptionActivity" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="#888888"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp" >
+
+        <TextView
+            android:id="@+id/tvUserName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="Hello Martin"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@android:color/white" />
+    </RelativeLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" >
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="20dp"
+            android:id="@+id/ivMeetingsRehab"
+            android:scaleType="centerCrop"
+            android:src="@drawable/meetings_rehabs_box" />
+
+        <FrameLayout
+            android:id="@+id/jump2Meetings"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center" >
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@drawable/simple_button_selector"
+                android:padding="8dp"
+                android:shadowColor="#222"
+                android:shadowDx="-2"
+                android:focusable="true"
+                android:clickable="false"
+                android:shadowDy="-2"
+                android:shadowRadius="4"
+                android:text="Meetings/Rehabs"
+                android:textAllCaps="true"
+                android:textColor="#fff"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                android:visibility="invisible" />
+        </FrameLayout>
+    </FrameLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center" >
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/friends_box" />
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+             android:id="@+id/jump2Friends"
+            android:layout_gravity="center" >
+
+            <Button
+               
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@drawable/simple_button_selector"
+                android:padding="8dp"
+                android:shadowColor="#222"
+                android:shadowDx="-2"
+                android:shadowDy="-2"
+                android:visibility="invisible"
+                android:shadowRadius="4"
+                android:text="Friends"
+                android:textAllCaps="true"
+                android:textColor="#fff"
+                android:textSize="22sp"
+                android:textStyle="bold" />
+        </FrameLayout>
+    </FrameLayout>
+
+</LinearLayout>

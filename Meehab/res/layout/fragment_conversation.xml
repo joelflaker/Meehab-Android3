@@ -1,0 +1,64 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:id="@+id/relativeTop"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="#888888" >
+
+        <ImageView
+            android:id="@+id/ivMenu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="8dp"
+            android:clickable="false"
+            android:paddingBottom="12dp"
+            android:paddingRight="20dp"
+            android:paddingTop="12dp"
+            android:src="@drawable/menu_icon" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="@string/messages"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@android:color/white" />
+
+        <ImageButton
+            android:id="@+id/ibEdit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="8dp"
+            android:background="@null"
+            android:paddingLeft="4dp"
+            android:paddingRight="4dp"
+            android:src="@drawable/edit_btn"
+            android:textColor="@android:color/white" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <ListView
+            android:id="@+id/lvConversation"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/llMessage"
+            android:divider="@android:color/transparent"
+            android:dividerHeight="6dp" >
+        </ListView>
+        
+    </RelativeLayout>
+
+</LinearLayout>

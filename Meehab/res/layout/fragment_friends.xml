@@ -1,0 +1,167 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:id="@+id/rlTopBar"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="#888888" >
+
+        <RelativeLayout
+            android:id="@+id/relativeTop"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingBottom="6dp"
+            android:paddingTop="6dp" >
+
+            <RelativeLayout
+                android:id="@+id/rlMenuButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true" >
+
+                <ImageView
+                    android:id="@+id/topMenuBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:clickable="false"
+                     android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:paddingRight="15dp"
+                    android:src="@drawable/menu_icon" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="4dp"
+                android:layout_marginRight="12dp"
+                android:layout_toRightOf="@+id/rlMenuButton"
+                android:background="@drawable/search_bg" >
+
+                <EditText
+                    android:id="@+id/editTopCenter"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="8dp"
+                    android:layout_toLeftOf="@+id/tvFiltereSeparater"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:descendantFocusability="beforeDescendants"
+                    android:drawableLeft="@drawable/search_icon"
+                    android:drawablePadding="-16dp"
+                    android:hint="@string/search_for_meetings"
+                    android:imeOptions="actionSearch"
+                    android:inputType="textWebEditText|textCapWords"
+                    android:maxLength="20"
+                    android:singleLine="true"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="#ffffff"
+                    android:textColorHint="#efefef"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/tvFiltereSeparater"
+                    android:layout_width="2dp"
+                    android:layout_height="20dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="6dp"
+                    android:layout_toLeftOf="@+id/btnFilter"
+                    android:background="#CCCCCC" />
+
+                <TextView
+                    android:id="@+id/btnFilter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/simple_button_selector"
+                    android:paddingRight="8dp"
+                    android:text="@string/filter"
+                    android:textColor="#FFFFFF"
+                    android:textSize="12sp" />
+            </RelativeLayout>
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_below="@id/relativeTop"
+            android:orientation="horizontal"
+            android:paddingBottom="5dp" >
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingLeft="8dp" >
+
+                <Button
+                    android:id="@+id/btnGrid"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:text="@string/grid"
+                    android:textAllCaps="true"
+                    android:textColor="@drawable/tab_button_color_selector"
+                    android:textSize="14sp" />
+
+                <ImageView
+                    android:id="@+id/ivGridBar"
+                    android:layout_width="fill_parent"
+                    android:layout_height="2dp"
+                    android:layout_alignParentBottom="true"
+                    android:background="@drawable/segment_border_blue" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp" >
+
+                <Button
+                    android:id="@+id/btnList"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:text="@string/list"
+                    android:textAllCaps="true"
+                    android:textColor="@drawable/tab_button_color_selector"
+                    android:textSize="14sp" />
+
+                <ImageView
+                    android:id="@+id/ivListBar"
+                    android:layout_width="fill_parent"
+                    android:layout_height="2dp"
+                    android:layout_alignParentBottom="true"
+                    android:background="@drawable/segment_border_blue" />
+            </RelativeLayout>
+        </LinearLayout>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/rlTopBar"
+        android:orientation="vertical" >
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/pager"
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent" />
+    </LinearLayout>
+
+</RelativeLayout>

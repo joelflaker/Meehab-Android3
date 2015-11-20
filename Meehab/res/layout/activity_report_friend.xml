@@ -1,0 +1,64 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:id="@+id/relativeTop"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="#888888" >
+
+        <ImageView
+            android:id="@+id/ivBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="8dp"
+            android:clickable="false"
+            android:paddingBottom="8dp"
+            android:paddingRight="15dp"
+            android:paddingTop="8dp"
+            android:src="@drawable/back_btn" />
+
+        <TextView
+            android:id="@+id/Report"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="Report"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@android:color/white" />
+
+        <ImageButton
+            android:id="@+id/ibSend"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="8dp"
+            android:background="@null"
+            android:paddingLeft="4dp"
+            android:paddingRight="4dp"
+            android:src="@drawable/send_msg_btn"
+            android:textColor="@android:color/white" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <EditText
+            android:id="@+id/etReportText"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="left"
+            android:textSize="14sp"
+            android:maxLength="255"
+            android:hint="@string/report_txt_hint" />
+    </LinearLayout>
+
+</LinearLayout>

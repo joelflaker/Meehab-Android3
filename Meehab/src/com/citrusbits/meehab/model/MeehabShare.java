@@ -1,0 +1,128 @@
+package com.citrusbits.meehab.model;
+
+import java.io.IOException;
+import java.io.InputStream;
+
+import android.content.Context;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
+import android.provider.MediaStore.Images;
+import android.widget.Toast;
+
+import com.citrusbits.meehab.R;
+import com.google.android.gms.drive.internal.GetMetadataRequest;
+
+public class MeehabShare {
+
+	public static void shareBySms(Context context) {
+		Intent sendIntent = new Intent(Intent.ACTION_VIEW);
+		sendIntent.setData(Uri.parse("sms:"));
+
+		sendIntent.putExtra("sms_body",
+				context.getString(R.string.share_body_text));
+
+		context.startActivity(sendIntent);
+	}
+
+	public static void shareByEmail(Context context) {
+		Intent i = new Intent(Intent.ACTION_SENDTO, Uri.fromParts("mailto", "",
+				null));
+		i.putExtra(Intent.EXTRA_TEXT,
+				context.getString(R.string.share_body_text));
+		try {
+			context.startActivity(Intent.createChooser(i, "Send mail..."));
+		} catch (android.content.ActivityNotFoundException ex) {
+			Toast.makeText(context, "There are no email clients installed.",
+					Toast.LENGTH_SHORT).show();
+		}
+	}
+	
+	
+	
+	
+	
+	public static void shareByFacebook(Context context) {
+		String type = "image/*";
+		try {
+			Uri mehabUri = getMeehabUri(context);
+			String instagramPackage = "com.facebook.katana";
+			createSocialIntent(context, type, mehabUri, instagramPackage);
+
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			Toast.makeText(context, "Error!", Toast.LENGTH_SHORT).show();
+		}
+
+	}
+	
+	
+	public static void shareByTwitter(Context context) {
+		String type = "image/*";
+		try {
+			Uri mehabUri = getMeehabUri(context);
+			String instagramPackage = "com.twitter.android";
+			createSocialIntent(context, type, mehabUri, instagramPackage);
+
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			Toast.makeText(context, "Error!", Toast.LENGTH_SHORT).show();
+		}
+
+	}
+	
+
+	public static void shareByInstragram(Context context) {
+		String type = "image/*";
+		try {
+			Uri mehabUri = getMeehabUri(context);
+			String instagramPackage = "com.instagram.android";
+			createSocialIntent(context, type, mehabUri, instagramPackage);
+
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			Toast.makeText(context, "Error!", Toast.LENGTH_SHORT).show();
+		}
+
+	}
+
+	private static Uri getMeehabUri(Context context) {
+		InputStream bitmap;
+		Uri mehabUri = null;
+		try {
+			bitmap = context.getAssets().open("ic_app.png");
+			Bitmap bit = BitmapFactory.decodeStream(bitmap);
+			String path = Images.Media.insertImage(
+					context.getContentResolver(), bit, "title", null);
+			mehabUri = Uri.parse(path);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return mehabUri;
+
+	}
+
+	private static void createSocialIntent(Context context, String type,
+			Uri uri, String socialPackage) {
+
+		// Create the new Intent using the 'Send' action.
+		Intent share = new Intent(Intent.ACTION_SEND);
+		// Set the MIME type
+		share.setType(type);
+		// Create the URI from the media
+		// File media = new File(mediaPath);
+		// Uri uri = Uri.fromFile(media);
+		// Add the URI to the Intent.
+		share.putExtra(Intent.EXTRA_STREAM, uri);
+		share.putExtra(Intent.EXTRA_TEXT,
+				context.getString(R.string.share_body_text));
+		share.setPackage(socialPackage);
+		// Broadcast the Intent.
+		context.startActivity(Intent.createChooser(share, "Share to"));
+	}
+}

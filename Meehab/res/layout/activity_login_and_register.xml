@@ -1,0 +1,82 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:weightSum="2"
+    tools:context="com.citrusbits.meehab.LoginAndRegisterActivity" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" >
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/logo"
+            android:scaleType="center" />
+
+<!--         <Button -->
+<!--             android:layout_width="wrap_content" -->
+<!--             android:layout_height="wrap_content" -->
+<!--             android:layout_centerHorizontal="true" -->
+<!--             android:layout_centerVertical="true" -->
+<!--             android:background="#0000" -->
+<!--             android:padding="8dp" -->
+<!--             android:shadowColor="#000" -->
+<!--             android:shadowRadius="10" -->
+<!--             android:text="Meehab" -->
+<!--             android:textColor="#fff" -->
+<!--             android:textSize="24sp" -->
+<!--             android:textStyle="bold" /> -->
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin" >
+
+        <ImageButton
+            android:id="@+id/ibLogin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:background="@null"
+            android:src="@drawable/login_btn"
+            android:text="" />
+        <!-- Login with facebook -->
+
+        <ImageButton
+            android:id="@+id/ibLoginWithFacebook"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="4dp"
+            android:padding="8dp"
+            android:background="@null"
+            android:src="@drawable/fb_login_btn"
+            android:text="" />
+
+        <ImageButton
+            android:id="@+id/ibSignup"
+            style="@android:style/Theme.Holo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:padding="8dp"
+            android:background="@null"
+             android:src="@drawable/signup_btn"
+            android:text="" />
+    </LinearLayout>
+
+</LinearLayout>

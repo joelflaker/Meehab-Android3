@@ -1,0 +1,154 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:id="@+id/relativeTop"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#888888"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingBottom="6dp"
+        android:paddingTop="6dp" >
+
+        <RelativeLayout
+            android:id="@+id/rlMenuButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true" >
+
+            <ImageView
+                android:id="@+id/topMenuBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:clickable="true"
+                android:paddingBottom="5dp"
+                android:paddingLeft="4dp"
+                android:paddingRight="4dp"
+                android:paddingTop="5dp"
+                android:src="@drawable/menu_icon" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp"
+            android:layout_toRightOf="@+id/rlMenuButton"
+            android:background="@drawable/search_bg" >
+
+            <EditText
+                android:id="@+id/editTopCenter"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="8dp"
+                android:layout_toLeftOf="@+id/tvFiltereSeparater"
+                android:layout_weight="1"
+                android:background="@null"
+                android:descendantFocusability="beforeDescendants"
+                android:drawableLeft="@drawable/search_icon"
+                android:drawablePadding="10dp"
+                android:hint="Search for Rehabs"
+                android:imeOptions="actionSearch"
+                android:inputType="textWebEditText|textCapWords"
+                android:maxLength="20"
+                android:singleLine="true"
+                
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="#ffffff"
+                android:textColorHint="#efefef"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/tvFiltereSeparater"
+                android:layout_width="2dp"
+                android:layout_height="20dp"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="6dp"
+                android:layout_toLeftOf="@+id/topRightBtn"
+                android:background="#CCCCCC" />
+
+            <TextView
+                android:id="@+id/topRightBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:background="@drawable/simple_button_selector"
+                android:paddingRight="8dp"
+                android:text="@string/filter"
+                android:textColor="#FFFFFF"
+                android:textSize="12sp" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/relativeTop"
+        android:orientation="vertical" >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" >
+
+            <!-- com.google.android.gms.maps.SupportMapFragment -->
+
+            <fragment
+                android:id="@+id/map"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                class="com.google.android.gms.maps.SupportMapFragment" />
+
+            <ListView
+                android:id="@+id/list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#eee"
+                android:divider="#00000000"
+                android:dividerHeight="6dp"
+                android:listSelector="@drawable/simple_list_selector"
+                android:visibility="gone" >
+            </ListView>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:background="@android:color/transparent"
+                android:paddingBottom="25dp"
+                android:paddingLeft="12dp"
+                android:paddingRight="12dp" >
+
+                <ImageButton
+                    android:id="@+id/btnFindMe"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:background="@null"
+                    android:src="@drawable/find_me_btn"
+                    android:text="" />
+
+                <ImageButton
+                    android:id="@+id/btnList"
+                    android:background="@null"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:src="@drawable/list_btn"
+                    android:text="" />
+            </RelativeLayout>
+        </RelativeLayout>
+    </LinearLayout>
+
+</RelativeLayout>

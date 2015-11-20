@@ -1,0 +1,57 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/black"
+    android:descendantFocusability="blocksDescendants" >
+
+    <FrameLayout
+        android:id="@+id/flCell"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/rectangle_bg_blue"
+        android:layout_gravity="center" >
+
+        <ImageView
+            android:id="@+id/ivFriend"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clickable="false"
+            android:scaleType="centerCrop"
+            android:src="@drawable/tmp_user_pic" />
+
+        <ImageView
+            android:id="@+id/ivOnline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="5dp"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:paddingTop="3dp"
+            android:src="@drawable/online_icon" />
+
+        <ImageView
+            android:id="@+id/ivFavourite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:paddingBottom="5dp"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:paddingTop="3dp"
+            android:src="@drawable/star_pink" />
+        
+         <ImageView
+            android:id="@+id/ivBlockIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:paddingBottom="5dp"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:visibility="gone"
+            android:paddingTop="3dp"
+            android:src="@drawable/attention_icon_yellow" />
+    </FrameLayout>
+
+</FrameLayout>

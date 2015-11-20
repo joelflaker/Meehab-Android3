@@ -1,0 +1,159 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:id="@+id/relativeTop"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="#888888" >
+
+        <ImageView
+            android:id="@+id/topMenuBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="8dp"
+            android:clickable="true"
+            android:paddingBottom="8dp"
+            android:paddingRight="15dp"
+            android:paddingLeft="8dp"
+            android:paddingTop="8dp"
+            android:src="@drawable/back_btn" />
+
+        <TextView
+            android:id="@+id/topCenterText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="Reviews"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@android:color/white" />
+
+        <ImageView
+            android:id="@+id/topRightImage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp" />
+
+        <ImageButton
+            android:id="@+id/topRightBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="8dp"
+            android:background="@null"
+            android:src="@drawable/delete_msg_btn"
+            android:text="@string/delete"
+            android:textColor="@android:color/white"
+            android:textSize="14sp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/simple_button_selector"
+        android:clickable="true"
+        android:padding="8dp" >
+
+        <!-- android:descendantFocusability="blocksDescendants" -->
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent" >
+
+            <LinearLayout
+                android:id="@+id/llRow"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:id="@+id/tvReviewTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    android:text="Review Title"
+                    android:textColor="@android:color/black"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp" >
+
+                    <RatingBar
+                        android:id="@+id/rating"
+                        style="@style/customRatingBarPopupWindow"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:focusable="false"
+                        
+                        android:isIndicator="true"
+                        android:focusableInTouchMode="false"
+                        android:indeterminateDrawable="@drawable/popup_window_rating_bar"
+                        android:rating="4"
+                        android:stepSize="1" />
+
+                    <LinearLayout
+                        android:layout_width="fill_parent"
+                        
+                        android:layout_toRightOf="@+id/rating"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="5dp"
+                        android:gravity="center_vertical|right"
+                        android:orientation="horizontal" >
+
+                        <TextView
+                            android:id="@+id/tvMeetingName"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Meeting Name"
+                            android:singleLine="true"
+                            android:ellipsize="end"
+                            android:textColor="@color/light_blue"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:layout_width="1dp"
+                            android:layout_height="12dp"
+                            android:layout_marginLeft="8dp"
+                            android:layout_marginRight="8dp"
+                            android:background="#999999" />
+
+                        <TextView
+                            android:id="@+id/tvDateTime"
+                            android:singleLine="true"
+                            android:ellipsize="end"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="17 May 2015 @ 12:00 PM"
+                            android:textColor="#999999"
+                            android:textSize="12sp" />
+                    </LinearLayout>
+                </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/tvComment"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:maxLength="100"
+                    android:paddingTop="4dp"
+                    android:text="@string/simple_long_text" />
+            </LinearLayout>
+        </RelativeLayout>
+    </RelativeLayout>
+
+</LinearLayout>

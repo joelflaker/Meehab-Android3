@@ -1,0 +1,216 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:id="@+id/relativeTop"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="#888888" >
+
+        <ImageView
+            android:id="@+id/topMenuBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="8dp"
+            android:background="@drawable/simple_button_selector"
+            android:clickable="true"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:paddingRight="15dp"
+            android:src="@drawable/back_btn" />
+
+        <TextView
+            android:id="@+id/topCenterText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:paddingLeft="8dp"
+            android:text="Request Add Rehab"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@android:color/white" />
+
+        <ImageView
+            android:id="@+id/topRightImage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp" />
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        android:scrollbars="none" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_marginTop="10dp"
+                android:background="@android:color/transparent"
+                android:gravity="left|center_vertical"
+                android:inputType="phone"
+                android:singleLine="true"
+                android:text="CONTACT INFORMATION" />
+
+            <EditText
+                android:id="@+id/etName"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_marginTop="10dp"
+                android:background="@android:color/transparent"
+                android:gravity="center"
+                android:hint="Name"
+                android:inputType="text"
+                android:singleLine="true" />
+
+            <ImageView
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/profile_divider" />
+
+            <EditText
+                android:id="@+id/etPhoneNumber"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_marginTop="10dp"
+                android:background="@android:color/transparent"
+                android:gravity="center"
+                android:hint="Phone Number"
+                android:inputType="phone"
+                android:singleLine="true" />
+
+            <ImageView
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/profile_divider" />
+            
+             <EditText
+                android:id="@+id/etEmail"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_marginTop="10dp"
+                android:background="@android:color/transparent"
+                android:gravity="center"
+                android:hint="Email"
+                android:inputType="textEmailAddress"
+                android:singleLine="true" />
+
+            <ImageView
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/profile_divider" />
+            
+            
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_marginTop="10dp"
+                android:background="@android:color/transparent"
+                android:gravity="left|center_vertical"
+                android:inputType="phone"
+                android:singleLine="true"
+                android:text="REHAB INFORMATION" />
+
+            <EditText
+                android:id="@+id/etNameOfRehaab"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_marginTop="10dp"
+                android:background="@android:color/transparent"
+                android:gravity="center"
+                android:hint="Name of Rehab"
+                android:inputType="phone"
+                android:singleLine="true" />
+
+            <ImageView
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/profile_divider" />
+
+            <EditText
+                android:id="@+id/etWebsite"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_marginTop="10dp"
+                android:background="@android:color/transparent"
+                android:gravity="center"
+                android:hint="Website"
+                android:inputType="phone"
+                android:singleLine="true" />
+
+            <ImageView
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/profile_divider" />
+
+            <TextView
+                android:id="@+id/tvTypeOfRehabFacility"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_marginTop="10dp"
+                android:background="@android:color/transparent"
+                android:drawableRight="@drawable/right_arrow"
+                android:gravity="center"
+                android:textSize="16sp"
+                android:hint="Type of Rehab Facility"
+                android:inputType="phone"
+                android:singleLine="true" />
+
+            <ImageView
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/profile_divider" />
+
+            
+
+            <EditText
+                android:id="@+id/etYourRelationshipToRehab"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_marginTop="10dp"
+                android:background="@android:color/transparent"
+                android:gravity="center"
+                android:hint="Your relationship to the Rehab?"
+                android:inputType="phone"
+                android:singleLine="true" />
+
+            <ImageView
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/profile_divider" />
+
+            <ImageButton
+                android:id="@+id/ibSubmit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_gravity="center_horizontal"
+                android:background="@null"
+                android:src="@drawable/submit_btn_blue" />
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

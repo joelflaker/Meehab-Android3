@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="customRatingBarPopupWindow" parent="@android:style/Widget.RatingBar">
+        <item name="android:progressDrawable">@drawable/popup_window_rating_bar</item>
+        <item name="android:minHeight">13dip</item>
+        <item name="android:maxHeight">13dip</item>
+    </style>
+
+    <style name="customRatingBarBig" parent="@android:style/Widget.RatingBar">
+        <item name="android:progressDrawable">@drawable/map_list_rating_bar</item>
+        <item name="android:minHeight">24dip</item>
+        <item name="android:maxHeight">24dip</item>
+    </style>
+
+    <style name="PauseDialog" parent="@android:style/Theme.Dialog">
+        <item name="android:windowAnimationStyle">@style/PauseDialogAnimation</item>
+    </style>
+
+    <style name="PauseDialogAnimation">
+        <item name="android:windowEnterAnimation">@anim/bottom_in</item>
+        <item name="android:windowExitAnimation">@anim/bottom_out</item>
+    </style>
+
+    <style name="PauseDialogAnimationQuick">
+        <item name="android:windowEnterAnimation">@anim/bottom_in_instant</item>
+        <item name="android:windowExitAnimation">@anim/bottom_out_instant</item>
+    </style>
+
+</resources>

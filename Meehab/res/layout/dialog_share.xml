@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#EF666666"
+    android:orientation="vertical"
+    android:paddingBottom="30dp" >
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <ImageButton
+                android:id="@+id/ibSMS"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:background="@null"
+                android:scaleType="centerInside"
+                android:src="@drawable/by_sms_btn" />
+
+            <ImageButton
+                android:id="@+id/ibEmail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_weight="1"
+                android:background="@null"
+                android:scaleType="centerInside"
+                android:src="@drawable/by_email_btn" />
+
+           
+
+            <ImageButton
+                android:id="@+id/ibFacebook"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:layout_weight="1"
+                android:background="@null"
+                android:scaleType="centerInside"
+                android:src="@drawable/by_fb_btn" />
+            
+             <ImageButton
+                android:id="@+id/ibTwitter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:layout_weight="1"
+                android:background="@null"
+                android:scaleType="centerInside"
+                android:src="@drawable/by_tw_btn" />
+
+            <ImageButton
+                android:id="@+id/ibInstagram"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:layout_weight="1"
+                android:background="@null"
+                android:scaleType="centerInside"
+                android:src="@drawable/by_instagram_btn" />
+
+            <ImageButton
+                android:id="@+id/ibCancel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:layout_weight="1"
+                android:background="@null"
+                android:scaleType="centerInside"
+                android:src="@drawable/cancel_btn_big" />
+        </LinearLayout>
+    </LinearLayout>
+
+</RelativeLayout>
