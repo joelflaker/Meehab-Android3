@@ -53,9 +53,11 @@
             android:layout_height="35dp"
             android:background="@null"
             android:gravity="center"
+            android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890 "
             android:hint="@string/username"
             android:inputType="textWebEditText|textCapWords"
-            android:maxLength="20"
+            android:maxLength="30"
+            
             android:singleLine="true"
             android:textColor="@android:color/white"
             android:textColorHint="#EFEFEF" />
@@ -91,7 +93,7 @@
             android:gravity="center"
             android:hint="@string/password"
             android:inputType="textPassword"
-            android:maxLength="20"
+           
             android:singleLine="true"
             android:textColor="@android:color/white"
             android:textColorHint="#EFEFEF" />
@@ -109,7 +111,7 @@
             android:gravity="center"
             android:hint="Phone Number"
             android:inputType="phone"
-            android:maxLength="20"
+             android:maxLength="10"
             android:singleLine="true"
             android:textColor="@android:color/white"
             android:textColorHint="#EFEFEF" />

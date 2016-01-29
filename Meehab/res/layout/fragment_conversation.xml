@@ -2,6 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:animateLayoutChanges="true"
     android:orientation="vertical" >
 
     <RelativeLayout
@@ -54,11 +55,36 @@
             android:id="@+id/lvConversation"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_above="@+id/llMessage"
+            android:layout_above="@+id/bottomContainer"
             android:divider="@android:color/transparent"
             android:dividerHeight="6dp" >
         </ListView>
-        
+
+        <RelativeLayout
+            android:id="@+id/bottomContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:padding="8dp"
+            android:visibility="gone" >
+
+            <ImageButton
+                android:id="@+id/ibBlockUser"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:background="@null"
+                android:src="@drawable/block_user_gray" />
+
+            <ImageButton
+                android:id="@+id/ibDelete"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:background="@null"
+                android:src="@drawable/delete_btn_gray" />
+        </RelativeLayout>
     </RelativeLayout>
 
 </LinearLayout>

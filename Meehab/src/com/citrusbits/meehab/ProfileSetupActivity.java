@@ -34,12 +34,15 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnFocusChangeListener;
+import android.view.View.OnTouchListener;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.NumberPicker;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -52,12 +55,16 @@ import com.citrusbits.meehab.dialog.ImageSelectDialog;
 import com.citrusbits.meehab.dialog.ImageSelectDialog.ImageSelectDialogListener;
 import com.citrusbits.meehab.dialog.MaritalStatusPickerDialog;
 import com.citrusbits.meehab.dialog.MaritalStatusPickerDialog.MaritalStatusDialogListener;
+import com.citrusbits.meehab.images.PicassoBlurTransform;
 import com.citrusbits.meehab.images.PicassoCircularTransform;
 import com.citrusbits.meehab.model.UserAccount;
 import com.citrusbits.meehab.prefrences.AppPrefs;
 import com.citrusbits.meehab.services.OnSocketResponseListener;
 import com.citrusbits.meehab.utils.AccountUtils;
+import com.citrusbits.meehab.utils.DateTimeUtils;
+import com.citrusbits.meehab.utils.DeviceUtils;
 import com.citrusbits.meehab.utils.NetworkUtil;
+import com.citrusbits.meehab.utils.NetworkUtils;
 import com.citrusbits.meehab.utils.UploadImageUtility;
 import com.citrusbits.meehab.utils.UtilityClass;
 import com.soundcloud.android.crop.Crop;
@@ -81,7 +88,7 @@ public class ProfileSetupActivity extends SocketActivity implements
 	private TextView createBtn, dobBtn;
 	private CheckBox maleBtn, femaleBtn, otherBtn, datingBtn,
 			fellowshippingBtn;
-	private ImageView profilePicImageView;
+	private ImageView profilePic;
 	private String fullPath;
 	private EditText otherEdit;
 
@@ -91,6 +98,8 @@ public class ProfileSetupActivity extends SocketActivity implements
 	private TextView topCenterText;
 	private EditText aaStoryEdit;
 	private CheckBox sponserToggle;
+
+	private ImageView ivBlurBg;
 	private ProgressDialog pd;
 
 	@Override
@@ -111,7 +120,7 @@ public class ProfileSetupActivity extends SocketActivity implements
 		dobBtn = (Button) findViewById(R.id.dobBtn);
 		maritalStatusBtn = (Button) findViewById(R.id.maritalStatusBtn);
 		createBtn = (TextView) findViewById(R.id.createBtn);
-		profilePicImageView = (ImageView) findViewById(R.id.profilePic);
+		profilePic = (ImageView) findViewById(R.id.profilePic);
 		maleBtn = (CheckBox) findViewById(R.id.maleBtn);
 		femaleBtn = (CheckBox) findViewById(R.id.femaleBtn);
 		otherBtn = (CheckBox) findViewById(R.id.otherBtn);
@@ -121,7 +130,36 @@ public class ProfileSetupActivity extends SocketActivity implements
 		aaStoryEdit = (EditText) findViewById(R.id.aaStoryEdit);
 		sponserToggle = (CheckBox) findViewById(R.id.sponserToggle);
 
-		profilePicImageView.setOnClickListener(this);
+		aaStoryEdit.setOnFocusChangeListener(new OnFocusChangeListener() {
+
+			@Override
+			public void onFocusChange(View v, boolean hasFocus) {
+				// TODO Auto-generated method stub
+				if (!hasFocus) {
+					aaStoryEdit.setSelection(0);
+				}
+			}
+		});
+
+		aaStoryEdit.setOnTouchListener(new OnTouchListener() {
+
+			@Override
+			public boolean onTouch(View v, MotionEvent event) {
+				// TODO Auto-generated method stub
+
+				aaStoryEdit.getParent()
+						.requestDisallowInterceptTouchEvent(true);
+				switch (event.getAction() & MotionEvent.ACTION_MASK) {
+				case MotionEvent.ACTION_UP:
+					aaStoryEdit.getParent().requestDisallowInterceptTouchEvent(
+							false);
+					break;
+				}
+				return false;
+			}
+		});
+
+		profilePic.setOnClickListener(this);
 		createBtn.setOnClickListener(this);
 		dobBtn.setOnClickListener(this);
 		maritalStatusBtn.setOnClickListener(this);
@@ -131,13 +169,21 @@ public class ProfileSetupActivity extends SocketActivity implements
 		otherBtn.setOnClickListener(onToggleClickListener);
 
 		if (App.getInstance().globleBitmap != null) {
-			profilePicImageView.setImageBitmap(App.getInstance().globleBitmap);
+			profilePic.setImageBitmap(App.getInstance().globleBitmap);
 			ByteArrayOutputStream output = new ByteArrayOutputStream();
 			newbitmap.compress(CompressFormat.PNG, 100, output);
 			byte[] byteArray = output.toByteArray();
 			user.setImage(EventParams.BASE64_IMAGE_PNG_STRING
 					+ Base64.encodeToString(byteArray, Base64.NO_WRAP));
 		}
+
+		ivBlurBg = (ImageView) findViewById(R.id.ivBlurBg);
+
+		RelativeLayout.LayoutParams params = (android.widget.RelativeLayout.LayoutParams) ivBlurBg
+				.getLayoutParams();
+		int width = DeviceUtils.getDeviceWidth(this);
+		params.height = (int) (width * 0.82f);
+		ivBlurBg.setLayoutParams(params);
 
 		otherEdit.setOnTouchListener(new View.OnTouchListener() {
 
@@ -293,6 +339,13 @@ public class ProfileSetupActivity extends SocketActivity implements
 								String dateSelected) {
 							// TODO Auto-generated method stub
 							dialog.dismiss();
+							
+							Calendar dbCal=DateTimeUtils.dateToCalendar(dateSelected);
+							if(!dbCal.before(Calendar.getInstance())){
+								Toast.makeText(ProfileSetupActivity.this, "Can not set future date!", Toast.LENGTH_SHORT).show();
+								return;
+							}
+							
 							dobBtn.setText(dateSelected);
 							user.setDateOfBirth(dateSelected);
 						}
@@ -303,7 +356,8 @@ public class ProfileSetupActivity extends SocketActivity implements
 							dialog.dismiss();
 
 						}
-					}, dob.isEmpty() ? null : getCalendarFromDb(dob)).show();
+					}, dob.isEmpty() ? null : DateTimeUtils.dateToCalendar(dob))
+					.show();
 
 			break;
 		case R.id.maritalStatusBtn:
@@ -363,9 +417,9 @@ public class ProfileSetupActivity extends SocketActivity implements
 				// gender
 				String genderString = null;
 				if (maleBtn.isChecked()) {
-					genderString = "male";
+					genderString = "Male";
 				} else if (femaleBtn.isChecked()) {
-					genderString = "female";
+					genderString = "Female";
 				} else if (otherBtn.isChecked()) {
 					if (otherEdit.getText().toString().trim().length() > 0) {
 						genderString = otherEdit.getText().toString();
@@ -410,13 +464,14 @@ public class ProfileSetupActivity extends SocketActivity implements
 				// interested in
 				String interestString = null;
 				if (fellowshippingBtn.isChecked() && datingBtn.isChecked()) {
-					interestString = EventParams.UPDATE_INTRESTED_IN.both
-							.toString();
+					/*interestString = EventParams.UPDATE_INTRESTED_IN.Both
+							.toString();*/
+					interestString="Dating & Fellowshipping";
 				} else if (fellowshippingBtn.isChecked()) {
-					interestString = EventParams.UPDATE_INTRESTED_IN.fellowshipping
+					interestString = EventParams.UPDATE_INTRESTED_IN.Fellowshipping
 							.toString();
 				} else if (datingBtn.isChecked()) {
-					interestString = EventParams.UPDATE_INTRESTED_IN.dating
+					interestString = EventParams.UPDATE_INTRESTED_IN.Dating
 							.toString();
 				}
 				if (interestString != null) {
@@ -449,8 +504,8 @@ public class ProfileSetupActivity extends SocketActivity implements
 				// willing_sponsor
 				// if (sponserToggle.isChecked()) {
 				// updatedUser.setAboutStory(aaStoryEdit.getText().toString());
-				params.put("willing_sponsor", sponserToggle.isChecked() ? "yes"
-						: "no");
+				params.put("willing_sponsor", sponserToggle.isChecked() ? "Yes"
+						: "No");
 				// }
 
 				// Toast.makeText(this, itemName,
@@ -460,8 +515,12 @@ public class ProfileSetupActivity extends SocketActivity implements
 				// .phoneNumberNormal(strPhoneNumber));
 
 				if (params != null && params.length() > 0) {
-					pd.show();
+					if (!NetworkUtils.isNetworkAvailable(this)) {
+						App.alert(getString(R.string.no_internet_connection));
+						return;
+					}
 					socketService.updateAccount(params);
+					pd.show();
 				}
 
 			} catch (JSONException e) {
@@ -593,9 +652,6 @@ public class ProfileSetupActivity extends SocketActivity implements
 					fileOutputStream.close();
 					inputStream.close();
 
-					// newbitmap = BitmapFactory.decodeFile(file.getPath());
-					// imgProfile.setImageBitmap(newbitmap);
-
 					File cropFilePath = new File(UploadImageUtility
 							.genarateUri().getPath());
 					fullPath = cropFilePath.getAbsolutePath();
@@ -611,17 +667,6 @@ public class ProfileSetupActivity extends SocketActivity implements
 					new Crop(Uri.fromFile(file)).output(outputUri).asSquare()
 							.withMaxSize(400, 400)
 							.start(this, REQUEST_RESIZE_CROP);
-
-					// Intent intent = new Intent(this,
-					// com.droid4you.util.cropimage.CropImage.class);
-					// intent.putExtra("image-path", fullPath);
-					// intent.putExtra("scale", true);
-					// intent.putExtra("aspectX", 1);
-					// intent.putExtra("aspectY", 1);
-					// intent.putExtra("outputX", 500);
-					// intent.putExtra("outputY", 500);
-					// intent.putExtra("return-data", true);
-					// startActivityForResult(intent, 3);
 				} catch (Exception e) {
 
 				}
@@ -630,30 +675,28 @@ public class ProfileSetupActivity extends SocketActivity implements
 				newbitmap = fixRotation((Uri) data
 						.getParcelableExtra(MediaStore.EXTRA_OUTPUT));
 
-				newbitmap = new PicassoCircularTransform().transform(newbitmap);
-				profilePicImageView.setImageBitmap(newbitmap);
+				Bitmap circularBitamp;
+				circularBitamp = new PicassoCircularTransform()
+						.transform(newbitmap);
+
+				newbitmap = fixRotation((Uri) data
+						.getParcelableExtra(MediaStore.EXTRA_OUTPUT));
+
+				Bitmap blurBitmap;
+				blurBitmap = new PicassoBlurTransform(
+						ProfileSetupActivity.this, 20).transform(newbitmap);
+
+				newbitmap = fixRotation((Uri) data
+						.getParcelableExtra(MediaStore.EXTRA_OUTPUT));
+
+				ivBlurBg.setImageBitmap(blurBitmap);
+				profilePic.setImageBitmap(circularBitamp);
 
 				file.delete();
-
-				// Uri uri =
-				// (Uri)data.getParcelableExtra(MediaStore.EXTRA_OUTPUT);
 				try {
-					// FileInputStream input = new FileInputStream(new
-					// File(uri.getPath()));
-					// StringBuffer fileContent = new StringBuffer("");
 					ByteArrayOutputStream output = new ByteArrayOutputStream();
 					newbitmap.compress(CompressFormat.PNG, 100, output);
-					// byte[] buffer = new byte[1024];
-					// int count;
-					// while ((count = input.read(buffer)) != -1)
-					// {
-					// output.write(buffer, 0, count);
-					// }
-
 					byte[] byteArray = output.toByteArray();
-					// updatedUser.setImage("data:image/png;base64,"+Base64.encodeToString(byteArray,
-					// Base64.DEFAULT));
-
 					user.setImage(EventParams.BASE64_IMAGE_PNG_STRING
 							+ Base64.encodeToString(byteArray, Base64.NO_WRAP));
 					byteArray = null;
@@ -769,17 +812,18 @@ public class ProfileSetupActivity extends SocketActivity implements
 	@Override
 	public void onSocketResponseSuccess(String event, Object obj) {
 		pd.dismiss();
+		if (event.equals(EventParams.EVENT_USER_UPDATE)) {
+			ProfileSetupActivity.this.finish();
+			App.getInstance().globleBitmap = null;
+			Intent intent = new Intent(ProfileSetupActivity.this,
+					ProfileSetupMoreActivity.class);
+			startActivityForResult(intent, 22);
 
-		ProfileSetupActivity.this.finish();
+			AppPrefs.getAppPrefs(ProfileSetupActivity.this).saveBooleanPrefs(
+					AppPrefs.KEY_PROFILE_SETUP, true);
+			overridePendingTransition(R.anim.activity_in, R.anim.activity_out);
+		}
 
-		App.getInstance().globleBitmap = null;
-		Intent intent = new Intent(ProfileSetupActivity.this,
-				ProfileSetupMoreActivity.class);
-		startActivityForResult(intent, 22);
-
-		AppPrefs.getAppPrefs(ProfileSetupActivity.this).saveBooleanPrefs(
-				AppPrefs.KEY_PROFILE_SETUP, true);
-		overridePendingTransition(R.anim.activity_in, R.anim.activity_out);
 	}
 
 	@Override

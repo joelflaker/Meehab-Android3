@@ -125,13 +125,13 @@
                     style="@style/customRatingBarBig"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
                     android:focusable="false"
-                    android:indeterminateDrawable="@drawable/map_list_rating_bar"
                     android:focusableInTouchMode="false"
+                    android:indeterminateDrawable="@drawable/map_list_rating_bar"
                     android:isIndicator="true"
                     android:numStars="5"
                     android:rating="4"
-                    
                     android:stepSize="1" />
 
                 <LinearLayout
@@ -139,7 +139,9 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_toRightOf="@+id/rating"
-                    android:gravity="center_horizontal|center_vertical" >
+                    android:paddingLeft="20dp"
+                    android:gravity="center_vertical"
+                    android:orientation="vertical" >
 
                     <HorizontalScrollView
                         android:layout_width="wrap_content"
@@ -195,6 +197,20 @@
                                 android:textColor="@android:color/white"
                                 android:textSize="12sp"
                                 android:visibility="gone" />
+                        </LinearLayout>
+                    </HorizontalScrollView>
+
+                    <HorizontalScrollView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:paddingLeft="2dp"
+                        android:paddingRight="2dp"
+                        android:scrollbars="none" >
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" >
 
                             <TextView
                                 android:id="@+id/tvCode5"
@@ -231,28 +247,6 @@
 
                             <TextView
                                 android:id="@+id/tvCode8"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="2dp"
-                                android:background="@drawable/gray_circle"
-                                android:gravity="center"
-                                android:textColor="@android:color/white"
-                                android:textSize="12sp"
-                                android:visibility="gone" />
-
-                            <TextView
-                                android:id="@+id/tvCode9"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="2dp"
-                                android:background="@drawable/gray_circle"
-                                android:gravity="center"
-                                android:textColor="@android:color/white"
-                                android:textSize="12sp"
-                                android:visibility="gone" />
-
-                            <TextView
-                                android:id="@+id/tvCode10"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="2dp"

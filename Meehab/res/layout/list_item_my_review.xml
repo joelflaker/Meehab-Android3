@@ -39,11 +39,12 @@
 
                 <RatingBar
                     android:id="@+id/rating"
-                    style="@style/customRatingBarPopupWindow"
+                    style="@style/customRatingBarReviews"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:focusable="false"
+                    android:isIndicator="true"
                     android:focusableInTouchMode="false"
                     android:indeterminateDrawable="@drawable/popup_window_rating_bar"
                     android:rating="4"

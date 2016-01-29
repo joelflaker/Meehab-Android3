@@ -17,7 +17,10 @@
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" >
+        
+        
     </uses-permission>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <!-- 4 GCM -->
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
@@ -42,7 +45,7 @@
 
     <!--
          The following two permissions are not required to use
-         Google Maps Android API v2, but are recommended.     
+         Google Maps Android API v2, but are recommended.     
     -->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
@@ -97,8 +100,14 @@
             android:screenOrientation="portrait" >
         </activity>
         <activity
+            android:name="com.citrusbits.meehab.RsvpActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
             android:name="com.citrusbits.meehab.ReportFriendActivity"
             android:label="@string/app_name"
+            android:windowSoftInputMode="stateAlwaysVisible"
             android:screenOrientation="portrait" >
         </activity>
         <activity
@@ -130,7 +139,6 @@
             android:name=".SignupActivity"
             android:label="@string/app_name"
             android:parentActivityName=".LoginAndRegisterActivity"
-            
             android:screenOrientation="portrait" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -141,7 +149,6 @@
             android:label="@string/app_name"
             android:parentActivityName=".SignupActivity"
             android:screenOrientation="portrait"
-          
             android:windowSoftInputMode="stateAlwaysHidden" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -151,7 +158,6 @@
             android:name=".TermsAndConditionsActivity"
             android:label="@string/app_name"
             android:parentActivityName=".SignupActivity"
-           
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden" >
             <meta-data
@@ -333,14 +339,14 @@
         <activity
             android:name=".ChangeEmailActivity"
             android:label="@string/app_name"
-             android:windowSoftInputMode="stateAlwaysHidden"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden" >
         </activity>
         <activity
-             android:windowSoftInputMode="stateAlwaysHidden"
             android:name=".ChangePasswordActivity"
             android:label="@string/app_name"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden" >
         </activity>
         <activity
             android:name=".BlockFriendsActivity"
@@ -394,8 +400,8 @@
 
         <service android:name="com.citrusbits.meehab.map.LocationService" >
         </service>
-        
-        <service android:name="com.citrusbits.meehab.services.ContactSyncService" ></service>
+        <service android:name="com.citrusbits.meehab.services.ContactSyncService" >
+        </service>
     </application>
 
 </manifest>

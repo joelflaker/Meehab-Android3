@@ -12,6 +12,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.support.annotation.MainThread;
 import android.telephony.PhoneNumberUtils;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -33,6 +34,7 @@ import com.citrusbits.meehab.services.OnSocketResponseListener;
 import com.citrusbits.meehab.services.SocketService;
 import com.citrusbits.meehab.utils.FacebookUtil;
 import com.citrusbits.meehab.utils.NetworkUtil;
+import com.citrusbits.meehab.utils.NetworkUtils;
 import com.citrusbits.meehab.utils.Prefs;
 import com.citrusbits.meehab.utils.UtilityClass;
 import com.citrusbits.meehab.webservices.AddUserService;
@@ -337,6 +339,7 @@ public class SignupActivity extends SocketActivity implements
 		String emailString = etEmail.getText().toString();
 		String passwordString = etPassword.getText().toString();
 		String phoneNumber = etPhoneNumber.getText().toString().trim();
+		phoneNumber="+1"+phoneNumber;
 
 		if (!validatePhoneNumber(phoneNumber)) {
 			etPhoneNumber.setError(getString(R.string.phone_number_is_invalid));
@@ -390,6 +393,11 @@ public class SignupActivity extends SocketActivity implements
 
 	public void checkInfo(String usernameString, String emailString,
 			String phone) {
+		
+		if (!NetworkUtils.isNetworkAvailable(this)) {
+			App.alert(getString(R.string.no_internet_connection));
+			return;
+		}
 		JSONObject checkInfoParams = new JSONObject();
 		try {
 			// Toast.makeText(this, itemName,
@@ -410,6 +418,10 @@ public class SignupActivity extends SocketActivity implements
 
 	public void signup(String usernameString, String emailString,
 			String passwordString) {
+		if (!NetworkUtils.isNetworkAvailable(this)) {
+			App.alert(getString(R.string.no_internet_connection));
+			return;
+		}
 		JSONObject signupParams = new JSONObject();
 		try {
 			// Toast.makeText(this, itemName,
@@ -480,11 +492,8 @@ public class SignupActivity extends SocketActivity implements
 		pd.dismiss();
 
 		JSONObject object = (JSONObject) obj;
-		
 
 		Log.e("CheckInfo Response is ", object.toString());
-		
-		
 
 		/*
 		 * new Prefs(this).getPrefs().edit().putString(Prefs.PREF_PASS,
@@ -498,7 +507,7 @@ public class SignupActivity extends SocketActivity implements
 		 * setResult(RESULT_OK); finish();
 		 */
 		if (event.equals(EventParams.METHOD_CHECK_INFO)) {
-			 openActivity(VerificationActivity.SMS,signup);
+			openActivity(VerificationActivity.SMS, signup);
 		}
 	}
 
@@ -507,16 +516,29 @@ public class SignupActivity extends SocketActivity implements
 		pd.dismiss();
 		App.alert(message);
 	}
+	
+	@Override
+	public void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
+		if(LoginAndRegisterActivity.destroyThis){
+			finish();
+		}
+	}
 
-	private void openActivity(String method,
-			SignupModel signup) {
+	private void openActivity(String method, SignupModel signup) {
 		Intent verification = new Intent(this, VerificationActivity.class);
 		verification.putExtra(VerificationActivity.INTENT_PHONENUMBER,
 				signup.getPhoneNumber());
 		verification.putExtra(VerificationActivity.EXTRA_SIGNUP,
 				(Serializable) signup);
 		verification.putExtra(VerificationActivity.INTENT_METHOD, method);
+
+		verification.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
+				| Intent.FLAG_ACTIVITY_NEW_TASK);
 		startActivity(verification);
+		
+		LoginAndRegisterActivity.destroyThis=true;
 	}
 
 }

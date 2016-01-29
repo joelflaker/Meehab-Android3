@@ -26,7 +26,9 @@ import android.widget.Toast;
 import com.citrusbits.meehab.app.App;
 import com.citrusbits.meehab.constants.EventParams;
 import com.citrusbits.meehab.services.OnSocketResponseListener;
+import com.citrusbits.meehab.services.SocketService;
 import com.citrusbits.meehab.utils.NetworkUtil;
+import com.citrusbits.meehab.utils.NetworkUtils;
 import com.citrusbits.meehab.utils.UtilityClass;
 import com.facebook.AccessToken;
 import com.facebook.AccessTokenTracker;
@@ -57,11 +59,32 @@ public class LoginAndRegisterActivity extends SocketActivity implements
 	private JSONObject user;
 	private ProgressDialog pd;
 	public static Bitmap profilePicBitmap;
+	private boolean socketConnected;
+
+	private LoginAction loginAction;
+
+	private boolean loginPressed = false;
+	
+	public static boolean destroyThis;
+
+	private enum LoginAction {
+		FACEBOOOK, LOGIN, REGISTER;
+	}
+	
+	@Override
+	public void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
+		if(destroyThis){
+			finish();
+		}
+	}
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
+		loginAction = LoginAction.LOGIN;
+		destroyThis=false;
 		FacebookSdk.sdkInitialize(this.getApplicationContext());
 		callbackManager = CallbackManager.Factory.create();
 		pd = UtilityClass.getProgressDialog(this);
@@ -182,12 +205,115 @@ public class LoginAndRegisterActivity extends SocketActivity implements
 	@Override
 	public void onClick(View v) {
 		Intent intent = null;
+		if (socketService != null && socketService.isConnected()) {
+			socketConnected = true;
+		}
+
 		switch (v.getId()) {
 		case R.id.ibLoginWithFacebook:
 			if (NetworkUtil.getConnectivityStatus(this) == 0) {
 				App.alert(getString(R.string.no_internet_connection));
 				return;
 			} else {
+				loginAction = LoginAction.FACEBOOOK;
+
+				if (socketConnected) {
+					List<String> permissions = new ArrayList<String>();
+					permissions.add("email");
+					permissions.add("user_friends");
+					permissions.add("public_profile");
+					permissions.add("user_birthday");
+					LoginManager.getInstance().logInWithReadPermissions(this,
+							permissions);
+				} else {
+					if (!NetworkUtils.isNetworkAvailable(this)) {
+						App.alert(getString(R.string.no_internet_connection));
+						return;
+					}
+					startSocketService();
+				}
+
+			}
+			break;
+		case R.id.ibLogin:
+			loginAction = LoginAction.LOGIN;
+			if (socketConnected) {
+				startLoginActivity();
+			} else {
+				if (!NetworkUtils.isNetworkAvailable(this)) {
+					App.alert(getString(R.string.no_internet_connection));
+					return;
+				}
+				loginPressed = true;
+				startSocketService();
+			}
+
+			break;
+		case R.id.ibSignup:
+			loginAction = LoginAction.REGISTER;
+			if (socketConnected) {
+				startSignUpActivity();
+			} else {
+				if (!NetworkUtils.isNetworkAvailable(this)) {
+					App.alert(getString(R.string.no_internet_connection));
+					return;
+				}
+				startSocketService();
+			}
+
+			break;
+		default:
+			break;
+		}
+	}
+
+	public void startSignUpActivity() {
+		Intent intent = new Intent(this, SignupActivity.class);
+		startActivityForResult(intent, ACTIVITY_REQUEST_CODE);
+		overridePendingTransition(R.anim.activity_in, R.anim.activity_out);
+
+	}
+
+	public void startSocketService() {
+		pd.show();
+		Intent serviceIntent = new Intent(this, SocketService.class);
+		serviceIntent.setAction("ui");
+		serviceIntent.setAction(SocketService.ACTION_RECONNECT_NODE_JS_SERVER);
+		startService(serviceIntent);
+	}
+
+	public void startLoginActivity() {
+
+		Intent intent = new Intent(this, LoginActivity.class);
+		startActivityForResult(intent, ACTIVITY_REQUEST_CODE);
+		overridePendingTransition(R.anim.activity_in, R.anim.activity_out);
+
+	}
+
+	@Override
+	public void onSocketResponseSuccess(String event, Object obj) {
+		pd.dismiss();
+		socketConnected = true;
+		if (event.equals(EventParams.METHOD_USER_LOGIN)) {
+
+			Intent i = new Intent(LoginAndRegisterActivity.this,
+					TwoOptionActivity.class);
+			i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
+					| Intent.FLAG_ACTIVITY_NEW_TASK);
+			startActivity(i);
+			overridePendingTransition(R.anim.activity_in, R.anim.activity_out);
+
+		} else if (event.equals(EventParams.METHOD_CONNECT_SOCKET)) {
+			switch (loginAction) {
+			case LOGIN:
+				if (loginPressed) {
+					startLoginActivity();
+				}
+				break;
+			case REGISTER:
+				startSignUpActivity();
+				break;
+			case FACEBOOOK:
 				List<String> permissions = new ArrayList<String>();
 				permissions.add("email");
 				permissions.add("user_friends");
@@ -195,33 +321,10 @@ public class LoginAndRegisterActivity extends SocketActivity implements
 				permissions.add("user_birthday");
 				LoginManager.getInstance().logInWithReadPermissions(this,
 						permissions);
+				break;
 			}
-			break;
-		case R.id.ibLogin:
-			intent = new Intent(this, LoginActivity.class);
-			startActivityForResult(intent, ACTIVITY_REQUEST_CODE);
-			overridePendingTransition(R.anim.activity_in, R.anim.activity_out);
-			break;
-		case R.id.ibSignup:
-			intent = new Intent(this, SignupActivity.class);
-			startActivityForResult(intent, ACTIVITY_REQUEST_CODE);
-			overridePendingTransition(R.anim.activity_in, R.anim.activity_out);
-			break;
-		default:
-			break;
-		}
-	}
 
-	@Override
-	public void onSocketResponseSuccess(String event, Object obj) {
-		pd.dismiss();
-		Intent i = new Intent(LoginAndRegisterActivity.this,
-				TwoOptionActivity.class);
-		i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
-				| Intent.FLAG_ACTIVITY_NEW_TASK);
-		startActivity(i);
-		overridePendingTransition(R.anim.activity_in, R.anim.activity_out);
-		finish();
+		}
 
 	}
 

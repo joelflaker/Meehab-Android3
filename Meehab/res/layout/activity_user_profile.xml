@@ -64,22 +64,31 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
-                        android:layout_toLeftOf="@+id/ivFavourite"
+                        android:layout_toLeftOf="@+id/ivFavoriteContainer"
                         android:padding="10dp"
                         android:src="@drawable/attention_icon"
                         android:text=""
                         android:textColor="#000" />
+                    
+                   <RelativeLayout 
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:id="@+id/ivFavoriteContainer"
+                       android:layout_alignParentRight="true"
+                       >
 
                     <ImageView
                         android:id="@+id/ivFavourite"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
+                       
                         android:layout_centerVertical="true"
                         android:padding="10dp"
                         android:src="@drawable/star_pink"
                         android:text=""
                         android:textColor="#000" />
+                    
+                    </RelativeLayout> 
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -357,6 +366,7 @@
                             <TextView
                                 android:id="@+id/kidsText"
                                 android:layout_marginLeft="12dp"
+                                android:gravity="right"
                                 android:text="undefine"
                                 android:textStyle="bold" />
                         </TableRow>
@@ -435,10 +445,26 @@
                     <TextView
                         android:id="@+id/aaStoryText"
                         android:layout_width="match_parent"
-                        android:layout_height="80dp"
+                        android:layout_height="100dp"
                         android:gravity="left"
+                        android:paddingRight="10dp"
                         android:paddingLeft="15dp"
                         android:text="" />
+                    
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="8dp"
+                        android:paddingRight="8dp" >
+
+                        <ImageButton
+                            android:id="@+id/ibSeeMore"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:background="@null"
+                            android:src="@drawable/see_more_btn" />
+                    </RelativeLayout>
 
                     <TextView
                         android:layout_width="match_parent"

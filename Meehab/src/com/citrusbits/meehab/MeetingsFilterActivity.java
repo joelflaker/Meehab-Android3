@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,12 +28,13 @@ import com.citrusbits.meehab.model.MeetingFilterModel;
 
 public class MeetingsFilterActivity extends SocketActivity implements
 		OnClickListener {
-
+	public static final int CLEAR_FILTER = 11;
 	public static final String MEETING_FILTER = "meeting_filter";
 	private int ParentClickStatus = -1;
 	private int ChildClickStatus = -1;
 	private ExpandableListView expListFilter;
-	private ArrayList<ExpCategory> categories;
+	private static ArrayList<ExpCategory> cacheCategories = new ArrayList<>();
+	private ArrayList<ExpCategory> categories = new ArrayList<>();
 	FilterExpondableAdapter mAdapter;
 	private Button btnMyFavorite;
 	private CheckBox tglMyFavorite;
@@ -43,10 +45,16 @@ public class MeetingsFilterActivity extends SocketActivity implements
 	private TextView txtRating;
 	private Button btnRating;
 
-	private MeetingFilterModel filterModel = new MeetingFilterModel();
+	private static MeetingFilterModel filterModel = new MeetingFilterModel();
 	private String[] distanceValues;
 
+	private static boolean mFavorite;
+	private static String mZipcode = "";
+	private static String mDistance = "";
+	private static String mRating = "";
+
 	// private ArrayList<Parent> parents;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -63,6 +71,10 @@ public class MeetingsFilterActivity extends SocketActivity implements
 						onBackPressed();
 					}
 				});
+
+		findViewById(R.id.ibClear).setOnClickListener(this);
+
+		findViewById(R.id.ibClear).setOnClickListener(this);
 
 		findViewById(R.id.topRightBtn).setOnClickListener(this);
 
@@ -81,14 +93,35 @@ public class MeetingsFilterActivity extends SocketActivity implements
 		btnDistance.setOnClickListener(this);
 		btnRating.setOnClickListener(this);
 
-		categories = buildDummyData();
+		if (cacheCategories.isEmpty()) {
+			categories = buildDummyData();
+		} else {
+			categories.addAll(cacheCategories);
+		}
+
+		if (!mDistance.isEmpty()) {
+			txtDistance.setText(mDistance);
+			txtRating.setText(mRating);
+			editZipCode.setText(mZipcode);
+			tglMyFavorite.setChecked(mFavorite);
+		}
 
 		// Adding ArrayList data to ExpandableListView values
 		mAdapter = new FilterExpondableAdapter(this, expListFilter, categories);
+		mAdapter.setFilterResultHolder((FilterResultHolder) getIntent()
+				.getSerializableExtra(MEETING_FILTER));
 
 		// Set Adapter to ExpandableList Adapter
 		expListFilter.setAdapter(mAdapter);
 
+	}
+
+	public static void applyClear() {
+		cacheCategories.clear();
+		mDistance = "";
+		mRating = "";
+		mZipcode = "";
+		mFavorite = false;
 	}
 
 	@Override
@@ -96,13 +129,17 @@ public class MeetingsFilterActivity extends SocketActivity implements
 		switch (v.getId()) {
 		case R.id.topRightBtn:
 			// getherUserFilters();
-
 			FilterResultHolder resultHolder = mAdapter.getFilterResultHolder();
-
+			cacheCategories.clear();
+			cacheCategories.addAll(categories);
 			resultHolder = appendFilter(resultHolder);
-
 			getIntent().putExtra(MEETING_FILTER, resultHolder);
 			setResult(RESULT_OK, getIntent());
+			finish();
+			break;
+		case R.id.ibClear:
+			setResult(CLEAR_FILTER, new Intent());
+			applyClear();
 			finish();
 			break;
 		case R.id.btnMyFavorite:
@@ -128,7 +165,7 @@ public class MeetingsFilterActivity extends SocketActivity implements
 						@Override
 						public void onCancelClick(DistancePickerDialog dialog) {
 							// TODO Auto-generated method stub
-                              dialog.dismiss();
+							dialog.dismiss();
 						}
 					}, distance).show();
 			break;
@@ -177,81 +214,12 @@ public class MeetingsFilterActivity extends SocketActivity implements
 
 		filter.setRating(ratingString);
 
+		mDistance = distanceString;
+		mRating = ratingString;
+		mZipcode = zipcode;
+		mFavorite = tglMyFavorite.isChecked();
+
 		return filter;
-
-	}
-
-	/**
-	 * 
-	 */
-	private void presentRatingPicker() {
-		AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
-		LayoutInflater inflater = this.getLayoutInflater();
-		View dialogView = inflater.inflate(R.layout.picker_age, null);
-		dialogBuilder.setView(dialogView);
-		dialogBuilder.setTitle("Set Rating");
-
-		final String[] starValues = new String[] { "< 1 Star", "< 2 Stars",
-				"< 3 Stars", "< 4 Stars", "5 Stars" };
-
-		final NumberPicker np = (NumberPicker) dialogView
-				.findViewById(R.id.picker);
-		np.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS);
-		np.setMinValue(0);
-		np.setMaxValue(starValues.length - 1);
-		np.setDisplayedValues(starValues);
-		np.setWrapSelectorWheel(false);
-		// np.setOnValueChangedListener(this);
-
-		dialogBuilder.setPositiveButton("Set",
-				new DialogInterface.OnClickListener() {
-
-					@Override
-					public void onClick(DialogInterface dialog, int which) {
-						txtRating.setText(starValues[np.getValue()]);
-
-						// update model
-					}
-				});
-		dialogBuilder.setNegativeButton("Cancel", null);
-
-		dialogBuilder.show();
-	}
-
-	/**
-	 * 
-	 */
-	private void presentDistancePicker() {
-		AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
-		LayoutInflater inflater = this.getLayoutInflater();
-		View dialogView = inflater.inflate(R.layout.picker_age, null);
-		dialogBuilder.setView(dialogView);
-		dialogBuilder.setTitle("Set Distance");
-
-		distanceValues = new String[] { "5 miles", "10 miles", "15 miles",
-				"20 miles", "30 miles", "40 miles", "more than 50 miles" };
-
-		final NumberPicker np = (NumberPicker) dialogView
-				.findViewById(R.id.picker);
-		np.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS);
-		np.setMinValue(0);
-		np.setMaxValue(distanceValues.length - 1);
-		np.setDisplayedValues(distanceValues);
-		np.setWrapSelectorWheel(false);
-
-		dialogBuilder.setPositiveButton("Set",
-				new DialogInterface.OnClickListener() {
-
-					@Override
-					public void onClick(DialogInterface dialog, int which) {
-						txtDistance.setText(distanceValues[np.getValue()]);
-						// set to model
-					}
-				});
-
-		dialogBuilder.setNegativeButton("Cancel", null);
-
-		dialogBuilder.show();
 
 	}
 

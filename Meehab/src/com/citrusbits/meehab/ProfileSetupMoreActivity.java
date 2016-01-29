@@ -1,5 +1,6 @@
 package com.citrusbits.meehab;
 
+import java.net.URLEncoder;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -24,6 +25,7 @@ import android.widget.NumberPicker;
 import android.widget.Toast;
 
 import com.citrusbits.meehab.app.App;
+import com.citrusbits.meehab.constants.EventParams;
 import com.citrusbits.meehab.db.UserDatasource;
 import com.citrusbits.meehab.dialog.DobPickerDialog;
 import com.citrusbits.meehab.dialog.DobPickerDialog.DatePickerDialogListener;
@@ -39,6 +41,7 @@ import com.citrusbits.meehab.model.UserAccount;
 import com.citrusbits.meehab.prefrences.AppPrefs;
 import com.citrusbits.meehab.services.OnSocketResponseListener;
 import com.citrusbits.meehab.utils.AccountUtils;
+import com.citrusbits.meehab.utils.DateTimeUtils;
 import com.citrusbits.meehab.utils.NetworkUtil;
 import com.citrusbits.meehab.utils.UtilityClass;
 
@@ -59,6 +62,8 @@ public class ProfileSetupMoreActivity extends SocketActivity implements
 	private Button soberDateBtn;
 	private ProgressDialog pd;
 	private EditText sexualOrientOtherEdit;
+	
+	private boolean updateRequest=false;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -138,21 +143,24 @@ public class ProfileSetupMoreActivity extends SocketActivity implements
 			break;
 		case R.id.weightBtn:
 			// presentWeightPicker();
-			String weightText = weightBtn.getText().toString().trim()
-					.replace("lbs", "").trim().trim().replace("lb", "").trim();
-			;
+			String weightText = weightBtn.getText().toString().trim();
+					/*.replace("lbs", "").trim().trim().replace("lb", "").trim();*/
+			/*;
 			int weight = weightText.isEmpty() ? 50 : Integer
-					.parseInt(weightText);
+					.parseInt(weightText);*/
+			if(weightText.isEmpty()){
+				weightText="100 Lbs";
+			}
 			new WeightPickerDialog(this).setWeightDialogListener(
 					new WeightDialogListener() {
 
 						@Override
 						public void onDoneClick(WeightPickerDialog dialog,
-								int weight) {
+								String weight) {
 							// TODO Auto-generated method stub
 							dialog.dismiss();
-							weightBtn.setText(weight + " lbs");
-							user.setWeight(String.valueOf(weight) + " lbs");
+							weightBtn.setText(weight);
+							user.setWeight(weight);
 						}
 
 						@Override
@@ -162,7 +170,7 @@ public class ProfileSetupMoreActivity extends SocketActivity implements
 							dialog.dismiss();
 
 						}
-					}, weight).show();
+					}, weightText).show();
 			break;
 		case R.id.sexualOrientBtn:
 			// presentSexualOrientationPicker();
@@ -218,23 +226,34 @@ public class ProfileSetupMoreActivity extends SocketActivity implements
 			// presentSoberDatePicker();
 			String date = soberDateBtn.getText().toString().trim();
 			new DobPickerDialog(this).setSober(true)
-					.setDobDialogListener(new DatePickerDialogListener() {
+					.setDobDialogListener(
+							new DatePickerDialogListener() {
 
-						@Override
-						public void onDoneClick(DobPickerDialog dialog,
-								String dateSelected) {
-							// TODO Auto-generated method stub
-							dialog.dismiss();
-							soberDateBtn.setText(dateSelected);
-							user.setSoberSence(dateSelected);
-						}
+								@Override
+								public void onDoneClick(DobPickerDialog dialog,
+										String dateSelected) {
+									// TODO Auto-generated method stub
+									dialog.dismiss();
+									
+									Calendar dbCal=DateTimeUtils.dateToCalendar(dateSelected);
+									if(!dbCal.before(Calendar.getInstance())){
+										Toast.makeText(ProfileSetupMoreActivity.this, "Can not set future date!", Toast.LENGTH_SHORT).show();
+										return;
+									}
+									
+									
+									soberDateBtn.setText(dateSelected);
+									user.setSoberSence(dateSelected);
+								}
 
-						@Override
-						public void onCancelClick(DobPickerDialog dialog) {
-							// TODO Auto-generated method stub
-							dialog.dismiss();
-						}
-					}, date.isEmpty() ? null : getCalendarFromDb(date)).show();
+								@Override
+								public void onCancelClick(DobPickerDialog dialog) {
+									// TODO Auto-generated method stub
+									dialog.dismiss();
+								}
+							},
+							date.isEmpty() ? null : DateTimeUtils
+									.dateToCalendar(date)).show();
 			break;
 		case R.id.hasKidsYesBtn:
 			haveKidsYesBtn.setChecked(true);
@@ -386,16 +405,16 @@ public class ProfileSetupMoreActivity extends SocketActivity implements
 				}
 
 				// have kids : default noans
-				String hasKidsString = "";
+				String hasKidsString = "trick";
 				if (haveKidsYesBtn.isChecked()) {
-					hasKidsString = "yes";
+					hasKidsString = "YES";
 				} else if (haveKidsNoBtn.isChecked()) {
-					hasKidsString = "no";
+					hasKidsString = "No";
 				} else if (haveKidsNoAnsBtn.isChecked()) {
 					hasKidsString = "";
 				}
 
-				if (hasKidsString.isEmpty()) {
+				if (hasKidsString.equals("trick")) {
 					Toast.makeText(ProfileSetupMoreActivity.this,
 							"Please set have kids", Toast.LENGTH_SHORT).show();
 					return;
@@ -414,6 +433,7 @@ public class ProfileSetupMoreActivity extends SocketActivity implements
 
 			if (params != null && params.length() > 0) {
 				pd.show();
+				updateRequest=true;
 				socketService.updateAccount(params);
 			}
 		}
@@ -423,189 +443,6 @@ public class ProfileSetupMoreActivity extends SocketActivity implements
 		// overridePendingTransition(R.anim.activity_in, R.anim.activity_out);
 		// setResult(RESULT_OK);
 		// ProfileSetupActivity.this.finish();
-	}
-
-	public void presentHeightPicker() {
-
-		final String[] values = new String[] { "3'", "4'", "5'", "6'", "7'" };
-		final String[] valuesInches = new String[] { "0''", "1''", "2''",
-				"3''", "4''", "5''", "6''", "7''", "8''", "9''", "10''", "11''" };
-
-		AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
-		LayoutInflater inflater = getLayoutInflater();
-		View dialogView = inflater.inflate(R.layout.height_picker, null);
-		dialogBuilder.setView(dialogView);
-		dialogBuilder.setTitle("Select Height");
-
-		final NumberPicker np = (NumberPicker) dialogView
-				.findViewById(R.id.heightPickerFeet);
-		np.setMaxValue(4);
-		np.setMinValue(0);
-		np.setDisplayedValues(values);
-		// String index = (String) btnHeight.getTag();
-		// if (index != null) {
-		// np.setValue(values[Integer.parseInt(index)]);
-		// }
-		np.setWrapSelectorWheel(false);
-
-		final NumberPicker npInches = (NumberPicker) dialogView
-				.findViewById(R.id.heightPickerInches);
-		npInches.setMaxValue(11);
-		npInches.setMinValue(0);
-		npInches.setDisplayedValues(valuesInches);
-		// String index = (String) btnHeight.getTag();
-		// if (index != null) {
-		// np.setValue(values[Integer.parseInt(index)]);
-		// }
-		npInches.setWrapSelectorWheel(false);
-
-		dialogBuilder.setPositiveButton("Set",
-				new DialogInterface.OnClickListener() {
-
-					@Override
-					public void onClick(DialogInterface dialog, int which) {
-						// btnHeight.setTag(np.getValue());
-						heightBtn.setText(values[np.getValue()] + " "
-								+ valuesInches[npInches.getValue()]);
-						user.setHeight(values[np.getValue()] + " "
-								+ valuesInches[npInches.getValue()]);
-					}
-				});
-
-		dialogBuilder.setNegativeButton("Cancel", null);
-
-		dialogBuilder.show();
-	}
-
-	public void presentWeightPicker() {
-
-		AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
-		LayoutInflater inflater = this.getLayoutInflater();
-		View dialogView = inflater.inflate(R.layout.picker_weight, null);
-		dialogBuilder.setView(dialogView);
-		dialogBuilder.setTitle("Select Weight");
-
-		final NumberPicker np = (NumberPicker) dialogView
-				.findViewById(R.id.picker);
-		np.setMaxValue(500);
-		np.setMinValue(50);
-		// String str = btnWeight.getText().toString();
-		// if (str.compareTo("Select") != 0) {
-		// String weight = str.substring(0, str.indexOf(" "));
-		// np.setValue(Integer.parseInt(weight));
-		// }
-		np.setWrapSelectorWheel(false);
-
-		dialogBuilder.setPositiveButton("Set",
-				new DialogInterface.OnClickListener() {
-
-					@Override
-					public void onClick(DialogInterface dialog, int which) {
-						weightBtn.setText(String.valueOf(np.getValue())
-								+ " lbs");
-						user.setWeight(String.valueOf(np.getValue()) + " lbs");
-					}
-				});
-
-		dialogBuilder.setNegativeButton("Cancel", null);
-
-		dialogBuilder.show();
-	}
-
-	/**
-	 * 
-	 */
-	private void presentSexualOrientationPicker() {
-		AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
-		LayoutInflater inflater = this.getLayoutInflater();
-		View dialogView = inflater.inflate(R.layout.picker_age, null);
-		dialogBuilder.setView(dialogView);
-		dialogBuilder.setTitle("Select Sexual Orientation");
-
-		final String[] values = getResources().getStringArray(
-				R.array.sextualOrientations);
-		final NumberPicker np = (NumberPicker) dialogView
-				.findViewById(R.id.picker);
-		np.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS);
-		np.setMinValue(0);
-		np.setMaxValue(values.length - 1);
-		np.setDisplayedValues(values);
-		np.setWrapSelectorWheel(false);
-		// np.setOnValueChangedListener(this);
-
-		dialogBuilder.setPositiveButton("Set",
-				new DialogInterface.OnClickListener() {
-
-					@Override
-					public void onClick(DialogInterface dialog, int which) {
-						if (np.getValue() == values.length - 1) {
-							sexualOrientOtherEdit.setVisibility(View.VISIBLE);
-							user.setSexualOrientation(values[np.getValue()]);
-						} else {
-							sexualOrientOtherEdit.setVisibility(View.GONE);
-							sexualOrientBtn.setText(values[np.getValue()]);
-							user.setSexualOrientation(values[np.getValue()]);
-						}
-					}
-				});
-
-		dialogBuilder.setNegativeButton("Cancel", null);
-
-		dialogBuilder.show();
-	}
-
-	private void presentEthnicityPicker() {
-		AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
-		LayoutInflater inflater = this.getLayoutInflater();
-		View dialogView = inflater.inflate(R.layout.picker_age, null);
-		dialogBuilder.setView(dialogView);
-		dialogBuilder.setTitle("Select Sexual Orientation");
-
-		final String[] values = getResources().getStringArray(
-				R.array.ethnicities);
-		final NumberPicker np = (NumberPicker) dialogView
-				.findViewById(R.id.picker);
-		np.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS);
-		np.setMinValue(0);
-		np.setMaxValue(values.length - 1);
-		np.setDisplayedValues(values);
-		np.setWrapSelectorWheel(false);
-		// np.setOnValueChangedListener(this);
-
-		dialogBuilder.setPositiveButton("Set",
-				new DialogInterface.OnClickListener() {
-
-					@Override
-					public void onClick(DialogInterface dialog, int which) {
-						ethnicityBtn.setText(values[np.getValue()]);
-						user.setEthnicity(values[np.getValue()]);
-					}
-				});
-
-		dialogBuilder.setNegativeButton("Cancel", null);
-
-		dialogBuilder.show();
-	}
-
-	private void presentSoberDatePicker() {
-		final Calendar now = Calendar.getInstance();
-		new DatePickerDialog(this,
-				new DatePickerDialog.OnDateSetListener() {
-					@Override
-					public void onDateSet(DatePicker view, int year,
-							int monthOfYear, int dayOfMonth) {
-						Calendar newDate = Calendar.getInstance();
-						newDate.clear();
-						newDate.set(year, monthOfYear, dayOfMonth);
-						String nowAsISO = new SimpleDateFormat("MM/dd/yyyy")
-								.format(newDate.getTime());
-						// String dobString = ""+ year +"";
-						soberDateBtn.setText(nowAsISO);
-						user.setSoberSence(nowAsISO);
-					}
-				}, now.get(Calendar.YEAR), now.get(Calendar.MONTH),
-				now.get(Calendar.DAY_OF_MONTH)).show();
-
 	}
 
 	@Override
@@ -622,11 +459,18 @@ public class ProfileSetupMoreActivity extends SocketActivity implements
 
 	@Override
 	public void onSocketResponseSuccess(String event, Object obj) {
-		pd.dismiss();
-		ProfileSetupMoreActivity.this.finish();
-		AppPrefs.getAppPrefs(ProfileSetupMoreActivity.this).saveBooleanPrefs(
-				AppPrefs.KEY_PROFILE_SETUP_MORE, true);
-		navigateToTwoOptions();
+		
+		if(updateRequest){
+			pd.dismiss();
+			if (event.equals(EventParams.EVENT_USER_UPDATE)) {
+				ProfileSetupMoreActivity.this.finish();
+				AppPrefs.getAppPrefs(ProfileSetupMoreActivity.this)
+						.saveBooleanPrefs(AppPrefs.KEY_PROFILE_SETUP_MORE, true);
+				navigateToTwoOptions();
+			}
+		}
+		
+
 	}
 
 	@Override

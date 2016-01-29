@@ -2,18 +2,12 @@ package com.citrusbits.meehab.services;
 
 public class DeviceContact {
 
-	private String userName;
+	private String contactName;
 	private String phoneNumber;
 	private int contactId;
 	private int version;
-
-	public String getUserName() {
-		return userName;
-	}
-
-	public void setUserName(String userName) {
-		this.userName = userName;
-	}
+	private String contactAction;
+	private int syncFlag;
 
 	public String getPhoneNumber() {
 		return phoneNumber;
@@ -37,6 +31,35 @@ public class DeviceContact {
 
 	public void setVersion(int version) {
 		this.version = version;
+	}
+
+	public String getContactName() {
+		return contactName;
+	}
+
+	public void setContactName(String contactName) {
+		this.contactName = contactName;
+	}
+
+	public String getContactAction() {
+		return contactAction;
+	}
+
+	public void setContactAction(String contactAction) {
+		this.contactAction = contactAction;
+	}
+
+	public int getSyncFlag() {
+		return syncFlag;
+	}
+
+	public void setSyncFlag(int syncFlag) {
+		this.syncFlag = syncFlag;
+	}
+	
+
+	public enum ContactAction {
+		ADD, DELETE
 	}
 
 }

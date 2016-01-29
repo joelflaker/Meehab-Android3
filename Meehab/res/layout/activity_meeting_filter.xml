@@ -34,14 +34,14 @@
             android:textColor="@android:color/white" />
 
         <ImageButton
-            android:id="@+id/topRightBtn"
+            android:id="@+id/ibClear"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="8dp"
             android:background="@null"
-            android:src="@drawable/apply_btn"
+            android:src="@drawable/clear_btn"
             android:text=""
             android:textColor="#000" />
 
@@ -55,140 +55,156 @@
             android:clickable="false" />
     </RelativeLayout>
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:paddingBottom="@dimen/activity_vertical_margin"
-        android:paddingLeft="@dimen/activity_horizontal_margin"
-        android:paddingRight="@dimen/activity_horizontal_margin"
-        android:paddingTop="@dimen/activity_vertical_margin"
-        tools:context="com.citrusbits.meehab.MeetingsFilterActivity" >
+        android:orientation="vertical" >
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal" >
+            android:layout_height="match_parent"
+            android:layout_above="@+id/topRightBtn"
+            android:orientation="vertical"
+            android:paddingLeft="@dimen/activity_vertical_margin"
+            android:paddingRight="@dimen/activity_vertical_margin"
+            android:paddingTop="@dimen/activity_vertical_margin"
+            tools:context="com.citrusbits.meehab.MeetingsFilterActivity" >
 
-            <Button
-                android:id="@+id/btnMyFavorite"
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:background="@drawable/simple_button_selector"
-                android:gravity="left|center_vertical"
-                android:text="@string/my_favorites"
-                android:textColor="#888888" />
+                android:orientation="horizontal" >
 
-            <CheckBox
-                android:id="@+id/tglMyFavorite"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:background="@drawable/toggle_selector"
-                android:button="@null"
-                android:checked="false"
-                android:textColor="@android:color/transparent"
-                android:textOff=""
-                android:textOn="" />
-        </RelativeLayout>
+                <Button
+                    android:id="@+id/btnMyFavorite"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/simple_button_selector"
+                    android:gravity="left|center_vertical"
+                    android:text="@string/my_favorites"
+                    android:textColor="#888888" />
 
-        <ExpandableListView
-            android:id="@+id/expListFilter"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:animateLayoutChanges="true"
-            android:divider="@null"
-            android:dividerHeight="0dp"
-            android:groupIndicator="@null" />
+                <CheckBox
+                    android:id="@+id/tglMyFavorite"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/toggle_selector"
+                    android:button="@null"
+                    android:checked="false"
+                    android:textColor="@android:color/transparent"
+                    android:textOff=""
+                    android:textOn="" />
+            </RelativeLayout>
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:orientation="horizontal" >
-
-            <Button
-                android:id="@+id/btnZipCode"
+            <ExpandableListView
+                android:id="@+id/expListFilter"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/simple_button_selector"
-                android:gravity="left|center_vertical"
-                android:text="Zip Code"
-                android:textColor="#888888" />
+                android:animateLayoutChanges="true"
+                android:divider="@null"
+                android:dividerHeight="0dp"
+                android:groupIndicator="@null" />
 
-            <EditText
-                android:id="@+id/editZipCode"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:background="@android:color/transparent"
-                android:gravity="center_vertical|right"
-                android:hint="Enter Zip  Code"
-                android:inputType="number"
-                android:maxLength="8"
-                android:paddingLeft="2dp"
-                android:paddingRight="2dp"
-                android:singleLine="true"
-                android:text=""
-                android:textSize="13sp" />
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:orientation="horizontal" >
-
-            <Button
-                android:id="@+id/btnDistance"
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/simple_button_selector"
-                android:gravity="left|center_vertical"
-                android:text="Distance"
-                android:textColor="#888888" />
-
-            <TextView
-                android:id="@+id/txtDistance"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:background="@android:color/transparent"
                 android:gravity="center_vertical"
-                android:text="5 miles"
-                android:textColor="#888888" />
-        </RelativeLayout>
+                android:orientation="horizontal" >
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:orientation="horizontal" >
+                <Button
+                    android:id="@+id/btnZipCode"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/simple_button_selector"
+                    android:gravity="left|center_vertical"
+                    android:text="Zip Code"
+                    android:textColor="#888888" />
 
-            <Button
-                android:id="@+id/btnRating"
+                <EditText
+                    android:id="@+id/editZipCode"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:background="@android:color/transparent"
+                    android:gravity="center_vertical|right"
+                    android:hint="Enter Zip  Code"
+                    android:inputType="number"
+                    android:maxLength="8"
+                    android:paddingLeft="2dp"
+                    android:paddingRight="2dp"
+                    android:singleLine="true"
+                    android:text=""
+                    android:textSize="13sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/simple_button_selector"
-                android:gravity="left|center_vertical"
-                android:text="Rating"
-                android:textColor="#888888" />
-
-            <TextView
-                android:id="@+id/txtRating"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:background="@android:color/transparent"
                 android:gravity="center_vertical"
-                android:text="> 5 Stars"
-                android:textColor="#888888" />
-        </RelativeLayout>
-    </LinearLayout>
+                android:orientation="horizontal" >
+
+                <Button
+                    android:id="@+id/btnDistance"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/simple_button_selector"
+                    android:gravity="left|center_vertical"
+                    android:text="Distance"
+                    android:textColor="#888888" />
+
+                <TextView
+                    android:id="@+id/txtDistance"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:background="@android:color/transparent"
+                    android:gravity="center_vertical"
+                    android:text="more than 50 miles"
+                    android:textColor="#888888" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal" >
+
+                <Button
+                    android:id="@+id/btnRating"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/simple_button_selector"
+                    android:gravity="left|center_vertical"
+                    android:text="Rating"
+                    android:textColor="#888888" />
+
+                <TextView
+                    android:id="@+id/txtRating"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:background="@android:color/transparent"
+                    android:gravity="center_vertical"
+                    android:text="> 5 Stars"
+                    android:textColor="#888888" />
+            </RelativeLayout>
+        </LinearLayout>
+
+        <ImageButton
+            android:id="@+id/topRightBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="@null"
+            android:src="@drawable/apply_btn_big"
+            android:text=""
+            android:textColor="#000" />
+    </RelativeLayout>
 
 </LinearLayout>

@@ -11,7 +11,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -46,8 +45,12 @@ import com.citrusbits.meehab.HomeActivity;
 import com.citrusbits.meehab.MeetingDetailsActivity;
 import com.citrusbits.meehab.MeetingsFilterActivity;
 import com.citrusbits.meehab.R;
+import com.citrusbits.meehab.RehabAdditionActivity;
+import com.citrusbits.meehab.RehabDetailsActivity;
 import com.citrusbits.meehab.RehabsFilterActivity;
+import com.citrusbits.meehab.SocketFragment;
 import com.citrusbits.meehab.adapters.MeetingsListAdapter;
+import com.citrusbits.meehab.adapters.RehabListAdapter;
 import com.citrusbits.meehab.app.App;
 import com.citrusbits.meehab.constants.EventParams;
 import com.citrusbits.meehab.db.UserDatasource;
@@ -58,12 +61,16 @@ import com.citrusbits.meehab.map.LocationUtils;
 import com.citrusbits.meehab.model.MeetingModel;
 import com.citrusbits.meehab.model.RehaabFilterResultHolder;
 import com.citrusbits.meehab.model.MeetingModel.MarkerColorType;
+import com.citrusbits.meehab.model.RehabDayModel;
+import com.citrusbits.meehab.model.RehabModel;
+import com.citrusbits.meehab.model.RehabResponseModel;
 import com.citrusbits.meehab.model.UserAccount;
 import com.citrusbits.meehab.pojo.MeetingResponse;
 import com.citrusbits.meehab.prefrences.AppPrefs;
 import com.citrusbits.meehab.services.OnBackendConnectListener;
 import com.citrusbits.meehab.services.OnSocketResponseListener;
 import com.citrusbits.meehab.utils.AccountUtils;
+import com.citrusbits.meehab.utils.NetworkUtils;
 import com.citrusbits.meehab.utils.UtilityClass;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -77,8 +84,6 @@ import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.gson.Gson;
-
-
 
 public class RehabsFragment extends Fragment implements
 		OnSocketResponseListener, OnBackendConnectListener,
@@ -96,13 +101,13 @@ public class RehabsFragment extends Fragment implements
 	private Location myLocation /* = new LatLng(33.671447, 73.069612) */;
 	private ImageButton btnList, btnFindMe;
 	private ListView list;
-	ArrayList<MeetingModel> meetings = new ArrayList<MeetingModel>();
-	HashMap<Marker, MeetingModel> spots;
-	MeetingsListAdapter meetingsAdapter;
+
+	HashMap<Marker, RehabModel> spots;
+	RehabListAdapter rehabAdapter;
 	private HomeActivity homeActivity;
 	private ProgressDialog pd;
 	private boolean meetingUpdated;
-	private EditText editTopCenter;
+	private EditText etSearch;
 	private View focus_thief;
 
 	AppPrefs prefs;
@@ -111,7 +116,7 @@ public class RehabsFragment extends Fragment implements
 
 	Context mContext;
 
-	List<String> favMeetingIds = new ArrayList<String>();
+	RehabResponseModel rehabResponse = new RehabResponseModel();
 
 	ServiceConnection locServiceConnection = new ServiceConnection() {
 
@@ -141,7 +146,7 @@ public class RehabsFragment extends Fragment implements
 	UserDatasource userDatasource;
 	UserAccount user;
 
-	MeetingProcessingTask meetingProcessinTask;
+	private boolean listWasInvisible = false;
 
 	public RehabsFragment() {
 	}
@@ -155,15 +160,9 @@ public class RehabsFragment extends Fragment implements
 	public void onDestroy() {
 		// TODO Auto-generated method stub
 		super.onDestroy();
-
 		locationService.removeListener(locationListener);
 		getActivity().unbindService(locServiceConnection);
 		getActivity().stopService(new Intent(mContext, LocationService.class));
-
-		if (meetingProcessinTask != null
-				&& meetingProcessinTask.getStatus() == android.os.AsyncTask.Status.RUNNING) {
-			meetingProcessinTask.cancel(true);
-		}
 
 	}
 
@@ -175,7 +174,7 @@ public class RehabsFragment extends Fragment implements
 
 		user = userDatasource.findUser(AccountUtils.getUserId(getActivity()));
 		mContext = getActivity();
-		meetings = new ArrayList<>();
+
 		spots = new HashMap<>();
 		prefs = AppPrefs.getAppPrefs(getActivity());
 		myLocation = LocationUtils.getLastLocation(getActivity());
@@ -195,33 +194,44 @@ public class RehabsFragment extends Fragment implements
 		list = (ListView) v.findViewById(R.id.list);
 		btnList = (ImageButton) v.findViewById(R.id.btnList);
 		btnFindMe = (ImageButton) v.findViewById(R.id.btnFindMe);
-		editTopCenter = (EditText) v.findViewById(R.id.editTopCenter);
-		focus_thief = v.findViewById(R.id.focus_thief);
-		editTopCenter.addTextChangedListener(new TextWatcher() {
+		etSearch = (EditText) v.findViewById(R.id.etSearch);
+
+		etSearch.addTextChangedListener(new TextWatcher() {
 
 			@Override
 			public void onTextChanged(CharSequence s, int start, int before,
 					int count) {
-				String text = editTopCenter.getText().toString().trim();
-				if (TextUtils.isEmpty(text)) {
-					editTopCenter.setCompoundDrawablesWithIntrinsicBounds(
-							android.R.drawable.ic_menu_search, 0, 0, 0);
-				} else {
-					editTopCenter.setCompoundDrawables(null, null, null, null);
-				}
-				searchMeetings(text);
+				// TODO Auto-generated method stub
+
 			}
 
 			@Override
 			public void beforeTextChanged(CharSequence s, int start, int count,
 					int after) {
+				// TODO Auto-generated method stub
 
 			}
 
 			@Override
 			public void afterTextChanged(Editable s) {
+				// TODO Auto-generated method stub
+				String inputText = s.toString().trim().toLowerCase();
+				searchRehabs(inputText);
+				if (inputText.trim().length() == 0) {
+					if (listWasInvisible) {
+						switchList();
+						listWasInvisible = false;
+					}
+				}
 			}
 		});
+
+		focus_thief = v.findViewById(R.id.focus_thief);
+
+		rehabAdapter = new RehabListAdapter(getActivity(),
+				R.layout.list_rehab_item, rehabResponse.getRehabs());
+
+		list.setAdapter(rehabAdapter);
 
 		btnList.setOnClickListener(this);
 		btnFindMe.setOnClickListener(this);
@@ -257,7 +267,7 @@ public class RehabsFragment extends Fragment implements
 	/**
 	 * @param text
 	 */
-	protected void searchMeetings(String text) {
+	protected void searchRehabs(String text) {
 		if (!list.isShown()) {
 			// btnList.setText("MAP");
 
@@ -265,9 +275,10 @@ public class RehabsFragment extends Fragment implements
 			btnFindMe.setVisibility(View.GONE);
 			mapFrag.onPause();
 			list.setVisibility(View.VISIBLE);
+			listWasInvisible = true;
 		}
 
-		meetingsAdapter.filter(text);
+		rehabAdapter.filter(text);
 	}
 
 	protected void filterMeetings() {
@@ -286,20 +297,22 @@ public class RehabsFragment extends Fragment implements
 		BitmapDescriptor icon = BitmapDescriptorFactory
 				.fromResource(R.drawable.pin);
 		// add marker
-		for (int i = 0; i < meetings.size(); i++) {
-			MeetingModel m = meetings.get(i);
+		List<RehabModel> rehabs = rehabResponse.getRehabs();
+		for (int i = 0; i < rehabs.size(); i++) {
+			RehabModel rehab = rehabs.get(i);
 			// Creating an instance of MarkerOptions to set position
 			int resourceId = R.drawable.pin_dark_pink;
-			if (m.getMarkertypeColor() == MarkerColorType.GREEN) {
-				resourceId = R.drawable.pin_green;
-			} else if (m.getMarkertypeColor() == MarkerColorType.ORANGE) {
-				resourceId = R.drawable.pin_orange;
-			} else if (m.getMarkertypeColor() == MarkerColorType.RED) {
-				resourceId = R.drawable.pin_dark_pink;
-			}
+			/*
+			 * if (m.getMarkertypeColor() == MarkerColorType.GREEN) { resourceId
+			 * = R.drawable.pin_green; } else if (m.getMarkertypeColor() ==
+			 * MarkerColorType.ORANGE) { resourceId = R.drawable.pin_orange; }
+			 * else if (m.getMarkertypeColor() == MarkerColorType.RED) {
+			 * resourceId = R.drawable.pin_dark_pink; }
+			 */
 			MarkerOptions markerOptions = new MarkerOptions()
-					.position(new LatLng(m.getLatitude(), m.getLongitude()))
-					.title(m.getName())
+					.position(
+							new LatLng(rehab.getLatitude(), rehab
+									.getLongitude())).title(rehab.getName())
 					.icon(BitmapDescriptorFactory.fromResource(resourceId));
 
 			// markerOptions.icon(icon);
@@ -307,7 +320,7 @@ public class RehabsFragment extends Fragment implements
 
 			// Adding marker on the GoogleMap
 			Marker marker = map.addMarker(markerOptions);
-			spots.put(marker, m);
+			spots.put(marker, rehab);
 		}
 
 		moveCamera(
@@ -318,53 +331,21 @@ public class RehabsFragment extends Fragment implements
 
 	}
 
-	public void fitBounds() {
-
-		Iterator<Entry<Marker, MeetingModel>> it = spots.entrySet().iterator();
-		LatLngBounds.Builder builder = new LatLngBounds.Builder();
-		while (it.hasNext()) {
-			Map.Entry pair = (Map.Entry) it.next();
-
-			// System.out.println(pair.getKey() + " = " + pair.getValue());
-			// it.remove(); // avoids a ConcurrentModificationException
-
-			Marker marker = (Marker) pair.getKey();
-			builder.include(marker.getPosition());
-			LatLngBounds bounds = builder.build();
-
-			int padding = 0; // offset from edges of the map in pixels
-			CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds,
-					padding);
-			map.moveCamera(cu);
-		}
-
-	}
-
 	@Override
 	public void onStart() {
 		super.onStart();
 	}
 
-	void refreshMeetingList() {
-		if (homeActivity.socketService != null) {
-			pd.show();
-			homeActivity.socketService.updateMeetings(new JSONObject());
+	void refreshRehab() {
+		if (!NetworkUtils.isNetworkAvailable(getActivity())) {
+			App.alert(getString(R.string.no_internet_connection));
+			return;
 		}
-	}
 
-	void refrshFavList() {
 		if (homeActivity.socketService != null) {
-			// pd.show();
-			JSONObject object = new JSONObject();
-			try {
-				object.put("id", user.getId());
-				Log.e("Fav Object ", object.toString());
-				homeActivity.socketService.favMeetingsList(object);
-			} catch (JSONException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
 
+			pd.show();
+			homeActivity.socketService.getAllRehab(new JSONObject());
 		}
 	}
 
@@ -397,14 +378,14 @@ public class RehabsFragment extends Fragment implements
 
 	@Override
 	public void onInfoWindowClick(Marker marker) {
-		MeetingModel m = spots.get(marker);
+		RehabModel m = spots.get(marker);
 		if (m != null) {
 
 		}
-		Intent intent = new Intent(getActivity(), MeetingDetailsActivity.class);
+		Intent intent = new Intent(getActivity(), RehabDetailsActivity.class);
 		Bundle bundle = new Bundle();
 
-		bundle.putSerializable("meeting", m);
+		bundle.putSerializable(RehabDetailsActivity.KEY_REHAB, m);
 		intent.putExtras(bundle);
 		startActivity(intent);
 	}
@@ -423,10 +404,10 @@ public class RehabsFragment extends Fragment implements
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position,
 			long id) {
-		Intent intent = new Intent(getActivity(), MeetingDetailsActivity.class);
+		Intent intent = new Intent(getActivity(), RehabDetailsActivity.class);
 		Bundle bundle = new Bundle();
 
-		bundle.putSerializable("meeting", meetings.get(position));
+		bundle.putSerializable(RehabDetailsActivity.KEY_REHAB, rehabResponse.getRehabModel(position));
 		intent.putExtras(bundle);
 
 		getActivity().startActivity(intent);
@@ -479,11 +460,13 @@ public class RehabsFragment extends Fragment implements
 			mapFrag.onPause();
 			btnList.setImageResource(R.drawable.map_btn);
 			list.setVisibility(View.VISIBLE);
+			// listWasInvisible=true;
 		} else {
 			// btnList.setText("LIST");
 			btnList.setImageResource(R.drawable.list_btn);
 			btnFindMe.setVisibility(View.VISIBLE);
 			list.setVisibility(View.GONE);
+			// listWasInvisible=false;
 			mapFrag.onResume();
 		}
 	}
@@ -519,8 +502,9 @@ public class RehabsFragment extends Fragment implements
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
-		
-		Toast.makeText(getActivity(), "onActivityResult is called ", Toast.LENGTH_SHORT).show();
+
+		Toast.makeText(getActivity(), "onActivityResult is called ",
+				Toast.LENGTH_SHORT).show();
 
 		if (resultCode == getActivity().RESULT_OK) {
 			if (requestCode == Filter_request) {
@@ -532,11 +516,11 @@ public class RehabsFragment extends Fragment implements
 				RehaabFilterResultHolder resultHolder = (RehaabFilterResultHolder) data
 						.getSerializableExtra(MeetingsFilterActivity.MEETING_FILTER);
 
-				meetingsAdapter.setLocation(map.getMyLocation());
+				Toast.makeText(getActivity(),
+						resultHolder.isanyDistance() + "", Toast.LENGTH_SHORT)
+						.show();
 
-				Toast.makeText(getActivity(), resultHolder.isanyDistance()+"", Toast.LENGTH_SHORT).show();
-
-				//meetingsAdapter.filter(resultHolder);
+				// meetingsAdapter.filter(resultHolder);
 
 			}
 		}
@@ -547,207 +531,172 @@ public class RehabsFragment extends Fragment implements
 		map.animateCamera(cameraUpdate);
 	}
 
+	private double getDistance(double markerLatitude, double markerLongitude) {
+		Location pinLocation = new Location("B");
+		pinLocation.setLatitude(markerLatitude);
+		pinLocation.setLongitude(markerLongitude);
+		double distance = (double) (myLocation.distanceTo(pinLocation) * 0.000621371192f);
+
+		distance = Math.floor(distance * 100) / 100f;
+		return distance;
+	}
+
 	@Override
 	public void onSocketResponseSuccess(String event, Object obj) {
-		pd.dismiss();
-		// Location myLocation=map.getMyLocation();
-		if (event.equals(EventParams.EVENT_MEETING_GET_ALL)) {
 
-			meetingUpdated = true;
-			try {
-				JSONObject data = ((JSONObject) obj);
+		if (pd != null) {
+			pd.dismiss();
+		}
 
-				Log.e("Meeting data", data.toString());
-
-				Gson gson = new Gson();
-				MeetingResponse response = gson.fromJson(data.toString(),
-						MeetingResponse.class);
-				meetings = (ArrayList<MeetingModel>) response
-						.getGetAllMeetings();
-
-				meetingProcessinTask = new MeetingProcessingTask();
-				meetingProcessinTask.execute();
-
-				/*
-				 * if (meetings.size() > 0) {
-				 * 
-				 * 
-				 * String prevDate = ""; for (int i = 0; i < meetings.size();
-				 * i++) { MeetingModel meeting = meetings.get(i);
-				 * meeting.setOnDateOrigin(meeting.getOnDate());
-				 * 
-				 * Location pinLocation = new Location("B");
-				 * pinLocation.setLatitude(meeting.getLatitude());
-				 * pinLocation.setLongitude(meeting.getLongitude()); long
-				 * distance = (long) (myLocation .distanceTo(pinLocation) *
-				 * 0.000621371192f); meeting.setDistanceInMiles(distance);
-				 * 
-				 * Log.e("Timing", meeting.getOnTime()); if
-				 * (!prevDate.equals(meeting.getOnDate())) {
-				 * meeting.setDateHeaderVisibility(true); prevDate =
-				 * meeting.getOnDate();
-				 * meeting.setOnDate(formateDate(meeting.getOnDate())); }
-				 * 
-				 * setStartInTime(meeting, meeting.getOnDateOrigion(),
-				 * meeting.getOnTime()); }
-				 * 
-				 * meetingsAdapter = new MeetingsListAdapter(getActivity(),
-				 * R.layout.list_item_meeting, meetings);
-				 * list.setAdapter(meetingsAdapter);
-				 * meetingsAdapter.notifyDataSetChanged(); addMarkers(); }
-				 */
-			} catch (Exception e) {
-
-			}
-
-			// refrshFavList();
-
-		} else if (event.equals(EventParams.EVENT_FAVOURITE_LIST)) {
+		if (event.equals(EventParams.EVENT_GET_ALL_REHABS)) {
 			JSONObject data = ((JSONObject) obj);
-			favMeetingIds.clear();
 			try {
-				JSONArray allFavouriteArrays = data
-						.getJSONArray("getAllFavorites");
-				for (int i = 0; i < allFavouriteArrays.length(); i++) {
-					JSONObject object = allFavouriteArrays.getJSONObject(i);
-					String meetingId = object.getString("meetingID");
-					favMeetingIds.add(meetingId);
+				JSONObject allRehab = data.getJSONObject("allRehabs");
+
+				JSONArray days = allRehab.getJSONArray("days");
+
+				for (int i = 0; i < days.length(); i++) {
+					JSONObject day = days.getJSONObject(i);
+					int dayId = day.getInt("id");
+					String dayName = day.getString("name");
+					rehabResponse.addDay(dayId, dayName);
 				}
 
-				for (MeetingModel meeting : meetings) {
+				JSONArray rehabs = allRehab.getJSONArray("rehabs");
 
-					String meetingId = String.valueOf(meeting.getMeetingId());
+				for (int i = 0; i < rehabs.length(); i++) {
+					JSONObject rehab = rehabs.getJSONObject(i);
 
-					meeting.setFavourite(favMeetingIds.contains(meetingId) ? true
-							: false);
+					String phone = rehab.getString("phone");
+					String about = rehab.getString("about");
+					String state = rehab.getString("state");
+
+					JSONArray videosArray = rehab.getJSONArray("rehab_videos");
+					List<String> videoList = new ArrayList<>();
+
+					for (int j = 0; j < videosArray.length(); j++) {
+						JSONObject video = videosArray.getJSONObject(j);
+						String link = video.getString("link");
+						videoList.add(link);
+
+					}
+
+					String userEmail = rehab.getString("user_email");
+					String city = rehab.getString("city");
+					int id = rehab.getInt("id");
+					String approved = rehab.getString("approved");
+
+					JSONArray photosArray = rehab.getJSONArray("rehab_photos");
+					List<String> photoList = new ArrayList<>();
+
+					for (int j = 0; j < photosArray.length(); j++) {
+						JSONObject photo = photosArray.getJSONObject(j);
+						String link = photo.getString("link");
+						photoList.add(link);
+
+					}
+
+					/*
+					 * "name":"test rehab", "longitude":33.12345505,
+					 * "insurance_accepted":"no", "other_services":"",
+					 * "status":"active", "website":"citrusbits", "hours":"",
+					 * "zipcode":"",
+					 * "datetime_added":"2016-01-15T10:22:04.000Z",
+					 * "relation":"owner", "type_id":0, "user_name":"yasir",
+					 */
+
+					String name = rehab.getString("name");
+
+					double latitude = rehab.getDouble("latitude");
+					double longitude = rehab.getDouble("longitude");
+					String insuranceAccepted = rehab
+							.getString("insurance_accepted");
+					String otherServices = rehab.getString("other_services");
+					String status = rehab.getString("status");
+					String website = rehab.getString("website");
+					String hours = rehab.getString("hours");
+					String zipCode = rehab.getString("zipcode");
+					String dateTimeAdded = rehab.getString("datetime_added");
+					String relation = rehab.getString("relation");
+					int typeId = rehab.getInt("type_id");
+					String userName = rehab.getString("user_name");
+					String address = rehab.getString("address");
+					String email = rehab.getString("email");
+
+					String userPhone = rehab.getString("user_phone");
+					String codes = rehab.getString("codes");
+
+					JSONArray rehabDays = rehab.getJSONArray("rehab_days");
+					List<RehabDayModel> rehabDayList = new ArrayList<>();
+
+					for (int j = 0; j < rehabDays.length(); j++) {
+						JSONObject rehabDayObjet = rehabDays.getJSONObject(j);
+
+						String onThisDay = rehabDayObjet
+								.getString("on_this_day");
+
+						String endTime = rehabDayObjet.getString("end_time");
+
+						String startTime = rehabDayObjet
+								.getString("start_time");
+
+						int dayId = rehabDayObjet.getInt("day_id");
+
+						RehabDayModel rehabDay = new RehabDayModel();
+						rehabDay.setOnThisDay(onThisDay);
+						rehabDay.setEndTime(endTime);
+						rehabDay.setStartTime(startTime);
+						rehabDay.setDayId(dayId);
+						rehabDay.setDayName(rehabResponse.getDay(dayId));
+
+						rehabDayList.add(rehabDay);
+
+					}
+
+					RehabModel rehabModel = new RehabModel();
+					rehabModel.setAbout(about);
+					rehabModel.setAddress(address);
+					rehabModel.setApproved(approved);
+					rehabModel.setCity(city);
+					rehabModel.setCodes(codes);
+					rehabModel.setDateTimeAdded(dateTimeAdded);
+					rehabModel.setEmail(email);
+					rehabModel.setHours(hours);
+					rehabModel.setId(id);
+					rehabModel.setInsuranceAccepted(insuranceAccepted);
+					rehabModel.setLatitude(latitude);
+					rehabModel.setLongitude(longitude);
+					rehabModel.setName(name);
+					rehabModel.setOtherServices(otherServices);
+					rehabModel.setPhone(phone);
+					rehabModel.setRehabDays(rehabDayList);
+					// rehabModel.setRehabInsurances(rehabInsurances);
+					rehabModel.setRehabPhotoes(photoList);
+					rehabModel.setRehabVideos(videoList);
+					rehabModel.setRelation(relation);
+					rehabModel.setState(state);
+					rehabModel.setStatus(status);
+					rehabModel.setTypeId(typeId);
+					rehabModel.setUserEmail(userEmail);
+					rehabModel.setUserName(userName);
+					rehabModel.setWebsite(website);
+					rehabModel.setZipCode(zipCode);
+					rehabModel.setUserPhone(userPhone);
+					rehabModel.setDistance(getDistance(latitude, longitude));
+					rehabResponse.addRehabModel(rehabModel);
 
 				}
+
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			Log.e("Favourite", data.toString());
 
-		}
+			rehabAdapter.notifyDataSetChanged();
 
-	}
-
-	public class MeetingProcessingTask extends AsyncTask<Void, Void, Void> {
-
-		@Override
-		protected Void doInBackground(Void... params) {
-			// TODO Auto-generated method stub
-
-			if (meetings.size() > 0) {
-
-				String prevDate = "";
-				for (int i = 0; i < meetings.size(); i++) {
-					MeetingModel meeting = meetings.get(i);
-					meeting.setOnDateOrigin(meeting.getOnDate());
-
-					Location pinLocation = new Location("B");
-					pinLocation.setLatitude(meeting.getLatitude());
-					pinLocation.setLongitude(meeting.getLongitude());
-					long distance = (long) (myLocation.distanceTo(pinLocation) * 0.000621371192f);
-					meeting.setDistanceInMiles(distance);
-
-					Log.e("Timing", meeting.getOnTime());
-					if (!prevDate.equals(meeting.getOnDate())) {
-						meeting.setDateHeaderVisibility(true);
-						prevDate = meeting.getOnDate();
-						meeting.setOnDate(formateDate(meeting.getOnDate()));
-					}
-
-					setStartInTime(meeting, meeting.getOnDateOrigion(),
-							meeting.getOnTime());
-				}
-			}
-
-			return null;
-		}
-
-		@Override
-		protected void onPostExecute(Void result) {
-			// TODO Auto-generated method stub
-			super.onPostExecute(result);
-
-			meetingsAdapter = new MeetingsListAdapter(getActivity(),
-					R.layout.list_item_meeting, meetings);
-			list.setAdapter(meetingsAdapter);
-			meetingsAdapter.notifyDataSetChanged();
 			addMarkers();
-			refrshFavList();
 		}
 
-	}
-
-	public String formateDate(String date) {
-		SimpleDateFormat prevFormate = new SimpleDateFormat("dd/MM/yyyy");
-		SimpleDateFormat newFormate = new SimpleDateFormat("EEEE dd MMM yyyy");
-		try {
-			Date date2 = prevFormate.parse(date);
-			return newFormate.format(date2);
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return date;
-		}
-	}
-
-	public void setStartInTime(MeetingModel model, String date, String onTime) {
-		SimpleDateFormat prevFormate = new SimpleDateFormat("dd/MM/yyyy");
-		try {
-			Date date2 = prevFormate.parse(date);
-			SimpleDateFormat _12HourSDF = new SimpleDateFormat("hh:mm a");
-			final Date dateObj = _12HourSDF.parse(onTime);
-			Calendar calendar = Calendar.getInstance();
-
-			calendar.setTime(date2);
-
-			calendar.set(Calendar.HOUR_OF_DAY, dateObj.getHours());
-			calendar.set(Calendar.MINUTE, dateObj.getMinutes());
-			calendar.set(Calendar.SECOND, 0);
-
-			Calendar currentCalendar = Calendar.getInstance();
-
-			long difference = calendar.getTimeInMillis()
-					- currentCalendar.getTimeInMillis();
-
-			long x = difference / 1000;
-			Log.e("Difference ", x + "");
-
-			long seconds = x % 60;
-			x /= 60;
-			long minutes = x % 60;
-			x /= 60;
-			long hours = x % 24;
-
-			Log.e("Hours Difference ", hours + ":" + minutes);
-			SimpleDateFormat mmmDate = new SimpleDateFormat(
-					"dd/MM/yyyy hh:mm a");
-			String mDate = mmmDate.format(calendar.getTime());
-			String mNow = mmmDate.format(currentCalendar.getTime());
-			Log.e("Meeting date time ", mDate);
-			Log.e("Nnow date time ", mNow);
-
-			if (hours > 1 || hours == 1 && minutes > 0) {
-				model.setMarkerTypeColor(MarkerColorType.GREEN);
-				model.setStartInTime("AFTER 1 HOUR");
-			} else if (hours == 0 && minutes >= 0) {
-				model.setMarkerTypeColor(MarkerColorType.ORANGE);
-				model.setStartInTime("START IN HOUR");
-			} else if (hours == 0 && minutes <= 0 || hours < 0 && hours > -2) {
-				model.setMarkerTypeColor(MarkerColorType.RED);
-				model.setStartInTime("ONGOING");
-			} else if (hours <= -1) {
-				model.setMarkerTypeColor(MarkerColorType.RED);
-				model.setStartInTime("COMPLETED");
-			}
-
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 	}
 
 	@Override
@@ -759,7 +708,9 @@ public class RehabsFragment extends Fragment implements
 	@Override
 	public void onBackendConnected() {
 		if (!meetingUpdated) {
-		//	refreshMeetingList();
+			// refreshMeetingList();
+
+			refreshRehab();
 		}
 
 	}
@@ -770,30 +721,25 @@ public class RehabsFragment extends Fragment implements
 		@Override
 		public View getInfoWindow(Marker marker) {
 			View v = RehabsFragment.this.getActivity().getLayoutInflater()
-					.inflate(R.layout.map_meeting_info_window, null);
-			TextView txtName = (TextView) v.findViewById(R.id.txtName);
-			TextView txtLocationName = (TextView) v
-					.findViewById(R.id.txtLocationName);
-			TextView txtAddress = (TextView) v.findViewById(R.id.txtAddress);
-			TextView txtReviewCounts = (TextView) v
-					.findViewById(R.id.txtReviewCounts);
-			RatingBar rating = (RatingBar) v.findViewById(R.id.rating);
-			TextView txtTime = (TextView) v.findViewById(R.id.txtTime);
-			TextView txtDistance = (TextView) v.findViewById(R.id.txtDistance);
-			TextView txtStatus = (TextView) v.findViewById(R.id.txtStatus);
+					.inflate(R.layout.rehab_map_info, null);
+			TextView tvRehabName = (TextView) v.findViewById(R.id.tvRehabName);
+			TextView tvRehabLocation = (TextView) v
+					.findViewById(R.id.tvRehabLocation);
+			TextView tvDistance = (TextView) v.findViewById(R.id.tvDistance);
 
-			MeetingModel m = spots.get(marker);
+			TextView tvTime = (TextView) v.findViewById(R.id.tvTime);
 
-			txtName.setText(m.getName());
-			txtTime.setText(m.getOnTime());
-			txtReviewCounts.setText(String.valueOf(m.getReviewsCount())
-					+ " reviews");
-			txtLocationName.setText(m.getBuildingType());
-			txtAddress.setText(m.getAddress());
-			rating.setRating(m.getReviewsAvg());
-			txtStatus.setText(m.getStartInTime());
+			TextView tvStatus = (TextView) v.findViewById(R.id.tvStatus);
 
-			txtDistance.setText(UtilityClass.calculatDistance(m.getPosition()));
+			RehabModel m = spots.get(marker);
+
+			if (m == null) {
+				return v;
+			}
+
+			tvRehabName.setText(m.getName());
+			tvRehabLocation.setText(m.getAddress());
+			tvDistance.setText(String.valueOf(m.getDistance() + " miles"));
 
 			return v;
 		}
@@ -803,11 +749,5 @@ public class RehabsFragment extends Fragment implements
 			return null;
 		}
 	}
-	// String s= "Hello Everyone";
-	// SpannableString ss1= new SpannableString(s);
-	// ss1.setSpan(new RelativeSizeSpan(2f), 0,5, 0); // set size
-	// ss1.setSpan(new ForegroundColorSpan(Color.RED), 0, 5, 0);// set color
-	// TextView tv= (TextView) findViewById(R.id.textview);
-	// tv.setText(ss1);
 
 }

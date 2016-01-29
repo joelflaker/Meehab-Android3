@@ -36,7 +36,7 @@ public class PicassoCircularTransform implements Transformation {
 		paint.setStyle(Paint.Style.STROKE);
 		// paint.setColor(bordercolor);
 		// paint.setStrokeWidth(borderwidth);
-		canvas.drawCircle(width / 2, height / 2, radius / 2, paint);
+		//canvas.drawCircle(width / 2, height / 2, radius / 2, paint);
 		// --------------------------------------
 
 		if (canvasBitmap != source) {

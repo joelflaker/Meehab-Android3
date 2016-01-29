@@ -9,25 +9,37 @@
         android:orientation="vertical" >
 
         <RelativeLayout
+            android:id="@+id/rlProfileContainer"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/login_bg" >
+            android:layout_height="wrap_content" >
 
-            <RelativeLayout
-                android:id="@+id/relativeTop"
+            <ImageView
+                android:id="@+id/ivBlurBg"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingLeft="15dp" >
+                android:scaleType="fitXY"
+                android:src="@drawable/login_bg" />
 
-                <TextView
-                    android:id="@+id/topCenterText"
-                    android:layout_width="wrap_content"
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <RelativeLayout
+                    android:id="@+id/relativeTop"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:layout_centerVertical="true"
-                    android:text="UserName Profile"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textColor="@android:color/white" />
+                    android:paddingLeft="15dp" >
+
+                    <TextView
+                        android:id="@+id/topCenterText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_centerVertical="true"
+                        android:text="UserName Profile"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textColor="@android:color/white" />
+                </RelativeLayout>
             </RelativeLayout>
 
             <ImageView
@@ -196,12 +208,15 @@
                 <EditText
                     android:id="@+id/aaStoryEdit"
                     android:layout_width="match_parent"
-                    android:layout_height="35dp"
+                    android:layout_height="wrap_content"
                     android:background="@android:color/transparent"
-                    android:gravity="center_horizontal|center_vertical"
+                    android:gravity="center_horizontal|top"
                     android:hint="Tap here to start writing"
                     android:inputType="textMultiLine|textCapSentences"
+                    android:lines="3"
                     android:maxLength="250"
+                    android:paddingBottom="2dp"
+                    android:paddingTop="2dp"
                     android:singleLine="false"
                     android:textAlignment="textStart"
                     android:textColor="#888888"

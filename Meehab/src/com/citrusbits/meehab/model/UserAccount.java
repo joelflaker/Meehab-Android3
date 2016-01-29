@@ -15,6 +15,11 @@ public class UserAccount implements Serializable {
 	private String phone;
 	@Expose
 	private String weight;
+
+	@SerializedName("user_checkin")
+	@Expose
+	private Integer userCheckIn;
+
 	@SerializedName("intrested_in")
 	@Expose
 	private String intrestedIn;
@@ -87,13 +92,33 @@ public class UserAccount implements Serializable {
 	@Expose
 	private int favourite;
 
+	@SerializedName("rsvp_user")
+	@Expose
+	private int rsvpUser;
+
+	public int getRsvpUser() {
+		return rsvpUser;
+	}
+
+	public void setRsvpUser(int rsvpUser) {
+		this.rsvpUser = rsvpUser;
+	}
+
 	@SerializedName("block_user")
 	@Expose
 	private int blocked;
-	private boolean checkIn;
-	private boolean rsvp;
 
 	private int age;
+	
+	private boolean checked;
+
+	public boolean isChecked() {
+		return checked;
+	}
+
+	public void setChecked(boolean checked) {
+		this.checked = checked;
+	}
 
 	/**
 	 * 
@@ -570,22 +595,6 @@ public class UserAccount implements Serializable {
 		return this.blocked;
 	}
 
-	public void setCheckIn(boolean checkIn) {
-		this.checkIn = checkIn;
-	}
-
-	public boolean isCheckedIn() {
-		return this.checkIn;
-	}
-
-	public void setRsvp(boolean rsvp) {
-		this.rsvp = rsvp;
-	}
-
-	public boolean isRsvp() {
-		return this.rsvp;
-	}
-
 	public void setAge(int age) {
 
 		this.age = age;
@@ -605,4 +614,11 @@ public class UserAccount implements Serializable {
 		this.meetingHomeGroup = meetingHomeGroup;
 	}
 
+	public Integer getUserCheckIn() {
+		return userCheckIn;
+	}
+
+	public void setUserCheckIn(Integer userCheckIn) {
+		this.userCheckIn = userCheckIn;
+	}
 }

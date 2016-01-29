@@ -63,7 +63,7 @@
                     android:textColor="#888888" />
 
                 <CheckBox
-                    android:id="@+id/appearOnlineCheck"
+                    android:id="@+id/cbAppearOffline"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
@@ -172,7 +172,7 @@
                     android:textColor="#888888" />
 
                 <CheckBox
-                    android:id="@+id/notificationCheck"
+                    android:id="@+id/cbMessageNotification"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"

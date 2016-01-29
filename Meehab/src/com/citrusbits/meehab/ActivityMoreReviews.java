@@ -7,6 +7,7 @@ import com.citrusbits.meehab.images.PicassoCircularTransform;
 import com.citrusbits.meehab.model.MeetingReviewModel;
 import com.citrusbits.meehab.model.MyReview;
 import com.citrusbits.meehab.utils.DateTimeUtils;
+import com.citrusbits.meehab.utils.MeetingUtils;
 import com.squareup.picasso.Picasso;
 
 import android.app.Activity;
@@ -24,34 +25,41 @@ import android.widget.TextView;
 import android.widget.AbsListView.LayoutParams;
 
 public class ActivityMoreReviews extends Activity implements OnClickListener {
-	public static final String KEY_MORE_REVIEW="more_reviews";
+	public static final String KEY_MORE_REVIEW = "more_reviews";
 	ArrayList<MeetingReviewModel> meetingReviewModels;
+
+	private long timeZoneOffset;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
+		timeZoneOffset = MeetingUtils.getTimeZoneOffset();
 		setContentView(R.layout.activity_more_reviews);
 		findViewById(R.id.btnBack).setOnClickListener(this);
-		meetingReviewModels=(ArrayList<MeetingReviewModel>) getIntent().getSerializableExtra(KEY_MORE_REVIEW);
-		LinearLayout reviewsContainer=(LinearLayout) findViewById(R.id.reviewsContainer);
+		meetingReviewModels = (ArrayList<MeetingReviewModel>) getIntent()
+				.getSerializableExtra(KEY_MORE_REVIEW);
+		LinearLayout reviewsContainer = (LinearLayout) findViewById(R.id.reviewsContainer);
+		Collections.reverse(meetingReviewModels);
 		fillContainer(true, reviewsContainer, meetingReviewModels);
 	}
 
 	@Override
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
-		
+
 		onBackPressed();
 
 	}
-	
+
 	@Override
 	public void onBackPressed() {
 		// TODO Auto-generated method stub
 		super.onBackPressed();
-		overridePendingTransition(R.anim.activity_back_in, R.anim.activity_back_out);
+		overridePendingTransition(R.anim.activity_back_in,
+				R.anim.activity_back_out);
 	}
-	
+
 	public void fillContainer(boolean viewall, LinearLayout linear,
 			ArrayList<MeetingReviewModel> list) {
 
@@ -78,8 +86,9 @@ public class ActivityMoreReviews extends Activity implements OnClickListener {
 							MyReviewDetailActivity.class);
 					intent.putExtra(MyReview.EXTRA_REVIEW, rev);
 					startActivity(intent);
-					
-					overridePendingTransition(R.anim.activity_in, R.anim.activity_out);
+
+					overridePendingTransition(R.anim.activity_in,
+							R.anim.activity_out);
 				}
 			});
 			MeetingReviewModel m = list.get(i);
@@ -110,8 +119,8 @@ public class ActivityMoreReviews extends Activity implements OnClickListener {
 
 			tvMeetingName.setText(m.getUsername());
 
-			String datetimeAdded = DateTimeUtils.getDatetimeAdded(m
-					.getDatetimeAdded());
+			String datetimeAdded = DateTimeUtils.getDatetimeAdded(
+					m.getDatetimeAdded(), timeZoneOffset);
 
 			tvDateTime.setText(datetimeAdded);
 
@@ -122,9 +131,8 @@ public class ActivityMoreReviews extends Activity implements OnClickListener {
 			divider.setLayoutParams(new LinearLayout.LayoutParams(
 					LayoutParams.MATCH_PARENT, 5));
 			linear.addView(divider);
-			
+
 		}
 	}
-	
-	
+
 }

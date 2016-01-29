@@ -33,11 +33,16 @@ import android.widget.Toast;
 
 import com.citrusbits.meehab.ChatActivity;
 import com.citrusbits.meehab.HomeActivity;
+
 import com.citrusbits.meehab.R;
+import com.citrusbits.meehab.app.App;
 import com.citrusbits.meehab.constants.Consts;
 import com.citrusbits.meehab.constants.EventParams;
 import com.citrusbits.meehab.db.DatabaseHandler;
 import com.citrusbits.meehab.db.UserDatasource;
+import com.citrusbits.meehab.fragments.MessagesFragment;
+import com.citrusbits.meehab.fragments.OptionsFragment;
+import com.citrusbits.meehab.helpers.LogoutHelper;
 import com.citrusbits.meehab.model.FriendMessageModel;
 import com.citrusbits.meehab.model.UserAccount;
 import com.citrusbits.meehab.pojo.AddUserResponse;
@@ -59,12 +64,15 @@ public class SocketService extends Service {
 	public static final String ACTION_CLEAR_NOTIFICATION = "clear_notification";
 	public static final String ACTION_DISABLE_FOREGROUND = "disable_foreground";
 	private static final String ACTION_MERGE_PHONE_CONTACTS = "merge_phone_contacts";
+
+	public static final String ACTION_RECONNECT_NODE_JS_SERVER = "reconnect_node_js_server";
+
 	public static final String ACTION_TRY_AGAIN = "try_again";
 	public static final String ACTION_DISABLE_ACCOUNT = "disable_account";
 
 	public static final int SOCKET_BACKGROUND_NOTIFICATION_ID = 38;
 
-	private HashMap<String, Object> cacheResponses = new HashMap<>();
+	// private HashMap<String, Object> cacheResponses = new HashMap<>();
 
 	private final OnBindListener mOnBindListener = new OnBindListener() {
 
@@ -80,7 +88,7 @@ public class SocketService extends Service {
 	private final IBinder mBinder = new SocketServiceConnectionBinder();
 
 	private OnConversationUpdate mOnConversationUpdate = null;
-	
+
 	private OnAccountUpdate mOnAccountUpdate = null;
 	private OnStatusChanged statusListener = new OnStatusChanged() {
 
@@ -102,6 +110,8 @@ public class SocketService extends Service {
 
 	private AppPrefs prefs;
 
+	private IO.Options opts;
+
 	public boolean areMessagesInitialized() {
 		return this.mRestoredFromDatabase;
 	}
@@ -109,6 +119,7 @@ public class SocketService extends Service {
 	@Override
 	public int onStartCommand(Intent intent, int flags, int startId) {
 		Log.d(tag, "Service:onStartCommand");
+
 		final String action = intent == null ? null : intent.getAction();
 		Notification note = new Notification(0, null,
 				System.currentTimeMillis());
@@ -147,6 +158,13 @@ public class SocketService extends Service {
 				// String jid = intent.getStringExtra("account");
 				// updateAccount(account);
 				break;
+			case ACTION_RECONNECT_NODE_JS_SERVER:
+				// disconnectSocket();
+				if (mSocket == null || !mSocket.connected()) {
+					connectSocket();
+				}
+
+				break;
 			}
 		}
 		this.wakeLock.acquire();
@@ -169,15 +187,20 @@ public class SocketService extends Service {
 		NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
 		return activeNetwork != null && activeNetwork.isConnected();
 	}
-	
+
 	DatabaseHandler dbHandler;
+
+	private static SocketService mSocketServcie;
+
+	Handler mHandler;
 
 	@SuppressLint("TrulyRandom")
 	@Override
 	public void onCreate() {
-		dbHandler=DatabaseHandler.getInstance(SocketService.this);
+		dbHandler = DatabaseHandler.getInstance(SocketService.this);
+		mHandler = new Handler();
 		Log.d(tag, "Service:onCreate");
-		// App.alert("Service:onCreate");
+		this.mSocketServcie = this;
 		prefs = AppPrefs.getAppPrefs(SocketService.this);
 		this.userDatasource = new UserDatasource(this);
 		ui = new Handler(Looper.getMainLooper());
@@ -189,16 +212,17 @@ public class SocketService extends Service {
 				return bitmap.getByteCount() / 1024;
 			}
 		};
-		// connecting node server
-		connectSocket();
 
-		// getContentResolver().registerContentObserver(ContactsContract.Contacts.CONTENT_URI,
-		// true, contactObserver);
+		connectSocket();
 
 		this.pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
 		this.wakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK,
 				"MeehabConnectionService");
 		toggleForegroundService();
+	}
+
+	public static SocketService getInstance() {
+		return mSocketServcie;
 	}
 
 	/**
@@ -212,7 +236,7 @@ public class SocketService extends Service {
 					Consts.SERVER_ACCESS_TOKEN, null);
 			Log.d("App:connect", "accessToken: " + accessToken);
 
-			IO.Options opts = new IO.Options();
+			opts = new IO.Options();
 			opts.forceNew = true;
 			// opts.reconnection = false;
 			opts.query = "apiKey=@citrusbits&apiSecret=@citrusbits&accessToken=";
@@ -231,7 +255,13 @@ public class SocketService extends Service {
 			mSocket.on(EventParams.EVENT_USER_FORGOT_PASSWORD, onForgotPassword);
 			mSocket.on(EventParams.EVENT_USER_UPDATE, onUpdate);
 			mSocket.on(EventParams.EVENT_MEETING_GET_ALL, onMeeting);
+			
+			mSocket.on(EventParams.EVENT_GET_ALL_REHABS, onAllRehab);
+			
 			mSocket.on(EventParams.EVENT_ADD_USER_FAVOURITE, onAddUserFavourite);
+			mSocket.on(EventParams.EVENT_ADD_MEETING, onAddMeeting);
+			mSocket.on(EventParams.EVENT_ADD_REHAB, onAddRehab);
+			mSocket.on(EventParams.EVENT_ADD_INSURANCE, onAddInsurance);
 			mSocket.on(EventParams.EVENT_FAVOURITE_LIST, onFavList);
 			mSocket.on(EventParams.EVENT_MEETING_GET_REVIEWS, onMeetingReviews);
 			mSocket.on(EventParams.EVENT_MEETING_ADD_REVIEW, onAddReview);
@@ -244,13 +274,35 @@ public class SocketService extends Service {
 					onDeleteChatMessage);
 
 			mSocket.on(EventParams.METHOD_HOME_GROUP_USER, onHomeGroupUser);
+			mSocket.on(EventParams.METHOD_RSVP, onRsvp);
 
 			mSocket.on(EventParams.METHOD_GET_CHAT_FRIENDS, onGetChatFriends);
 
 			mSocket.on(EventParams.METHOD_DELETE_CONVERSATION,
 					onDeleteConversation);
 
+			mSocket.on(EventParams.METHOD_ACCESS_TOKEN, onAccessToken);
+
 			mSocket.on(EventParams.METHOD_REPORT_USER, onReportUser);
+
+			mSocket.on(EventParams.METHOD_BLOCK_USER_NOTIFY,
+					onBlockedUserNotify);
+
+			mSocket.on(EventParams.METHOD_SYNC_PHONE, onSyncUserNotify);
+
+			mSocket.on(EventParams.METHOD_DISCONNECT_SOCKET,
+					onDisconnectListener);
+
+			mSocket.on(EventParams.METHOD_CONNECT_SOCKET, onConnectListener);
+
+			mSocket.on(EventParams.METHOD_ERROR_SOCKET, onErrorListner);
+			mSocket.on(EventParams.METHOD_RE_CONNECT_SOCKET,
+					onReconnectListener);
+			mSocket.on(EventParams.METHOD_RECONNECT_ATTEMPT_SOCKET,
+					onReconnecAttempt);
+
+			mSocket.on(EventParams.METHOD_CHECK_IN_USER, onCheckInUser);
+
 			mSocket.on(EventParams.METHOD_BLOCK_USER, onBlockUser);
 			mSocket.on(EventParams.METHOD_FAVOURITE_USER, onFavouriteUser);
 
@@ -262,6 +314,10 @@ public class SocketService extends Service {
 			mSocket.on(EventParams.METHOD_CHECK_INFO, onCheckUserInfo);
 			mSocket.on(EventParams.METHOD_GET_ALL_FRIENDS, onGetAllFriends);
 
+			mSocket.on(EventParams.METHOD_RSVP_USERS, onGetAllRsvpFriends);
+
+			mSocket.on(EventParams.METHOD_CHECK_IN_MEETING, onCheckInMeeting);
+
 			mSocket.on(EventParams.METHOD_CHAT_PAGINATION, onChatPagination);
 
 			mSocket.connect();
@@ -270,6 +326,10 @@ public class SocketService extends Service {
 			Log.d("socket", e.getMessage());
 			throw new RuntimeException(e);
 		}
+	}
+
+	public boolean isConnected() {
+		return mSocket != null && mSocket.connected();
 	}
 
 	private Emitter.Listener onMeeting = new Emitter.Listener() {
@@ -281,13 +341,127 @@ public class SocketService extends Service {
 				JSONObject data = (JSONObject) args[0];
 
 				Log.d(tag, data.toString());
+
+				// toastOnUiThread("Message is "+data.getBoolean("type"));
+
 				if (data.getBoolean("type") == true) {
 					// userDatasource.update(response.getUser());
 					//
-					cacheResponses.put(EventParams.EVENT_MEETING_GET_ALL, data);
+					// cacheResponses.put(EventParams.EVENT_MEETING_GET_ALL,
+					// data);
 
 					onSocketResponseSuccess(EventParams.EVENT_MEETING_GET_ALL,
 							data);
+					// App.getInstance().connectNodeJS();
+				} else {
+					onSocketResponseFailure(data.getString("message"));
+				}
+			} catch (Exception e) {
+				onSocketResponseFailure(getString(R.string.server_response_error));
+			}
+		}
+	};
+	
+	
+	private Emitter.Listener onAllRehab = new Emitter.Listener() {
+		@Override
+		public void call(final Object... args) {
+			Gson gson = new Gson();
+			try {
+
+				JSONObject data = (JSONObject) args[0];
+
+				Log.d(tag, data.toString());
+
+				// toastOnUiThread("Message is "+data.getBoolean("type"));
+
+				if (data.getBoolean("type") == true) {
+					// userDatasource.update(response.getUser());
+					//
+					// cacheResponses.put(EventParams.EVENT_MEETING_GET_ALL,
+					// data);
+
+					onSocketResponseSuccess(EventParams.EVENT_GET_ALL_REHABS,
+							data);
+					// App.getInstance().connectNodeJS();
+				} else {
+					onSocketResponseFailure(data.getString("message"));
+				}
+			} catch (Exception e) {
+				onSocketResponseFailure(getString(R.string.server_response_error));
+			}
+		}
+	};
+	
+	
+	private Emitter.Listener onAddInsurance = new Emitter.Listener() {
+		@Override
+		public void call(final Object... args) {
+			Gson gson = new Gson();
+			try {
+
+				JSONObject data = (JSONObject) args[0];
+
+				Log.d(tag, data.toString());
+
+				if (data.getBoolean("type") == true) {
+					// userDatasource.update(response.getUser());
+					//
+					onSocketResponseSuccess(
+							EventParams.EVENT_ADD_INSURANCE, data);
+					// App.getInstance().connectNodeJS();
+				} else {
+					onSocketResponseFailure(data.getString("message"));
+				}
+			} catch (Exception e) {
+				onSocketResponseFailure(getString(R.string.server_response_error));
+			}
+		}
+	};
+	
+	
+	private Emitter.Listener onAddRehab = new Emitter.Listener() {
+		@Override
+		public void call(final Object... args) {
+			Gson gson = new Gson();
+			try {
+
+				JSONObject data = (JSONObject) args[0];
+
+				Log.d(tag, data.toString());
+
+				if (data.getBoolean("type") == true) {
+					// userDatasource.update(response.getUser());
+					//
+					onSocketResponseSuccess(
+							EventParams.EVENT_ADD_REHAB, data);
+					// App.getInstance().connectNodeJS();
+				} else {
+					onSocketResponseFailure(data.getString("message"));
+				}
+			} catch (Exception e) {
+				onSocketResponseFailure(getString(R.string.server_response_error));
+			}
+		}
+	};
+	
+	
+	
+	private Emitter.Listener onAddMeeting = new Emitter.Listener() {
+		@Override
+		public void call(final Object... args) {
+			Gson gson = new Gson();
+			try {
+
+				JSONObject data = (JSONObject) args[0];
+
+				Log.d(tag, data.toString());
+
+				if (data.getBoolean("type") == true) {
+					// userDatasource.update(response.getUser());
+					//
+					onSocketResponseSuccess(
+							EventParams.EVENT_ADD_MEETING, data);
 					// App.getInstance().connectNodeJS();
 				} else {
 					onSocketResponseFailure(data.getString("message"));
@@ -373,6 +547,144 @@ public class SocketService extends Service {
 		}
 	};
 
+	private Emitter.Listener onDisconnectListener = new Emitter.Listener() {
+		@Override
+		public void call(final Object... args) {
+			Log.e("Socket service ", "Socket is disconnected!");
+
+			updateAccessToken();
+		}
+	};
+
+	public void updateAccessToken() {
+		final String accessToken = getSharedPreferences(Consts.APP_PREFS_NAME,
+				Context.MODE_PRIVATE).getString(Consts.SERVER_ACCESS_TOKEN, "");
+		Log.d("App:connect", "accessToken: " + accessToken);
+
+		// opts.query = "apiKey=@citrusbits&apiSecret=@citrusbits&accessToken=";
+		String query = opts.query;
+		String[] andSplit = query.split("&");
+		String[] equalSplit = andSplit[2].split("=");
+		String prevAccessToken = equalSplit.length > 1 ? equalSplit[1] : "";
+		if (!prevAccessToken.equals(accessToken)) {
+			disconnectSocket();
+			connectSocket();
+		}
+
+	}
+
+	private Emitter.Listener onConnectListener = new Emitter.Listener() {
+		@Override
+		public void call(final Object... args) {
+			Log.e("Socket service ", "Socket is connected!");
+
+			updateAccessToken();
+		}
+	};
+
+	private Emitter.Listener onErrorListner = new Emitter.Listener() {
+		@Override
+		public void call(final Object... args) {
+			Log.e("Socket service ", "Socket erro is called!");
+			updateAccessToken();
+		}
+	};
+
+	private Emitter.Listener onReconnectListener = new Emitter.Listener() {
+		@Override
+		public void call(final Object... args) {
+			Log.e("Socket service ", "Socket Reconnect is called!");
+			updateAccessToken();
+		}
+	};
+
+	private Emitter.Listener onReconnecAttempt = new Emitter.Listener() {
+		@Override
+		public void call(final Object... args) {
+			Log.e("Socket service ", "Socket Reconnect Attempt is called!");
+		}
+	};
+
+	private Emitter.Listener onSyncUserNotify = new Emitter.Listener() {
+		@Override
+		public void call(final Object... args) {
+			/* Gson gson = new Gson(); */
+			try {
+
+				JSONObject data = (JSONObject) args[0];
+
+				Log.d(tag, data.toString());
+
+				if (data.getBoolean("type") == true) {
+					// userDatasource.update(response.getUser());
+					onSocketResponseSuccess(EventParams.METHOD_SYNC_PHONE, data);
+					Intent i = new Intent(
+							ContactSyncService.ACTION_CONTACT_SYNC);
+					i.putExtra(ContactSyncService.EXTRA_EVENT,
+							EventParams.METHOD_SYNC_PHONE);
+					i.putExtra(ContactSyncService.EXTRA_RESULT, data.toString());
+					SocketService.this.sendBroadcast(i);
+
+					// App.getInstance().connectNodeJS();
+				} else {
+					onSocketResponseFailure(data.getString("message"));
+				}
+			} catch (Exception e) {
+				onSocketResponseFailure(getString(R.string.server_response_error));
+			}
+		}
+	};
+
+	private Emitter.Listener onBlockedUserNotify = new Emitter.Listener() {
+		@Override
+		public void call(final Object... args) {
+			Gson gson = new Gson();
+			try {
+
+				JSONObject data = (JSONObject) args[0];
+
+				Log.d(tag, data.toString());
+
+				if (data.getBoolean("type") == true) {
+					// userDatasource.update(response.getUser());
+					onSocketResponseSuccess(
+							EventParams.METHOD_BLOCK_USER_NOTIFY, data);
+
+					// App.getInstance().connectNodeJS();
+				} else {
+					onSocketResponseFailure(data.getString("message"));
+				}
+			} catch (Exception e) {
+				onSocketResponseFailure(getString(R.string.server_response_error));
+			}
+		}
+	};
+
+	private Emitter.Listener onCheckInUser = new Emitter.Listener() {
+		@Override
+		public void call(final Object... args) {
+			Gson gson = new Gson();
+			try {
+
+				JSONObject data = (JSONObject) args[0];
+
+				Log.d(tag, data.toString());
+
+				if (data.getBoolean("type") == true) {
+					// userDatasource.update(response.getUser());
+					onSocketResponseSuccess(EventParams.METHOD_CHECK_IN_USER,
+							data);
+
+					// App.getInstance().connectNodeJS();
+				} else {
+					onSocketResponseFailure(data.getString("message"));
+				}
+			} catch (Exception e) {
+				onSocketResponseFailure(getString(R.string.server_response_error));
+			}
+		}
+	};
+
 	private Emitter.Listener onReportUser = new Emitter.Listener() {
 		@Override
 		public void call(final Object... args) {
@@ -440,6 +752,32 @@ public class SocketService extends Service {
 					// App.getInstance().connectNodeJS();
 				} else {
 					onSocketResponseFailure(data.getString("message"));
+				}
+			} catch (Exception e) {
+				onSocketResponseFailure(getString(R.string.server_response_error));
+			}
+		}
+	};
+
+	private Emitter.Listener onAccessToken = new Emitter.Listener() {
+		@Override
+		public void call(final Object... args) {
+			Gson gson = new Gson();
+			try {
+
+				JSONObject data = (JSONObject) args[0];
+
+				Log.d(tag, data.toString());
+
+				if (data.getBoolean("type") == false) {
+
+					LogoutHelper logoutHelper = new LogoutHelper(
+							SocketService.this);
+					logoutHelper.clearLoginCredentails();
+
+					SocketService.this.sendBroadcast(new Intent(
+							HomeActivity.ACTION_LOGOUT));
+
 				}
 			} catch (Exception e) {
 				onSocketResponseFailure(getString(R.string.server_response_error));
@@ -541,34 +879,49 @@ public class SocketService extends Service {
 
 					Log.d("Chat Activity Enable ", chatActivityEnable + "");
 
-					int senderId = getSenderId(data);
+					String[] senderIdName = getSenderIdAndName(data);
 					int userId = AccountUtils.getUserId(SocketService.this);
 					int chatFriendId = AccountUtils
 							.getChatFriendId(SocketService.this);
+					// String userName=
+					if (userId == -1) {
+						return;
+					}
+					int senderId = Integer.parseInt(senderIdName[0]);
+					String userName = senderIdName[1];
+					if ((chatActivityEnable && senderId == userId)
+							|| (chatActivityEnable && senderId == chatFriendId)) {
 
-					if ((chatActivityEnable
-							&&senderId == userId )|| (chatActivityEnable
-							&&senderId == chatFriendId)) {
-						
 						onSocketResponseSuccess(
 								EventParams.METHOD_CHAT_SEND_RECEIVE, data);
 					} else {
-						
-						
-						FriendMessageModel friendMessage=dbHandler.getFriend(senderId);
-					
-						if(friendMessage!=null){
-							String name=friendMessage.getName();
-							sendNotification(data,name);
-							int unreadMessageCount=friendMessage.getUnreadMessageCount()+1;
-							dbHandler.updateMessgeCount(senderId, unreadMessageCount);
-						}else{
-							
-							
-							sendNotification(data,"Unknown");
+
+						FriendMessageModel friendMessage = dbHandler
+								.getFriend(senderId);
+
+						if (friendMessage != null) {
+							String name = friendMessage.getName();
+							sendNotification(data, userName);
+							int unreadMessageCount = friendMessage
+									.getUnreadMessageCount() + 1;
+							dbHandler.updateMessgeCount(senderId,
+									unreadMessageCount);
+						} else {
+
+							sendNotification(data, userName);
 						}
-						
-						SocketService.this.sendBroadcast(new Intent(HomeActivity.ACTION_MESSAGE_COUNT_UPDATE));
+
+						SocketService.this.sendBroadcast(new Intent(
+								HomeActivity.ACTION_MESSAGE_COUNT_UPDATE));
+						boolean conversationOpen = prefs.getBooleanPrefs(
+								AppPrefs.KEY_CONVERSATION_FRAG_OPEN,
+								AppPrefs.DEFAULT.CONVERSATION_FRAG_OPEN);
+						if (conversationOpen) {
+							SocketService.this
+									.sendBroadcast(new Intent(
+											MessagesFragment.ACTION_REFRESH_CONVERSATION));
+						}
+
 					}
 
 					// App.getInstance().connectNodeJS();
@@ -581,21 +934,23 @@ public class SocketService extends Service {
 		}
 	};
 
-	public int getSenderId(JSONObject data) {
-		int fromSend = -1;
+	public String[] getSenderIdAndName(JSONObject data) {
+		String fromSend = "-1";
 		JSONObject sendReceiveObject;
+		String name = "";
 		try {
 			sendReceiveObject = data.getJSONObject("sendReciveMessages");
-			fromSend = sendReceiveObject.getInt("fromID");
+			fromSend = sendReceiveObject.getString("fromID");
+			name = sendReceiveObject.getString("from_username");
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return fromSend;
+		return new String[] { fromSend, name };
 
 	}
 
-	public void sendNotification(JSONObject data,String name) {
+	public void sendNotification(JSONObject data, String name) {
 
 		JSONObject sendReceiveObject;
 		Log.e("Notification block is called!", "Yes");
@@ -606,6 +961,7 @@ public class SocketService extends Service {
 			String timeStamp = sendReceiveObject.getString("datetime_added");
 			int fromSend = sendReceiveObject.getInt("fromID");
 			int toSend = sendReceiveObject.getInt("toID");
+			String fromName = sendReceiveObject.getString("from_username");
 
 			// if (AccountUtils.getUserId(SocketService.this) == fromSend) {
 			// return;
@@ -619,11 +975,17 @@ public class SocketService extends Service {
 			Notification notify = new Notification(
 					R.drawable.ic_chat_notification_icon, tittle,
 					System.currentTimeMillis());
+			Intent notificationIntent = new Intent(SocketService.this,
+					ChatActivity.class);
+			notificationIntent.putExtra(ChatActivity.KEY_FRIEND_ID, fromSend);
+			notificationIntent.putExtra(ChatActivity.KEY_FRIEND_NAME, fromName);
 			PendingIntent pending = PendingIntent.getActivity(
-					getApplicationContext(), 0, new Intent(), 0);
+					getApplicationContext(), 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+			
 
 			notify.setLatestEventInfo(getApplicationContext(), subject, body,
 					pending);
+			notify.flags |= Notification.FLAG_AUTO_CANCEL;
 			notif.notify(fromSend, notify);
 
 		} catch (JSONException e) {
@@ -673,6 +1035,31 @@ public class SocketService extends Service {
 					//
 					onSocketResponseSuccess(EventParams.METHOD_REPORT_MEETING,
 							data);
+
+					// App.getInstance().connectNodeJS();
+				} else {
+					onSocketResponseFailure(data.getString("message"));
+				}
+			} catch (Exception e) {
+				onSocketResponseFailure(getString(R.string.server_response_error));
+			}
+		}
+	};
+
+	private Emitter.Listener onRsvp = new Emitter.Listener() {
+		@Override
+		public void call(final Object... args) {
+			Gson gson = new Gson();
+			try {
+
+				final JSONObject data = (JSONObject) args[0];
+
+				Log.d(tag, data.toString());
+
+				if (data.getBoolean("type") == true) {
+					// userDatasource.update(response.getUser());
+					//
+					onSocketResponseSuccess(EventParams.METHOD_RSVP, data);
 
 					// App.getInstance().connectNodeJS();
 				} else {
@@ -758,6 +1145,55 @@ public class SocketService extends Service {
 		}
 	};
 
+	private Emitter.Listener onCheckInMeeting = new Emitter.Listener() {
+		@Override
+		public void call(final Object... args) {
+
+			try {
+
+				JSONObject data = (JSONObject) args[0];
+
+				Log.d(tag, data.toString());
+
+				if (data.getBoolean("type") == true) {
+					// userDatasource.update(response.getUser());
+					//
+					onSocketResponseSuccess(
+							EventParams.METHOD_CHECK_IN_MEETING, data);
+					// App.getInstance().connectNodeJS();
+				} else {
+					onSocketResponseFailure(data.getString("message"));
+				}
+			} catch (Exception e) {
+				// onSocketResponseFailure(getString(R.string.server_response_error));
+			}
+		}
+	};
+
+	private Emitter.Listener onGetAllRsvpFriends = new Emitter.Listener() {
+		@Override
+		public void call(final Object... args) {
+			Gson gson = new Gson();
+			try {
+
+				JSONObject data = (JSONObject) args[0];
+
+				Log.d(tag, data.toString());
+
+				if (data.getBoolean("type") == true) {
+					// userDatasource.update(response.getUser());
+					//
+					onSocketResponseSuccess(EventParams.METHOD_RSVP_USERS, data);
+					// App.getInstance().connectNodeJS();
+				} else {
+					onSocketResponseFailure(data.getString("message"));
+				}
+			} catch (Exception e) {
+				onSocketResponseFailure(getString(R.string.server_response_error));
+			}
+		}
+	};
+
 	private Emitter.Listener onGetAllFriends = new Emitter.Listener() {
 		@Override
 		public void call(final Object... args) {
@@ -805,7 +1241,8 @@ public class SocketService extends Service {
 									response.getAccessToken().getAccessToken())
 							.commit();
 					onSocketResponseSuccess(EventParams.EVENT_USER_SIGNUP, "");
-					connectSocket();
+					// disconnectSocket();
+					// connectSocket();
 
 					// App.getInstance().connectNodeJS();
 				} else {
@@ -832,8 +1269,6 @@ public class SocketService extends Service {
 
 				if (response.getType()) {
 
-					// userDatasource.add(response.getUser());
-
 					getPreferences()
 							.edit()
 							.putString(Consts.SERVER_ACCESS_TOKEN,
@@ -850,10 +1285,8 @@ public class SocketService extends Service {
 					AccountUtils.saveUserId(SocketService.this, response
 							.getUser().getId());
 
-					onSocketResponseSuccess("", "");
-					connectSocket();
+					onSocketResponseSuccess(EventParams.METHOD_USER_LOGIN, "");
 
-					// App.getInstance().connectNodeJS();
 				} else {
 					onSocketResponseFailure(response.getMessage());
 				}
@@ -883,7 +1316,8 @@ public class SocketService extends Service {
 									response.getAccessToken().getAccessToken())
 							.commit();
 					onSocketResponseSuccess("", "");
-					connectSocket();
+					// disconnectSocket();
+					// connectSocket();
 
 					// App.getInstance().connectNodeJS();
 				} else {
@@ -1100,16 +1534,13 @@ public class SocketService extends Service {
 	public boolean emit(final String event, JSONObject params, Listener listener) {
 
 		// cache
-		if (cacheResponses.get(event) != null) {
-			ui.postAtTime(new Runnable() {
-
-				@Override
-				public void run() {
-					onSocketResponseSuccess(event, cacheResponses.get(event));
-				}
-			}, 50);
-			return false;
-		}
+		/*
+		 * if (cacheResponses.get(event) != null) { ui.postAtTime(new Runnable()
+		 * {
+		 * 
+		 * @Override public void run() { onSocketResponseSuccess(event,
+		 * cacheResponses.get(event)); } }, 50); return false; }
+		 */
 
 		mSocket.emit(event, params, listener);
 		if (event.equals(EventParams.EVENT_USER_LOGOUT)) {
@@ -1150,8 +1581,12 @@ public class SocketService extends Service {
 	/**
 	 * get Meeting list
 	 */
-	public boolean updateMeetings(final JSONObject params) {
+	public boolean getMeeting(final JSONObject params) {
 		return emit(EventParams.EVENT_MEETING_GET_ALL, params, onMeeting);
+	}
+	
+	public boolean getAllRehab(final JSONObject params) {
+		return emit(EventParams.EVENT_GET_ALL_REHABS, params, onAllRehab);
 	}
 
 	public boolean favMeetingsList(final JSONObject params) {
@@ -1161,6 +1596,22 @@ public class SocketService extends Service {
 	public boolean addUserFavourite(final JSONObject params) {
 		return emit(EventParams.EVENT_ADD_USER_FAVOURITE, params,
 				onAddUserFavourite);
+	}
+	
+	
+	public boolean addMeeting(final JSONObject params) {
+		return emit(EventParams.EVENT_ADD_MEETING, params,
+				onAddMeeting);
+	}
+
+	public boolean addRehab(final JSONObject params) {
+		return emit(EventParams.EVENT_ADD_REHAB, params,
+				onAddRehab);
+	}
+	
+	public boolean addInsurance(final JSONObject params) {
+		return emit(EventParams.EVENT_ADD_INSURANCE, params,
+				onAddInsurance);
 	}
 
 	public boolean getUserReviews(final JSONObject params) {
@@ -1186,6 +1637,10 @@ public class SocketService extends Service {
 		return emit(EventParams.METHOD_HOME_GROUP_USER, params, onHomeGroupUser);
 	}
 
+	public boolean rsvpMeeting(final JSONObject params) {
+		return emit(EventParams.METHOD_RSVP, params, onRsvp);
+	}
+
 	public boolean deleteConversation(final JSONObject params) {
 		return emit(EventParams.METHOD_DELETE_CONVERSATION, params,
 				onDeleteConversation);
@@ -1197,6 +1652,10 @@ public class SocketService extends Service {
 
 	public boolean blockUser(final JSONObject params) {
 		return emit(EventParams.METHOD_BLOCK_USER, params, onBlockUser);
+	}
+
+	public boolean syncPhone(final JSONObject params) {
+		return emit(EventParams.METHOD_SYNC_PHONE, params, onSyncUserNotify);
 	}
 
 	public boolean reportUser(final JSONObject params) {
@@ -1226,6 +1685,15 @@ public class SocketService extends Service {
 		return emit(EventParams.METHOD_GET_ALL_FRIENDS, params, onGetAllFriends);
 	}
 
+	public boolean getAllRSVPUsers(final JSONObject params) {
+		return emit(EventParams.METHOD_RSVP_USERS, params, onGetAllRsvpFriends);
+	}
+
+	public boolean checkInMeeting(final JSONObject params) {
+		return emit(EventParams.METHOD_CHECK_IN_MEETING, params,
+				onCheckInMeeting);
+	}
+
 	/**
 	 * @param id
 	 */
@@ -1244,189 +1712,6 @@ public class SocketService extends Service {
 			// mMessageGenerator.generateChatState(conversation);
 			// sendMessagePacket(conversation.getAccount(), packet);
 		}
-	}
-
-	public void sendMessage(final Message message) {
-		// final UserAccount account = message.getConversation().getAccount();
-		// account.deactivateGracePeriod();
-		// final Conversation conv = message.getConversation();
-		// MessagePacket packet = null;
-		// boolean saveInDb = true;
-		// boolean send = false;
-		// if (account.getStatus() == UserAccount.State.ONLINE
-		// && account.getXmppConnection() != null) {
-		// if (message.getType() == Message.TYPE_IMAGE || message.getType() ==
-		// Message.TYPE_FILE) {
-		// if (message.getCounterpart() != null) {
-		// if (message.getEncryption() == Message.ENCRYPTION_OTR) {
-		// if (!conv.hasValidOtrSession()) {
-		// conv.startOtrSession(message.getCounterpart().getResourcepart(),true);
-		// message.setStatus(Message.STATUS_WAITING);
-		// } else if (conv.hasValidOtrSession()
-		// && conv.getOtrSession().getSessionStatus() ==
-		// SessionStatus.ENCRYPTED) {
-		// mJingleConnectionManager
-		// .createNewConnection(message);
-		// }
-		// } else {
-		// mJingleConnectionManager.createNewConnection(message);
-		// }
-		// } else {
-		// if (message.getEncryption() == Message.ENCRYPTION_OTR) {
-		// conv.startOtrIfNeeded();
-		// }
-		// message.setStatus(Message.STATUS_WAITING);
-		// }
-		// } else {
-		// if (message.getEncryption() == Message.ENCRYPTION_OTR) {
-		// if (!conv.hasValidOtrSession() && (message.getCounterpart() != null))
-		// {
-		// conv.startOtrSession(message.getCounterpart().getResourcepart(),
-		// true);
-		// message.setStatus(Message.STATUS_WAITING);
-		// } else if (conv.hasValidOtrSession()) {
-		// if (conv.getOtrSession().getSessionStatus() ==
-		// SessionStatus.ENCRYPTED) {
-		// packet = mMessageGenerator.generateOtrChat(message);
-		// send = true;
-		// } else {
-		// message.setStatus(Message.STATUS_WAITING);
-		// conv.startOtrIfNeeded();
-		// }
-		// } else {
-		// message.setStatus(Message.STATUS_WAITING);
-		// }
-		// } else if (message.getEncryption() == Message.ENCRYPTION_DECRYPTED) {
-		// message.getConversation().endOtrIfNeeded();
-		// message.getConversation().findUnsentMessagesWithOtrEncryption(new
-		// Conversation.OnMessageFound() {
-		// @Override
-		// public void onMessageFound(Message message) {
-		// markMessage(message,Message.STATUS_SEND_FAILED);
-		// }
-		// });
-		// packet = mMessageGenerator.generatePgpChat(message);
-		// send = true;
-		// } else {
-		// message.getConversation().endOtrIfNeeded();
-		// message.getConversation().findUnsentMessagesWithOtrEncryption(new
-		// Conversation.OnMessageFound() {
-		// @Override
-		// public void onMessageFound(Message message) {
-		// markMessage(message,Message.STATUS_SEND_FAILED);
-		// }
-		// });
-		// packet = mMessageGenerator.generateChat(message);
-		// send = true;
-		// }
-		// }
-		// if (!account.getXmppConnection().getFeatures().sm()
-		// && conv.getMode() != Conversation.MODE_MULTI) {
-		// message.setStatus(Message.STATUS_SEND);
-		// }
-		// } else {
-		// message.setStatus(Message.STATUS_WAITING);
-		// if (message.getType() == Message.TYPE_TEXT) {
-		// if (message.getEncryption() == Message.ENCRYPTION_DECRYPTED) {
-		// String pgpBody = message.getEncryptedBody();
-		// String decryptedBody = message.getBody();
-		// message.setBody(pgpBody);
-		// message.setEncryption(Message.ENCRYPTION_PGP);
-		// databaseBackend.createMessage(message);
-		// saveInDb = false;
-		// message.setBody(decryptedBody);
-		// message.setEncryption(Message.ENCRYPTION_DECRYPTED);
-		// } else if (message.getEncryption() == Message.ENCRYPTION_OTR) {
-		// if (!conv.hasValidOtrSession()
-		// && message.getCounterpart() != null) {
-		// conv.startOtrSession(message.getCounterpart().getResourcepart(),
-		// false);
-		// }
-		// }
-		// }
-		//
-		// }
-		// conv.add(message);
-		// if (saveInDb) {
-		// if (message.getEncryption() == Message.ENCRYPTION_NONE
-		// || saveEncryptedMessages()) {
-		// databaseBackend.createMessage(message);
-		// }
-		// }
-		// if ((send) && (packet != null)) {
-		// if (conv.setOutgoingChatState(Config.DEFAULT_CHATSTATE)) {
-		// if (this.sendChatStates()) {
-		// packet.addChild(ChatState.toElement(conv.getOutgoingChatState()));
-		// }
-		// }
-		// sendMessagePacket(account, packet);
-		// }
-		updateConversationUi();
-	}
-
-	private void sendUnsentMessages(final Conversation conversation) {
-		// conversation.findWaitingMessages(new Conversation.OnMessageFound() {
-		//
-		// @Override
-		// public void onMessageFound(Message message) {
-		// resendMessage(message);
-		// }
-		// });
-	}
-
-	private void resendMessage(final Message message) {
-
-		// prepair and send
-
-	}
-
-	public void onPhoneContactsLoaded(final List<Bundle> phoneContacts) {
-		if (mPhoneContactMergerThread != null) {
-			mPhoneContactMergerThread.interrupt();
-		}
-		mPhoneContactMergerThread = new Thread(new Runnable() {
-			@Override
-			public void run() {
-				Log.d(tag, "start merging phone contacts with roster");
-				// for (UserAccount account : accounts) {
-				// List<Contact> withSystemAccounts =
-				// account.getRoster().getWithSystemAccounts();
-				// for (Bundle phoneContact : phoneContacts) {
-				// if (Thread.interrupted()) {
-				// Log.d(Config.LOGTAG,"interrupted merging phone contacts");
-				// return;
-				// }
-				// Jid jid;
-				// try {
-				// jid = Jid.fromString(phoneContact.getString("jid"));
-				// } catch (final InvalidJidException e) {
-				// continue;
-				// }
-				// final Contact contact = account.getRoster().getContact(jid);
-				// String systemAccount = phoneContact.getInt("phoneid")
-				// + "#"
-				// + phoneContact.getString("lookup");
-				// contact.setSystemAccount(systemAccount);
-				// if (contact.setPhotoUri(phoneContact.getString("photouri")))
-				// {
-				// getAvatarService().clear(contact);
-				// }
-				// contact.setSystemName(phoneContact.getString("displayname"));
-				// withSystemAccounts.remove(contact);
-				// }
-				// for(Contact contact : withSystemAccounts) {
-				// contact.setSystemAccount(null);
-				// contact.setSystemName(null);
-				// if (contact.setPhotoUri(null)) {
-				// getAvatarService().clear(contact);
-				// }
-				// }
-				// }
-				// Log.d(Config.LOGTAG,"finished merging phone contacts");
-				updateAccountUi();
-			}
-		});
-		mPhoneContactMergerThread.start();
 	}
 
 	public List<Conversation> getConversations() {
@@ -1499,15 +1784,6 @@ public class SocketService extends Service {
 	@Override
 	public IBinder onBind(Intent intent) {
 		return mBinder;
-	}
-
-	public void updateMessage(Message message) {
-		// databaseBackend.updateMessage(message);
-		updateConversationUi();
-	}
-
-	public void deleteContactOnServer(Contact contact) {
-
 	}
 
 	public void updateConversation(Conversation conversation) {
@@ -1600,42 +1876,6 @@ public class SocketService extends Service {
 	// return this.mHttpConnectionManager;
 	// }
 
-	public void resendFailedMessages(final Message message) {
-		// final Collection<Message> messages = new ArrayList<>();
-		// Message current = message;
-		// while (current.getStatus() == Message.STATUS_SEND_FAILED) {
-		// messages.add(current);
-		// if (current.mergeable(current.next())) {
-		// current = current.next();
-		// } else {
-		// break;
-		// }
-		// }
-		// for (final Message msg : messages) {
-		// markMessage(msg, Message.STATUS_WAITING);
-		// this.resendMessage(msg);
-		// }
-	}
-
-	public void clearConversationHistory(final Conversation conversation) {
-		// conversation.clearMessages();
-		// conversation.setHasMessagesLeftOnServer(false); //avoid messages
-		// getting loaded through mam
-		// new Thread(new Runnable() {
-		// @Override
-		// public void run() {
-		// databaseBackend.deleteMessagesInConversation(conversation);
-		// }
-		// }).start();
-	}
-
-	public void sendBlockRequest(final int blockable) {
-	}
-
-	public void sendUnblockRequest(final int blockable) {
-
-	}
-
 	public interface OnMoreMessagesLoaded {
 		public void onMoreMessagesLoaded(int count, Conversation conversation);
 
@@ -1644,12 +1884,6 @@ public class SocketService extends Service {
 
 	// tmpcode
 	public class Conversation {
-	}
-
-	public class Message {
-	}
-
-	public class Contact {
 	}
 
 	public interface OnConversationUpdate {
@@ -1704,22 +1938,40 @@ public class SocketService extends Service {
 		super.onDestroy();
 		Log.d(tag, "Service:onDestroy");
 		// App.alert("Service:onDestroy");
-		mSocket.disconnect();
-		// mSocket.off(Socket.EVENT_CONNECT_ERROR, onConnectError);
-		// mSocket.off(Socket.EVENT_CONNECT_TIMEOUT, onConnectError);
-		// mSocket.off(EventParams.EVENT_USER_SIGNUP, onRegister);
-		// mSocket.off(EventParams.EVENT_USER_FACEBOOK, onFacebookLogin);
-		// mSocket.off(EventParams.METHOD_USER_LOGIN, onLogin);
-		// mSocket.off(EventParams.EVENT_USER_FORGOT_PASSWORD,
-		// onForgotPassword);
-		// mSocket.off(EventParams.EVENT_USER_UPDATE, onUpdate);
-		// mSocket.off(EventParams.EVENT_MEETING_GET_ALL, onMeeting);
-		mSocket.off();
+
+		// disconnectSocket();
 		stopForeground(true);
 	}
 
-	public void onRemoveChat(JSONObject object) {
+	public void disconnectSocket() {
+		try {
+			mSocket.disconnect();
+			// mSocket.off(Socket.EVENT_CONNECT_ERROR, onConnectError);
+			// mSocket.off(Socket.EVENT_CONNECT_TIMEOUT, onConnectError);
+			// mSocket.off(EventParams.EVENT_USER_SIGNUP, onRegister);
+			// mSocket.off(EventParams.EVENT_USER_FACEBOOK, onFacebookLogin);
+			// mSocket.off(EventParams.METHOD_USER_LOGIN, onLogin);
+			// mSocket.off(EventParams.EVENT_USER_FORGOT_PASSWORD,
+			// onForgotPassword);
+			// mSocket.off(EventParams.EVENT_USER_UPDATE, onUpdate);
+			// mSocket.off(EventParams.EVENT_MEETING_GET_ALL, onMeeting);
+			mSocket.off();
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
 
+	}
+
+	public void toastOnUiThread(final String message) {
+		mHandler.post(new Runnable() {
+
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				Toast.makeText(SocketService.this, message, Toast.LENGTH_SHORT)
+						.show();
+			}
+		});
 	}
 
 }

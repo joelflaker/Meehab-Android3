@@ -129,7 +129,7 @@
             android:paddingLeft="10dp"
             android:id="@+id/tvNumBlockedFriendsList"
             android:paddingTop="20dp"
-            android:text="7 BLOCKED FRIENDS LIST"
+            android:text="BLOCKED FRIENDS"
             />
 
         <android.support.v4.view.ViewPager

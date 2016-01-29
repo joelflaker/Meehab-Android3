@@ -8,20 +8,27 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.citrusbits.meehab.app.App;
 import com.citrusbits.meehab.constants.EventParams;
 import com.citrusbits.meehab.dialog.DeleteReviewConfirmDialog;
 import com.citrusbits.meehab.dialog.DeleteReviewConfirmDialog.DeleteReviewConfirmDialogClickListener;
+import com.citrusbits.meehab.images.PicassoCircularTransform;
 import com.citrusbits.meehab.model.MeetingReviewModel;
 import com.citrusbits.meehab.model.MyReview;
 import com.citrusbits.meehab.services.OnBackendConnectListener;
 import com.citrusbits.meehab.services.OnSocketResponseListener;
 import com.citrusbits.meehab.utils.AccountUtils;
 import com.citrusbits.meehab.utils.DateTimeUtils;
+import com.citrusbits.meehab.utils.MeetingUtils;
+import com.citrusbits.meehab.utils.NetworkUtils;
 import com.citrusbits.meehab.utils.UtilityClass;
+import com.squareup.picasso.Picasso;
 
 public class MyReviewDetailActivity extends SocketActivity implements
 		OnSocketResponseListener, OnBackendConnectListener {
@@ -34,10 +41,13 @@ public class MyReviewDetailActivity extends SocketActivity implements
 	Object object;
 	MeetingReviewModel reviewModel;
 	MyReview myReview;
+	
+	long timeZoneOffset;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		timeZoneOffset=MeetingUtils.getTimeZoneOffset();
 		pd = UtilityClass.getProgressDialog(MyReviewDetailActivity.this);
 		setContentView(R.layout.activity_my_review_detail);
 		object = (Object) getIntent().getSerializableExtra(
@@ -50,7 +60,9 @@ public class MyReviewDetailActivity extends SocketActivity implements
 				.findViewById(R.id.tvMeetingName);
 		TextView tvDateTime = (TextView) this.findViewById(R.id.tvDateTime);
 		TextView tvComment = (TextView) this.findViewById(R.id.tvComment);
-
+		ImageView ivUserIcon=(ImageView) findViewById(R.id.ivUserIcon);
+		ImageButton topRightBtn = (ImageButton) findViewById(R.id.topRightBtn);
+		String userId = AccountUtils.getUserId(this) + "";
 		if (object instanceof MyReview) {
 			myReview = (MyReview) object;
 			tvReviewTitle.setText(myReview.getReviewTitle());
@@ -59,9 +71,17 @@ public class MyReviewDetailActivity extends SocketActivity implements
 
 			tvMeetingName.setText(myReview.getMeetingName());
 			tvDateTime.setText(DateTimeUtils.getDatetimeAdded(myReview
-					.getDateTimeAdded()));
-
+					.getDateTimeAdded(),timeZoneOffset));
 			tvComment.setText(myReview.getComment());
+			String commentUserId = myReview.getUserId() + "";
+			topRightBtn
+					.setVisibility(userId.equals(commentUserId) ? View.VISIBLE
+							: View.GONE);
+			
+			ivUserIcon.setVisibility(View.GONE);
+			
+			
+
 		} else if (object instanceof MeetingReviewModel) {
 			reviewModel = (MeetingReviewModel) object;
 			tvReviewTitle.setText(reviewModel.getTitle());
@@ -70,18 +90,28 @@ public class MyReviewDetailActivity extends SocketActivity implements
 
 			tvMeetingName.setText(reviewModel.getUsername());
 			tvDateTime.setText(DateTimeUtils.getDatetimeAdded(reviewModel
-					.getDatetimeAdded()));
+					.getDatetimeAdded(),timeZoneOffset));
 
 			tvComment.setText(reviewModel.getComments());
 			String commentUserId = reviewModel.getUserId() + "";
-			String userId = AccountUtils.getUserId(this) + "";
+			
+			String userImage = getString(R.string.url) + reviewModel.getImage();
 
-			Button topRightBtn = (Button) findViewById(R.id.topRightBtn);
+			Log.e("User image is ", userImage);
+
+			Picasso.with(MyReviewDetailActivity.this).load(userImage)
+					.placeholder(R.drawable.profile_pic).resize(80, 80)
+					.error(R.drawable.profile_pic)
+					.transform(new PicassoCircularTransform()).into(ivUserIcon);
 
 			topRightBtn
 					.setVisibility(userId.equals(commentUserId) ? View.VISIBLE
 							: View.GONE);
+
 		}
+		
+		
+		
 
 		// top back button
 		findViewById(R.id.topMenuBtn).setOnClickListener(
@@ -148,18 +178,30 @@ public class MyReviewDetailActivity extends SocketActivity implements
 	}
 
 	public void deleteUserReview(String reviewId) {
+		if (!NetworkUtils.isNetworkAvailable(this)) {
+			App.alert(getString(R.string.no_internet_connection));
+			return;
+		}
 		if (socketService != null) {
-			pd.show();
+			if (!NetworkUtils.isNetworkAvailable(this)) {
+				App.alert(getString(R.string.no_internet_connection));
+				return;
+			}
+
+			
 			JSONObject object = new JSONObject();
 
 			try {
 				object.put("user_id", AccountUtils.getUserId(this));
 				object.put("review_id", reviewId);
 				socketService.deleteUserReviews(object);
+				pd.show();
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+			
+			
 
 		}
 	}
@@ -200,12 +242,13 @@ public class MyReviewDetailActivity extends SocketActivity implements
 		// TODO Auto-generated method stub
 
 	}
-	
+
 	@Override
 	public void onBackPressed() {
 		// TODO Auto-generated method stub
 		super.onBackPressed();
-		overridePendingTransition(R.anim.activity_back_in, R.anim.activity_back_out);
+		overridePendingTransition(R.anim.activity_back_in,
+				R.anim.activity_back_out);
 	}
 
 }

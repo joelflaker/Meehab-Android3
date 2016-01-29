@@ -1,18 +1,26 @@
 package com.citrusbits.meehab;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.citrusbits.meehab.app.App;
+import com.citrusbits.meehab.app.GCMManager;
 import com.citrusbits.meehab.constants.Consts;
 import com.citrusbits.meehab.constants.EventParams;
+import com.citrusbits.meehab.contacts.PhoneContacts;
+import com.citrusbits.meehab.db.DatabaseHandler;
 import com.citrusbits.meehab.db.UserDatasource;
 import com.citrusbits.meehab.pojo.AddUserResponse;
 import com.citrusbits.meehab.prefrences.AppPrefs;
+import com.citrusbits.meehab.services.DeviceContact;
 import com.citrusbits.meehab.services.OnSocketResponseListener;
+import com.citrusbits.meehab.services.SocketService;
 import com.citrusbits.meehab.utils.DeviceUtils;
 import com.citrusbits.meehab.utils.NetworkUtil;
 import com.github.nkzawa.emitter.Emitter;
@@ -46,11 +54,25 @@ public class LoginActivity extends SocketActivity implements
 
 	AppPrefs prefs;
 
+	PhoneContacts phoneContacts;
+	List<DeviceContact> contacts = new ArrayList<DeviceContact>();
+	DatabaseHandler dbHandler;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_login);
+		if (GCMManager.getCMId(this).isEmpty()) {
+			GCMManager gcmManager = new GCMManager(this);
+			gcmManager.getRegId();
+		}
 		prefs = AppPrefs.getAppPrefs(LoginActivity.this);
+		dbHandler = DatabaseHandler.getInstance(LoginActivity.this);
+
+		phoneContacts = new PhoneContacts(LoginActivity.this);
+
+		contacts.clear();
+		contacts.addAll(phoneContacts.getPhoneContacts());
 
 		// top back btn
 		findViewById(R.id.ivBack).setOnClickListener(this);
@@ -73,6 +95,26 @@ public class LoginActivity extends SocketActivity implements
 		if (resultCode == RESULT_OK) {
 			finish();
 		}
+	}
+
+	private JSONArray getPhoneBookArray() {
+
+		JSONArray phoneBook = new JSONArray();
+		for (DeviceContact contac : contacts) {
+			JSONObject phone = new JSONObject();
+			try {
+
+				phone.put("phone", contac.getPhoneNumber());
+				phone.put("name", contac.getContactName());
+
+				phoneBook.put(phone);
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return phoneBook;
+
 	}
 
 	@Override
@@ -117,7 +159,13 @@ public class LoginActivity extends SocketActivity implements
 				// Toast.LENGTH_SHORT).show();
 				params.put(EventParams.SIGNUP_USERNAME, strUsername);
 				params.put(EventParams.SIGNUP_PASSWORD, strPassword);
-				params.put("device_id", DeviceUtils.getDeviceId(LoginActivity.this));
+				params.put("device_id",
+						DeviceUtils.getDeviceId(LoginActivity.this));
+				
+				params.put("phonebook", getPhoneBookArray());
+
+				params.put("device_token",
+						GCMManager.getCMId(LoginActivity.this));
 
 				pd.show();
 				socketService.login(params);
@@ -144,20 +192,34 @@ public class LoginActivity extends SocketActivity implements
 	@Override
 	public void onSocketResponseSuccess(String event, Object obj) {
 
-		Log.e(TAG, obj.toString());
+		if (event.equals(EventParams.METHOD_USER_LOGIN)) {
+			Log.e(TAG, obj.toString());
+			pd.dismiss();
 
-		pd.dismiss();
-		Intent intent = new Intent(LoginActivity.this, TwoOptionActivity.class);
-		startActivity(intent);
-		overridePendingTransition(R.anim.activity_in, R.anim.activity_out);
-		setResult(RESULT_OK);
-		
-		AppPrefs prefs = AppPrefs.getAppPrefs(LoginActivity.this);
-		prefs.saveBooleanPrefs(AppPrefs.KEY_PROFILE_SETUP, true);
-		prefs.saveBooleanPrefs(AppPrefs.KEY_PROFILE_SETUP_MORE, true);
-		
-		
-		LoginActivity.this.finish();
+			for (int i = 0; i < contacts.size(); i++) {
+				DeviceContact contact = contacts.get(i);
+				if (!dbHandler.ContactExists(contact.getPhoneNumber())) {
+					dbHandler.addContact(contact);
+				}
+
+			}
+			LoginAndRegisterActivity.destroyThis=true;
+			LoginActivity.this.finish();
+			Intent intent = new Intent(LoginActivity.this,
+					TwoOptionActivity.class);
+			intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
+					| Intent.FLAG_ACTIVITY_NEW_TASK);
+			startActivity(intent);
+			overridePendingTransition(R.anim.activity_in, R.anim.activity_out);
+			setResult(RESULT_OK);
+
+			AppPrefs prefs = AppPrefs.getAppPrefs(LoginActivity.this);
+			prefs.saveBooleanPrefs(AppPrefs.KEY_PROFILE_SETUP, true);
+			prefs.saveBooleanPrefs(AppPrefs.KEY_PROFILE_SETUP_MORE, true);
+
+			
+		}
+
 	}
 
 	@Override

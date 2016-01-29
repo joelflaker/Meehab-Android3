@@ -56,7 +56,6 @@
                         android:layout_weight="1"
                         android:background="@drawable/simple_button_selector"
                         android:hint="Height"
-                        android:maxLength="5"
                         android:singleLine="true"
                         android:textColor="#444444" />
 
@@ -84,7 +83,6 @@
                         android:layout_weight="1"
                         android:background="@drawable/simple_button_selector"
                         android:hint="Weight"
-                        android:maxLength="5"
                         android:singleLine="true"
                         android:textColor="#444444" />
 

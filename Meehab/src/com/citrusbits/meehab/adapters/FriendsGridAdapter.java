@@ -39,7 +39,7 @@ public class FriendsGridAdapter extends ArrayAdapter<UserAccount> {
 	int grid_spacing;
 	String baseUrl;
 	int cellWidthHeight;
-	
+
 	int rectBlueBgRes;
 	int rectMaroonBgRes;
 
@@ -49,12 +49,12 @@ public class FriendsGridAdapter extends ArrayAdapter<UserAccount> {
 		mContext = c;
 		this.useraccount = userAccount;
 		grid_spacing = (int) TypedValue.applyDimension(
-				TypedValue.COMPLEX_UNIT_DIP, 20, c.getResources()
-						.getDisplayMetrics());
+				TypedValue.COMPLEX_UNIT_DIP, 10, c.getResources()
+						.getDisplayMetrics()) * 4;
 		baseUrl = c.getString(R.string.url);
 		cellWidthHeight = (ScreenUtils.screenWidthHeigh(c)[0] - grid_spacing) / 3;
-		rectBlueBgRes=R.drawable.rectangle_bg_blue;
-		rectMaroonBgRes=R.drawable.rectangle_bg_maroon;
+		rectBlueBgRes = R.drawable.rectangle_bg_blue;
+		rectMaroonBgRes = R.drawable.rectangle_bg_maroon;
 
 	}
 
@@ -74,10 +74,10 @@ public class FriendsGridAdapter extends ArrayAdapter<UserAccount> {
 					.findViewById(R.id.ivOnline);
 			holder.ivFavourite = (ImageView) convertView
 					.findViewById(R.id.ivFavourite);
-			
+
 			holder.ivBlockIcon = (ImageView) convertView
 					.findViewById(R.id.ivBlockIcon);
-			
+
 			holder.flCell = (FrameLayout) convertView.findViewById(R.id.flCell);
 
 			FrameLayout.LayoutParams flParams = (android.widget.FrameLayout.LayoutParams) holder.flCell
@@ -100,20 +100,26 @@ public class FriendsGridAdapter extends ArrayAdapter<UserAccount> {
 				.error(R.drawable.profile_pic)
 
 				.into(holder.ivFriend);
-		
-		holder.ivOnline.setVisibility(account.getCheckinType().equals("online")?View.VISIBLE:View.GONE);
-		holder.ivFavourite.setVisibility(account.isFavourite()==1?View.VISIBLE:View.GONE);
-		holder.ivBlockIcon.setVisibility(account.isBlocked()==1?View.VISIBLE:View.GONE);
-		
-		if(account.isCheckedIn()){
+
+		holder.ivOnline
+				.setVisibility(account.getCheckinType().equals("online") ? View.VISIBLE
+						: View.GONE);
+		if (holder.ivFavourite != null) {
+			holder.ivFavourite.setVisibility(account.isFavourite() == 1
+					&& account.isBlocked() == 0 ? View.VISIBLE : View.GONE);
+		}
+
+		holder.ivBlockIcon
+				.setVisibility(account.isBlocked() == 1 ? View.VISIBLE
+						: View.GONE);
+
+		if (account.getUserCheckIn() != null && account.getUserCheckIn() == 1) {
 			holder.flCell.setBackgroundResource(rectBlueBgRes);
-		}else if(account.isRsvp()){
+		} else if (account.getRsvpUser() == 1) {
 			holder.flCell.setBackgroundResource(rectMaroonBgRes);
-		}else{
+		} else {
 			holder.flCell.setBackgroundColor(Color.TRANSPARENT);
 		}
-		
-		
 
 		return convertView;
 	}

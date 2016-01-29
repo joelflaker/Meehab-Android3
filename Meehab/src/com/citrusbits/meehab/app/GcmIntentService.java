@@ -8,6 +8,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.NotificationCompat;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.google.android.gms.gcm.GoogleCloudMessaging;
@@ -41,7 +42,25 @@ public class GcmIntentService extends IntentService {
 		} else {
 			foreground = ForegroundCheckTask.isAppOnForeground(context);
 		}
+		
 		Bundle extras = intent.getExtras();
+		
+		Log.e("Extras is ", extras.toString());
+		for (String key : extras.keySet()) {
+		    Object value = extras.get(key);
+		  Log.e(key, value.toString());
+		}
+
+		String body = extras.getString("gcm.notification.body");
+		
+		
+		Toast.makeText(this, body, Toast.LENGTH_SHORT).show();
+		
+		
+		if(body==null){
+			return;
+		}
+		Log.e("Body", body);
 		GoogleCloudMessaging gcm = GoogleCloudMessaging.getInstance(this);
 		// The getMessageType() intent parameter must be the intent you received
 		// in your BroadcastReceiver.
@@ -59,7 +78,8 @@ public class GcmIntentService extends IntentService {
 				sendNotification("Send error: " + extras.toString());
 			} else if (GoogleCloudMessaging.MESSAGE_TYPE_DELETED
 					.equals(messageType)) {
-				sendNotification("Deleted messages on server: " + extras.toString());
+				sendNotification("Deleted messages on server: "
+						+ extras.toString());
 				// If it's a regular GCM message, do some work.
 			} else if (GoogleCloudMessaging.MESSAGE_TYPE_MESSAGE
 					.equals(messageType)) {
@@ -74,41 +94,40 @@ public class GcmIntentService extends IntentService {
 	// This is just one simple example of what you might choose to do with
 	// a GCM message.
 	private void sendNotification(String msg) {
-		mNotificationManager = (NotificationManager) this.getSystemService(Context.NOTIFICATION_SERVICE);
+		mNotificationManager = (NotificationManager) this
+				.getSystemService(Context.NOTIFICATION_SERVICE);
 
-		//convert the string into object
-//		pushData = gson.fromJson(msg, PushData.class);
-
-		
+		// convert the string into object
+		// pushData = gson.fromJson(msg, PushData.class);
 
 	}
-
-
-
 
 	public void showToast(final String message) {
 		handler.post(new Runnable() {
 			public void run() {
-				Toast.makeText(App.getInstance(), message, Toast.LENGTH_LONG).show();
+				Toast.makeText(App.getInstance(), message, Toast.LENGTH_LONG)
+						.show();
 			}
 		});
 
 	}
 
-
 	private String matchNumber(String number) {
 		String no = null;
 
-//		ArrayList<Contact> contacts = (ArrayList<Contact>) contactsDatasource.findAll();
-//
-//		if(contacts != null && contacts.size() > 0) {
-//			for(int i=0; i<contacts.size(); i++) {
-//				if(contacts.get(i).getNumber().substring(Math.max(0, contacts.get(i).getNumber().length() - 10)).equals(number)) {
-//					no = contacts.get(i).getNumber().substring(Math.max(0, contacts.get(i).getNumber().length() - 10));
-//					Log.i("matched number", "matchced number: " + no);
-//				}
-//			}
-//		}
+		// ArrayList<Contact> contacts = (ArrayList<Contact>)
+		// contactsDatasource.findAll();
+		//
+		// if(contacts != null && contacts.size() > 0) {
+		// for(int i=0; i<contacts.size(); i++) {
+		// if(contacts.get(i).getNumber().substring(Math.max(0,
+		// contacts.get(i).getNumber().length() - 10)).equals(number)) {
+		// no = contacts.get(i).getNumber().substring(Math.max(0,
+		// contacts.get(i).getNumber().length() - 10));
+		// Log.i("matched number", "matchced number: " + no);
+		// }
+		// }
+		// }
 
 		return no;
 	}

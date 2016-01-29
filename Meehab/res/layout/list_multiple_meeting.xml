@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal" >
+
+    <TextView
+        android:id="@+id/tvRowDay"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:drawableLeft="@drawable/white_rectangle"
+        android:drawablePadding="4dp"
+        android:gravity="center|left"
+        android:paddingTop="4dp"
+        android:text="Today"
+        android:textColor="#CCCCCC" />
+
+    <TextView
+        android:id="@+id/tvRowTime"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:drawablePadding="4dp"
+        android:gravity="center|left"
+        android:paddingLeft="23dp"
+        android:text="8:00 PM"
+        android:textColor="#CCCCCC" />
+
+</LinearLayout>

@@ -112,7 +112,7 @@ public class ChatModel implements Serializable {
 
 	public String convertToDisplayFormat(String dateTime,
 			long timeZoneOffsetHours) {
-		SimpleDateFormat oldFormat = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss");
+		SimpleDateFormat oldFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
 		SimpleDateFormat newFormat = new SimpleDateFormat("EEE, MMM dd");
 

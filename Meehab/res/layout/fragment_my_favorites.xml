@@ -37,40 +37,53 @@
                     android:src="@drawable/menu_icon" />
             </RelativeLayout>
 
-            <EditText
-                android:id="@+id/etFavouriteSearch"
-                android:layout_width="0dp"
+            <RelativeLayout
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="4dp"
                 android:layout_marginRight="8dp"
                 android:layout_weight="1"
-                android:background="@drawable/search_bg"
-                android:descendantFocusability="beforeDescendants"
-                android:drawableLeft="@drawable/search_icon"
-                android:drawablePadding="-20dp"
-                android:hint="@string/search_for_favorites"
-                android:imeOptions="actionSearch"
-                android:inputType="textWebEditText|textCapWords"
-                android:maxLength="20"
-                android:paddingLeft="12dp"
-                android:paddingRight="@dimen/activity_horizontal_margin"
-                android:singleLine="true"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:textColor="#FFFFFF"
-                android:textColorHint="#EFEFEF" />
+                android:background="@drawable/search_bg" >
 
-            <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" >
+                <ImageView
+                    android:id="@+id/ivSearch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="8dp"
+                    android:src="@drawable/search_icon" />
 
-                <Button
-                    android:id="@+id/topRightBtn"
-                    android:layout_width="60dp"
-                    android:layout_height="38dp"
-                    android:background="@drawable/round_corner_button"
-                    android:text="Cancel"
-                    android:textColor="@android:color/white"
+                <EditText
+                    android:id="@+id/editTopCenter"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                   
+                    android:layout_centerVertical="true"
+                  
+                    android:layout_toRightOf="@+id/ivSearch"
+                    android:gravity="left"
+                    android:background="@null"
+                    android:descendantFocusability="beforeDescendants"
+                    android:paddingLeft="8dp"
+                    android:hint="@string/search_for_favorites"
+                    android:imeOptions="actionSearch"
+                    android:inputType="textWebEditText|textCapWords"
+                   
+                    android:singleLine="true"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="#ffffff"
+                    android:textColorHint="#efefef"
                     android:textSize="12sp" />
             </RelativeLayout>
+
+            <ImageButton
+                android:id="@+id/ibEdit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:src="@drawable/edit_btn"
+                android:textColor="@android:color/white"
+                android:textSize="12sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -143,16 +156,17 @@
         android:layout_alignParentBottom="true"
         android:background="#fff"
         android:orientation="horizontal"
-        android:visibility="gone" >
+        android:visibility="visible" >
 
-        <Button
-            android:id="@+id/btnRemove"
+        <ImageButton
+            android:id="@+id/ibRemove"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="@null"
+            android:visibility="gone"
             android:layout_alignParentRight="true"
-            android:background="@drawable/simple_button_selector"
-            android:padding="8dp"
-            android:text="Remove" />
+            android:src="@drawable/remove_btn"
+            android:padding="8dp" />
     </RelativeLayout>
 
 </RelativeLayout>

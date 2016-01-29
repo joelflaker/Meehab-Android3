@@ -1,15 +1,50 @@
 package com.citrusbits.meehab.model;
 
+import java.util.Date;
+
 public class MessageModel {
 
 	private String message;
 	private int id;
 	private String image;
 	private String username;
+	private String messageTime;
+
 	private int fromID;
 	private int toID;
+	private String checkInType;
 
 	private boolean checked;
+
+	private int userCheckIn;
+	private int rsvpUser;
+	private int favourite;
+
+	private Date messageDate;
+
+	public int getUserCheckIn() {
+		return userCheckIn;
+	}
+
+	public void setUserCheckIn(int userCheckIn) {
+		this.userCheckIn = userCheckIn;
+	}
+
+	public int getRsvpUser() {
+		return rsvpUser;
+	}
+
+	public void setRsvpUser(int rsvpUser) {
+		this.rsvpUser = rsvpUser;
+	}
+
+	public int getFavourite() {
+		return favourite;
+	}
+
+	public void setFavourite(int favourite) {
+		this.favourite = favourite;
+	}
 
 	public String getMessage() {
 		return message;
@@ -65,6 +100,30 @@ public class MessageModel {
 
 	public boolean isChecked() {
 		return this.checked;
+	}
+
+	public String getCheckInType() {
+		return checkInType;
+	}
+
+	public void setCheckInType(String checkInType) {
+		this.checkInType = checkInType;
+	}
+
+	public String getMessageTime() {
+		return messageTime;
+	}
+
+	public void setMessageTime(String messageTime) {
+		this.messageTime = messageTime;
+	}
+
+	public Date getMessageDate() {
+		return messageDate;
+	}
+
+	public void setMessageDate(Date messageDate) {
+		this.messageDate = messageDate;
 	}
 
 }

@@ -29,7 +29,7 @@ public class HeightPickerDialog extends Dialog implements
 
 	private String[] maritalStatuses;
 	
-	final String[] valuesFeet = new String[] { "3'", "4'", "5'", "6'", "7'" };
+	final String[] valuesFeet = new String[] {"4'", "5'", "6'", "7'" };
 	final String[] valuesInches = new String[] { "0''", "1''", "2''",
 			"3''", "4''", "5''", "6''", "7''", "8''", "9''", "10''", "11''" };
 
@@ -69,12 +69,12 @@ public class HeightPickerDialog extends Dialog implements
 		int inchPosition = 0;
 		
 
-		npFeet.setMaxValue(4);
+		npFeet.setMaxValue(valuesFeet.length-1);
 		npFeet.setMinValue(0);
 		npFeet.setDisplayedValues(valuesFeet);
 		npFeet.setWrapSelectorWheel(false);
 
-		npInches.setMaxValue(11);
+		npInches.setMaxValue(valuesInches.length-1);
 		npInches.setMinValue(0);
 		npInches.setDisplayedValues(valuesInches);
 		npInches.setWrapSelectorWheel(false);

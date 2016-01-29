@@ -33,9 +33,9 @@
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="10dp"
                     android:clickable="false"
-                     android:paddingTop="8dp"
-            android:paddingBottom="8dp"
-            android:paddingRight="15dp"
+                    android:paddingBottom="8dp"
+                    android:paddingRight="15dp"
+                    android:paddingTop="8dp"
                     android:src="@drawable/menu_icon" />
             </RelativeLayout>
 
@@ -48,6 +48,14 @@
                 android:layout_toRightOf="@+id/rlMenuButton"
                 android:background="@drawable/search_bg" >
 
+                <ImageView
+                    android:id="@+id/ivSearch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="8dp"
+                    android:src="@drawable/search_icon" />
+
                 <EditText
                     android:id="@+id/editTopCenter"
                     android:layout_width="fill_parent"
@@ -56,12 +64,11 @@
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="8dp"
                     android:layout_toLeftOf="@+id/tvFiltereSeparater"
+                    android:layout_toRightOf="@+id/ivSearch"
                     android:layout_weight="1"
                     android:background="@null"
                     android:descendantFocusability="beforeDescendants"
-                    android:drawableLeft="@drawable/search_icon"
-                    android:drawablePadding="-16dp"
-                    android:hint="@string/search_for_meetings"
+                    android:hint="Search for Friends"
                     android:imeOptions="actionSearch"
                     android:inputType="textWebEditText|textCapWords"
                     android:maxLength="20"
@@ -86,7 +93,6 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:background="@drawable/simple_button_selector"
                     android:paddingRight="8dp"
                     android:text="@string/filter"
                     android:textColor="#FFFFFF"

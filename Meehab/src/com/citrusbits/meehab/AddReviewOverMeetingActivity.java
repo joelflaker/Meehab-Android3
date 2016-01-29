@@ -1,5 +1,10 @@
 package com.citrusbits.meehab;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
 import org.json.JSONObject;
 
 import com.citrusbits.meehab.app.App;
@@ -8,6 +13,8 @@ import com.citrusbits.meehab.model.MeetingModel;
 import com.citrusbits.meehab.services.OnSocketResponseListener;
 import com.citrusbits.meehab.utils.AccountUtils;
 import com.citrusbits.meehab.utils.DateTimeUtils;
+import com.citrusbits.meehab.utils.MeetingUtils;
+import com.citrusbits.meehab.utils.NetworkUtils;
 import com.citrusbits.meehab.utils.UtilityClass;
 
 import android.app.Activity;
@@ -32,19 +39,22 @@ public class AddReviewOverMeetingActivity extends SocketActivity implements
 	private EditText etReviewtitle;
 	private EditText etReviewComment;
 	private ProgressDialog pd;
-	
+
+	private long timeZoneOffset;
+
 	@Override
 	public void onBackPressed() {
 		// TODO Auto-generated method stub
 		super.onBackPressed();
-		overridePendingTransition(R.anim.activity_back_in, R.anim.activity_back_out);
+		overridePendingTransition(R.anim.activity_back_in,
+				R.anim.activity_back_out);
 	}
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_add_review_over_meeting);
-
+		timeZoneOffset = MeetingUtils.getTimeZoneOffset();
 		// top back button
 		findViewById(R.id.topMenuBtn).setOnClickListener(
 				new View.OnClickListener() {
@@ -73,17 +83,31 @@ public class AddReviewOverMeetingActivity extends SocketActivity implements
 		Bundle extra = getIntent().getExtras();
 		if (extra != null) {
 			meeting = (MeetingModel) extra.getSerializable("meeting");
-			String dateTimeAdded=DateTimeUtils.getDatetimeAdded(meeting.getDatetimeAdded());
-			String dateTime[]=dateTimeAdded.split("@");
+			String dateTimeAdded = getCurrentDateTime();
+			String dateTime[] = dateTimeAdded.split("@");
 			tvMeetingDate.setText(dateTime[0]);
 			tvMeetingTime.setText(dateTime[1]);
 		}
+	}
+
+	public String getCurrentDateTime() {
+		Calendar calendar = Calendar.getInstance();
+		SimpleDateFormat newDatetime = new SimpleDateFormat(
+				"MMM dd yyyy @ hh:mm a");
+
+		return newDatetime.format(calendar.getTime());
+
 	}
 
 	/**
 	 * 
 	 */
 	protected void postReview() {
+		if (!NetworkUtils.isNetworkAvailable(this)) {
+			App.alert(getString(R.string.no_internet_connection));
+			return;
+		}
+
 		if (socketService != null) {
 			String titleString = etReviewtitle.getText().toString();
 			String commentsString = etReviewComment.getText().toString();

@@ -43,9 +43,17 @@
             android:layout_marginRight="12dp"
             android:layout_toRightOf="@+id/rlMenuButton"
             android:background="@drawable/search_bg" >
+            
+            <ImageView
+                android:id="@+id/ivSearch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="8dp"
+                android:src="@drawable/search_icon" />
 
             <EditText
-                android:id="@+id/editTopCenter"
+                android:id="@+id/etSearch"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
@@ -53,16 +61,14 @@
                 android:layout_marginLeft="8dp"
                 android:layout_toLeftOf="@+id/tvFiltereSeparater"
                 android:layout_weight="1"
+                android:layout_toRightOf="@+id/ivSearch"
                 android:background="@null"
                 android:descendantFocusability="beforeDescendants"
-                android:drawableLeft="@drawable/search_icon"
-                android:drawablePadding="10dp"
                 android:hint="Search for Rehabs"
                 android:imeOptions="actionSearch"
                 android:inputType="textWebEditText|textCapWords"
                 android:maxLength="20"
                 android:singleLine="true"
-                
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="#ffffff"
                 android:textColorHint="#efefef"
@@ -141,10 +147,10 @@
 
                 <ImageButton
                     android:id="@+id/btnList"
-                    android:background="@null"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
+                    android:background="@null"
                     android:src="@drawable/list_btn"
                     android:text="" />
             </RelativeLayout>

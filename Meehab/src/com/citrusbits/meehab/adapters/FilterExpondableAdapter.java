@@ -47,6 +47,10 @@ public class FilterExpondableAdapter extends BaseExpandableListAdapter {
 		categories = g;
 	}
 
+	public void setFilterResultHolder(FilterResultHolder filterResultHolder) {
+		this.filterResultHolder = filterResultHolder;
+	}
+
 	@Override
 	public View getGroupView(int groupPosition, boolean isExpanded,
 			View convertView, ViewGroup parent) {
@@ -126,6 +130,8 @@ public class FilterExpondableAdapter extends BaseExpandableListAdapter {
 							}
 
 						}
+						
+						childs.get(0).setName("Deselect All");
 
 						if (groupPosition == 0) {
 
@@ -136,7 +142,7 @@ public class FilterExpondableAdapter extends BaseExpandableListAdapter {
 						}
 
 						notifyDataSetChanged();
-					} else{
+					} else {
 						List<ExpChild> childs = categories.get(groupPosition)
 								.getChildren();
 
@@ -148,9 +154,9 @@ public class FilterExpondableAdapter extends BaseExpandableListAdapter {
 						} else if (groupPosition == 1) {
 							filterResultHolder.setAnyTime(false);
 							filterResultHolder.addTime(name);
-						}else if (groupPosition == 2) {
+						} else if (groupPosition == 2) {
 							filterResultHolder.setAnyType(false);
-							
+
 							filterResultHolder.addTypes(name);
 						}
 
@@ -165,17 +171,18 @@ public class FilterExpondableAdapter extends BaseExpandableListAdapter {
 						}
 
 						if (allChecked) {
-							
-							 if (groupPosition < 2){
-								 childs.get(0).setChecked(true);
-									notifyDataSetChanged();
-							 }
-							
+
+							if (groupPosition < 2) {
+								childs.get(0).setChecked(true);
+								childs.get(0).setName("Deselect All");
+								notifyDataSetChanged();
+							}
+
 							if (groupPosition == 0) {
 								filterResultHolder.setAnyDay(true);
 							} else if (groupPosition == 1) {
 								filterResultHolder.setAnyTime(true);
-							} else if(groupPosition==2){
+							} else if (groupPosition == 2) {
 								filterResultHolder.setAnyType(true);
 							}
 
@@ -183,12 +190,13 @@ public class FilterExpondableAdapter extends BaseExpandableListAdapter {
 
 					}
 				} else {
-					if (childName.toLowerCase().equals("select all")) {
+					if (childName.toLowerCase().equals("deselect all")) {
 						List<ExpChild> childs = categories.get(groupPosition)
 								.getChildren();
 						for (int i = 0; i < childs.size(); i++) {
 							childs.get(i).setChecked(false);
 						}
+						childs.get(0).setName("Select All");
 						if (groupPosition == 0) {
 
 							filterResultHolder.clearDay();
@@ -198,43 +206,62 @@ public class FilterExpondableAdapter extends BaseExpandableListAdapter {
 						}
 						notifyDataSetChanged();
 					} else {
-						if (groupPosition < 2) {
-							List<ExpChild> childs = categories.get(
-									groupPosition).getChildren();
-							childs.get(0).setChecked(false);
-							String name = childs.get(childPosition).getName();
-							if (groupPosition == 0) {
-								filterResultHolder.setAnyDay(false);
-								filterResultHolder.removeDay(name);
-							} else if (groupPosition == 1) {
 
-								filterResultHolder.setAnyTime(false);
-								filterResultHolder.removeTime(name);
+						List<ExpChild> childs = categories.get(groupPosition)
+								.getChildren();
+						
+						
+						String name = childs.get(childPosition).getName();
+						if (groupPosition == 0) {
+							if(childs.get(0).isChecked()){
+								childs.get(0).setChecked(false);
+								
 							}
-
-							boolean allunChecked = true;
-
-							for (int i = 1; i < childs.size(); i++) {
-								Log.e("Uncheck " + i, childs.get(i).isChecked()
-										+ "");
-								if (childs.get(i).isChecked()) {
-									allunChecked = false;
-									break;
-								}
+							filterResultHolder.setAnyDay(false);
+							filterResultHolder.removeDay(name);
+							childs.get(0).setName("Select All");
+						} else if (groupPosition == 1) {
+							if(childs.get(0).isChecked()){
+								childs.get(0).setChecked(false);
+								
 							}
-
-							if (allunChecked) {
-								if (groupPosition == 0) {
-									filterResultHolder.setAnyDay(true);
-								} else if (groupPosition == 1) {
-									filterResultHolder.setAnyTime(true);
-
-								}
-
-							}
-
-							notifyDataSetChanged();
+							filterResultHolder.setAnyTime(false);
+							filterResultHolder.removeTime(name);
+							childs.get(0).setName("Select All");
+						}else if(groupPosition==2){
+							filterResultHolder.setAnyType(false);
+							filterResultHolder.removeType(name);
 						}
+
+						boolean allunChecked = true;
+
+						for (int i = 1; i < childs.size(); i++) {
+							Log.e("Uncheck " + i, childs.get(i).isChecked()
+									+ "");
+							if (childs.get(i).isChecked()) {
+								allunChecked = false;
+								break;
+							}
+						}
+
+						if (allunChecked) {
+							if (groupPosition == 0) {
+								filterResultHolder.setAnyDay(true);
+								childs.get(0).setName("Select All");
+							} else if (groupPosition == 1) {
+								filterResultHolder.setAnyTime(true);
+								childs.get(0).setName("Select All");
+
+							} else if (groupPosition == 2) {
+								filterResultHolder.setAnyType(true);
+							}
+							
+							
+
+						}
+
+						notifyDataSetChanged();
+
 					}
 				}
 			}

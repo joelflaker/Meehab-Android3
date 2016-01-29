@@ -5,9 +5,11 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-import com.citrusbits.meehab.R;
-
 import android.content.Context;
+
+import com.citrusbits.meehab.R;
+import com.citrusbits.meehab.managers.RCChip;
+import com.citrusbits.meehab.managers.RCChip.RCChipType;
 
 public class RecoverClockDateUtils {
 
@@ -29,10 +31,24 @@ public class RecoverClockDateUtils {
 		}
 	}
 
-	public static String getDateWithMonthNameNextChip(Date date) {
-		SimpleDateFormat dateFormate = new SimpleDateFormat("dd/MM/yyyy");
+	public static Calendar getCalendarFromDayMonthYear(String dateSelected) {
+		SimpleDateFormat dateFormate = new SimpleDateFormat("MM/dd/yyyy");
+		try {
+			Date date = dateFormate.parse(dateSelected);
+			Calendar cal = Calendar.getInstance();
+			cal.setTime(date);
+			return cal;
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}
+	}
 
-		date.setMonth(date.getMonth() + 1);
+	public static String getDateWithMonthNameNextChip(Date date) {
+		SimpleDateFormat dateFormate = new SimpleDateFormat("MM/dd/yyyy");
+
+		date.setMonth(date.getMonth());
 		return fomateRecoverClockDate(date);
 
 	}
@@ -43,7 +59,7 @@ public class RecoverClockDateUtils {
 	}
 
 	public static boolean isValidSoberDate(String dateInserted) {
-		SimpleDateFormat dateFormate = new SimpleDateFormat("dd/MM/yyyy");
+		SimpleDateFormat dateFormate = new SimpleDateFormat("MM/dd/yyyy");
 		try {
 			Date date = dateFormate.parse(dateInserted);
 			long diff = Calendar.getInstance().getTimeInMillis()
@@ -56,12 +72,16 @@ public class RecoverClockDateUtils {
 		}
 	}
 
-	public static String getSoberDifference(String dateInserted, Context context) {
-		SimpleDateFormat dateFormate = new SimpleDateFormat("dd/MM/yyyy");
+	public static String getSoberDifference(String dateInserted,boolean profile, Context context) {
+		SimpleDateFormat dateFormate = new SimpleDateFormat("MM/dd/yyyy");
+		
+		if(dateInserted==null||dateInserted.isEmpty()){
+			return "";
+		}
 
 		try {
 			Date date = dateFormate.parse(dateInserted);
-			return getDifference(date, Calendar.getInstance().getTime(),
+			return getDifference(date, Calendar.getInstance().getTime(),profile,
 					context);
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
@@ -71,7 +91,7 @@ public class RecoverClockDateUtils {
 	}
 
 	public static String getDateWithMonthName(String dateInserted) {
-		SimpleDateFormat dateFormate = new SimpleDateFormat("dd/MM/yyyy");
+		SimpleDateFormat dateFormate = new SimpleDateFormat("MM/dd/yyyy");
 
 		try {
 			Date date = dateFormate.parse(dateInserted);
@@ -83,7 +103,7 @@ public class RecoverClockDateUtils {
 		}
 	}
 
-	private static String getDifference(Date startDate, Date endDate,
+	private static String getDifference(Date startDate, Date endDate,boolean profile,
 			Context context) {
 
 		// milliseconds
@@ -94,7 +114,9 @@ public class RecoverClockDateUtils {
 		long hoursInMilli = minutesInMilli * 60;
 		long daysInMilli = hoursInMilli * 24;
 		long monthInMilli = daysInMilli * 30;
-		long yearsInMilli = monthInMilli * 12;
+		// long yearsInMilli = monthInMilli * 12;
+
+		long yearsInMilli = daysInMilli * 365;
 
 		long elapsedYears = different / yearsInMilli;
 		different = different % yearsInMilli;
@@ -117,11 +139,87 @@ public class RecoverClockDateUtils {
 
 		System.out.printf("%d days, %d hours, %d minutes, %d seconds%n",
 				elapsedDays, elapsedHours, elapsedMinutes, elapsedSeconds);
+		
+		String soberStr=profile?context.getString(R.string.sober_date_diff_formate_profile):context.getString(R.string.sober_date_diff_formate);
 
 		return String.format(
-				context.getString(R.string.sober_date_diff_formate),
+				soberStr,
 				elapsedYears, elapsedDays, elapsedHours, elapsedMinutes,
 				elapsedSeconds);
+
+	}
+
+	public static RCChip getRcpChip(String dateInserted) {
+		SimpleDateFormat dateFormate = new SimpleDateFormat("MM/dd/yyyy");
+
+		try {
+			Date date = dateFormate.parse(dateInserted);
+			return getRCChip(date, Calendar.getInstance().getTime());
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			new RCChip();
+		}
+		return new RCChip();
+	}
+
+	private static RCChip getRCChip(Date startDate, Date endDate) {
+
+		RCChip rcChip = new RCChip();
+
+		// milliseconds
+		long different = endDate.getTime() - startDate.getTime();
+
+		long secondsInMilli = 1000;
+		long minutesInMilli = secondsInMilli * 60;
+		long hoursInMilli = minutesInMilli * 60;
+		long daysInMilli = hoursInMilli * 24;
+		long monthInMilli = daysInMilli * 30;
+		long yearsInMilli = monthInMilli * 12;
+
+		long elapsedYears = different / yearsInMilli;
+		different = different % yearsInMilli;
+
+		long elapsedDays = different / daysInMilli;
+		different = different % daysInMilli;
+
+		/*
+		 * long elapsedMonths = different / monthInMilli; different = different
+		 * % monthInMilli;
+		 */
+		if (elapsedYears > 0) {
+
+			rcChip.setRcChipType(RCChipType.YEARS);
+			rcChip.setNumbers((int) elapsedYears);
+			return rcChip;
+
+		} else if (elapsedDays <= 90) {
+
+			rcChip.setRcChipType(RCChipType.DAYS);
+			rcChip.setNumbers((int) elapsedDays);
+			return rcChip;
+
+		} else if (elapsedDays > 90) {
+
+			Calendar startCal = Calendar.getInstance();
+			startCal.setTime(startDate);
+			Calendar endCal = Calendar.getInstance();
+			endCal.setTime(endDate);
+
+			int monthPassed = 0;
+
+			while (startCal.compareTo(endCal) <= 0) {
+				startCal.add(Calendar.MONTH, 1);
+				monthPassed++;
+			}
+
+			rcChip.setRcChipType(RCChipType.MONTH);
+			rcChip.setNumbers((int) monthPassed);
+			return rcChip;
+
+		} else {
+			return rcChip;
+		}
 
 	}
 }

@@ -16,6 +16,7 @@ import android.widget.TextView;
 import android.widget.DatePicker.OnDateChangedListener;
 
 import com.citrusbits.meehab.R;
+import com.citrusbits.meehab.utils.DateTimeUtils;
 
 public class DobPickerDialog extends Dialog implements
 		android.view.View.OnClickListener {
@@ -80,8 +81,10 @@ public class DobPickerDialog extends Dialog implements
 			tvHeading.setText("Sober Date");
 		}
 		
-		dateSelected = "" + calendar.get(Calendar.DAY_OF_MONTH) + "/" + (calendar.get(Calendar.MONTH) + 1) + "/"
-				+ calendar.get(Calendar.YEAR);
+		/*dateSelected = "" + calendar.get(Calendar.DAY_OF_MONTH) + "/" + (calendar.get(Calendar.MONTH) + 1) + "/"
+				+ calendar.get(Calendar.YEAR);*/
+		
+		dateSelected = DateTimeUtils.calendarToDate(calendar);
 
 		dpDB = (DatePicker) findViewById(R.id.dpDB);
 		dpDB.init(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH),
@@ -96,8 +99,14 @@ public class DobPickerDialog extends Dialog implements
 		@Override
 		public void onDateChanged(DatePicker view, int year, int monthOfYear,
 				int dayOfMonth) {
-			dateSelected = "" + dayOfMonth + "/" + (monthOfYear + 1) + "/"
-					+ year;
+			
+			Calendar calendar=Calendar.getInstance();
+			calendar.set(Calendar.HOUR, 0);
+			calendar.set(Calendar.YEAR, year);
+			calendar.set(Calendar.MONTH, monthOfYear);
+			calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+			
+			dateSelected = DateTimeUtils.calendarToDate(calendar);
 		}
 	};
 

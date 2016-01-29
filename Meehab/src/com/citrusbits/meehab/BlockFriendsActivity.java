@@ -36,6 +36,7 @@ import android.widget.Toast;
 
 import com.citrusbits.meehab.adapters.FriendsGridAdapter;
 import com.citrusbits.meehab.adapters.FriendsListAdapter;
+import com.citrusbits.meehab.app.App;
 import com.citrusbits.meehab.constants.EventParams;
 import com.citrusbits.meehab.model.FriendFilterResultHolder;
 import com.citrusbits.meehab.model.GetFriendsResponse;
@@ -44,6 +45,7 @@ import com.citrusbits.meehab.services.OnBackendConnectListener;
 import com.citrusbits.meehab.services.OnSocketResponseListener;
 import com.citrusbits.meehab.utils.AccountUtils;
 import com.citrusbits.meehab.utils.DeviceUtils;
+import com.citrusbits.meehab.utils.NetworkUtils;
 import com.citrusbits.meehab.utils.UtilityClass;
 import com.google.gson.Gson;
 
@@ -237,7 +239,8 @@ public class BlockFriendsActivity extends SocketActivity implements
 				if (mAccountPosition != -1) {
 					UserAccount userAccount = (UserAccount) data
 							.getSerializableExtra(UserProfileActivity.EXTRA_USER_ACCOUNT);
-					userAccountsCache.set(mAccountPosition, userAccount);
+					// userAccountsCache.set(mAccountPosition, userAccount);
+					userAccountsCache.remove(mAccountPosition);
 					userAccounts.clear();
 					userAccounts.addAll(userAccountsCache);
 					friendsGridAdapter.notifyDataSetChanged();
@@ -503,9 +506,8 @@ public class BlockFriendsActivity extends SocketActivity implements
 		intent.putExtra(UserProfileActivity.EXTRA_USER_ACCOUNT, account);
 
 		// put friend
-		// startActivityForResult(intent, DETAIL_REQUEST);
-		// this.overridePendingTransition(R.anim.activity_in,
-		// R.anim.activity_out);
+		startActivityForResult(intent, DETAIL_REQUEST);
+		this.overridePendingTransition(R.anim.activity_in, R.anim.activity_out);
 	}
 
 	@Override
@@ -600,6 +602,11 @@ public class BlockFriendsActivity extends SocketActivity implements
 	}
 
 	public void getFriends() {
+		if (!NetworkUtils.isNetworkAvailable(this)) {
+			App.alert(getString(R.string.no_internet_connection));
+			return;
+		}
+
 		if (socketService != null) {
 			pd.show();
 			JSONObject object = new JSONObject();
@@ -607,6 +614,7 @@ public class BlockFriendsActivity extends SocketActivity implements
 			try {
 				object.put("user_id", AccountUtils.getUserId(this));
 				object.put("device_id", DeviceUtils.getDeviceId(this));
+				object.put("type", "blocked");
 				Log.e("json send ", object.toString());
 				socketService.getAllFriends(object);
 			} catch (JSONException e) {
@@ -648,13 +656,29 @@ public class BlockFriendsActivity extends SocketActivity implements
 
 			}
 
+			for (int i = 0; i < friends.size(); i++) {
+				friends.get(i).setAge(
+						calculateAge(friends.get(i).getDateOfBirth()));
+			}
+
 			userAccounts.addAll(friends);
 			userAccountsCache.addAll(friends);
-			
-			tvNumBlockedFriendsList.setText(String.format(
-					getString(R.string.num_blocked_friends_list),
-					friends.size()));
-			
+			if (friends.size() > 0) {
+				if (friends.size() == 1) {
+					tvNumBlockedFriendsList.setText(String.format(
+							getString(R.string.num_blocked_friend_list),
+							friends.size()));
+				} else {
+					tvNumBlockedFriendsList.setText(String.format(
+							getString(R.string.num_blocked_friends_list),
+							friends.size()));
+				}
+
+			} else {
+				tvNumBlockedFriendsList
+						.setText(getString(R.string.no_blocked_friend_list));
+			}
+
 			friendsGridAdapter.notifyDataSetChanged();
 
 			/*
@@ -667,7 +691,9 @@ public class BlockFriendsActivity extends SocketActivity implements
 	@Override
 	public void onSocketResponseFailure(String message) {
 		// TODO Auto-generated method stub
-
+		if (pd != null) {
+			pd.dismiss();
+		}
 	}
 
 	@Override

@@ -1,5 +1,8 @@
 package com.citrusbits.meehab;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -21,10 +24,16 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.citrusbits.meehab.app.App;
 import com.citrusbits.meehab.constants.EventParams;
+import com.citrusbits.meehab.contacts.PhoneContacts;
+import com.citrusbits.meehab.db.DatabaseHandler;
 import com.citrusbits.meehab.model.SignupModel;
+import com.citrusbits.meehab.prefrences.AppPrefs;
+import com.citrusbits.meehab.services.DeviceContact;
 import com.citrusbits.meehab.services.OnSocketResponseListener;
 import com.citrusbits.meehab.utils.DeviceUtils;
+import com.citrusbits.meehab.utils.NetworkUtils;
 import com.citrusbits.meehab.utils.Prefs;
 import com.citrusbits.meehab.utils.UtilityClass;
 import com.sinch.verification.Config;
@@ -37,7 +46,14 @@ public class VerificationActivity extends SocketActivity implements
 		OnSocketResponseListener, OnClickListener {
 
 	private static final String TAG = Verification.class.getSimpleName();
-	private final String APPLICATION_KEY = "fa51a0f7-efda-4d29-bb9c-f63da6269ce5";
+	// private final String APPLICATION_KEY =
+	// "4e30c027-3577-4323-a772-da4b9dc26115";
+
+	//private final String APPLICATION_KEY = "a152579d-4410-43e4-a374-e1602ab1272c";
+	
+    private final String APPLICATION_KEY = "f990687e-929e-4304-9571-99a3622767c3";
+
+
 
 	public static final String SMS = "sms";
 
@@ -67,14 +83,25 @@ public class VerificationActivity extends SocketActivity implements
 
 	TextView textTermsAndconditions;
 
+	PhoneContacts phoneContacts;
+	List<DeviceContact> contacts = new ArrayList<DeviceContact>();
+	DatabaseHandler dbHandler;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_verification);
 
+		dbHandler = DatabaseHandler.getInstance(VerificationActivity.this);
+
+		phoneContacts = new PhoneContacts(VerificationActivity.this);
+
+		contacts.clear();
+		contacts.addAll(phoneContacts.getPhoneContacts());
 		etVerificationCode = (EditText) findViewById(R.id.etVerificationCode);
 		textTermsAndconditions = (TextView) findViewById(R.id.textTermsAndconditions);
 
+		findViewById(R.id.ivBack).setOnClickListener(this);
 		findViewById(R.id.txtTerms).setOnClickListener(this);
 		textTermsAndconditions.setOnClickListener(this);
 
@@ -103,6 +130,26 @@ public class VerificationActivity extends SocketActivity implements
 
 		registerReceiver(smsReceiver, new IntentFilter(
 				"android.provider.Telephony.SMS_RECEIVED"));
+
+	}
+
+	private JSONArray getPhoneBookArray() {
+
+		JSONArray phoneBook = new JSONArray();
+		for (DeviceContact contac : contacts) {
+			JSONObject phone = new JSONObject();
+			try {
+
+				phone.put("phone", contac.getPhoneNumber());
+				phone.put("name", contac.getContactName());
+
+				phoneBook.put(phone);
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return phoneBook;
 
 	}
 
@@ -177,6 +224,11 @@ public class VerificationActivity extends SocketActivity implements
 	}
 
 	public void signup(SignupModel model) {
+		
+		if (!NetworkUtils.isNetworkAvailable(this)) {
+			App.alert(getString(R.string.no_internet_connection));
+			return;
+		}
 		JSONObject signupParams = new JSONObject();
 		try {
 			// Toast.makeText(this, itemName,
@@ -189,7 +241,7 @@ public class VerificationActivity extends SocketActivity implements
 					DeviceUtils.getDeviceId(VerificationActivity.this));
 			String phoneContacts = model.getContact();
 			// signupParams.put("phonebook", model.getContact());
-			signupParams.put("phonebook", new JSONArray(model.getContact()));
+			signupParams.put("phonebook", getPhoneBookArray());
 			// jobj.put("phone", UtilityClass
 			// .phoneNumberNormal(strPhoneNumber));
 			if (model.getFbId() != null) {
@@ -227,6 +279,20 @@ public class VerificationActivity extends SocketActivity implements
 		pd.dismiss();
 
 		if (event.equals(EventParams.EVENT_USER_SIGNUP)) {
+
+			for (int i = 0; i < contacts.size(); i++) {
+				DeviceContact contact = contacts.get(i);
+				if (!dbHandler.ContactExists(contact.getPhoneNumber())) {
+					dbHandler.addContact(contact);
+				}
+
+			}
+			
+			
+			AppPrefs prefs = AppPrefs.getAppPrefs(VerificationActivity.this);
+			prefs.saveBooleanPrefs(AppPrefs.KEY_PROFILE_SETUP, false);
+			prefs.saveBooleanPrefs(AppPrefs.KEY_PROFILE_SETUP_MORE, false);
+
 			String sha1Pass = UtilityClass
 					.encryptPassword(signup.getPassword());
 			new Prefs(this).getPrefs().edit()
@@ -294,8 +360,18 @@ public class VerificationActivity extends SocketActivity implements
 		case R.id.textTermsAndconditions:
 			startActivity(new Intent(this, TermsAndConditionsActivity.class));
 			break;
+		case R.id.ivBack:
+			onBackPressed();
+			break;
 		}
 
+	}
+
+	@Override
+	public void onBackPressed() {
+		// TODO Auto-generated method stub
+		super.onBackPressed();
+		overridePendingTransition(R.anim.activity_back_in, R.anim.activity_back_out);
 	}
 
 	@Override

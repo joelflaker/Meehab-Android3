@@ -4,23 +4,23 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
+import java.util.Locale;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.ls.LSInput;
 
 import android.app.ProgressDialog;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
-import android.graphics.Color;
 import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -28,7 +28,6 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
-import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -36,7 +35,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
@@ -51,13 +49,12 @@ import com.citrusbits.meehab.R;
 import com.citrusbits.meehab.adapters.MeetingsListAdapter;
 import com.citrusbits.meehab.app.App;
 import com.citrusbits.meehab.constants.EventParams;
+import com.citrusbits.meehab.custommap.CustomMapFragment;
 import com.citrusbits.meehab.db.UserDatasource;
-import com.citrusbits.meehab.fragments.FilterResultHolder.FilterTime;
 import com.citrusbits.meehab.map.LocationService;
 import com.citrusbits.meehab.map.LocationService.LocationListener;
 import com.citrusbits.meehab.map.LocationService.MyLocalBinder;
 import com.citrusbits.meehab.map.LocationUtils;
-import com.citrusbits.meehab.model.MeetingFilterModel;
 import com.citrusbits.meehab.model.MeetingModel;
 import com.citrusbits.meehab.model.MeetingModel.MarkerColorType;
 import com.citrusbits.meehab.model.UserAccount;
@@ -66,16 +63,16 @@ import com.citrusbits.meehab.prefrences.AppPrefs;
 import com.citrusbits.meehab.services.OnBackendConnectListener;
 import com.citrusbits.meehab.services.OnSocketResponseListener;
 import com.citrusbits.meehab.utils.AccountUtils;
+import com.citrusbits.meehab.utils.DateTimeUtils;
+import com.citrusbits.meehab.utils.MeetingUtils;
+import com.citrusbits.meehab.utils.NetworkUtils;
 import com.citrusbits.meehab.utils.UtilityClass;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.gson.Gson;
@@ -83,7 +80,6 @@ import com.google.gson.Gson;
 public class MeetingsFragment extends Fragment implements
 		OnSocketResponseListener, OnBackendConnectListener,
 		View.OnClickListener, ListView.OnItemClickListener,
-		GoogleMap.OnMarkerClickListener, GoogleMap.OnMapClickListener,
 		GoogleMap.OnInfoWindowClickListener {
 
 	public static final int REQUEST_MEETING_DETAILS = 2;
@@ -93,12 +89,15 @@ public class MeetingsFragment extends Fragment implements
 	 */
 	public static final int Filter_request = 200;
 	// Google Map
-	SupportMapFragment mapFrag;
+	// SupportMapFragment mapFrag;
 	GoogleMap map;
 	private Location myLocation /* = new LatLng(33.671447, 73.069612) */;
 	private ImageButton btnList, btnFindMe;
 	private ListView list;
 	ArrayList<MeetingModel> meetings = new ArrayList<MeetingModel>();
+
+	ArrayList<MeetingModel> mapMeetings = new ArrayList<MeetingModel>();
+
 	HashMap<Marker, MeetingModel> spots;
 	MeetingsListAdapter meetingsAdapter;
 	private HomeActivity homeActivity;
@@ -116,6 +115,12 @@ public class MeetingsFragment extends Fragment implements
 	List<String> favMeetingIds = new ArrayList<String>();
 
 	private int mReqPosition = -1;
+
+	CustomMapFragment customMap;
+
+	private boolean listWasInvisible = false;
+
+	public static FilterResultHolder resultHolder = new FilterResultHolder();
 
 	ServiceConnection locServiceConnection = new ServiceConnection() {
 
@@ -147,6 +152,8 @@ public class MeetingsFragment extends Fragment implements
 
 	MeetingProcessingTask meetingProcessinTask;
 
+	private long timeZone;
+
 	public MeetingsFragment() {
 	}
 
@@ -160,9 +167,16 @@ public class MeetingsFragment extends Fragment implements
 		// TODO Auto-generated method stub
 		super.onDestroy();
 
-		locationService.removeListener(locationListener);
-		getActivity().unbindService(locServiceConnection);
-		getActivity().stopService(new Intent(mContext, LocationService.class));
+		try {
+
+			locationService.removeListener(locationListener);
+			getActivity().unbindService(locServiceConnection);
+			getActivity().stopService(
+					new Intent(mContext, LocationService.class));
+
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
 
 		if (meetingProcessinTask != null
 				&& meetingProcessinTask.getStatus() == android.os.AsyncTask.Status.RUNNING) {
@@ -176,7 +190,7 @@ public class MeetingsFragment extends Fragment implements
 		super.onCreate(savedInstanceState);
 		userDatasource = new UserDatasource(getActivity());
 		userDatasource.open();
-
+		timeZone = MeetingUtils.getTimeZoneOffset();
 		user = userDatasource.findUser(AccountUtils.getUserId(getActivity()));
 		mContext = getActivity();
 		meetings = new ArrayList<>();
@@ -200,32 +214,41 @@ public class MeetingsFragment extends Fragment implements
 		btnList = (ImageButton) v.findViewById(R.id.btnList);
 		btnFindMe = (ImageButton) v.findViewById(R.id.btnFindMe);
 		editTopCenter = (EditText) v.findViewById(R.id.editTopCenter);
-		focus_thief = v.findViewById(R.id.focus_thief);
+
+		meetingsAdapter = new MeetingsListAdapter(getActivity(),
+				R.layout.list_item_meeting, meetings);
+
 		editTopCenter.addTextChangedListener(new TextWatcher() {
 
 			@Override
 			public void onTextChanged(CharSequence s, int start, int before,
 					int count) {
-				String text = editTopCenter.getText().toString().trim();
-				if (TextUtils.isEmpty(text)) {
-					editTopCenter.setCompoundDrawablesWithIntrinsicBounds(
-							android.R.drawable.ic_menu_search, 0, 0, 0);
-				} else {
-					editTopCenter.setCompoundDrawables(null, null, null, null);
-				}
-				searchMeetings(text);
+				// TODO Auto-generated method stub
+
 			}
 
 			@Override
 			public void beforeTextChanged(CharSequence s, int start, int count,
 					int after) {
+				// TODO Auto-generated method stub
 
 			}
 
 			@Override
 			public void afterTextChanged(Editable s) {
+				// TODO Auto-generated method stub
+				String inputText = s.toString().trim().toLowerCase();
+				searchMeetings(inputText);
+				if (inputText.trim().length() == 0) {
+					if (listWasInvisible) {
+						switchList();
+						listWasInvisible = false;
+					}
+				}
 			}
 		});
+
+		focus_thief = v.findViewById(R.id.focus_thief);
 
 		btnList.setOnClickListener(this);
 		btnFindMe.setOnClickListener(this);
@@ -233,23 +256,36 @@ public class MeetingsFragment extends Fragment implements
 
 		if (App.isPlayServiceOk) {
 			if (map == null) {
-				mapFrag = ((SupportMapFragment) getChildFragmentManager()
-						.findFragmentById(R.id.map));
-				mapFrag.getMapAsync(new OnMapReadyCallback() {
+				/*
+				 * mapFrag = ((SupportMapFragment) getChildFragmentManager()
+				 * .findFragmentById(R.id.map)); mapFrag.getMapAsync(new
+				 * OnMapReadyCallback() {
+				 * 
+				 * @Override public void onMapReady(GoogleMap arg) { map = arg;
+				 * 
+				 * map.setInfoWindowAdapter(new MeetingInfoWindowAdapter()); //
+				 * map.getUiSettings().setMyLocationButtonEnabled(false);
+				 * map.setMyLocationEnabled(true);
+				 * map.getUiSettings().setScrollGesturesEnabled(true);
+				 * map.getUiSettings().setZoomGesturesEnabled(true); //
+				 * map.setOnMarkerClickListener(MeetingsFragment.this);
+				 * 
+				 * map.setOnInfoWindowClickListener(MeetingsFragment.this);
+				 * 
+				 * } });
+				 */
 
-					@Override
-					public void onMapReady(GoogleMap arg) {
-						map = arg;
+				Fragment frag = getChildFragmentManager().findFragmentById(
+						R.id.map);
+				customMap = (CustomMapFragment) frag;
 
-						map.setInfoWindowAdapter(new MeetingInfoWindowAdapter());
-						// map.getUiSettings().setMyLocationButtonEnabled(false);
-						map.setMyLocationEnabled(true);
-						map.setOnMarkerClickListener(MeetingsFragment.this);
-						map.setOnMapClickListener(MeetingsFragment.this);
-						map.setOnInfoWindowClickListener(MeetingsFragment.this);
+				map = customMap.getMap();
+				map.setMyLocationEnabled(true);
 
-					}
-				});
+				map.setInfoWindowAdapter(new MeetingInfoWindowAdapter());
+				map.getUiSettings().setScrollGesturesEnabled(true);
+				map.getUiSettings().setZoomGesturesEnabled(true);
+				map.setOnInfoWindowClickListener(MeetingsFragment.this);
 			}
 
 		}
@@ -262,36 +298,45 @@ public class MeetingsFragment extends Fragment implements
 	 * @param text
 	 */
 	protected void searchMeetings(String text) {
+		makeListVisible();
+		meetingsAdapter.filter(text);
+	}
+
+	public void makeListVisible() {
 		if (!list.isShown()) {
 			// btnList.setText("MAP");
 
 			btnList.setImageResource(R.drawable.map_btn);
 			btnFindMe.setVisibility(View.GONE);
-			mapFrag.onPause();
+			// mapFrag.onPause();
+			// customMap.onPause();
 			list.setVisibility(View.VISIBLE);
+			listWasInvisible = true;
 		}
-
-		meetingsAdapter.filter(text);
-	}
-
-	protected void filterMeetings() {
-
-		// meetingsAdapter.filter(text);
-
 	}
 
 	/**
 	 * 
 	 */
 	protected void addMarkers() {
+
 		map.clear();
 		spots.clear();
+		mapMeetings.clear();
 
 		BitmapDescriptor icon = BitmapDescriptorFactory
 				.fromResource(R.drawable.pin);
 		// add marker
 		for (int i = 0; i < meetings.size(); i++) {
-			MeetingModel m = meetings.get(i);
+
+			if (!meetings.get(i).isTodayMeeting()) {
+
+				continue;
+			}
+
+			mapMeetings.add(meetings.get(i));
+
+			MeetingModel m = mapMeetings.get(i);
 			// Creating an instance of MarkerOptions to set position
 			int resourceId = R.drawable.pin_dark_pink;
 			if (m.getMarkertypeColor() == MarkerColorType.GREEN) {
@@ -322,53 +367,19 @@ public class MeetingsFragment extends Fragment implements
 
 	}
 
-	public void fitBounds() {
-
-		Iterator<Entry<Marker, MeetingModel>> it = spots.entrySet().iterator();
-		LatLngBounds.Builder builder = new LatLngBounds.Builder();
-		while (it.hasNext()) {
-			Map.Entry pair = (Map.Entry) it.next();
-
-			// System.out.println(pair.getKey() + " = " + pair.getValue());
-			// it.remove(); // avoids a ConcurrentModificationException
-
-			Marker marker = (Marker) pair.getKey();
-			builder.include(marker.getPosition());
-			LatLngBounds bounds = builder.build();
-
-			int padding = 0; // offset from edges of the map in pixels
-			CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds,
-					padding);
-			map.moveCamera(cu);
-		}
-
-	}
-
 	@Override
 	public void onStart() {
 		super.onStart();
 	}
 
 	void refreshMeetingList() {
+		if (!NetworkUtils.isNetworkAvailable(getActivity())) {
+			App.alert(getString(R.string.no_internet_connection));
+			return;
+		}
 		if (homeActivity.socketService != null) {
 			pd.show();
-			homeActivity.socketService.updateMeetings(new JSONObject());
-		}
-	}
-
-	void refrshFavList() {
-		if (homeActivity.socketService != null) {
-			// pd.show();
-			JSONObject object = new JSONObject();
-			try {
-				object.put("id", user.getId());
-				Log.e("Fav Object ", object.toString());
-				homeActivity.socketService.favMeetingsList(object);
-			} catch (JSONException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-
+			homeActivity.socketService.getMeeting(new JSONObject());
 		}
 	}
 
@@ -405,40 +416,130 @@ public class MeetingsFragment extends Fragment implements
 		if (m != null) {
 
 		}
-		Intent intent = new Intent(getActivity(), MeetingDetailsActivity.class);
-		Bundle bundle = new Bundle();
+		/*
+		 * Intent intent = new Intent(getActivity(),
+		 * MeetingDetailsActivity.class); Bundle bundle = new Bundle();
+		 * 
+		 * bundle.putSerializable("meeting", m); intent.putExtras(bundle); //
+		 * startActivity(intent); mReqPosition = meetings.indexOf(m);
+		 * 
+		 * Toast.makeText(getActivity(), "Info Window is clicked!",
+		 * Toast.LENGTH_SHORT).show(); startActivityForResult(intent,
+		 * REQUEST_MEETING_DETAILS);
+		 */
 
-		bundle.putSerializable("meeting", m);
-		intent.putExtras(bundle);
-		// startActivity(intent);
-		mReqPosition = meetings.indexOf(m);
+		/*
+		 * int position = -1; List<MeetingModel>
+		 * meetings=meetingsAdapter.getMeetings(); for (int i = 0; i <
+		 * meetings.size(); i++) { if
+		 * (m.getMeetingId().equals(meetings.get(i).getMeetingId())) { position
+		 * = i; break; } } if (position == -1) {
+		 * 
+		 * return; }
+		 */
 
-		startActivityForResult(intent, REQUEST_MEETING_DETAILS);
+		int position = getPostion(m.getMeetingId());
+
+		if (position == -1) {
+
+			return;
+		}
+
+		startDetailActivity(position);
 
 	}
 
-	@Override
-	public boolean onMarkerClick(Marker marker) {
-		marker.showInfoWindow();
-		return false;
+	public int getPostion(int meetingId) {
+		int position = -1;
+		List<MeetingModel> meetings_ = meetingsAdapter.getMeetingCache();
+		for (int i = 0; i < meetings_.size(); i++) {
+			if (meetings_.get(i).getMeetingId().equals(meetingId)) {
+				position = i;
+				break;
+			}
+		}
+		return position;
 	}
 
-	@Override
-	public void onMapClick(LatLng arg0) {
+	public void unCheckAllMeetings() {
+		List<MeetingModel> meetingCache = meetingsAdapter.getMeetingCache();
+		for (int i = 0; i < meetingCache.size(); i++) {
+			if (meetingCache.get(i).getCheckInMeeting() == 1) {
+				meetingCache.get(i).setCheckInMeeting(0);
+				// Toast.makeText(mContext, "Meeting Index "+i,
+				// Toast.LENGTH_SHORT).show();
+				break;
+			}
+		}
+
+		for (int i = 0; i < meetings.size(); i++) {
+			if (meetings.get(i).getCheckInMeeting() == 1) {
+				meetings.get(i).setCheckInMeeting(0);
+				// Toast.makeText(mContext, "Meeting Index "+i,
+				// Toast.LENGTH_SHORT).show();
+				break;
+			}
+		}
+
+		for (int i = 0; i < mapMeetings.size(); i++) {
+			if (mapMeetings.get(i).getCheckInMeeting() == 1) {
+				mapMeetings.get(i).setCheckInMeeting(0);
+				// Toast.makeText(mContext, "Meeting Index "+i,
+				// Toast.LENGTH_SHORT).show();
+				break;
+			}
+		}
+	}
+
+	public void setMeetingModel(MeetingModel meeting) {
+		for (int i = 0; i < meetings.size(); i++) {
+			if (meeting.getMeetingId().equals(meetings.get(i).getMeetingId())) {
+				meetings.set(i, meeting);
+				// Toast.makeText(mContext, "Meeting Index "+i,
+				// Toast.LENGTH_SHORT).show();
+				break;
+			}
+		}
+
+		for (int i = 0; i < mapMeetings.size(); i++) {
+			if (meeting.getMeetingId()
+					.equals(mapMeetings.get(i).getMeetingId())) {
+				mapMeetings.set(i, meeting);
+				// Toast.makeText(mContext, "Map Meeting Index "+i,
+				// Toast.LENGTH_SHORT).show();
+				break;
+			}
+		}
 
 	}
+
+	/*
+	 * @Override public boolean onMarkerClick(Marker marker) {
+	 * marker.showInfoWindow(); return false; }
+	 */
 
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position,
 			long id) {
+		// startDetailActivity(position);
+		int _position = getPostion(meetings.get(position).getMeetingId());
+
+		startDetailActivity(_position);
+	}
+
+	public void startDetailActivity(int position) {
 		Intent intent = new Intent(getActivity(), MeetingDetailsActivity.class);
 		Bundle bundle = new Bundle();
 
-		bundle.putSerializable("meeting", meetings.get(position));
+		bundle.putSerializable("meeting", meetingsAdapter.getMeetingCache()
+				.get(position));
+
 		intent.putExtras(bundle);
 
 		// getActivity().startActivity(intent);
 		mReqPosition = position;
+		// Toast.makeText(mContext, "Request Position is "+mReqPosition,
+		// Toast.LENGTH_SHORT).show();
 		startActivityForResult(intent, REQUEST_MEETING_DETAILS);
 		getActivity().overridePendingTransition(R.anim.activity_in,
 				R.anim.activity_out);
@@ -448,6 +549,7 @@ public class MeetingsFragment extends Fragment implements
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.topMenuBtn:
+
 			if (homeActivity.isDrawerOpen()) {
 				homeActivity.changeDrawerVisibility(false);
 			} else {
@@ -458,6 +560,7 @@ public class MeetingsFragment extends Fragment implements
 			// filter
 			Intent intent = new Intent(getActivity(),
 					MeetingsFilterActivity.class);
+			intent.putExtra(MeetingsFilterActivity.MEETING_FILTER, resultHolder);
 			// put user id
 			startActivityForResult(intent, Filter_request);
 			getActivity().overridePendingTransition(R.anim.activity_back_in,
@@ -486,7 +589,8 @@ public class MeetingsFragment extends Fragment implements
 		if (!list.isShown()) {
 			// btnList.setText("MAP");
 			btnFindMe.setVisibility(View.GONE);
-			mapFrag.onPause();
+			// mapFrag.onPause();
+			// customMap.onPause();
 			btnList.setImageResource(R.drawable.map_btn);
 			list.setVisibility(View.VISIBLE);
 		} else {
@@ -494,7 +598,7 @@ public class MeetingsFragment extends Fragment implements
 			btnList.setImageResource(R.drawable.list_btn);
 			btnFindMe.setVisibility(View.VISIBLE);
 			list.setVisibility(View.GONE);
-			//mapFrag.onResume();
+			// mapFrag.onResume();
 		}
 	}
 
@@ -517,7 +621,7 @@ public class MeetingsFragment extends Fragment implements
 							@Override
 							public void run() {
 								// TODO Auto-generated method stub
-								//list.setVisibility(View.GONE);
+								// list.setVisibility(View.GONE);
 								switchList();
 							}
 						}, 300);
@@ -545,15 +649,27 @@ public class MeetingsFragment extends Fragment implements
 				 * .getSerializableExtra(MeetingsFilterActivity.MEETING_FILTER);
 				 */
 
-				FilterResultHolder resultHolder = (FilterResultHolder) data
+				resultHolder = (FilterResultHolder) data
 						.getSerializableExtra(MeetingsFilterActivity.MEETING_FILTER);
 
-				meetingsAdapter.setLocation(map.getMyLocation());
+				Location location = map.getMyLocation();
+				if (location == null) {
+					AppPrefs prefs = AppPrefs.getAppPrefs(getActivity());
+					double latitude = prefs.getDoubletPrefs(
+							AppPrefs.KEY_LATITUDE, 0);
+					double longitude = prefs.getDoubletPrefs(
+							AppPrefs.KEY_LONGITUDE, 0);
+					location = new Location("");
+					location.setLatitude(latitude);
+					location.setLongitude(longitude);
+				}
+
+				meetingsAdapter.setLocation(location);
 
 				List<String> days = resultHolder.getDays();
 				List<String> times = resultHolder.getTimes();
 
-				Log.e("If Any Day ", resultHolder.getAnyDay() + "");
+				Log.i("If Any Day ", resultHolder.getAnyDay() + "");
 
 				for (int i = 0; i < days.size(); i++) {
 					Log.e("Day ", days.get(i) + "");
@@ -567,17 +683,41 @@ public class MeetingsFragment extends Fragment implements
 
 				meetingsAdapter.filter(resultHolder);
 
+				makeListVisible();
+
+				// refreshMap();
+
 			} else if (requestCode == REQUEST_MEETING_DETAILS) {
 
 				if (mReqPosition != -1) {
-					
+
 					MeetingModel m = (MeetingModel) data
 							.getSerializableExtra("meeting");
 
-					meetings.set(mReqPosition, m);
+					if (m.getCheckInMeeting() == 1) {
+						unCheckAllMeetings();
+					}
+					meetingsAdapter.setMeeting(mReqPosition, m);
+					// meetings.set(mReqPosition, m);
+					setMeetingModel(m);
+					// makeListVisible();
+
 				}
 			}
+		} else if (resultCode == MeetingsFilterActivity.CLEAR_FILTER) {
+			resultHolder = new FilterResultHolder();
+			meetingsAdapter.filter("");
+			meetingsAdapter.notifyDataSetChanged();
+			// makeListVisible();
+			// refreshMap();
 		}
+	}
+
+	public void refreshMap() {
+		// meetings.clear();
+		// meetings.addAll(meetingsAdapter.getMeetings());
+		addMarkers();
+
 	}
 
 	private void moveMapCamera(LatLng p) {
@@ -587,7 +727,13 @@ public class MeetingsFragment extends Fragment implements
 
 	@Override
 	public void onSocketResponseSuccess(String event, Object obj) {
-		pd.dismiss();
+
+		if (pd != null && pd.isShowing()) {
+
+			pd.dismiss();
+
+		}
+
 		// Location myLocation=map.getMyLocation();
 		if (event.equals(EventParams.EVENT_MEETING_GET_ALL)) {
 
@@ -606,65 +752,13 @@ public class MeetingsFragment extends Fragment implements
 				meetingProcessinTask = new MeetingProcessingTask();
 				meetingProcessinTask.execute();
 
-				/*
-				 * if (meetings.size() > 0) {
-				 * 
-				 * 
-				 * String prevDate = ""; for (int i = 0; i < meetings.size();
-				 * i++) { MeetingModel meeting = meetings.get(i);
-				 * meeting.setOnDateOrigin(meeting.getOnDate());
-				 * 
-				 * Location pinLocation = new Location("B");
-				 * pinLocation.setLatitude(meeting.getLatitude());
-				 * pinLocation.setLongitude(meeting.getLongitude()); long
-				 * distance = (long) (myLocation .distanceTo(pinLocation) *
-				 * 0.000621371192f); meeting.setDistanceInMiles(distance);
-				 * 
-				 * Log.e("Timing", meeting.getOnTime()); if
-				 * (!prevDate.equals(meeting.getOnDate())) {
-				 * meeting.setDateHeaderVisibility(true); prevDate =
-				 * meeting.getOnDate();
-				 * meeting.setOnDate(formateDate(meeting.getOnDate())); }
-				 * 
-				 * setStartInTime(meeting, meeting.getOnDateOrigion(),
-				 * meeting.getOnTime()); }
-				 * 
-				 * meetingsAdapter = new MeetingsListAdapter(getActivity(),
-				 * R.layout.list_item_meeting, meetings);
-				 * list.setAdapter(meetingsAdapter);
-				 * meetingsAdapter.notifyDataSetChanged(); addMarkers(); }
-				 */
 			} catch (Exception e) {
+				e.printStackTrace();
+				String message = e.getMessage();
 
 			}
 
 			// refrshFavList();
-
-		} else if (event.equals(EventParams.EVENT_FAVOURITE_LIST)) {
-			JSONObject data = ((JSONObject) obj);
-			favMeetingIds.clear();
-			try {
-				JSONArray allFavouriteArrays = data
-						.getJSONArray("getAllFavorites");
-				for (int i = 0; i < allFavouriteArrays.length(); i++) {
-					JSONObject object = allFavouriteArrays.getJSONObject(i);
-					String meetingId = object.getString("meetingID");
-					favMeetingIds.add(meetingId);
-				}
-
-				for (MeetingModel meeting : meetings) {
-
-					String meetingId = String.valueOf(meeting.getMeetingId());
-
-					meeting.setFavourite(favMeetingIds.contains(meetingId) ? true
-							: false);
-
-				}
-			} catch (JSONException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			Log.e("Favourite", data.toString());
 
 		}
 
@@ -678,32 +772,198 @@ public class MeetingsFragment extends Fragment implements
 
 			if (meetings.size() > 0) {
 
-				String prevDate = "";
 				for (int i = 0; i < meetings.size(); i++) {
 					MeetingModel meeting = meetings.get(i);
-					meeting.setOnDateOrigin(meeting.getOnDate());
+					meeting.setFavourite(meeting.getFavouriteMeeting() == 1);
+
+					/*
+					 * meeting.setOnTime(DateTimeUtils.getTimeWRTTimeZone(
+					 * meeting.getOnTime(), timeZone));
+					 */
+
+					NearesDateTime nearDateTime = getOnDate(meeting.getOnDay(),
+							meeting.getOnTime(), i);
+
+					String onDate = nearDateTime.getDate();
+
+					meeting.setOnDateOrigin(onDate);
+					meeting.setNearestTime(nearDateTime.getTime());
 
 					Location pinLocation = new Location("B");
 					pinLocation.setLatitude(meeting.getLatitude());
 					pinLocation.setLongitude(meeting.getLongitude());
-					long distance = (long) (myLocation.distanceTo(pinLocation) * 0.000621371192f);
+					double distance = (double) (myLocation
+							.distanceTo(pinLocation) * 0.000621371192f);
+
+					distance = Math.floor(distance * 100) / 100f;
 					meeting.setDistanceInMiles(distance);
 
-					Log.e("Timing", meeting.getOnTime());
-					if (!prevDate.equals(meeting.getOnDate())) {
-						meeting.setDateHeaderVisibility(true);
-						prevDate = meeting.getOnDate();
-						meeting.setOnDate(formateDate(meeting.getOnDate()));
-					}else{
-						meeting.setOnDate(meetings.get(i-1).getOnDate());
-					}
+					/*
+					 * Log.e("Timing", meeting.getOnTime()); if
+					 * (!prevDate.equals(onDate)) {
+					 * meeting.setDateHeaderVisibility(true); prevDate =
+					 * meeting.getOnDate(); Date dateObje=getDateObject(onDate);
+					 * meeting.setDateObj(dateObje);
+					 * meeting.setOnDate(formateDate(dateObje)); } else {
+					 */
+					// meeting.setOnDate(meetings.get(i - 1).getOnDate());
+					Date dateObje = getDateObject(onDate);
+					meeting.setDateObj(dateObje);
+					meeting.setOnDate(formateDate(dateObje));
+					// }
 
+					/*
+					 * setStartInTime(meeting, meeting.getOnDateOrigion(),
+					 * meeting.getOnTime());
+					 */
 					setStartInTime(meeting, meeting.getOnDateOrigion(),
-							meeting.getOnTime());
+							meeting.getNearestTime());
+				}
+
+				sortData();
+				String prevDate = "";
+				for (int i = 0; i < meetings.size(); i++) {
+					MeetingModel m = meetings.get(i);
+					if (m.getOnDateOrigion() == null) {
+						continue;
+					}
+					if (!prevDate.equals(m.getOnDateOrigion())) {
+						m.setDateHeaderVisibility(true);
+						prevDate = m.getOnDateOrigion();
+					}
 				}
 			}
 
 			return null;
+		}
+
+		public void sortData() {
+			Collections.sort(meetings, new Comparator<MeetingModel>() {
+				public int compare(MeetingModel o1, MeetingModel o2) {
+
+					if (o1.getDateObj() == null || o2.getDateObj() == null)
+						return 0;
+					return o1.getDateObj().compareTo(o2.getDateObj());
+				}
+			});
+		}
+
+		String daysInWeek[] = { "monday", "tuesday", "wednesday", "thursday",
+				"friday", "saturday", "sunday" };
+
+		public NearesDateTime getOnDate(String days, String times, int position) {
+
+			List<NearesDateTime> nearestDateTimes = new ArrayList<>();
+
+			String dayArray[] = days.split(",");
+			String timeArray[] = times.split(",");
+			int nearPosition = 0;
+			int minDayDiffer = Integer.MAX_VALUE;
+			for (int j = 0; j < dayArray.length; j++) {
+				String onDay = dayArray[j];
+				String onTime = timeArray[j];
+
+				Calendar sCalendar = Calendar.getInstance();
+				String dayLongName = sCalendar.getDisplayName(
+						Calendar.DAY_OF_WEEK, Calendar.LONG,
+						Locale.getDefault());
+				int onDayPositon = -1;
+				int todayPosition = -1;
+
+				for (int i = 0; i < daysInWeek.length; i++) {
+					if (onDay.toLowerCase().equals(daysInWeek[i])) {
+						onDayPositon = i;
+					}
+
+					if (dayLongName.toLowerCase().equals(daysInWeek[i])) {
+						todayPosition = i;
+					}
+				}
+
+				if (onDayPositon > todayPosition) {
+					sCalendar.add(Calendar.DAY_OF_MONTH,
+							(onDayPositon - todayPosition));
+					int dayDiffer = onDayPositon - todayPosition;
+					if (minDayDiffer > dayDiffer) {
+						minDayDiffer = dayDiffer;
+						nearPosition = j;
+					}
+
+				} else if (onDayPositon < todayPosition) {
+					sCalendar.add(Calendar.DAY_OF_MONTH, ((daysInWeek.length)
+							- todayPosition + onDayPositon));
+
+					int dayDiffer = ((daysInWeek.length) - todayPosition + onDayPositon);
+					if (minDayDiffer > dayDiffer) {
+						minDayDiffer = dayDiffer;
+						nearPosition = j;
+					}
+
+				} else if (onDayPositon == todayPosition) {
+					SimpleDateFormat _12HourSDF = new SimpleDateFormat(
+							"hh:mm a");
+					try {
+						final Date dateObj = _12HourSDF.parse(onTime);
+						sCalendar.set(Calendar.HOUR_OF_DAY,
+								dateObj.getHours() + 1);
+						sCalendar.set(Calendar.MINUTE, dateObj.getMinutes());
+						if (sCalendar.before(Calendar.getInstance())) {
+							sCalendar.add(Calendar.DAY_OF_MONTH,
+									(daysInWeek.length));
+
+							int dayDiffer = daysInWeek.length;
+							if (minDayDiffer > dayDiffer) {
+								minDayDiffer = dayDiffer;
+								nearPosition = j;
+							}
+
+						} else {
+							meetings.get(position).setTodayMeeting(true);
+							int dayDiffer = 0;
+							if (minDayDiffer > dayDiffer) {
+								minDayDiffer = dayDiffer;
+								nearPosition = j;
+							}
+						}
+					} catch (ParseException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+
+				SimpleDateFormat dateFormate = new SimpleDateFormat(
+						"dd/MM/yyyy");
+				String dateMade = dateFormate.format(sCalendar.getTime());
+
+				NearesDateTime nearDateTime = new NearesDateTime();
+				nearDateTime.setDate(dateMade);
+				nearDateTime.setTime(onTime);
+				nearestDateTimes.add(nearDateTime);
+			}
+
+			return nearestDateTimes.get(nearPosition);
+
+		}
+
+		public class NearesDateTime {
+			String date;
+			String time;
+
+			public void setDate(String date) {
+				this.date = date;
+			}
+
+			public String getDate() {
+				return this.date;
+			}
+
+			public void setTime(String time) {
+				this.time = time;
+			}
+
+			public String getTime() {
+				return this.time;
+			}
 		}
 
 		@Override
@@ -716,22 +976,45 @@ public class MeetingsFragment extends Fragment implements
 			list.setAdapter(meetingsAdapter);
 			meetingsAdapter.notifyDataSetChanged();
 			addMarkers();
-			refrshFavList();
+			// refrshFavList();
+
+			meetingsAdapter.filter(resultHolder);
+
+			// refreshMap();
 		}
 
 	}
 
-	public String formateDate(String date) {
+	public Date getDateObjectFromDateStr(String date) {
 		SimpleDateFormat prevFormate = new SimpleDateFormat("dd/MM/yyyy");
-		SimpleDateFormat newFormate = new SimpleDateFormat("EEEE dd MMM yyyy");
+
 		try {
 			Date date2 = prevFormate.parse(date);
-			return newFormate.format(date2);
+			return date2;
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
+
 			e.printStackTrace();
-			return date;
+			return null;
 		}
+	}
+
+	public Date getDateObject(String date) {
+		SimpleDateFormat prevFormate = new SimpleDateFormat("dd/MM/yyyy");
+		try {
+			Date date2 = prevFormate.parse(date);
+			return date2;
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	public String formateDate(Date date) {
+		SimpleDateFormat newFormate = new SimpleDateFormat("EEEE dd MMM yyyy");
+		return newFormate.format(date);
 	}
 
 	public void setStartInTime(MeetingModel model, String date, String onTime) {
@@ -750,19 +1033,23 @@ public class MeetingsFragment extends Fragment implements
 
 			Calendar currentCalendar = Calendar.getInstance();
 
+			// currentCalendar.set(Calendar.SECOND, 0);
+
 			long difference = calendar.getTimeInMillis()
 					- currentCalendar.getTimeInMillis();
 
 			long x = difference / 1000;
 			Log.e("Difference ", x + "");
 
+			long days = x / (60 * 60 * 24);
+
 			long seconds = x % 60;
 			x /= 60;
 			long minutes = x % 60;
 			x /= 60;
 			long hours = x % 24;
-
-			Log.e("Hours Difference ", hours + ":" + minutes);
+			Log.i("Meeting Name ", model.getName());
+			Log.i("Hours Difference ", hours + ":" + minutes);
 			SimpleDateFormat mmmDate = new SimpleDateFormat(
 					"dd/MM/yyyy hh:mm a");
 			String mDate = mmmDate.format(calendar.getTime());
@@ -770,10 +1057,16 @@ public class MeetingsFragment extends Fragment implements
 			Log.e("Meeting date time ", mDate);
 			Log.e("Nnow date time ", mNow);
 
-			if (hours > 1 || hours == 1 && minutes > 0) {
+			if (days > 0) {
 				model.setMarkerTypeColor(MarkerColorType.GREEN);
-				model.setStartInTime("AFTER 1 HOUR");
-			} else if (hours == 0 && minutes >= 0) {
+				model.setStartInTime("AFTER " + days + " "
+						+ (days == 1 ? "DAY" : "DAYS"));
+			} else if (hours > 1 || hours == 1 && minutes > 0) {
+				model.setMarkerTypeColor(MarkerColorType.GREEN);
+				model.setStartInTime("AFTER " + hours + " "
+						+ (hours == 1 ? "HOUR" : "HOURS"));
+			} else if (hours == 0 && minutes > 0
+					|| (hours == 0 && minutes == 0 && seconds > 1)) {
 				model.setMarkerTypeColor(MarkerColorType.ORANGE);
 				model.setStartInTime("START IN HOUR");
 			} else if (hours == 0 && minutes <= 0 || hours < 0 && hours > -2) {
@@ -798,8 +1091,19 @@ public class MeetingsFragment extends Fragment implements
 
 	@Override
 	public void onBackendConnected() {
+
 		if (!meetingUpdated) {
-			refreshMeetingList();
+			if (NetworkUtils.isNetworkAvailable(getActivity())) {
+				try {
+					refreshMeetingList();
+				} catch (Exception e) {
+					// TODO: handle exception
+				}
+
+			} else {
+				App.alert(getString(R.string.no_internet_connection));
+			}
+
 		}
 
 	}
@@ -814,7 +1118,7 @@ public class MeetingsFragment extends Fragment implements
 			TextView txtName = (TextView) v.findViewById(R.id.txtName);
 			TextView txtLocationName = (TextView) v
 					.findViewById(R.id.txtLocationName);
-			TextView txtAddress = (TextView) v.findViewById(R.id.txtAddress);
+
 			TextView txtReviewCounts = (TextView) v
 					.findViewById(R.id.txtReviewCounts);
 			RatingBar rating = (RatingBar) v.findViewById(R.id.rating);
@@ -825,15 +1129,25 @@ public class MeetingsFragment extends Fragment implements
 			MeetingModel m = spots.get(marker);
 
 			txtName.setText(m.getName());
-			txtTime.setText(m.getOnTime());
+			// txtTime.setText(m.getOnTime());
+			txtTime.setText(m.getNearestTime());
 			txtReviewCounts.setText(String.valueOf(m.getReviewsCount())
 					+ " reviews");
 			txtLocationName.setText(m.getBuildingType());
-			txtAddress.setText(m.getAddress());
+
 			rating.setRating(m.getReviewsAvg());
 			txtStatus.setText(m.getStartInTime());
 
-			txtDistance.setText(UtilityClass.calculatDistance(m.getPosition()));
+			if (m.getMarkertypeColor() == MarkerColorType.GREEN) {
+				txtStatus.setBackgroundResource(R.drawable.hours_bg_green);
+			} else if (m.getMarkertypeColor() == MarkerColorType.ORANGE) {
+				txtStatus.setBackgroundResource(R.drawable.start_in_hour_btn);
+			} else if (m.getMarkertypeColor() == MarkerColorType.RED) {
+				txtStatus.setBackgroundResource(R.drawable.ongoing_btn);
+			}
+
+			// txtDistance.setText(UtilityClass.calculatDistance(m.getPosition()));
+			txtDistance.setText(m.getDistanceInMiles() + " MILES");
 
 			return v;
 		}

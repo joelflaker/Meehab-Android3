@@ -21,7 +21,17 @@ public class AppPrefs {
 	public static final String KEY_PROFILE_SETUP_MORE = "profile_setup_more";
 
 	public static final String KEY_CHAT_ACTIVITY_OPEN = "chat_activity_open";
+
+	public static final String KEY_CONVERSATION_FRAG_OPEN = "converation_frag_open";
+
 	public static final String KEY_CHAT_FRIEND_ID = "chat_friend_id";
+
+	public static final String KEY_GCM_REG_ID = "gcm_reg_id";
+
+	public static final String KEY_APPEAR_OFFLINE = "appear_offline";
+	public static final String KEY_LINKK_WITH_FACEBOOK = "link_w_facebook";
+	
+	public static final String KEY_MSG_NOTIFICATION = "msg_notification";
 
 	Context mContext;
 	SharedPreferences prefs;
@@ -110,6 +120,13 @@ public class AppPrefs {
 
 		public static final boolean CHAT_ACTIVITY_OPEN = false;
 		
+		
+		public static final boolean APPEAR_OFFLINE = false;
+		public static final boolean MESSAGE_NOTIFICATION = true;
+		public static final boolean LINKK_WITH_FACEBOOK = false;
+
+		public static final boolean CONVERSATION_FRAG_OPEN = false;
+
 		public static final int CHAT_FRIEND_ID = -1;
 	}
 

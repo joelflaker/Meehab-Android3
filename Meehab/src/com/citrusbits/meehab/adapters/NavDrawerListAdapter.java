@@ -82,7 +82,7 @@ public class NavDrawerListAdapter extends BaseAdapter {
 		holder.tvTitle.setText(drawerItem.getTitle());
 		holder.tvCounter = (TextView) convertView.findViewById(R.id.tvCounter);
 		holder.tvCounter
-				.setVisibility(position == ViewHolder.MESSAGE_ITEM_POSITION ? View.VISIBLE
+				.setVisibility(position == ViewHolder.MESSAGE_ITEM_POSITION &&unreadMessageCount>0? View.VISIBLE
 						: View.GONE);
 		holder.tvCounter.setText(String.valueOf(unreadMessageCount));
 

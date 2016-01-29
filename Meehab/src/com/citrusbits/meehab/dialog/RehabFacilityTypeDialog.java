@@ -60,7 +60,7 @@ public class RehabFacilityTypeDialog extends Dialog implements
 
 		int position = 0;
 		rehabTypeStatus = context.getResources().getStringArray(
-				R.array.meetingsTypesValues);
+				R.array.rehab_type_arr_diag);
 
 		for (int i = 0; i < rehabTypeStatus.length; i++) {
 			String status = rehabTypeStatus[i];

@@ -19,9 +19,9 @@
             android:layout_marginLeft="8dp"
             android:background="@drawable/simple_button_selector"
             android:clickable="true"
-            android:paddingTop="8dp"
             android:paddingBottom="8dp"
             android:paddingRight="15dp"
+            android:paddingTop="8dp"
             android:src="@drawable/back_btn" />
 
         <TextView
@@ -101,8 +101,8 @@
                 android:layout_height="1dp"
                 android:scaleType="fitXY"
                 android:src="@drawable/profile_divider" />
-            
-             <EditText
+
+            <EditText
                 android:id="@+id/etEmail"
                 android:layout_width="match_parent"
                 android:layout_height="35dp"
@@ -118,8 +118,7 @@
                 android:layout_height="1dp"
                 android:scaleType="fitXY"
                 android:src="@drawable/profile_divider" />
-            
-            
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="35dp"
@@ -138,7 +137,7 @@
                 android:background="@android:color/transparent"
                 android:gravity="center"
                 android:hint="Name of Rehab"
-                android:inputType="phone"
+                android:inputType="text"
                 android:singleLine="true" />
 
             <ImageView
@@ -155,7 +154,7 @@
                 android:background="@android:color/transparent"
                 android:gravity="center"
                 android:hint="Website"
-                android:inputType="phone"
+                android:inputType="text"
                 android:singleLine="true" />
 
             <ImageView
@@ -172,10 +171,10 @@
                 android:background="@android:color/transparent"
                 android:drawableRight="@drawable/right_arrow"
                 android:gravity="center"
-                android:textSize="16sp"
                 android:hint="Type of Rehab Facility"
-                android:inputType="phone"
-                android:singleLine="true" />
+                android:inputType="text"
+                android:singleLine="true"
+                android:textSize="16sp" />
 
             <ImageView
                 android:layout_width="fill_parent"
@@ -183,7 +182,39 @@
                 android:scaleType="fitXY"
                 android:src="@drawable/profile_divider" />
 
-            
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_marginTop="10dp"
+                android:id="@+id/rlOtherRehabFacility"
+                android:visibility="gone"
+                android:layout_height="wrap_content" >
+
+                <EditText
+                    android:id="@+id/etOtherRehabFacilities"
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:layout_toLeftOf="@+id/ivOtherCross"
+                    android:paddingLeft="4dp"
+                    android:hint="Othere Rehab Facility"
+                    android:background="@null" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="12dp"
+                    android:padding="5dp"
+                    android:id="@+id/ivOtherCross"
+                    android:src="@drawable/cross_icon" />
+
+                <ImageView
+                    android:layout_width="fill_parent"
+                    android:layout_height="1dp"
+                    android:layout_alignParentBottom="true"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/profile_divider" />
+            </RelativeLayout>
 
             <EditText
                 android:id="@+id/etYourRelationshipToRehab"
@@ -193,7 +224,7 @@
                 android:background="@android:color/transparent"
                 android:gravity="center"
                 android:hint="Your relationship to the Rehab?"
-                android:inputType="phone"
+                android:inputType="text"
                 android:singleLine="true" />
 
             <ImageView
@@ -206,8 +237,8 @@
                 android:id="@+id/ibSubmit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
                 android:layout_gravity="center_horizontal"
+                android:layout_marginTop="20dp"
                 android:background="@null"
                 android:src="@drawable/submit_btn_blue" />
         </LinearLayout>

@@ -32,14 +32,22 @@ public class ChatAdapter extends ArrayAdapter<ChatModel> {
 
 	LayoutInflater inflater;
 
+	private ChatCheckedChangeListener chatCheckedChangeListener;
+
 	boolean edit;
 
 	public ChatAdapter setEdit(boolean eidt) {
 		this.edit = eidt;
 		return this;
 	}
-	
-	public boolean isEdit(){
+
+	public ChatAdapter setChatCheckedChangeListener(
+			ChatCheckedChangeListener chatCheckChangeLitener) {
+		this.chatCheckedChangeListener = chatCheckChangeLitener;
+		return this;
+	}
+
+	public boolean isEdit() {
 		return this.edit;
 	}
 
@@ -97,15 +105,16 @@ public class ChatAdapter extends ArrayAdapter<ChatModel> {
 					// TODO Auto-generated method stub
 					boolean checked = ((CheckBox) v).isChecked();
 					chat.setChecked(checked);
+					notifyCheckedChange();
 				}
 			});
-			
-			holder.cbSend.setVisibility(edit?View.VISIBLE:View.GONE);
+
+			holder.cbSend.setVisibility(edit ? View.VISIBLE : View.GONE);
 
 		} else {
+
 			holder.rlReceive.setVisibility(View.VISIBLE);
 			holder.rlSend.setVisibility(View.GONE);
-
 			holder.tvFromMessage.setText(chat.getMessage());
 			holder.tvFromDate.setText(chat.getDisplayDateTime());
 			holder.cbFrom.setChecked(chat.isChecked());
@@ -116,14 +125,24 @@ public class ChatAdapter extends ArrayAdapter<ChatModel> {
 					// TODO Auto-generated method stub
 					boolean checked = ((CheckBox) v).isChecked();
 					chat.setChecked(checked);
+					notifyCheckedChange();
 				}
 			});
-			
-			holder.cbFrom.setVisibility(edit?View.VISIBLE:View.GONE);
 
+			holder.cbFrom.setVisibility(edit ? View.VISIBLE : View.GONE);
 		}
 
 		return convertView;
+	}
+
+	public void notifyCheckedChange() {
+		if (chatCheckedChangeListener != null) {
+			chatCheckedChangeListener.onCheckedChange();
+		}
+	}
+
+	public interface ChatCheckedChangeListener {
+		public void onCheckedChange();
 	}
 
 	public static class ViewHolder {

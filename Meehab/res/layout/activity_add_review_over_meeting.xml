@@ -46,8 +46,8 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:background="@null"
             android:layout_marginRight="8dp"
+            android:background="@null"
             android:src="@drawable/send_msg_btn"
             android:text="@string/post" />
     </RelativeLayout>
@@ -159,7 +159,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center_horizontal"
-            android:hint="Please write your review here! This step is completely optional"
+            android:hint="Please write your review here! This step is completely optional!.\n\n Example:the meeting was amazing and I had a great time attending and doing great stuff and things like that. Also Stewardesses is the longest word you can type with only your left hand! "
             android:inputType="textCapSentences|textMultiLine"
             android:maxLength="200"
             android:textSize="14sp" />

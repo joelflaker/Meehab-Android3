@@ -34,10 +34,12 @@ import com.citrusbits.meehab.popup.CodePopup;
 import com.citrusbits.meehab.utils.MettingCodes;
 
 /**
- * @author Qamar
+ * @author Yasir
  * 
  */
 public class MeetingsListAdapter extends ArrayAdapter<MeetingModel> {
+
+	public static final int MAX_CODE_SIZE = 8;
 
 	// arraylists
 	ArrayList<MeetingModel> meetings;
@@ -47,14 +49,28 @@ public class MeetingsListAdapter extends ArrayAdapter<MeetingModel> {
 	// context
 	Context mContext;
 
-	TextView tvCodes[] = new TextView[10];
+	TextView tvCodes[] = new TextView[8];
 
 	public MeetingsListAdapter(Context c, int resource,
 			ArrayList<MeetingModel> m) {
 		super(c, resource, m);
 		mContext = c;
 		meetings = m;
+		arrayList.clear();
 		arrayList.addAll(meetings);
+	}
+
+	public void setMeeting(int position, MeetingModel meeting) {
+		this.arrayList.set(position, meeting);
+		this.notifyDataSetChanged();
+	}
+
+	public ArrayList<MeetingModel> getMeetings() {
+		return this.meetings;
+	}
+
+	public ArrayList<MeetingModel> getMeetingCache() {
+		return this.arrayList;
 	}
 
 	@Override
@@ -79,25 +95,24 @@ public class MeetingsListAdapter extends ArrayAdapter<MeetingModel> {
 		tvCodes[5] = (TextView) v.findViewById(R.id.tvCode6);
 		tvCodes[6] = (TextView) v.findViewById(R.id.tvCode7);
 		tvCodes[7] = (TextView) v.findViewById(R.id.tvCode8);
-		tvCodes[8] = (TextView) v.findViewById(R.id.tvCode9);
-		tvCodes[9] = (TextView) v.findViewById(R.id.tvCode10);
 
 		TextView txtName = (TextView) v.findViewById(R.id.txtName);
 		TextView txtTime = (TextView) v.findViewById(R.id.txtTime);
 		TextView txtNumOfReviews = (TextView) v
 				.findViewById(R.id.txtNumOfReviews);
 		RatingBar rating = (RatingBar) v.findViewById(R.id.rating);
-		
-		
-	//	LayerDrawable stars = (LayerDrawable) rating.getProgressDrawable();
-		//stars.getDrawable(0).setColorFilter(0xFFFF0000, PorterDuff.Mode.SRC_ATOP);
-		//stars.getDrawable(1).setColorFilter(0xFFFFFFFF, PorterDuff.Mode.SRC_ATOP);
-		//stars.getDrawable(1).setColorFilter(0xFFFFFFFF, PorterDuff.Mode.MULTIPLY);
-		
-		
-		//stars.getDrawable(2).setColorFilter(0xFF00FF00, PorterDuff.Mode.SRC_ATOP);
-		
-		
+
+		// LayerDrawable stars = (LayerDrawable) rating.getProgressDrawable();
+		// stars.getDrawable(0).setColorFilter(0xFFFF0000,
+		// PorterDuff.Mode.SRC_ATOP);
+		// stars.getDrawable(1).setColorFilter(0xFFFFFFFF,
+		// PorterDuff.Mode.SRC_ATOP);
+		// stars.getDrawable(1).setColorFilter(0xFFFFFFFF,
+		// PorterDuff.Mode.MULTIPLY);
+
+		// stars.getDrawable(2).setColorFilter(0xFF00FF00,
+		// PorterDuff.Mode.SRC_ATOP);
+
 		TextView txtLocationName = (TextView) v
 				.findViewById(R.id.txtLocationName);
 		TextView txtAddress = (TextView) v.findViewById(R.id.txtAddress);
@@ -106,7 +121,8 @@ public class MeetingsListAdapter extends ArrayAdapter<MeetingModel> {
 		txtDayDate.setText(formateDate(m.getOnDateOrigion()));
 		tvDateHeading.setText(m.getOnDate() + " ");
 		txtName.setText(m.getName());
-		txtTime.setText(m.getOnTime());
+		// txtTime.setText(m.getOnTime());
+		txtTime.setText(m.getNearestTime());
 		txtNumOfReviews.setText(String.valueOf(m.getReviewsCount())
 				+ " Reviews");
 		txtLocationName.setText(m.getBuildingType());
@@ -114,18 +130,25 @@ public class MeetingsListAdapter extends ArrayAdapter<MeetingModel> {
 		txtDistance.setText(m.getDistanceInMiles() + " miles");
 
 		rating.setRating(m.getReviewsAvg());
-		
-		//rating.setRating(5);
+
+		// rating.setRating(5);
 
 		tvDateHeading.setVisibility(m.isDateHeaderVisible() ? View.VISIBLE
 				: View.GONE);
 
+		Log.i(m.getName(), m.getCodes());
+
 		String[] codes = m.getCodes().split(",");
-		for (int i = 0; i < codes.length; i++) {
+		int i = 0;
+		for (; i < codes.length && i < MAX_CODE_SIZE; i++) {
 			tvCodes[i].setText(codes[i]);
 			tvCodes[i].setVisibility(View.VISIBLE);
 			tvCodes[i].setTag(codes[i]);
 			tvCodes[i].setOnClickListener(onClickListeneer);
+		}
+
+		for (; i < tvCodes.length; i++) {
+			tvCodes[i].setVisibility(View.GONE);
 		}
 		/*
 		 * for (String value : codes) {
@@ -153,22 +176,33 @@ public class MeetingsListAdapter extends ArrayAdapter<MeetingModel> {
 		charText = charText.toLowerCase(Locale.getDefault());
 		meetings.clear();
 
-		if (charText.length() == 0) {
-			meetings.addAll(arrayList);
-			// Collections.sort(contactList, new ContactsComparator());
+		/*
+		 * if (charText.length() == 0) { meetings.addAll(arrayList); //
+		 * Collections.sort(contactList, new ContactsComparator());
+		 * 
+		 * } else {
+		 */
 
-		} else {
-			for (MeetingModel wp : arrayList) {
-				if (wp.getName().toLowerCase(Locale.getDefault())
-						.contains(charText)) {
-					meetings.add(wp);
+		String prevDate = "";
 
-				} else if (wp.getName().toLowerCase(Locale.getDefault())
-						.contains(charText)) {
-					meetings.add(wp);
+		for (MeetingModel wp : arrayList) {
+			if (wp.getName().toLowerCase(Locale.getDefault())
+					.contains(charText)) {
+				meetings.add(wp);
+
+				if (!prevDate.equals(wp.getOnDateOrigion())) {
+					wp.setDateHeaderVisibility(true);
+					prevDate = wp.getOnDateOrigion();
+				} else {
+					wp.setDateHeaderVisibility(false);
 				}
-			}
+
+			}/*
+			 * else if (wp.getName().toLowerCase(Locale.getDefault())
+			 * .contains(charText)) { meetings.add(wp); }
+			 */
 		}
+		// }
 		// Collections.sort(contactList, new MeetingComparator());
 		notifyDataSetChanged();
 	}
@@ -211,7 +245,7 @@ public class MeetingsListAdapter extends ArrayAdapter<MeetingModel> {
 			}
 		}
 		// resultHolder.setTypes(types);
-
+		int k = 0;
 		for (MeetingModel wp : arrayList) {
 
 			String day = "";
@@ -226,7 +260,7 @@ public class MeetingsListAdapter extends ArrayAdapter<MeetingModel> {
 			// String day = wp.getOnDay();
 			String time = wp.getOnTime();
 			String zipCode = wp.getZipCode();
-			long miles = wp.getDistanceInMiles();
+			double miles = wp.getDistanceInMiles();
 			float revAvg = wp.getReviewsAvg();
 
 			/*
@@ -242,8 +276,8 @@ public class MeetingsListAdapter extends ArrayAdapter<MeetingModel> {
 				Log.e("ddd", ddd);
 			}
 
-			boolean isDay = resultHolder.getAnyDay() ? true : days
-					.contains(day);
+			boolean isDay = resultHolder.getAnyDay() ? true : satisfyDays(days,
+					wp);
 			boolean isTime = resultHolder.getAnyTime() ? true : filterTime(
 					timeMapping, time);
 
@@ -254,22 +288,44 @@ public class MeetingsListAdapter extends ArrayAdapter<MeetingModel> {
 			boolean isStar = resultHolder.getAnyStar() ? true : isStar(
 					resultHolder.getRating(), revAvg);
 
-			boolean isFavSatisfy = resultHolder.isFavourites() == wp
-					.isFavourite();
+			boolean isFavSatisfy = !resultHolder.isFavourites() ? true
+					: resultHolder.isFavourites() == wp.isFavourite();
 
 			boolean isCode = resultHolder.getAnyType() ? true : satisfyCode(
 					types, wp);
 
-			Log.e("isTime", String.valueOf(isTime));
+			Log.i("Is Day " + k, String.valueOf(isDay));
+			Log.i("Is Time " + k, String.valueOf(isTime));
+			Log.i("Is Zipcode " + k, String.valueOf(iszipCode));
+			Log.i("Is Distance " + k, String.valueOf(isDistance));
+			Log.i("Is Star " + k, String.valueOf(isStar));
+			Log.i("Is Fave " + k, String.valueOf(isFavSatisfy));
+			Log.i("Is Code " + k, String.valueOf(isCode));
 
 			if (isDay && isTime && iszipCode && isDistance && isStar
 					&& isFavSatisfy && isCode) {
-				
+
 				Log.e("Contain Days ", "Yes");
 				meetings.add(wp);
 
 			} else {
 				Log.e("Contain Days ", "No");
+			}
+
+			k = k + 1;
+		}
+
+		String prevDate = "";
+		for (int i = 0; i < meetings.size(); i++) {
+			MeetingModel m = meetings.get(i);
+			if (m.getOnDateOrigion() == null) {
+				continue;
+			}
+			if (!prevDate.equals(m.getOnDateOrigion())) {
+				m.setDateHeaderVisibility(true);
+				prevDate = m.getOnDateOrigion();
+			} else {
+				m.setDateHeaderVisibility(false);
 			}
 		}
 
@@ -280,9 +336,26 @@ public class MeetingsListAdapter extends ArrayAdapter<MeetingModel> {
 	public boolean satisfyCode(List<String> types, MeetingModel wp) {
 
 		String codes = wp.getCodes();
+		Log.e("Types ", types.toString());
+		Log.e("code", codes);
 		String codeArray[] = codes.split(",");
 		for (String code : codeArray) {
 			if (types.contains(code)) {
+				return true;
+			}
+		}
+
+		return false;
+
+	}
+
+	public boolean satisfyDays(List<String> daysList, MeetingModel wp) {
+
+		String days = wp.getOnDay();
+
+		String dayArray[] = days.split(",");
+		for (String day : dayArray) {
+			if (daysList.contains(day)) {
 				return true;
 			}
 		}
@@ -317,7 +390,7 @@ public class MeetingsListAdapter extends ArrayAdapter<MeetingModel> {
 		 */
 
 		long mil = Long.parseLong(mile);
-		long distance = meeting.getDistanceInMiles();
+		double distance = meeting.getDistanceInMiles();
 
 		/*
 		 * Location pinLocation = new Location("B");
@@ -331,43 +404,54 @@ public class MeetingsListAdapter extends ArrayAdapter<MeetingModel> {
 		return distance <= mil;
 	}
 
-	public boolean filterTime(List<FilterTime> filters, String time) {
+	public boolean filterTime(List<FilterTime> filters, String times) {
 
-		try {
-			SimpleDateFormat _12HourSDF = new SimpleDateFormat("hh:mm a");
-			final Date dateObj = _12HourSDF.parse(time);
-			Calendar calendar = Calendar.getInstance();
+		String timeArray[] = times.split(",");
 
-			calendar.set(Calendar.HOUR_OF_DAY, dateObj.getHours());
-			calendar.set(Calendar.MINUTE, dateObj.getMinutes());
-			calendar.set(Calendar.SECOND, 0);
+		for (int k = 0; k < timeArray.length; k++) {
+			String time = timeArray[k];
+			try {
+				SimpleDateFormat _12HourSDF = new SimpleDateFormat("hh:mm a");
+				SimpleDateFormat dateHourFormate = new SimpleDateFormat(
+						"yyy-MMM-dd hh:mm a");
+				final Date dateObj = _12HourSDF.parse(time);
+				Calendar calendar = Calendar.getInstance();
 
-			// Log.e("Calendar Hour:Minute ",calendar.get(Calendar.YEAR)+":"+calendar.get(Calendar.MONTH)+":"+calendar.get(Calendar.DAY_OF_MONTH)+"****"+
-			// calendar.get(Calendar.HOUR_OF_DAY)+":"+calendar.get(Calendar.MINUTE));
+				calendar.set(Calendar.HOUR_OF_DAY, dateObj.getHours());
+				calendar.set(Calendar.MINUTE, dateObj.getMinutes());
+				calendar.set(Calendar.SECOND, 0);
 
-			for (FilterTime filter : filters) {
-				Calendar start = filter.getStartTime();
-				Calendar end = filter.getEndTime();
+				Log.i("Origional Calendar",
+						dateHourFormate.format(calendar.getTime()));
 
-				// Log.e("Calendar start Hour:Minute ",
-				// start.get(Calendar.YEAR)+":"+start.get(Calendar.MONTH)+":"+start.get(Calendar.DAY_OF_MONTH)+"****"+start.get(Calendar.HOUR_OF_DAY)+":"+start.get(Calendar.MINUTE));
-				// Log.e("Calendar end Hour:Minute ",end.get(Calendar.YEAR)+":"+end.get(Calendar.MONTH)+":"+end.get(Calendar.DAY_OF_MONTH)+"****"+
-				// end.get(Calendar.HOUR_OF_DAY)+":"+end.get(Calendar.MINUTE));
+				for (FilterTime filter : filters) {
+					Calendar start = filter.getStartTime();
 
-				if (calendar.compareTo(start) == 0
-						|| calendar.compareTo(end) == 0) {
-					return true;
+					Calendar end = filter.getEndTime();
+
+					start.set(Calendar.SECOND, 0);
+					end.set(Calendar.SECOND, 0);
+
+					Log.i("Start Calendar",
+							dateHourFormate.format(start.getTime()));
+					Log.i("End Calendar", dateHourFormate.format(end.getTime()));
+
+					if (calendar.compareTo(start) == 0
+							|| calendar.compareTo(end) == 0) {
+						return true;
+					}
+
+					if (calendar.after(start) && calendar.before(end)) {
+						return true;
+					}
+
 				}
 
-				if (calendar.after(start) && calendar.before(end)) {
-					return true;
-				}
-
+			} catch (final Exception e) {
+				e.printStackTrace();
 			}
-
-		} catch (final Exception e) {
-			e.printStackTrace();
 		}
+
 		return false;
 	}
 

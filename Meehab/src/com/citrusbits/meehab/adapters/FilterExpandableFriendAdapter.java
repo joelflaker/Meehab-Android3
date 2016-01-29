@@ -59,19 +59,30 @@ public class FilterExpandableFriendAdapter extends BaseExpandableListAdapter {
 		this.mOnClickListener = onClickListener;
 		return this;
 	}
-	
-	public boolean isOnline(){
+
+	public boolean isOnline() {
 		return this.onlineNow;
 	}
-	
-	public boolean isWillingtoSponosr(){
+
+	public FilterExpandableFriendAdapter setFriendFilterResultHolder(
+			FriendFilterResultHolder friendFilterResultHolder) {
+		
+		this.fFilterResultHolder = friendFilterResultHolder;
+		onlineNow=fFilterResultHolder.isOnlineNow();
+		willingToSponsor=friendFilterResultHolder.isWillingToSponsor();
+		hasKids=friendFilterResultHolder.isHasKids();
+		
+		
+		return this;
+	}
+
+	public boolean isWillingtoSponosr() {
 		return this.willingToSponsor;
 	}
-	
-	public boolean isHasKids(){
+
+	public boolean isHasKids() {
 		return this.hasKids;
 	}
-	
 
 	@Override
 	public View getGroupView(int groupPosition, boolean isExpanded,

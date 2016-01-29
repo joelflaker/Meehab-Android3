@@ -33,6 +33,7 @@ import com.citrusbits.meehab.dialog.InsuranceDialog;
 import com.citrusbits.meehab.dialog.InsuranceDialog.InsuranceDialogClickListener;
 import com.citrusbits.meehab.dialog.SocialShareDialog;
 import com.citrusbits.meehab.dialog.SocialShareDialog.SocialShareDialogClickListener;
+import com.citrusbits.meehab.fragments.FilterResultHolder;
 import com.citrusbits.meehab.fragments.FriendsFragment;
 import com.citrusbits.meehab.fragments.MeetingsFragment;
 import com.citrusbits.meehab.fragments.MessagesFragment;
@@ -41,9 +42,12 @@ import com.citrusbits.meehab.fragments.MyProfileFragment;
 import com.citrusbits.meehab.fragments.OptionsFragment;
 import com.citrusbits.meehab.fragments.RecoveryClockFragment;
 import com.citrusbits.meehab.fragments.RehabsFragment;
+import com.citrusbits.meehab.helpers.LogoutHelper;
 import com.citrusbits.meehab.images.PicassoBlurTransform;
 import com.citrusbits.meehab.images.PicassoCircularTransform;
+import com.citrusbits.meehab.model.FriendFilterResultHolder;
 import com.citrusbits.meehab.model.MeehabShare;
+import com.citrusbits.meehab.model.MeetingFilterModel;
 import com.citrusbits.meehab.model.UserAccount;
 import com.citrusbits.meehab.services.OnBackendConnectListener;
 import com.citrusbits.meehab.services.OnSocketResponseListener;
@@ -54,6 +58,8 @@ import com.squareup.picasso.Picasso;
 public class HomeActivity extends SocketActivity implements
 		OnSocketResponseListener {
 	public static final String ACTION_MESSAGE_COUNT_UPDATE = "com.citrusbits.meehab.message.count";
+	public static final String ACTION_LOGOUT = "com.citrusbits.meehab.logout";
+	public static final String ACTION_PROFILE_UPDATE = "com.citrusbits.meehab.profile_updated";
 	DrawerLayout drawer;
 	ListView navList;
 
@@ -66,17 +72,25 @@ public class HomeActivity extends SocketActivity implements
 	private UserDatasource userDatasource;
 	private UserAccount user;
 
+	ImageView ivUserIcon;
+	ImageView ivPictureBig;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
+		IntentFilter filter = new IntentFilter();
+		filter.addAction(ACTION_LOGOUT);
+		filter.addAction(ACTION_MESSAGE_COUNT_UPDATE);
+		filter.addAction(ACTION_PROFILE_UPDATE);
+		this.registerReceiver(receiver, filter);
 		userDatasource = new UserDatasource(HomeActivity.this);
 		userDatasource.open();
 		user = userDatasource.findUser(AccountUtils.getUserId(this));
 
 		FacebookSdk.sdkInitialize(this.getApplicationContext());
 		setContentView(R.layout.activity_home);
-
+		ivUserIcon = (ImageView) findViewById(R.id.ivUserIcon);
+		ivPictureBig = (ImageView) findViewById(R.id.ivPictureBig);
 		// drawer
 		rl = (RelativeLayout) findViewById(R.id.topDrawer);
 		drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -118,41 +132,39 @@ public class HomeActivity extends SocketActivity implements
 			if (extra.getString(TwoOptionActivity.M_DEFAULT_FRAGMENT).equals(
 					"friends")) {
 				// mCurrentFragment = new FriendsFragment();
-				displayFragment(4);
+			//	displayFragment(4);
+				mCurrentFragment = new FriendsFragment(this);
 			} else {
-				// mCurrentFragment = new MeetingsFragment();
-				displayFragment(3);
+				mCurrentFragment = new MeetingsFragment(this);
+				//displayFragment(3);
 			}
 		} else {
 			mCurrentFragment = new MyProfileFragment(this);
 		}
+		
 		getSupportFragmentManager().beginTransaction()
 				.replace(R.id.container, mCurrentFragment).commit();
 		initUser();
 
-		registerReceiver(broadcastReceiver, new IntentFilter(
-				ACTION_MESSAGE_COUNT_UPDATE));
+		registerReceiver(receiver,
+				new IntentFilter(ACTION_MESSAGE_COUNT_UPDATE));
 
 	}
 
+	String userImage;
+
 	public void initUser() {
 
-		String userImage = user.getImage();
+		userImage = user.getImage();
 
 		TextView tvUserName = (TextView) findViewById(R.id.tvUserName);
-		ImageView ivUserIcon = (ImageView) findViewById(R.id.ivUserIcon);
-		ImageView ivPictureBig = (ImageView) findViewById(R.id.ivPictureBig);
 
 		tvUserName.setText(user.getUsername());
-		if (userImage.isEmpty()) {
+		if (userImage==null||userImage.isEmpty()) {
 
 			return;
 		}
 		userImage = getString(R.string.url) + userImage;
-		Picasso.with(HomeActivity.this).load(userImage)
-				.placeholder(R.drawable.profile_pic).resize(100, 100)
-				.error(R.drawable.profile_pic)
-				.transform(new PicassoCircularTransform()).into(ivUserIcon);
 
 		Picasso.with(this)
 				.load(userImage)
@@ -161,6 +173,19 @@ public class HomeActivity extends SocketActivity implements
 				.error(R.drawable.profile_pic_big)
 				.transform(new PicassoBlurTransform(HomeActivity.this, 20))
 				.into(ivPictureBig);
+		ivUserIcon.setImageResource(R.drawable.profile_pic);
+		ivUserIcon.postDelayed(new Runnable() {
+
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				Picasso.with(HomeActivity.this).load(userImage)
+						.placeholder(R.drawable.profile_pic).resize(100, 100)
+						.error(R.drawable.profile_pic)
+						.transform(new PicassoCircularTransform())
+						.into(ivUserIcon);
+			}
+		}, 1000);
 
 	}
 
@@ -198,11 +223,8 @@ public class HomeActivity extends SocketActivity implements
 		// TODO Auto-generated method stub
 		super.onNewIntent(intent);
 		changeDrawerVisibility(false);
-		
-		Toast.makeText(HomeActivity.this, "On New Intent is called!",
-				Toast.LENGTH_SHORT).show();
-		
-		switchFragment(new RehabsFragment(HomeActivity.this));
+		mCurrentFragment=new RehabsFragment(HomeActivity.this);
+		switchFragment(mCurrentFragment);
 	}
 
 	/**
@@ -259,12 +281,10 @@ public class HomeActivity extends SocketActivity implements
 							// TODO Auto-generated method stub
 							changeDrawerVisibility(false);
 							setHomeTitle(position);
+							mCurrentFragment=new RehabsFragment(HomeActivity.this);
 							fragmentManager
 									.beginTransaction()
-									.replace(
-											R.id.container,
-											new RehabsFragment(
-													HomeActivity.this))
+									.replace(R.id.container,mCurrentFragment)
 									.commit();
 							dialog.dismiss();
 						}
@@ -450,7 +470,13 @@ public class HomeActivity extends SocketActivity implements
 	protected void onDestroy() {
 		// TODO Auto-generated method stub
 		super.onDestroy();
-		unregisterReceiver(broadcastReceiver);
+
+		MeetingsFragment.resultHolder = new FilterResultHolder();
+		FriendsFragment.fFilterResultHolder=new FriendFilterResultHolder();
+		MeetingsFilterActivity.applyClear();
+		FriendsFilterActivity.applyClear();
+
+		this.unregisterReceiver(receiver);
 	}
 
 	/**
@@ -491,14 +517,24 @@ public class HomeActivity extends SocketActivity implements
 		}
 	}
 
-	BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
+	BroadcastReceiver receiver = new BroadcastReceiver() {
 
 		@Override
 		public void onReceive(Context context, Intent intent) {
 			// TODO Auto-generated method stub
-			if (adapter != null) {
-				adapter.updateUnreadMessageCount();
+			if (intent.getAction().equals(ACTION_LOGOUT)) {
+				LogoutHelper logoutHelper = new LogoutHelper(HomeActivity.this);
+				logoutHelper.attemptLogout();
+			} else if (intent.getAction().equals(ACTION_MESSAGE_COUNT_UPDATE)) {
+				if (adapter != null) {
+					adapter.updateUnreadMessageCount();
+				}
+			} else if (intent.getAction().equals(ACTION_PROFILE_UPDATE)) {
+				user = userDatasource.findUser(AccountUtils
+						.getUserId(HomeActivity.this));
+				initUser();
 			}
+
 		}
 	};
 

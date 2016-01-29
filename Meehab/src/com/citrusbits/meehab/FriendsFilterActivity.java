@@ -23,13 +23,13 @@ import com.citrusbits.meehab.model.FriendFilterResultHolder;
 
 public class FriendsFilterActivity extends Activity implements OnClickListener {
 
+	public static final int CLEAR_FRIEND_FILTER = 11;
+
 	private ExpandableListView expFriendsFilter;
 	private FilterExpandableFriendAdapter mAdapter;
-	private ArrayList<ExpCategory> categories;
 
-	CheckBox cbOnlineNow;
-	CheckBox cbWillingToSponsor;
-	CheckBox cbHasKids;
+	private static ArrayList<ExpCategory> cacheCategories = new ArrayList<>();
+	private ArrayList<ExpCategory> categories = new ArrayList<ExpCategory>();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -38,17 +38,28 @@ public class FriendsFilterActivity extends Activity implements OnClickListener {
 
 		// top back button
 		findViewById(R.id.ibCancel).setOnClickListener(this);
+		findViewById(R.id.ibClear).setOnClickListener(this);
 		findViewById(R.id.ibApply).setOnClickListener(this);
 
 		expFriendsFilter = (ExpandableListView) findViewById(R.id.expFriendsFilter);
-		categories = buildDummyData();
+		if (cacheCategories.isEmpty()) {
+			categories = buildDummyData();
+		} else {
+			categories.addAll(cacheCategories);
+		}
 
 		// Adding ArrayList data to ExpandableListView values
 		mAdapter = new FilterExpandableFriendAdapter(this, expFriendsFilter,
 				categories);
-
+		mAdapter.setFriendFilterResultHolder((FriendFilterResultHolder) getIntent()
+				.getSerializableExtra(FriendsFragment.EXTRA_FILTER_RESULT));
 		// Set Adapter to ExpandableList Adapter
 		expFriendsFilter.setAdapter(mAdapter);
+	}
+	
+	public static void applyClear() {
+		cacheCategories.clear();
+		
 	}
 
 	private ArrayList<ExpCategory> buildDummyData() {
@@ -192,9 +203,9 @@ public class FriendsFilterActivity extends Activity implements OnClickListener {
 		selectAllChild.setName("Select All");
 		parentWeight.addChild(selectAllChild);
 
-		for (int i = 80; i <= 250; i = i + 5) {
+		for (int i = 80; i < 250; i = i + 5) {
 			final ExpChild child = new ExpChild();
-			child.setName(i + " lbs");
+			child.setName(i + "-" + (i + 5) + " lbs");
 			parentWeight.addChild(child);
 
 		}
@@ -202,11 +213,6 @@ public class FriendsFilterActivity extends Activity implements OnClickListener {
 
 		return list;
 	}
-	
-	
-	
-	
-	
 
 	@Override
 	public void onClick(View v) {
@@ -218,22 +224,32 @@ public class FriendsFilterActivity extends Activity implements OnClickListener {
 		case R.id.ibApply:
 
 			// View view = mAdapter.getHeaderView();
-			
 
 			FriendFilterResultHolder fFilterResultHolder = mAdapter
 					.getFilterResultHolder();
 			fFilterResultHolder.setOnlineNow(mAdapter.isOnline());
-			Toast.makeText(FriendsFilterActivity.this, "Online: "+mAdapter.isOnline(), Toast.LENGTH_SHORT).show();
-			
-			fFilterResultHolder.setWillingToSponsor(mAdapter.isWillingtoSponosr());
+			Toast.makeText(FriendsFilterActivity.this,
+					"Online: " + mAdapter.isOnline(), Toast.LENGTH_SHORT)
+					.show();
+
+			fFilterResultHolder.setWillingToSponsor(mAdapter
+					.isWillingtoSponosr());
 			fFilterResultHolder.setHasKids(mAdapter.isHasKids());
 
 			Intent returnIntent = new Intent();
 			returnIntent.putExtra(FriendsFragment.EXTRA_FILTER_RESULT,
 					fFilterResultHolder);
+
+			cacheCategories.clear();
+			cacheCategories.addAll(categories);
 			setResult(RESULT_OK, returnIntent);
 			finish();
 
+			break;
+		case R.id.ibClear:
+			cacheCategories.clear();
+			setResult(CLEAR_FRIEND_FILTER, new Intent());
+			finish();
 			break;
 
 		}

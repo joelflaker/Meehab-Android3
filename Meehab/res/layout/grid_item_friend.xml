@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/black"
+    android:background="@android:color/white"
     android:descendantFocusability="blocksDescendants" >
 
     <FrameLayout
@@ -52,6 +52,15 @@
             android:visibility="gone"
             android:paddingTop="3dp"
             android:src="@drawable/attention_icon_yellow" />
+         
+         <ImageView 
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_gravity="center"
+             android:id="@+id/ivCheck"
+             android:visibility="gone"
+             android:src="@drawable/check_big"
+             />
     </FrameLayout>
 
 </FrameLayout>

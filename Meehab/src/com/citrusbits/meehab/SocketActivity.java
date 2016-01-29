@@ -43,32 +43,7 @@ public abstract class SocketActivity extends InstabugFragmentActivity {
 	private DisplayMetrics metrics;
 	protected boolean mUsingEnterKey = false;
 
-//	private long mLastUiRefresh = 0;
-//	private Handler mRefreshUiHandler = new Handler();
-//	private Runnable mRefreshUiRunnable = new Runnable() {
-//		@Override
-//		public void run() {
-//			mLastUiRefresh = SystemClock.elapsedRealtime();
-//			refreshUiReal();
-//		}
-//	};
-//
-//
-//	protected void refreshUi() {
-//		final long diff = SystemClock.elapsedRealtime() - mLastUiRefresh;
-//		if (diff > Consts.REFRESH_UI_INTERVAL) {
-//			mRefreshUiHandler.removeCallbacks(mRefreshUiRunnable);
-//			runOnUiThread(mRefreshUiRunnable);
-//		} else {
-//			final long next = Consts.REFRESH_UI_INTERVAL - diff;
-//			mRefreshUiHandler.removeCallbacks(mRefreshUiRunnable);
-//			mRefreshUiHandler.postDelayed(mRefreshUiRunnable,next);
-//		}
-//	}
-//
-//	protected void refreshUiReal() {
-//
-//	};
+
 
 	protected ServiceConnection mConnection = new ServiceConnection() {
 

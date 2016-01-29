@@ -66,59 +66,78 @@
             android:id="@+id/activity_main_swipe_refresh_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_above="@+id/llMessage" >
+            android:layout_above="@+id/flMessage" >
 
             <ListView
                 android:id="@+id/lvChat"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_above="@+id/llMessage"
+                android:layout_above="@+id/flMessage"
                 android:divider="@android:color/transparent"
                 android:dividerHeight="6dp" >
             </ListView>
         </android.support.v4.widget.SwipeRefreshLayout>
 
-        <LinearLayout
-            android:id="@+id/llMessage"
+        <FrameLayout
+            android:id="@+id/flMessage"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:orientation="vertical" >
+            android:layout_alignParentBottom="true" >
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:background="#AAAAAA" />
+            <ImageButton
+                android:id="@+id/ibDelete"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right|center_vertical"
+                android:layout_margin="6dp"
+                android:background="@null"
+                android:src="@drawable/delete_btn_gray"
+                android:visibility="gone" />
 
-            <RelativeLayout
+            <LinearLayout
+                android:id="@+id/llMessage"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingBottom="5dp"
-                android:paddingLeft="5dp"
-                android:paddingRight="5dp"
-                android:paddingTop="5dp" >
+                android:clickable="true"
+                android:orientation="vertical" >
 
-                <EditText
-                    android:id="@+id/etMessage"
+                <View
                     android:layout_width="match_parent"
-                    android:layout_height="35dp"
-                    android:layout_toLeftOf="@+id/ibSend"
-                    android:background="@null"
-                    android:hint="@string/send_a_message_"
-                    android:paddingLeft="8dp"
-                    android:paddingRight="4dp"
-                    android:singleLine="true" />
+                    android:layout_height="2dp"
+                    android:background="#AAAAAA" />
 
-                <ImageButton
-                    android:id="@+id/ibSend"
-                    android:layout_width="wrap_content"
+                <RelativeLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:background="@null"
-                    android:src="@drawable/send_msg_btn" />
-            </RelativeLayout>
-        </LinearLayout>
+                    android:paddingBottom="5dp"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:paddingTop="5dp" >
+
+                    <EditText
+                        android:id="@+id/etMessage"
+                        android:layout_width="match_parent"
+                        android:layout_height="35dp"
+                        android:layout_toLeftOf="@+id/ibSend"
+                        android:background="@null"
+                        android:hint="@string/send_a_message_"
+                        android:paddingLeft="8dp"
+                        android:inputType="textMultiLine"
+                        android:singleLine="false"
+                        android:paddingRight="4dp"
+                         />
+
+                    <ImageButton
+                        android:id="@+id/ibSend"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:background="@null"
+                        android:src="@drawable/send_msg_btn" />
+                </RelativeLayout>
+            </LinearLayout>
+        </FrameLayout>
     </RelativeLayout>
 
 </LinearLayout>

@@ -1,6 +1,17 @@
 package com.citrusbits.meehab;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import com.citrusbits.meehab.constants.EventParams;
+import com.citrusbits.meehab.db.UserDatasource;
+import com.citrusbits.meehab.model.UserAccount;
+import com.citrusbits.meehab.services.OnSocketResponseListener;
+import com.citrusbits.meehab.utils.AccountUtils;
+import com.citrusbits.meehab.utils.UtilityClass;
+
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -9,13 +20,20 @@ import android.widget.NumberPicker;
 import android.widget.Toast;
 
 public class InsuranceActivity extends SocketActivity implements
-		OnClickListener {
+		OnClickListener ,OnSocketResponseListener{
 	NumberPicker npInsurance;
 	String[] values;
-	
-	public static final String _mode=InsuranceActivity.class.getSimpleName();
-	
+
+	public static final String _mode = InsuranceActivity.class.getSimpleName();
+
 	InsuranceMode mode;
+
+	UserDatasource userDatasource;
+	UserAccount user;
+	
+	private ProgressDialog pd;
+	
+	
 
 	public enum InsuranceMode {
 		ADD, EDIT;
@@ -26,10 +44,16 @@ public class InsuranceActivity extends SocketActivity implements
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_insurance);
-		mode=(InsuranceMode) getIntent().getSerializableExtra(_mode);
-		if(mode==null){
-			mode=InsuranceMode.ADD;
+		pd = UtilityClass.getProgressDialog(this);
+		mode = (InsuranceMode) getIntent().getSerializableExtra(_mode);
+		if (mode == null) {
+			mode = InsuranceMode.ADD;
 		}
+
+		userDatasource = new UserDatasource(this);
+		userDatasource.open();
+		user = userDatasource.findUser(AccountUtils.getUserId(this));
+
 		findViewById(R.id.ibBack).setOnClickListener(this);
 		findViewById(R.id.ibSkip).setOnClickListener(this);
 		findViewById(R.id.ibSubmit).setOnClickListener(this);
@@ -44,22 +68,44 @@ public class InsuranceActivity extends SocketActivity implements
 		npInsurance.setMaxValue(values.length - 1);
 		npInsurance.setDisplayedValues(values);
 		npInsurance.setWrapSelectorWheel(false);
+		String insurance = user.getEthnicity();
+		if (mode == InsuranceMode.EDIT) {
+			int position = 0;
+			String insurance_arr[] = this.getResources().getStringArray(
+					R.array.insurance_arr);
+
+			for (int i = 0; i < insurance_arr.length; i++) {
+				String status = insurance_arr[i];
+				if (status.equals(insurance)) {
+					position = i;
+					break;
+				}
+			}
+			npInsurance.setValue(position);
+
+		}
 	}
 
 	@Override
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
+		Intent i=null;
 		switch (v.getId()) {
 		case R.id.ibBack:
 			InsuranceActivity.this.onBackPressed();
 			break;
 		case R.id.ibSkip:
-			startActivity(new Intent(InsuranceActivity.this, HomeActivity.class));
+			i = new Intent(InsuranceActivity.this, HomeActivity.class);
+			i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
+					| Intent.FLAG_ACTIVITY_NEW_TASK);
+			startActivity(i);
 			overridePendingTransition(R.anim.activity_in, R.anim.activity_out);
 			break;
 		case R.id.ibSubmit:
-			startActivity(new Intent(InsuranceActivity.this, HomeActivity.class));
-			overridePendingTransition(R.anim.activity_in, R.anim.activity_out);
+			String insurance=values[npInsurance.getValue()];
+			
+			
+			addInsurance(insurance);
 			break;
 		case R.id.ibCannotFindInsurance:
 			startActivity(new Intent(InsuranceActivity.this,
@@ -68,12 +114,51 @@ public class InsuranceActivity extends SocketActivity implements
 			break;
 		}
 	}
+	
+	public void addInsurance(String insurance){
+		JSONObject obj=new JSONObject();
+		try {
+			obj.put("insurance", insurance);
+			socketService.addInsurance(obj);
+			pd.show();
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 
 	@Override
 	public void onBackPressed() {
 		super.onBackPressed();
 		overridePendingTransition(R.anim.activity_back_in,
 				R.anim.activity_back_out);
+	}
+
+	@Override
+	public void onSocketResponseSuccess(String event, Object obj) {
+		// TODO Auto-generated method stub
+		if(pd!=null&&pd.isShowing()){
+			pd.dismiss();
+		}
+		
+		
+		if(event.equals(EventParams.EVENT_ADD_INSURANCE)){
+			Toast.makeText(InsuranceActivity.this, "Insurance added successfully!", Toast.LENGTH_SHORT).show();
+			Intent i = new Intent(InsuranceActivity.this, HomeActivity.class);
+			i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
+					| Intent.FLAG_ACTIVITY_NEW_TASK);
+			startActivity(i);
+			overridePendingTransition(R.anim.activity_in, R.anim.activity_out);
+		}
+	}
+
+	@Override
+	public void onSocketResponseFailure(String message) {
+		// TODO Auto-generated method stub
+		
+		if(pd!=null&&pd.isShowing()){
+			pd.dismiss();
+		}
 	}
 
 }

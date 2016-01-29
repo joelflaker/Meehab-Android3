@@ -83,7 +83,7 @@
                 android:background="@android:color/transparent"
                 android:gravity="center"
                 android:hint="@string/meeting_name"
-                android:inputType="phone"
+                android:inputType="textCapSentences"
                 android:singleLine="true" />
 
             <ImageView
@@ -138,7 +138,7 @@
                 android:background="@android:color/transparent"
                 android:gravity="center"
                 android:hint="@string/address"
-                android:inputType="phone"
+                android:inputType="text"
                 android:singleLine="true" />
 
             <ImageView
@@ -155,7 +155,7 @@
                 android:background="@android:color/transparent"
                 android:gravity="center"
                 android:hint="@string/city"
-                android:inputType="phone"
+                android:inputType="text"
                 android:singleLine="true" />
 
             <ImageView
@@ -227,7 +227,7 @@
                 android:background="@android:color/transparent"
                 android:gravity="center"
                 android:hint="Your relationship to the meeting"
-                android:inputType="phone"
+                android:inputType="text"
                 android:singleLine="true" />
 
             <ImageView

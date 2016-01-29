@@ -3,6 +3,12 @@
 
     <style name="customRatingBarPopupWindow" parent="@android:style/Widget.RatingBar">
         <item name="android:progressDrawable">@drawable/popup_window_rating_bar</item>
+        <item name="android:minHeight">14dip</item>
+        <item name="android:maxHeight">14dip</item>
+    </style>
+    
+     <style name="customRatingBarReviews" parent="@android:style/Widget.RatingBar">
+        <item name="android:progressDrawable">@drawable/popup_window_rating_bar</item>
         <item name="android:minHeight">13dip</item>
         <item name="android:maxHeight">13dip</item>
     </style>

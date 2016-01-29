@@ -3,11 +3,13 @@ package com.citrusbits.meehab;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.citrusbits.meehab.app.App;
 import com.citrusbits.meehab.services.OnBackendConnectListener;
 import com.citrusbits.meehab.services.OnSocketResponseListener;
 import com.citrusbits.meehab.services.SocketService;
 import com.citrusbits.meehab.utils.AccountUtils;
 import com.citrusbits.meehab.utils.NetworkUtil;
+import com.citrusbits.meehab.utils.NetworkUtils;
 import com.citrusbits.meehab.utils.UtilityClass;
 
 import android.app.Activity;
@@ -79,9 +81,12 @@ public class ReportInaccuracyActivity extends SocketActivity implements
 	}
 
 	public void reportMeetings(String message) {
-
+		if (!NetworkUtils.isNetworkAvailable(this)) {
+			App.alert(getString(R.string.no_internet_connection));
+			return;
+		}
 		try {
-			pd.show();
+			
 			JSONObject params = new JSONObject();
 			params.put("meetingid", meetingId);
 			params.put("userid",
@@ -91,7 +96,7 @@ public class ReportInaccuracyActivity extends SocketActivity implements
 			Log.e("Json made to send ", params.toString());
 
 			socketService.reportMeeting(params);
-
+			pd.show();
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

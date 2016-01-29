@@ -26,6 +26,17 @@
                 android:paddingRight="15dp"
                 android:paddingTop="8dp"
                 android:src="@drawable/back_btn" />
+            
+            
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:text="Reviews"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@android:color/white" />
+            
         </RelativeLayout>
 
         <ScrollView

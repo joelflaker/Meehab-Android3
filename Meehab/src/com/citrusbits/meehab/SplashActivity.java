@@ -1,26 +1,41 @@
 package com.citrusbits.meehab;
 
+import java.util.Calendar;
+import java.util.Locale;
+
 import android.app.Activity;
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Toast;
 
-import com.citrusbits.meehab.db.UserDatasource;
-import com.citrusbits.meehab.map.LocationService;
-import com.citrusbits.meehab.model.UserAccount;
+import com.citrusbits.meehab.app.GCMManager;
+import com.citrusbits.meehab.contacts.PhoneContacts;
+import com.citrusbits.meehab.db.DatabaseHandler;
 import com.citrusbits.meehab.prefrences.AppPrefs;
 import com.citrusbits.meehab.services.ContactSyncService;
 import com.citrusbits.meehab.services.SocketService;
+import com.citrusbits.meehab.utils.DeviceUtils;
 import com.facebook.AccessToken;
 import com.facebook.FacebookSdk;
 import com.facebook.login.LoginManager;
+import com.google.i18n.phonenumbers.NumberParseException;
+import com.google.i18n.phonenumbers.PhoneNumberUtil;
+import com.google.i18n.phonenumbers.PhoneNumberUtil.PhoneNumberFormat;
+import com.google.i18n.phonenumbers.Phonenumber.PhoneNumber;
 
 public class SplashActivity extends Activity {
 
-	private final int SPLASH_DISPLAY_LENGHT =0;
+	private final int SPLASH_DISPLAY_LENGHT = 0;
+
+	private PhoneContacts phoneContacts;
+
+	DatabaseHandler dbHandler;
+
+	GCMManager gcmManager;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -31,14 +46,33 @@ public class SplashActivity extends Activity {
 				WindowManager.LayoutParams.FLAG_FULLSCREEN);
 		FacebookSdk.sdkInitialize(this.getApplicationContext());
 
+		if (GCMManager.getCMId(this).isEmpty()) {
+			gcmManager = new GCMManager(this);
+			gcmManager.getRegId();
+		}
+
+		
+		/*if(true){
+			startActivity( new Intent(SplashActivity.this,
+					ProfileSetupMoreActivity.class));
+			return;
+		}*/
+		
+		
+		// Produces "+41 44 668 18 00"
+
 		setContentView(R.layout.activity_splash);
+
+		String deviceId = DeviceUtils.getDeviceId(SplashActivity.this);
+
+		Log.e("Device Id ", deviceId);
 
 		// start background service
 		Intent intent = new Intent(this, SocketService.class);
 		intent.setAction("ui");
 		startService(intent);
-		
-		startService(new Intent(this,ContactSyncService.class));
+
+		startService(new Intent(this, ContactSyncService.class));
 
 		final int userId = AppPrefs.getAppPrefs(this).getIntegerPrefs(
 				AppPrefs.KEY_USER_ID, AppPrefs.DEFAULT.USER_ID);
@@ -74,6 +108,7 @@ public class SplashActivity extends Activity {
 							AppPrefs.KEY_PROFILE_SETUP_MORE,
 							AppPrefs.DEFAULT.PROFILE_SETUP_MORE);
 					Intent intent;
+
 					if (!profileSetup) {
 						intent = new Intent(SplashActivity.this,
 								ProfileSetupActivity.class);

@@ -7,10 +7,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -18,6 +16,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AbsListView.LayoutParams;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RatingBar;
@@ -25,7 +24,10 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.citrusbits.meehab.app.App;
 import com.citrusbits.meehab.constants.EventParams;
+import com.citrusbits.meehab.dialog.BlockFrindConfirmationDialog;
+import com.citrusbits.meehab.dialog.BlockFrindConfirmationDialog.BlockFrindConfirmationDialogClickListener;
 import com.citrusbits.meehab.dialog.BlockUserDialog;
 import com.citrusbits.meehab.dialog.BlockUserDialog.BlockUserDialogClickListener;
 import com.citrusbits.meehab.fragments.MyProfileFragment;
@@ -38,6 +40,9 @@ import com.citrusbits.meehab.services.OnSocketResponseListener;
 import com.citrusbits.meehab.utils.AccountUtils;
 import com.citrusbits.meehab.utils.DateTimeUtils;
 import com.citrusbits.meehab.utils.DeviceUtils;
+import com.citrusbits.meehab.utils.MeetingUtils;
+import com.citrusbits.meehab.utils.NetworkUtils;
+import com.citrusbits.meehab.utils.RecoverClockDateUtils;
 import com.citrusbits.meehab.utils.UtilityClass;
 import com.squareup.picasso.Picasso;
 
@@ -48,6 +53,8 @@ public class UserProfileActivity extends SocketActivity implements
 
 	public static final String TAG = MyProfileFragment.class.getSimpleName();
 
+	public static final int RESULT_CODE_BLOCKED = 7;
+	public static final int REQUEST_CODE_CHAT = 5;
 	private UserAccount user;
 	private TextView usernameText, interestedInText, ethnicityText, heightText,
 			aaStoryText;
@@ -71,12 +78,20 @@ public class UserProfileActivity extends SocketActivity implements
 	private ImageView ivBlurBg;
 	private LinearLayout llSendMessage;
 
+	private long timeZoneOffest;
+
+	private ImageButton ibSeeMore;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.activity_user_profile);
+		ibSeeMore = (ImageButton) this.findViewById(R.id.ibSeeMore);
+		ibSeeMore.setOnClickListener(this);
+		timeZoneOffest = MeetingUtils.getTimeZoneOffset();
+
 		pd = UtilityClass.getProgressDialog(this);
 		user = (UserAccount) getIntent().getSerializableExtra(
 				EXTRA_USER_ACCOUNT);
@@ -118,15 +133,19 @@ public class UserProfileActivity extends SocketActivity implements
 		llSendMessage.setOnClickListener(this);
 
 		// init meeting adapter
+
+		// Log.e("Date of Birth ", user.getDateOfBirth() + " Date Of Birth");
+
 		resetUserInfo();
 		getUserReviews();
 		setFavourite();
+
 	}
 
 	public void setFavourite() {
 		ivFavourite
 				.setImageResource(user.isFavourite() == 1 ? R.drawable.star_pink
-						: R.drawable.star_gray);
+						: R.drawable.star_white);
 
 	}
 
@@ -176,7 +195,7 @@ public class UserProfileActivity extends SocketActivity implements
 			ethnicityText.setText(user.getEthnicity());
 			occupationText.setText(user.getAccupation());
 
-			if ("both".toLowerCase().toString()
+			if ("Choose Not to Answer".toLowerCase().toString()
 					.equals(user.getIntrestedIn().toLowerCase())) {
 				interestedInText.setText(R.string.dating_and_fellowshiping);
 			} else {
@@ -184,8 +203,23 @@ public class UserProfileActivity extends SocketActivity implements
 			}
 			kidsText.setText(user.getHaveKids());
 			// homegroupText.setText(user.getWillingSponsor())
-
+			homegroupText.setText(user.getMeetingHomeGroup());
 			aaStoryText.setText(user.getAboutStory());
+
+			String aaStoryTxt = user.getAboutStory();
+			if (aaStoryTxt.length() > 100) {
+				aaStoryText.setText(aaStoryTxt.substring(0, 100));
+				ibSeeMore.setVisibility(View.VISIBLE);
+			} else {
+				aaStoryText.setText(aaStoryTxt);
+				ibSeeMore.setVisibility(View.GONE);
+			}
+
+			SoberDateText.setText(RecoverClockDateUtils.getSoberDifference(
+					user.getSoberSence(), true, this));
+
+			ivFavourite.setVisibility(user.isBlocked() == 1 ? View.GONE
+					: View.VISIBLE);
 		}
 	}
 
@@ -197,32 +231,65 @@ public class UserProfileActivity extends SocketActivity implements
 			break;
 		case R.id.ivActionOnProfile:
 			// performAction();
-			new BlockUserDialog(this).setBlockUserDialogListener(
-					new BlockUserDialogClickListener() {
+			new BlockUserDialog(this)
+					.setBlocked(user.isBlocked() == 1)
+					.setBlockUserDialogListener(
+							new BlockUserDialogClickListener() {
 
-						@Override
-						public void onReportUser(BlockUserDialog dialog) {
-							// TODO Auto-generated method stub
-							dialog.dismiss();
-							Intent i = new Intent(UserProfileActivity.this,
-									ReportFriendActivity.class);
-							i.putExtra(ReportFriendActivity.EXTRA_FRIEND, user);
-							startActivity(i);
-						}
+								@Override
+								public void onReportUser(BlockUserDialog dialog) {
+									// TODO Auto-generated method stub
+									dialog.dismiss();
+									Intent i = new Intent(
+											UserProfileActivity.this,
+											ReportFriendActivity.class);
+									i.putExtra(
+											ReportFriendActivity.KEY_FRIEND_ID,
+											user.getId());
+									startActivity(i);
+								}
 
-						@Override
-						public void onCancelClick(BlockUserDialog dialog) {
-							// TODO Auto-generated method stub
-							dialog.dismiss();
-						}
+								@Override
+								public void onCancelClick(BlockUserDialog dialog) {
+									// TODO Auto-generated method stub
+									dialog.dismiss();
+								}
 
-						@Override
-						public void onBlockUser(BlockUserDialog dialog) {
-							// TODO Auto-generated method stub
-							dialog.dismiss();
-							blockUser();
-						}
-					}).show();
+								@Override
+								public void onBlockUser(BlockUserDialog dialog) {
+									// TODO Auto-generated method stub
+									dialog.dismiss();
+
+									new BlockFrindConfirmationDialog(
+											UserProfileActivity.this)
+											.setBlockFrindConfirmationDialogClickListener(
+													new BlockFrindConfirmationDialogClickListener() {
+
+														@Override
+														public void onYesClick(
+																BlockFrindConfirmationDialog dialog) {
+															// TODO
+															// Auto-generated
+															// method stub
+															dialog.dismiss();
+															blockUser();
+														}
+
+														@Override
+														public void onNoClick(
+																BlockFrindConfirmationDialog dialog) {
+															// TODO
+															// Auto-generated
+															// method stub
+															dialog.dismiss();
+														}
+													},
+													user.isBlocked() == 1 ? BlockFrindConfirmationDialog.STATUS_UNBLOCK
+															: BlockFrindConfirmationDialog.STATUS_SINGLE_BLOCK)
+											.show();
+
+								}
+							}).show();
 			break;
 		case R.id.ivFavourite:
 			// Toast.makeText(UserProfileActivity.this, "Favourite ",
@@ -232,59 +299,40 @@ public class UserProfileActivity extends SocketActivity implements
 			break;
 		case R.id.llSendMessage:
 
-			if (!user.getCheckinType().equals("online")) {
-				Toast.makeText(UserProfileActivity.this, "User is offline",
+			/*
+			 * if (!user.getCheckinType().equals("online")) {
+			 * Toast.makeText(UserProfileActivity.this, "User is offline",
+			 * Toast.LENGTH_SHORT).show(); return; }
+			 */
+
+			if (user.isBlocked() == 1) {
+				Toast.makeText(UserProfileActivity.this, "User is blocked",
 						Toast.LENGTH_SHORT).show();
 				return;
 			}
 
 			Intent chatIntent = new Intent(UserProfileActivity.this,
 					ChatActivity.class);
-			chatIntent.putExtra(ChatActivity.EXTRA_CHAT, user);
-			startActivity(chatIntent);
+			chatIntent.putExtra(ChatActivity.KEY_FRIEND_ID, user.getId());
+			chatIntent.putExtra(ChatActivity.KEY_FRIEND_NAME,
+					user.getUsername());
+
+			startActivityForResult(chatIntent, REQUEST_CODE_CHAT);
 
 			overridePendingTransition(R.anim.activity_in, R.anim.activity_out);
 
 			break;
 
+		case R.id.ibSeeMore:
+
+			aaStoryText.setText(user.getAboutStory());
+
+			ibSeeMore.setVisibility(View.GONE);
+			break;
+
 		default:
 			break;
 		}
-	}
-
-	public void performAction() {
-		final CharSequence[] items = { "Block User", "Report User", "Cancel" };
-
-		AlertDialog.Builder builder = new AlertDialog.Builder(this);
-
-		builder.setItems(items, new DialogInterface.OnClickListener() {
-			public void onClick(DialogInterface dialog, int item) {
-				// Do something with the selection
-				switch (item) {
-				case 0:
-					/*
-					 * Toast.makeText(UserProfileActivity.this, "Block User ",
-					 * Toast.LENGTH_SHORT).show();
-					 */
-					blockUser();
-
-					break;
-				case 1:
-					Intent i = new Intent(UserProfileActivity.this,
-							ReportFriendActivity.class);
-					i.putExtra(ReportFriendActivity.EXTRA_FRIEND, user);
-					startActivity(i);
-					break;
-				case 2:
-
-					break;
-				}
-
-				dialog.dismiss();
-			}
-		});
-		AlertDialog alert = builder.create();
-		alert.show();
 	}
 
 	@Override
@@ -318,6 +366,10 @@ public class UserProfileActivity extends SocketActivity implements
 	}
 
 	public void getUserReviews() {
+		if (!NetworkUtils.isNetworkAvailable(this)) {
+			App.alert(getString(R.string.no_internet_connection));
+			return;
+		}
 		if (socketService != null) {
 			pd = UtilityClass.getProgressDialog(this);
 			pd.show();
@@ -361,7 +413,7 @@ public class UserProfileActivity extends SocketActivity implements
 					String onDate = reviewObject.getString("on_date");
 					String onTime = reviewObject.getString("on_time");
 
-					String meetingName = reviewObject.getString("username");
+					String meetingName = reviewObject.getString("meeting_name");
 					int rating = reviewObject.getInt("stars");
 					int reviewId = reviewObject.getInt("id");
 					String reviewTitle = reviewObject.getString("title");
@@ -385,7 +437,7 @@ public class UserProfileActivity extends SocketActivity implements
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-
+			reviewsContainer.removeAllViews();
 			fillContainer(reviewsContainer, reviews);
 
 		} else if (event.equals(EventParams.METHOD_BLOCK_USER)) {
@@ -399,11 +451,14 @@ public class UserProfileActivity extends SocketActivity implements
 					Toast.makeText(UserProfileActivity.this,
 							"User has been blocked!", Toast.LENGTH_SHORT)
 							.show();
+
 				} else {
 					Toast.makeText(UserProfileActivity.this,
 							"User has been unblocked!", Toast.LENGTH_SHORT)
 							.show();
 				}
+
+				onBackPressed();
 
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block
@@ -431,19 +486,51 @@ public class UserProfileActivity extends SocketActivity implements
 				e.printStackTrace();
 			}
 
+		} else if (event.equals(EventParams.METHOD_BLOCK_USER_NOTIFY)) {
+			JSONObject data = ((JSONObject) obj);
+			try {
+
+				String message = data.getString("message");
+
+				Toast.makeText(UserProfileActivity.this, message,
+						Toast.LENGTH_SHORT).show();
+				user.setBlocked(user.isBlocked() == 1 ? 0 : 1);
+				onBackPressed();
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
 		}
 
 	}
 
+	@Override
+	protected void onActivityResult(int arg0, int arg1, Intent arg2) {
+		// TODO Auto-generated method stub
+		super.onActivityResult(arg0, arg1, arg2);
+
+		if (arg0 == REQUEST_CODE_CHAT && arg1 == RESULT_CODE_BLOCKED) {
+
+			user.setBlocked(1);
+			onBackPressed();
+		}
+	}
+
 	public void favouriteUser() {
+		if (!NetworkUtils.isNetworkAvailable(this)) {
+			App.alert(getString(R.string.no_internet_connection));
+			return;
+		}
 		if (socketService != null) {
 			pd = UtilityClass.getProgressDialog(this);
 			pd.show();
 			JSONObject object = new JSONObject();
 
 			try {
-				object.put("user_id", AccountUtils.getUserId(this));
-				object.put("friend_id", user.getId());
+
+				object.put("friend_ids", user.getId());
+
 				object.put("favorite", user.isFavourite() == 1 ? 0 : 1);
 
 				Log.e("json send ", object.toString());
@@ -457,14 +544,19 @@ public class UserProfileActivity extends SocketActivity implements
 	}
 
 	public void blockUser() {
+		if (!NetworkUtils.isNetworkAvailable(this)) {
+			App.alert(getString(R.string.no_internet_connection));
+			return;
+		}
 		if (socketService != null) {
 			pd = UtilityClass.getProgressDialog(this);
-			pd.show();
+
 			JSONObject object = new JSONObject();
 
 			try {
+				pd.show();
 				object.put("user_id", AccountUtils.getUserId(this));
-				object.put("friend_id", user.getId());
+				object.put("friend_ids", user.getId());
 				object.put("block", user.isBlocked() == 1 ? 0 : 1);
 
 				Log.e("json send ", object.toString());
@@ -480,7 +572,12 @@ public class UserProfileActivity extends SocketActivity implements
 	@Override
 	public void onSocketResponseFailure(String message) {
 		// TODO Auto-generated method stub
+		if (pd.isShowing()) {
+			pd.dismiss();
 
+			Toast.makeText(UserProfileActivity.this, message,
+					Toast.LENGTH_SHORT).show();
+		}
 	}
 
 	public void fillContainer(LinearLayout linear, ArrayList<MyReview> list) {
@@ -495,14 +592,15 @@ public class UserProfileActivity extends SocketActivity implements
 		for (int i = 0; i < list.size(); i++) {
 			View view = layoutInflater.inflate(R.layout.list_item_my_review,
 					null);
-			view.setId(i);
+			view.setTag(i);
 
 			view.setOnClickListener(new View.OnClickListener() {
 
 				@Override
 				public void onClick(View v) {
-					int id = v.getId();
+					int id = (int) v.getTag();
 					MyReview rev = reviews.get(id);
+					rev.setUserId(user.getId() + "");
 					Intent intent = new Intent(UserProfileActivity.this,
 							MyReviewDetailActivity.class);
 					intent.putExtra(MyReview.EXTRA_REVIEW, rev);
@@ -528,8 +626,8 @@ public class UserProfileActivity extends SocketActivity implements
 
 			tvMeetingName.setText(myReview.getMeetingName());
 
-			tvDateTime.setText(DateTimeUtils.getDatetimeAdded(myReview
-					.getDateTimeAdded()));
+			tvDateTime.setText(DateTimeUtils.getDatetimeAdded(
+					myReview.getDateTimeAdded(), timeZoneOffest));
 
 			tvComment.setText(myReview.getComment());
 

@@ -9,6 +9,7 @@ import java.util.List;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.R.integer;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Color;
@@ -19,7 +20,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.text.Editable;
-import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.util.TypedValue;
@@ -45,15 +45,13 @@ import com.citrusbits.meehab.constants.EventParams;
 import com.citrusbits.meehab.db.DatabaseHandler;
 import com.citrusbits.meehab.model.FriendFilterResultHolder;
 import com.citrusbits.meehab.model.FriendMessageModel;
-import com.citrusbits.meehab.model.FriendModel;
 import com.citrusbits.meehab.model.GetFriendsResponse;
-import com.citrusbits.meehab.model.TMeeting;
 import com.citrusbits.meehab.model.UserAccount;
-import com.citrusbits.meehab.pojo.AddUserResponse;
 import com.citrusbits.meehab.services.OnBackendConnectListener;
 import com.citrusbits.meehab.services.OnSocketResponseListener;
 import com.citrusbits.meehab.utils.AccountUtils;
 import com.citrusbits.meehab.utils.DeviceUtils;
+import com.citrusbits.meehab.utils.NetworkUtils;
 import com.citrusbits.meehab.utils.UtilityClass;
 import com.google.gson.Gson;
 
@@ -88,8 +86,12 @@ public class FriendsFragment extends Fragment implements
 	List<UserAccount> userAccountsCache = new ArrayList<UserAccount>();
 
 	private int mAccountPosition = -1;
-	
+
 	DatabaseHandler dbHandler;
+	
+	private boolean isFriendsFetch=false;
+
+	public static FriendFilterResultHolder fFilterResultHolder = new FriendFilterResultHolder();
 
 	public FriendsFragment() {
 	}
@@ -98,12 +100,12 @@ public class FriendsFragment extends Fragment implements
 		this.homeActivity = homeActivity;
 		pd = UtilityClass.getProgressDialog(homeActivity);
 	}
-	
+
 	@Override
 	public void onCreate(@Nullable Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		dbHandler=DatabaseHandler.getInstance(getActivity());
+		dbHandler = DatabaseHandler.getInstance(getActivity());
 	}
 
 	@Override
@@ -129,13 +131,7 @@ public class FriendsFragment extends Fragment implements
 			public void onTextChanged(CharSequence s, int start, int before,
 					int count) {
 				String text = editTopCenter.getText().toString();
-				if (TextUtils.isEmpty(text)) {
-					editTopCenter.setCompoundDrawablesWithIntrinsicBounds(
-							android.R.drawable.ic_menu_search, 0, 0, 0);
-				} else {
-					editTopCenter.setCompoundDrawables(null, null, null, null);
-				}
-				// searchMeetings(text);
+
 			}
 
 			@Override
@@ -237,7 +233,7 @@ public class FriendsFragment extends Fragment implements
 
 				FriendFilterResultHolder fFilterResultHolder = (FriendFilterResultHolder) data
 						.getSerializableExtra(EXTRA_FILTER_RESULT);
-
+				this.fFilterResultHolder = fFilterResultHolder;
 				boolean onlineNowFilter = fFilterResultHolder.isOnlineNow();
 				boolean willingToSponsorFilter = fFilterResultHolder
 						.isWillingToSponsor();
@@ -249,8 +245,12 @@ public class FriendsFragment extends Fragment implements
 					Log.e("willing to sponser", user.getWillingSponsor());
 					boolean userOnline = user.getCheckinType().equals("online");
 					boolean userWillingToSponser = !user.getWillingSponsor()
-							.equals("no");
-					boolean userHaskids = !user.getHaveKids().equals("no");
+							.toLowerCase().equals("no");
+					// boolean userHaskids =
+					// !user.getHaveKids().equals("no")||!user.getHaveKids().isEmpty();
+
+					boolean userHaskids = user.getHaveKids().toLowerCase()
+							.equals("yes");
 
 					boolean onlineSatisfy = satisfyFilter(onlineNowFilter,
 							userOnline);
@@ -259,6 +259,9 @@ public class FriendsFragment extends Fragment implements
 
 					boolean hasKidsSatisfy = satisfyFilter(hasKidsFilter,
 							userHaskids);
+
+					boolean hasFavSatisfy = favoriteStatusfySatisfy(user,
+							fFilterResultHolder);
 
 					boolean isGenderSatisfy = genderSatisfy(user,
 							fFilterResultHolder);
@@ -281,33 +284,111 @@ public class FriendsFragment extends Fragment implements
 
 					boolean isWeight = satisfyWeight(user, fFilterResultHolder);
 
-					if (/*
-						 * onlineSatisfy && willingToSponserSatisfy&&
-						 * hasKidsSatisfy&&
-						 * isGenderSatisfy&&isSatisfyAge&&isEthenticity
-						 * &&isMaritalStatus&& isInterestedIn&&
-						 * isTimeToSobar&&isHeight&&
-						 */isWeight) {
+					if (onlineSatisfy && willingToSponserSatisfy
+							&& hasKidsSatisfy && isGenderSatisfy
+							&& isSatisfyAge && isEthenticity && isMaritalStatus
+							&& isInterestedIn && isTimeToSobar && isHeight
+							&& isWeight && hasFavSatisfy) {
 						userAccounts.add(user);
 					}
 
 				}
 
-				// boolean friendType
+				// boolean friendTypeon
 
 			} else if (requestCode == DETAIL_REQUEST) {
 				if (mAccountPosition != -1) {
 					UserAccount userAccount = (UserAccount) data
 							.getSerializableExtra(UserProfileActivity.EXTRA_USER_ACCOUNT);
-					userAccountsCache.set(mAccountPosition, userAccount);
-					userAccounts.clear();
-					userAccounts.addAll(userAccountsCache);
-					friendsGridAdapter.notifyDataSetChanged();
-					friendsListAdapter.notifyDataSetChanged();
+					// userAccountsCache.set(mAccountPosition, userAccount);
+					if (userAccount.isBlocked() == 1) {
+						userAccountsCache.remove(mAccountPosition);
+						userAccounts.clear();
+						userAccounts.addAll(userAccountsCache);
+						friendsGridAdapter.notifyDataSetChanged();
+						friendsListAdapter.notifyDataSetChanged();
+					}
+
+					else if (userAccount.isFavourite() != userAccountsCache
+							.get(mAccountPosition).isFavourite()) {
+						userAccountsCache.set(mAccountPosition, userAccount);
+						userAccounts.clear();
+						userAccounts.addAll(userAccountsCache);
+						friendsGridAdapter.notifyDataSetChanged();
+						friendsListAdapter.notifyDataSetChanged();
+					}
 
 				}
 			}
+		} else if (resultCode == FriendsFilterActivity.CLEAR_FRIEND_FILTER) {
+			this.fFilterResultHolder = new FriendFilterResultHolder();
+			userAccounts.clear();
+			userAccounts.addAll(userAccountsCache);
+			friendsGridAdapter.notifyDataSetChanged();
+			friendsListAdapter.notifyDataSetChanged();
 		}
+	}
+
+	public void Filter(FriendFilterResultHolder fFilterResultHolder) {
+
+		this.fFilterResultHolder = fFilterResultHolder;
+		boolean onlineNowFilter = fFilterResultHolder.isOnlineNow();
+		boolean willingToSponsorFilter = fFilterResultHolder
+				.isWillingToSponsor();
+		boolean hasKidsFilter = fFilterResultHolder.isHasKids();
+		userAccounts.clear();
+
+		for (UserAccount user : userAccountsCache) {
+
+			Log.e("willing to sponser", user.getWillingSponsor());
+			boolean userOnline = user.getCheckinType().equals("online");
+			boolean userWillingToSponser = !user.getWillingSponsor()
+					.toLowerCase().equals("no");
+			// boolean userHaskids =
+			// !user.getHaveKids().equals("no")||!user.getHaveKids().isEmpty();
+
+			boolean userHaskids = user.getHaveKids().toLowerCase()
+					.equals("yes");
+
+			boolean onlineSatisfy = satisfyFilter(onlineNowFilter, userOnline);
+			boolean willingToSponserSatisfy = satisfyFilter(
+					willingToSponsorFilter, userWillingToSponser);
+
+			boolean hasKidsSatisfy = satisfyFilter(hasKidsFilter, userHaskids);
+
+			boolean hasFavSatisfy = favoriteStatusfySatisfy(user,
+					fFilterResultHolder);
+
+			boolean isGenderSatisfy = genderSatisfy(user, fFilterResultHolder);
+
+			boolean isSatisfyAge = satisfyAge(user, fFilterResultHolder);
+
+			boolean isEthenticity = ethenticitySatisfy(user,
+					fFilterResultHolder);
+
+			boolean isMaritalStatus = MaritalStatusSatisfy(user,
+					fFilterResultHolder);
+
+			boolean isInterestedIn = interestedInSatisfy(user,
+					fFilterResultHolder);
+
+			boolean isTimeToSobar = satisfyTimeSobar(user, fFilterResultHolder);
+
+			boolean isHeight = satisfyHeight(user, fFilterResultHolder);
+
+			boolean isWeight = satisfyWeight(user, fFilterResultHolder);
+
+			if (onlineSatisfy && willingToSponserSatisfy && hasKidsSatisfy
+					&& isGenderSatisfy && isSatisfyAge && isEthenticity
+					&& isMaritalStatus && isInterestedIn && isTimeToSobar
+					&& isHeight && isWeight && hasFavSatisfy) {
+				userAccounts.add(user);
+			}
+
+		}
+
+		// boolean friendTypeon
+
 	}
 
 	private boolean satisfyHeight(UserAccount user,
@@ -362,8 +443,32 @@ public class FriendsFragment extends Fragment implements
 		}
 
 		String weight = user.getWeight();
+		if (weight.isEmpty()) {
+			return false;
+		}
+
+		try {
+
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+
+		weight = weight.toLowerCase().replace("lbs", "").trim();
 		List<String> weights = filterResultHolder.getWeight();
-		return weights.contains(weight);
+
+		for (String weightRange : weights) {
+			weightRange = weightRange.toLowerCase().replace("lbs", "").trim();
+			String weightArr[] = weightRange.split("-");
+			int startWeight = Integer.parseInt(weightArr[0]);
+			int endWeight = Integer.parseInt(weightArr[1]);
+			int userWeight = Integer.parseInt(weight);
+			if (userWeight >= startWeight && userWeight <= endWeight) {
+				return true;
+			}
+		}
+
+		return false;
+
 	}
 
 	private boolean satisfyTimeSobar(UserAccount user,
@@ -530,9 +635,36 @@ public class FriendsFragment extends Fragment implements
 		return false;
 	}
 
+	private boolean favoriteStatusfySatisfy(UserAccount user,
+			FriendFilterResultHolder fFilterResultHolder) {
+		/*
+		 * Toast.makeText(getActivity(), "is Any Age:" +
+		 * fFilterResultHolder.isAnyAge(), Toast.LENGTH_SHORT).show();
+		 */
+		if (fFilterResultHolder.isAnyFriendType()) {
+			return true;
+		}
+
+		int userFavorite = user.isFavourite();
+		if (userFavorite == 0) {
+			return false;
+		}
+		List<String> friendTypes = fFilterResultHolder.getFriendType();
+		for (String friendType : friendTypes) {
+			if ("favourite".equals(friendType.toLowerCase())) {
+				return true;
+			}
+		}
+
+		return false;
+	}
+
 	private boolean genderSatisfy(UserAccount user,
 			FriendFilterResultHolder fFilterResultHolder) {
-		Toast.makeText(getActivity(), "is Any Age:"+fFilterResultHolder.isAnyAge(), Toast.LENGTH_SHORT).show();
+		/*
+		 * Toast.makeText(getActivity(), "is Any Age:" +
+		 * fFilterResultHolder.isAnyAge(), Toast.LENGTH_SHORT).show();
+		 */
 		if (fFilterResultHolder.isAnyGender()) {
 			return true;
 		}
@@ -550,7 +682,7 @@ public class FriendsFragment extends Fragment implements
 
 	private boolean satisfyFilter(boolean filterValue, boolean userValue) {
 
-		return filterValue == userValue;
+		return filterValue == false ? true : filterValue == userValue;
 
 	}
 
@@ -582,6 +714,8 @@ public class FriendsFragment extends Fragment implements
 		case R.id.btnFilter:
 			Intent intent = new Intent(getActivity(),
 					FriendsFilterActivity.class);
+
+			intent.putExtra(EXTRA_FILTER_RESULT, fFilterResultHolder);
 
 			this.startActivityForResult(intent, Filter_request);
 
@@ -673,6 +807,15 @@ public class FriendsFragment extends Fragment implements
 	}
 
 	public void getFriends() {
+		
+		if(isFriendsFetch){
+			return;
+		}
+		if (!NetworkUtils.isNetworkAvailable(homeActivity)) {
+			App.alert(getString(R.string.no_internet_connection));
+			return;
+		}
+
 		if (homeActivity.socketService != null) {
 			pd.show();
 			JSONObject object = new JSONObject();
@@ -680,6 +823,7 @@ public class FriendsFragment extends Fragment implements
 			try {
 				object.put("user_id", AccountUtils.getUserId(getActivity()));
 				object.put("device_id", DeviceUtils.getDeviceId(homeActivity));
+				object.put("type", "unblocked");
 				Log.e("json send ", object.toString());
 				homeActivity.socketService.getAllFriends(object);
 			} catch (JSONException e) {
@@ -693,7 +837,7 @@ public class FriendsFragment extends Fragment implements
 	@Override
 	public void onBackendConnected() {
 		// TODO Auto-generated method stub
-
+		getFriends();
 	}
 
 	@Override
@@ -701,9 +845,11 @@ public class FriendsFragment extends Fragment implements
 		// TODO Auto-generated method stub
 		pd.dismiss();
 		if (event.equals(EventParams.METHOD_GET_ALL_FRIENDS)) {
+			isFriendsFetch=true;
 			userAccounts.clear();
 			Gson gson = new Gson();
 			JSONObject data = (JSONObject) obj;
+			Log.e("All Friends data is ", obj.toString());
 			GetFriendsResponse response = gson.fromJson(data.toString(),
 					GetFriendsResponse.class);
 			List<UserAccount> friends = response.getFriends();
@@ -714,36 +860,98 @@ public class FriendsFragment extends Fragment implements
 
 				friends.get(i).setAge(
 						calculateAge(friends.get(i).getDateOfBirth()));
-				UserAccount user=friends.get(i);
-				if(!dbHandler.friendExists(user.getId())){
-					FriendMessageModel messageModel=new FriendMessageModel();
+				UserAccount user = friends.get(i);
+				if (!dbHandler.friendExists(user.getId())) {
+					FriendMessageModel messageModel = new FriendMessageModel();
 					messageModel.setFriendId(user.getId());
 					messageModel.setName(user.getUsername());
 					dbHandler.addFriend(messageModel);
-				}else{
-					Log.e("User id already exists "+dbHandler.getFriend(user.getId()).getName(), String.valueOf(user.getId()));
+				} else {
+					Log.e("User id already exists "
+							+ dbHandler.getFriend(user.getId()).getName(),
+							String.valueOf(user.getId()));
 				}
 
 			}
-			
-			
-			
 
 			userAccounts.addAll(friends);
 			userAccountsCache.addAll(friends);
 			friendsGridAdapter.notifyDataSetChanged();
 
+			Filter(fFilterResultHolder);
+
 			/*
 			 * Toast.makeText(homeActivity, "Friends data is " +
 			 * data.toString(), Toast.LENGTH_SHORT).show();
 			 */
+		} else if (event.equals(EventParams.METHOD_BLOCK_USER_NOTIFY)) {
+			JSONObject data = ((JSONObject) obj);
+			try {
+
+				String message = data.getString("message");
+
+				int userId = data.getInt("user_id");
+				Log.e("First user account size", "Size " + userAccounts.size());
+				for (int i = 0; i < userAccounts.size(); i++) {
+
+					if (userId == userAccounts.get(i).getId()) {
+						userAccounts.remove(i);
+					}
+				}
+
+				for (int i = 0; i < userAccountsCache.size(); i++) {
+					if (userId == userAccountsCache.get(i).getId()) {
+						userAccountsCache.remove(i);
+					}
+				}
+
+				friendsListAdapter.notifyDataSetChanged();
+				friendsGridAdapter.notifyDataSetChanged();
+
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+		} else if (event.equals(EventParams.METHOD_CHECK_IN_USER)) {
+			JSONObject data = ((JSONObject) obj);
+			try {
+
+				String message = data.getString("message");
+
+				int friendId = data.getInt("friend_id");
+				String checkInType = data.getString("checkin_type");
+				Log.e("First user account size", "Size " + userAccounts.size());
+				for (int i = 0; i < userAccounts.size(); i++) {
+
+					if (friendId == userAccounts.get(i).getId()) {
+						userAccounts.get(i).setCheckinType(checkInType);
+					}
+				}
+
+				for (int i = 0; i < userAccountsCache.size(); i++) {
+					if (friendId == userAccountsCache.get(i).getId()) {
+						userAccountsCache.get(i).setCheckinType(checkInType);
+					}
+				}
+
+				friendsListAdapter.notifyDataSetChanged();
+				friendsGridAdapter.notifyDataSetChanged();
+
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
 		}
 	}
 
 	@Override
 	public void onSocketResponseFailure(String message) {
 		// TODO Auto-generated method stub
-
+		if (pd != null) {
+			pd.dismiss();
+		}
 	}
 
 }

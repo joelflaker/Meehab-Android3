@@ -8,6 +8,7 @@ package com.citrusbits.meehab.model;
  *
  */
 import java.io.Serializable;
+import java.util.Date;
 
 import com.google.android.gms.maps.model.LatLng;
 import com.google.gson.annotations.Expose;
@@ -15,9 +16,58 @@ import com.google.gson.annotations.SerializedName;
 
 public class MeetingModel implements Serializable {
 
+	@SerializedName("is_rsvp")
+	@Expose
+	private Integer rsvp;
+
+	public Integer getRsvp() {
+		return rsvp;
+	}
+
+	public void setRsvp(Integer rsvp) {
+		this.rsvp = rsvp;
+	}
+
 	@SerializedName("added_byID")
 	@Expose
 	private Integer addedByID;
+
+	@SerializedName("rsvp_count")
+	@Expose
+	private Integer rsvpCount;
+
+	@SerializedName("favorite")
+	@Expose
+	private Integer favouriteMeeting;
+
+	public Integer getFavouriteMeeting() {
+		return favouriteMeeting;
+	}
+
+	public void setFavouriteMeeting(Integer favouriteMeeting) {
+		this.favouriteMeeting = favouriteMeeting;
+	}
+
+	@SerializedName("meeting_checkin")
+	@Expose
+	private Integer checkInMeeting;
+
+	public Integer getCheckInMeeting() {
+		return checkInMeeting;
+	}
+
+	public void setCheckInMeeting(Integer checkInMeeting) {
+		this.checkInMeeting = checkInMeeting;
+	}
+
+	public Integer getRsvpCount() {
+		return rsvpCount;
+	}
+
+	public void setRsvpCount(Integer rsvpCount) {
+		this.rsvpCount = rsvpCount;
+	}
+
 	@SerializedName("zip_code")
 	@Expose
 	private String zipCode;
@@ -81,13 +131,43 @@ public class MeetingModel implements Serializable {
 	boolean isChecked;
 	boolean isCheckBoxVisible;
 	boolean dateHeaderVisible;
-	private long distanceInMiles;
+	private double distanceInMiles;
+
+	boolean todayMeeting;
+
+	public boolean isTodayMeeting() {
+		return todayMeeting;
+	}
+
+	public void setTodayMeeting(boolean todayMeeting) {
+		this.todayMeeting = todayMeeting;
+	}
 
 	private boolean favourite;
 
 	private String onDateOrigin;
 
 	private String startInTime;
+
+	private String nearestTime;
+
+	private Date dateObj;
+
+	public void setNearestTime(String nearestTime) {
+		this.nearestTime = nearestTime;
+	}
+
+	public String getNearestTime() {
+		return this.nearestTime;
+	}
+
+	public Date getDateObj() {
+		return dateObj;
+	}
+
+	public void setDateObj(Date dateObj) {
+		this.dateObj = dateObj;
+	}
 
 	public void setOnDateOrigin(String onDateOrigin) {
 		this.onDateOrigin = onDateOrigin;
@@ -113,11 +193,11 @@ public class MeetingModel implements Serializable {
 		return this.favourite;
 	}
 
-	public void setDistanceInMiles(long distanceInMiles) {
+	public void setDistanceInMiles(double distanceInMiles) {
 		this.distanceInMiles = distanceInMiles;
 	}
 
-	public long getDistanceInMiles() {
+	public double getDistanceInMiles() {
 		return this.distanceInMiles;
 
 	}

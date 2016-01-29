@@ -12,14 +12,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.app.AlertDialog;
 import android.app.ProgressDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.provider.Telephony.Mms.Rate;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v4.widget.SwipeRefreshLayout.OnRefreshListener;
 import android.util.Log;
@@ -30,22 +26,28 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.citrusbits.meehab.adapters.ChatAdapter;
+import com.citrusbits.meehab.adapters.ChatAdapter.ChatCheckedChangeListener;
+import com.citrusbits.meehab.app.App;
 import com.citrusbits.meehab.constants.EventParams;
 import com.citrusbits.meehab.db.ChatDataSource;
 import com.citrusbits.meehab.db.DatabaseHandler;
+import com.citrusbits.meehab.dialog.BlockFrindConfirmationDialog;
 import com.citrusbits.meehab.dialog.BlockUserDialog;
+import com.citrusbits.meehab.dialog.BlockFrindConfirmationDialog.BlockFrindConfirmationDialogClickListener;
 import com.citrusbits.meehab.dialog.BlockUserDialog.BlockUserDialogClickListener;
+import com.citrusbits.meehab.fragments.MessagesFragment;
 import com.citrusbits.meehab.model.ChatModel;
-import com.citrusbits.meehab.model.UserAccount;
 import com.citrusbits.meehab.prefrences.AppPrefs;
 import com.citrusbits.meehab.services.OnSocketResponseListener;
 import com.citrusbits.meehab.utils.AccountUtils;
 import com.citrusbits.meehab.utils.DeviceUtils;
+import com.citrusbits.meehab.utils.NetworkUtils;
 import com.citrusbits.meehab.utils.UtilityClass;
 import com.google.gson.Gson;
 
@@ -54,9 +56,12 @@ public class ChatActivity extends SocketActivity implements OnClickListener,
 
 	public static final String TAG = ChatActivity.class.getSimpleName();
 
+	public static final String KEY_FRIEND_ID = "friend_id";
+	public static final String KEY_FRIEND_NAME = "friend_name";
+
 	public static final long TIME_REFRESH_RATE = 10 * 1000;
 
-	public static final String EXTRA_CHAT = "chat";
+	// public static final String EXTRA_CHAT = "chat";
 
 	ImageView ivBack;
 	TextView tvUserName;
@@ -65,8 +70,6 @@ public class ChatActivity extends SocketActivity implements OnClickListener,
 	ListView lvChat;
 	EditText etMessage;
 	ImageButton ibSend;
-
-	UserAccount user;
 
 	List<ChatModel> chatMessages = new ArrayList<ChatModel>();
 
@@ -87,16 +90,22 @@ public class ChatActivity extends SocketActivity implements OnClickListener,
 	private long timeZoneOffset = 0;
 
 	Handler refreshHandler;
+	int friendId;
+	private ImageButton ibDelete;
+	private LinearLayout llMessage;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_chat);
+		ibDelete = (ImageButton) findViewById(R.id.ibDelete);
+		llMessage = (LinearLayout) findViewById(R.id.llMessage);
 		refreshHandler = new Handler();
 		prefs = AppPrefs.getAppPrefs(ChatActivity.this);
-		user = (UserAccount) getIntent().getSerializableExtra(EXTRA_CHAT);
-		prefs.saveIntegerPrefs(AppPrefs.KEY_CHAT_FRIEND_ID, user.getId());
+		friendId = getIntent().getIntExtra(KEY_FRIEND_ID, -1);
+		String friendName = getIntent().getStringExtra(KEY_FRIEND_NAME);
+		prefs.saveIntegerPrefs(AppPrefs.KEY_CHAT_FRIEND_ID, friendId);
 		appUserId = AppPrefs.getAppPrefs(this).getIntegerPrefs(
 				AppPrefs.KEY_USER_ID, AppPrefs.DEFAULT.USER_ID);
 		ivBack = (ImageView) findViewById(R.id.ivBack);
@@ -111,17 +120,19 @@ public class ChatActivity extends SocketActivity implements OnClickListener,
 		mSwipeRefreshLayout.setColorSchemeResources(R.color.orange,
 				R.color.green, R.color.blue);
 
-		tvUserName.setText(user.getUsername());
+		tvUserName.setText(friendName);
 
 		ivBack.setOnClickListener(this);
 		ibSend.setOnClickListener(this);
 		ivActionProfile.setOnClickListener(this);
 		ibEdit.setOnClickListener(this);
+		ibDelete.setOnClickListener(this);
 
 		chatDatasource = new ChatDataSource(this);
 		chatDatasource.open();
 
-		adapter = new ChatAdapter(this, R.layout.chat_list_item, chatMessages);
+		adapter = new ChatAdapter(this, R.layout.chat_list_item, chatMessages)
+				.setChatCheckedChangeListener(chatCheckChangeListener);
 
 		lvChat.setAdapter(adapter);
 		lvChat.setOnItemClickListener(this);
@@ -137,15 +148,39 @@ public class ChatActivity extends SocketActivity implements OnClickListener,
 				chatPagination(paginationIndex);
 			}
 		});
-		
-		
 
 		prefs.saveBooleanPrefs(AppPrefs.KEY_CHAT_ACTIVITY_OPEN, true);
-		
-		
 
 		timeZoneOffset = getTimeZoneOffset();
 
+	}
+
+	ChatCheckedChangeListener chatCheckChangeListener = new ChatCheckedChangeListener() {
+
+		@Override
+		public void onCheckedChange() {
+			// TODO Auto-generated method stub
+			int count = getCheckedCount();
+			if (count == 0 || count == 1) {
+				notifyDeleteButton(count);
+			}
+		}
+	};
+
+	public void notifyDeleteButton(int count) {
+		int resourceId = count == 0 ? R.drawable.delete_btn_gray
+				: R.drawable.delete_btn;
+		ibDelete.setImageResource(resourceId);
+	}
+
+	private int getCheckedCount() {
+		int checkCount = 0;
+		for (ChatModel chat : chatMessages) {
+			if (chat.isChecked()) {
+				checkCount++;
+			}
+		}
+		return checkCount;
 	}
 
 	public long getTimeZoneOffset() {
@@ -167,6 +202,12 @@ public class ChatActivity extends SocketActivity implements OnClickListener,
 			break;
 		case R.id.ibSend:
 			String message = etMessage.getText().toString().trim();
+
+			if (message.trim().isEmpty()) {
+				DeviceUtils.showSoftKeyboard(ChatActivity.this);
+				etMessage.requestFocus();
+				return;
+			}
 			sendChatMessage(message);
 			DeviceUtils.hideSoftKeyboard(ChatActivity.this);
 
@@ -183,7 +224,8 @@ public class ChatActivity extends SocketActivity implements OnClickListener,
 							dialog.dismiss();
 							Intent i = new Intent(ChatActivity.this,
 									ReportFriendActivity.class);
-							i.putExtra(ReportFriendActivity.EXTRA_FRIEND, user);
+							i.putExtra(ReportFriendActivity.KEY_FRIEND_ID,
+									friendId);
 							startActivity(i);
 						}
 
@@ -197,7 +239,23 @@ public class ChatActivity extends SocketActivity implements OnClickListener,
 						public void onBlockUser(BlockUserDialog dialog) {
 							// TODO Auto-generated method stub
 							dialog.dismiss();
-							blockUser();
+							
+							new BlockFrindConfirmationDialog(ChatActivity.this).setBlockFrindConfirmationDialogClickListener(new BlockFrindConfirmationDialogClickListener() {
+								
+								@Override
+								public void onYesClick(BlockFrindConfirmationDialog dialog) {
+									// TODO Auto-generated method stub
+									dialog.dismiss();
+									blockUser();
+								}
+								
+								@Override
+								public void onNoClick(BlockFrindConfirmationDialog dialog) {
+									// TODO Auto-generated method stub
+									dialog.dismiss();
+								}
+							},  BlockFrindConfirmationDialog.STATUS_SINGLE_BLOCK).show();
+						
 						}
 					}).show();
 
@@ -206,30 +264,56 @@ public class ChatActivity extends SocketActivity implements OnClickListener,
 
 			boolean edit = adapter.isEdit();
 			int resource = edit ? R.drawable.edit_btn
-					: R.drawable.delete_msg_btn;
+					: R.drawable.cancel_btn_small;
 			ibEdit.setImageResource(resource);
 			if (!edit) {
+				ibDelete.setVisibility(View.VISIBLE);
+				llMessage.setVisibility(View.GONE);
 				adapter.setEdit(true);
 				adapter.notifyDataSetChanged();
 			} else {
-				deleteChatMessages();
+				// deleteChatMessages();
+				deselectAllMessages();
+				checkDeleteButton();
+				ibDelete.setVisibility(View.GONE);
+				llMessage.setVisibility(View.VISIBLE);
+				deselectAllMessages();
+				adapter.setEdit(false);
+				adapter.notifyDataSetChanged();
 			}
 			// Toast.makeText(this, "Edit button is called! "+edit,
 			// Toast.LENGTH_SHORT).show();
 
 			break;
+		case R.id.ibDelete:
+			deleteChatMessages();
+			break;
+		}
+
+	}
+
+	public void deselectAllMessages() {
+		for (ChatModel chat : chatMessages) {
+			if (chat.isChecked()) {
+				chat.setChecked(false);
+			}
+
 		}
 
 	}
 
 	public void deleteChatMessages() {
+		if (!NetworkUtils.isNetworkAvailable(this)) {
+			App.alert(getString(R.string.no_internet_connection));
+			return;
+		}
+
 		if (socketService != null) {
 			pd = UtilityClass.getProgressDialog(this);
 			JSONObject object = new JSONObject();
 
 			try {
 
-				pd.show();
 				object.put("user_id", AccountUtils.getUserId(this));
 
 				JSONArray deleteArray = new JSONArray();
@@ -247,7 +331,10 @@ public class ChatActivity extends SocketActivity implements OnClickListener,
 				object.put("delete_message", deleteArray);
 				Log.e("delete json send ", object.toString());
 
-				socketService.deleteChatMessages(object);
+				if (deleteArray.length() > 0) {
+					pd.show();
+					socketService.deleteChatMessages(object);
+				}
 
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block
@@ -258,6 +345,11 @@ public class ChatActivity extends SocketActivity implements OnClickListener,
 	}
 
 	public void chatPagination(int index) {
+		if (!NetworkUtils.isNetworkAvailable(this)) {
+			App.alert(getString(R.string.no_internet_connection));
+			return;
+		}
+
 		if (socketService != null) {
 
 			JSONObject object = new JSONObject();
@@ -266,7 +358,7 @@ public class ChatActivity extends SocketActivity implements OnClickListener,
 
 				object.put("index", index);
 				object.put("user_id", AccountUtils.getUserId(this));
-				object.put("friend_id", user.getId());
+				object.put("friend_id", friendId);
 
 				Log.e("json send ", object.toString());
 				socketService.getChatPagination(object);
@@ -280,14 +372,19 @@ public class ChatActivity extends SocketActivity implements OnClickListener,
 	}
 
 	public void sendChatMessage(String message) {
+		if (!NetworkUtils.isNetworkAvailable(this)) {
+			App.alert(getString(R.string.no_internet_connection));
+			return;
+		}
+
 		if (socketService != null) {
-			pd = UtilityClass.getProgressDialog(this);
+			// pd = UtilityClass.getProgressDialog(this);
 
 			JSONObject object = new JSONObject();
 
 			try {
-				pd.show();
-				object.put("to_send", user.getId());
+				// pd.show();
+				object.put("to_send", friendId);
 				object.put("message", message);
 
 				Log.e("json send ", object.toString());
@@ -302,6 +399,11 @@ public class ChatActivity extends SocketActivity implements OnClickListener,
 	}
 
 	public void blockUser() {
+		if (!NetworkUtils.isNetworkAvailable(this)) {
+			App.alert(getString(R.string.no_internet_connection));
+			return;
+		}
+
 		if (socketService != null) {
 			pd = UtilityClass.getProgressDialog(this);
 			pd.show();
@@ -309,8 +411,8 @@ public class ChatActivity extends SocketActivity implements OnClickListener,
 
 			try {
 				object.put("user_id", AccountUtils.getUserId(this));
-				object.put("friend_id", user.getId());
-
+				object.put("friend_ids", friendId);
+				object.put("block", 1);
 				Log.e("json send ", object.toString());
 				socketService.blockUser(object);
 			} catch (JSONException e) {
@@ -321,38 +423,6 @@ public class ChatActivity extends SocketActivity implements OnClickListener,
 		}
 	}
 
-	public void performAction() {
-		final CharSequence[] items = { "Block User", "Report User", "Cancel" };
-
-		AlertDialog.Builder builder = new AlertDialog.Builder(this);
-
-		builder.setItems(items, new DialogInterface.OnClickListener() {
-			public void onClick(DialogInterface dialog, int item) {
-				// Do something with the selection
-				switch (item) {
-				case 0:
-					Toast.makeText(ChatActivity.this, "Block User ",
-							Toast.LENGTH_SHORT).show();
-
-					break;
-				case 1:
-					Intent i = new Intent(ChatActivity.this,
-							ReportFriendActivity.class);
-					i.putExtra(ReportFriendActivity.EXTRA_FRIEND, user);
-					startActivity(i);
-					break;
-				case 2:
-
-					break;
-				}
-
-				dialog.dismiss();
-			}
-		});
-		AlertDialog alert = builder.create();
-		alert.show();
-	}
-
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position,
 			long id) {
@@ -361,7 +431,10 @@ public class ChatActivity extends SocketActivity implements OnClickListener,
 			ChatModel message = chatMessages.get(position);
 			message.setChecked(!message.isChecked());
 			adapter.notifyDataSetChanged();
-
+			int count = getCheckedCount();
+			if (count == 0 || count == 1) {
+				notifyDeleteButton(count);
+			}
 		}
 
 	}
@@ -435,15 +508,13 @@ public class ChatActivity extends SocketActivity implements OnClickListener,
 			try {
 				String message = data.getString("message");
 
-				user.setBlocked(user.isBlocked() == 1 ? 0 : 1);
-				if (user.isBlocked() == 1) {
-					Toast.makeText(ChatActivity.this, "User has been blocked!",
-							Toast.LENGTH_SHORT).show();
-				} else {
-					Toast.makeText(ChatActivity.this,
-							"User has been unblocked!", Toast.LENGTH_SHORT)
-							.show();
-				}
+				Toast.makeText(ChatActivity.this, "User has been blocked!",
+						Toast.LENGTH_SHORT).show();
+				etMessage.setEnabled(false);
+				setResult(UserProfileActivity.RESULT_CODE_BLOCKED, new Intent());
+				ChatActivity.this.finish();
+				overridePendingTransition(R.anim.activity_back_in,
+						R.anim.activity_back_out);
 
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block
@@ -455,9 +526,9 @@ public class ChatActivity extends SocketActivity implements OnClickListener,
 		else if (event.equals(EventParams.METHOD_CHAT_PAGINATION)) {
 			mSwipeRefreshLayout.setRefreshing(false);
 			JSONObject data = ((JSONObject) obj);
-            DatabaseHandler.getInstance(ChatActivity.this).updateMessgeCount(user.getId(), 0);
-            
-            
+			DatabaseHandler.getInstance(ChatActivity.this).updateMessgeCount(
+					friendId, 0);
+
 			List<ChatModel> paginationMessages = new ArrayList<ChatModel>();
 
 			try {
@@ -500,15 +571,22 @@ public class ChatActivity extends SocketActivity implements OnClickListener,
 
 				Log.e(TAG, data.toString());
 
+				
+
+				adapter.notifyDataSetChanged();
+				
+				if(paginationIndex<20){
+					scrollChatListToBottom();
+				}
+				
+				
 				if (chatPagination.length() > 0) {
 					paginationIndex = paginationIndex + 20;
 				}
 
-				adapter.notifyDataSetChanged();
-				scrollChatListToBottom();
-				
-				ChatActivity.this.sendBroadcast(new Intent(HomeActivity.ACTION_MESSAGE_COUNT_UPDATE));
-				
+				ChatActivity.this.sendBroadcast(new Intent(
+						HomeActivity.ACTION_MESSAGE_COUNT_UPDATE));
+
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -525,10 +603,35 @@ public class ChatActivity extends SocketActivity implements OnClickListener,
 					i--;
 				}
 			}
-
-			adapter.setEdit(false);
-			adapter.notifyDataSetChanged();
+            checkDeleteButton();
 			scrollChatListToBottom();
+		} else if (event.equals(EventParams.METHOD_BLOCK_USER_NOTIFY)) {
+			JSONObject data = ((JSONObject) obj);
+			try {
+				int blocked = data.getInt("blocked");
+				String message = data.getString("message");
+				etMessage.setEnabled(blocked == 0 ? true : false);
+				Toast.makeText(ChatActivity.this, message, Toast.LENGTH_SHORT)
+						.show();
+				
+				setResult(UserProfileActivity.RESULT_CODE_BLOCKED, new Intent());
+				ChatActivity.this.finish();
+				overridePendingTransition(R.anim.activity_back_in,
+						R.anim.activity_back_out);
+
+
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+		}
+	}
+
+	public void checkDeleteButton() {
+		int count = getCheckedCount();
+		if (count == 0 || count == 1) {
+			notifyDeleteButton(count);
 		}
 	}
 
@@ -547,6 +650,11 @@ public class ChatActivity extends SocketActivity implements OnClickListener,
 			pd.dismiss();
 		}
 
+		if (message.equals("This User Blocked You")) {
+			etMessage.setEnabled(false);
+		}
+		Toast.makeText(ChatActivity.this, message, Toast.LENGTH_SHORT).show();
+
 		mSwipeRefreshLayout.setRefreshing(false);
 	}
 
@@ -562,16 +670,31 @@ public class ChatActivity extends SocketActivity implements OnClickListener,
 
 	@Override
 	public void onBackPressed() {
+		setResult(MessagesFragment.RESULT_CODE_CHANGES_HAPPEN);
 		super.onBackPressed();
 		overridePendingTransition(R.anim.activity_back_in,
 				R.anim.activity_back_out);
+	}
+	
+	@Override
+	public void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
+		prefs.saveBooleanPrefs(AppPrefs.KEY_CHAT_ACTIVITY_OPEN, true);
+	}
+	
+	@Override
+	protected void onStop() {
+		// TODO Auto-generated method stub
+		super.onStop();
+		prefs.saveBooleanPrefs(AppPrefs.KEY_CHAT_ACTIVITY_OPEN, false);
 	}
 
 	@Override
 	protected void onDestroy() {
 		// TODO Auto-generated method stub
 		super.onDestroy();
-		prefs.saveBooleanPrefs(AppPrefs.KEY_CHAT_ACTIVITY_OPEN, false);
+		
 		prefs.saveIntegerPrefs(AppPrefs.KEY_CHAT_FRIEND_ID, -1);
 		refreshHandler.removeCallbacks(timeRefreshRunnable);
 	}

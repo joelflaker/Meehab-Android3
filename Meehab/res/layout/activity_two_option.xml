@@ -30,10 +30,10 @@
         android:layout_weight="1" >
 
         <ImageView
+            android:id="@+id/ivMeetingsRehab"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="20dp"
-            android:id="@+id/ivMeetingsRehab"
             android:scaleType="centerCrop"
             android:src="@drawable/meetings_rehabs_box" />
 
@@ -48,11 +48,11 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:background="@drawable/simple_button_selector"
+                android:clickable="false"
+                android:focusable="true"
                 android:padding="8dp"
                 android:shadowColor="#222"
                 android:shadowDx="-2"
-                android:focusable="true"
-                android:clickable="false"
                 android:shadowDy="-2"
                 android:shadowRadius="4"
                 android:text="Meetings/Rehabs"
@@ -65,6 +65,7 @@
     </FrameLayout>
 
     <FrameLayout
+        android:id="@+id/jump2Friends"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
@@ -78,31 +79,6 @@
             android:layout_marginRight="20dp"
             android:scaleType="centerCrop"
             android:src="@drawable/friends_box" />
-
-        <FrameLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-             android:id="@+id/jump2Friends"
-            android:layout_gravity="center" >
-
-            <Button
-               
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:background="@drawable/simple_button_selector"
-                android:padding="8dp"
-                android:shadowColor="#222"
-                android:shadowDx="-2"
-                android:shadowDy="-2"
-                android:visibility="invisible"
-                android:shadowRadius="4"
-                android:text="Friends"
-                android:textAllCaps="true"
-                android:textColor="#fff"
-                android:textSize="22sp"
-                android:textStyle="bold" />
-        </FrameLayout>
     </FrameLayout>
 
 </LinearLayout>

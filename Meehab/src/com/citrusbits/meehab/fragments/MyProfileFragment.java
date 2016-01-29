@@ -55,6 +55,9 @@ import com.citrusbits.meehab.services.OnSocketResponseListener;
 import com.citrusbits.meehab.utils.AccountUtils;
 import com.citrusbits.meehab.utils.DateTimeUtils;
 import com.citrusbits.meehab.utils.DeviceUtils;
+import com.citrusbits.meehab.utils.MeetingUtils;
+import com.citrusbits.meehab.utils.NetworkUtils;
+import com.citrusbits.meehab.utils.RecoverClockDateUtils;
 import com.citrusbits.meehab.utils.UtilityClass;
 import com.squareup.picasso.Picasso;
 
@@ -88,6 +91,8 @@ public class MyProfileFragment extends Fragment implements
 	private ImageView ivBlurBg;
 
 	private ImageButton ibSeeMore;
+	
+	private long timeZone;
 
 	public MyProfileFragment() {
 	}
@@ -111,6 +116,8 @@ public class MyProfileFragment extends Fragment implements
 			Bundle savedInstanceState) {
 		View v = inflater.inflate(R.layout.fragment_my_profile, container,
 				false);
+		
+		timeZone=MeetingUtils.getTimeZoneOffset();
 
 		v.findViewById(R.id.topMenuBtn).setOnClickListener(this);
 		v.findViewById(R.id.topRightBtn).setOnClickListener(this);
@@ -190,6 +197,9 @@ public class MyProfileFragment extends Fragment implements
 			ethnicityText.setText(user.getEthnicity());
 			occupationText.setText(user.getAccupation());
 
+			SoberDateText.setText(RecoverClockDateUtils.getSoberDifference(
+					user.getSoberSence(), true, getActivity()));
+
 			if ("both".toLowerCase().toString()
 					.equals(user.getIntrestedIn().toLowerCase())) {
 				interestedInText.setText(R.string.dating_and_fellowshiping);
@@ -197,7 +207,6 @@ public class MyProfileFragment extends Fragment implements
 				interestedInText.setText(user.getIntrestedIn());
 			}
 			kidsText.setText(user.getHaveKids());
-			// homegroupText.setText(user.getWillingSponsor())
 			homegroupText.setText(user.getMeetingHomeGroup());
 
 			String aaStoryTxt = user.getAboutStory();
@@ -268,6 +277,10 @@ public class MyProfileFragment extends Fragment implements
 	}
 
 	public void getUserReviews() {
+		if (!NetworkUtils.isNetworkAvailable(getActivity())) {
+			App.alert(getString(R.string.no_internet_connection));
+			return;
+		}
 		if (homeActivity.socketService != null) {
 			pd.show();
 			JSONObject object = new JSONObject();
@@ -310,7 +323,7 @@ public class MyProfileFragment extends Fragment implements
 					String onDate = reviewObject.getString("on_date");
 					String onTime = reviewObject.getString("on_time");
 
-					String meetingName = reviewObject.getString("username");
+					String meetingName = reviewObject.getString("meeting_name");
 					int rating = reviewObject.getInt("stars");
 					int reviewId = reviewObject.getInt("id");
 					String reviewTitle = reviewObject.getString("title");
@@ -334,7 +347,7 @@ public class MyProfileFragment extends Fragment implements
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-
+			reviewsContainer.removeAllViews();
 			fillContainer(reviewsContainer, reviews);
 
 		}
@@ -359,14 +372,15 @@ public class MyProfileFragment extends Fragment implements
 		for (int i = 0; i < list.size(); i++) {
 			View view = layoutInflater.inflate(R.layout.list_item_my_review,
 					null);
-			view.setId(i);
+			view.setTag(i);
 
 			view.setOnClickListener(new View.OnClickListener() {
 
 				@Override
 				public void onClick(View v) {
-					int id = v.getId();
+					int id = (int) v.getTag();
 					MyReview rev = reviews.get(id);
+					rev.setUserId(user.getId() + "");
 					Intent intent = new Intent(getActivity(),
 							MyReviewDetailActivity.class);
 					intent.putExtra(MyReview.EXTRA_REVIEW, rev);
@@ -391,7 +405,7 @@ public class MyProfileFragment extends Fragment implements
 			tvMeetingName.setText(myReview.getMeetingName());
 
 			tvDateTime.setText(DateTimeUtils.getDatetimeAdded(myReview
-					.getDateTimeAdded()));
+					.getDateTimeAdded(),timeZone));
 
 			tvComment.setText(myReview.getComment());
 

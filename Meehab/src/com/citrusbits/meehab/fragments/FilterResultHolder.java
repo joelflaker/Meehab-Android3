@@ -94,6 +94,10 @@ public class FilterResultHolder implements Serializable {
 		types.add(type);
 
 	}
+	
+	public void removeType(String type){
+		types.remove(type);
+	}
 
 	public void setDays(List<String> days) {
 		this.days = days;
@@ -197,14 +201,14 @@ public class FilterResultHolder implements Serializable {
 			String time = times.get(i);
 			if (time.equals("06 AM - 09 AM")) {
 				Calendar startTime = Calendar.getInstance();
-				startTime.set(Calendar.HOUR, 6);
+				startTime.set(Calendar.HOUR_OF_DAY, 6);
 				startTime.set(Calendar.MINUTE, 0);
 				startTime.set(Calendar.SECOND, 0);
 				//startTime.set(Calendar.AM_PM, Calendar.AM);
 				
 				
 				Calendar endTime = Calendar.getInstance();
-				endTime.set(Calendar.HOUR, 9);
+				endTime.set(Calendar.HOUR_OF_DAY, 9);
 				endTime.set(Calendar.MINUTE, 0);
 				endTime.set(Calendar.SECOND, 0);
 			//	endTime.set(Calendar.AM_PM, Calendar.AM);
@@ -216,14 +220,14 @@ public class FilterResultHolder implements Serializable {
 
 			} else if (time.equals("09 AM - 12 PM")) {
 				Calendar startTime = Calendar.getInstance();
-				startTime.set(Calendar.HOUR, 9);
+				startTime.set(Calendar.HOUR_OF_DAY, 9);
 				startTime.set(Calendar.MINUTE, 0);
 				startTime.set(Calendar.SECOND, 0);
 			//	startTime.set(Calendar.AM_PM, Calendar.AM);
 				
 				
 				Calendar endTime = Calendar.getInstance();
-				endTime.set(Calendar.HOUR, 12);
+				endTime.set(Calendar.HOUR_OF_DAY, 12);
 				endTime.set(Calendar.MINUTE, 0);
 				endTime.set(Calendar.SECOND, 0);
 			//	endTime.set(Calendar.AM_PM, Calendar.PM);
@@ -233,14 +237,14 @@ public class FilterResultHolder implements Serializable {
 
 			} else if (time.equals("12 PM - 03 PM")) {
 				Calendar startTime = Calendar.getInstance();
-				startTime.set(Calendar.HOUR, 12);
+				startTime.set(Calendar.HOUR_OF_DAY, 12);
 				startTime.set(Calendar.MINUTE, 0);
 				startTime.set(Calendar.SECOND, 0);
 			//	startTime.set(Calendar.AM_PM, Calendar.PM);
 				
 				
 				Calendar endTime = Calendar.getInstance();
-				endTime.set(Calendar.HOUR, 15);
+				endTime.set(Calendar.HOUR_OF_DAY, 15);
 				endTime.set(Calendar.MINUTE, 0);
 			//	endTime.set(Calendar.AM_PM, Calendar.PM);
 				endTime.set(Calendar.SECOND, 0);
@@ -249,14 +253,14 @@ public class FilterResultHolder implements Serializable {
 
 			} else if (time.equals("03 PM - 06 PM")) {
 				Calendar startTime = Calendar.getInstance();
-				startTime.set(Calendar.HOUR, 15);
+				startTime.set(Calendar.HOUR_OF_DAY, 15);
 				startTime.set(Calendar.MINUTE, 0);
 				startTime.set(Calendar.SECOND, 0);
 				//startTime.set(Calendar.AM_PM, Calendar.PM);
 				
 				
 				Calendar endTime = Calendar.getInstance();
-				endTime.set(Calendar.HOUR, 18);
+				endTime.set(Calendar.HOUR_OF_DAY, 18);
 				endTime.set(Calendar.MINUTE, 0);
 			//	endTime.set(Calendar.AM_PM, Calendar.PM);
 				endTime.set(Calendar.SECOND, 0);
@@ -265,14 +269,14 @@ public class FilterResultHolder implements Serializable {
 
 			} else if (time.equals("06 PM - 09 PM")) {
 				Calendar startTime = Calendar.getInstance();
-				startTime.set(Calendar.HOUR, 18);
+				startTime.set(Calendar.HOUR_OF_DAY, 18);
 				startTime.set(Calendar.MINUTE, 0);
 				startTime.set(Calendar.SECOND, 0);
 			//	startTime.set(Calendar.AM_PM, Calendar.PM);
 				
 				
 				Calendar endTime = Calendar.getInstance();
-				endTime.set(Calendar.HOUR, 21);
+				endTime.set(Calendar.HOUR_OF_DAY, 21);
 				endTime.set(Calendar.MINUTE, 0);
 				//endTime.set(Calendar.AM_PM, Calendar.PM);
 				endTime.set(Calendar.SECOND, 0);
@@ -281,14 +285,14 @@ public class FilterResultHolder implements Serializable {
 
 			} else if (time.equals("09 PM - 12 AM")) {
 				Calendar startTime = Calendar.getInstance();
-				startTime.set(Calendar.HOUR, 21);
+				startTime.set(Calendar.HOUR_OF_DAY, 21);
 				startTime.set(Calendar.MINUTE, 0);
 				startTime.set(Calendar.SECOND, 0);
 				//startTime.set(Calendar.AM_PM, Calendar.PM);
 				
 				
 				Calendar endTime = Calendar.getInstance();
-				endTime.set(Calendar.HOUR, 24);
+				endTime.set(Calendar.HOUR_OF_DAY, 24);
 				endTime.set(Calendar.MINUTE, 0);
 				endTime.set(Calendar.SECOND, 0);
 				//endTime.set(Calendar.AM_PM, Calendar.AM);

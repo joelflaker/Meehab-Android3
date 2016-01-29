@@ -21,7 +21,11 @@ public class WeightPickerDialog extends Dialog implements
 
 	private NumberPicker npWeight;
 
-	private int weight; // In pounds
+	private int weightPostion; // In pounds
+	
+	String weights[]=new String[451];
+	
+	private String selectedWeight;
 
 	public WeightPickerDialog(Context context) {
 
@@ -32,10 +36,10 @@ public class WeightPickerDialog extends Dialog implements
 	}
 
 	public WeightPickerDialog setWeightDialogListener(
-			WeightDialogListener listener, int weight) {
+			WeightDialogListener listener, String weight) {
 
 		this.weightListener = listener;
-		this.weight = weight;
+		this.selectedWeight = weight;
 
 		return this;
 	}
@@ -55,14 +59,37 @@ public class WeightPickerDialog extends Dialog implements
 		npWeight = (NumberPicker) findViewById(R.id.npWeight);
 		findViewById(R.id.ibDone).setOnClickListener(this);
 		findViewById(R.id.ibCancel).setOnClickListener(this);
+		
+		for(int i=0;i<weights.length;i++){
+			weights[i]=(i+50)+" "+"Lbs";
+		}
 
 		npWeight.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS);
-		npWeight.setMaxValue(500);
-		npWeight.setMinValue(50);
-		npWeight.setValue(weight);
+		npWeight.setDisplayedValues(weights);
+		npWeight.setMaxValue(weights.length-1);
+		npWeight.setMinValue(0);
+		
+		
+		for (int i = 0; i < weights.length; i++) {
+			String feet = weights[i];
+			if (feet.toLowerCase().equals(selectedWeight.toLowerCase())) {
+				weightPostion = i;
+				break;
+			}
+		}
+		npWeight.setValue(weightPostion);
+		
+		
+		
+		npWeight.setWrapSelectorWheel(false);
+
+		
 
 		npWeight.setWrapSelectorWheel(false);
 		// np.setOnValueChangedListener(this);
+		
+		
+		
 
 	}
 
@@ -73,7 +100,7 @@ public class WeightPickerDialog extends Dialog implements
 		case R.id.ibDone:
 			if (weightListener != null) {
 
-				weightListener.onDoneClick(this, npWeight.getValue());
+				weightListener.onDoneClick(this, weights[npWeight.getValue()]);
 			}
 
 			break;
@@ -88,7 +115,7 @@ public class WeightPickerDialog extends Dialog implements
 
 	public interface WeightDialogListener {
 
-		public void onDoneClick(WeightPickerDialog dialog, int weight);
+		public void onDoneClick(WeightPickerDialog dialog, String weightSelected);
 
 		public void onCancelClick(WeightPickerDialog dialog);
 	}

@@ -7,12 +7,11 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.net.URLEncoder;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-
-import javax.crypto.spec.IvParameterSpec;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -36,44 +35,46 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnFocusChangeListener;
+import android.view.View.OnTouchListener;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.NumberPicker;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.CheckBox;
 import android.widget.Toast;
 
-import com.android.volley.toolbox.NetworkImageView;
 import com.citrusbits.meehab.app.App;
 import com.citrusbits.meehab.constants.EventParams;
 import com.citrusbits.meehab.db.UserDatasource;
 import com.citrusbits.meehab.dialog.DobPickerDialog;
-import com.citrusbits.meehab.dialog.EthenticityPickerDialog;
-import com.citrusbits.meehab.dialog.HeightPickerDialog;
-import com.citrusbits.meehab.dialog.ImageSelectDialog;
-import com.citrusbits.meehab.dialog.MaritalStatusPickerDialog;
-import com.citrusbits.meehab.dialog.SexualOrientationPickerDialog;
-import com.citrusbits.meehab.dialog.WeightPickerDialog;
 import com.citrusbits.meehab.dialog.DobPickerDialog.DatePickerDialogListener;
+import com.citrusbits.meehab.dialog.EthenticityPickerDialog;
 import com.citrusbits.meehab.dialog.EthenticityPickerDialog.EthenticityDialogListener;
+import com.citrusbits.meehab.dialog.HeightPickerDialog;
 import com.citrusbits.meehab.dialog.HeightPickerDialog.HeightPickerDialogListener;
+import com.citrusbits.meehab.dialog.ImageSelectDialog;
 import com.citrusbits.meehab.dialog.ImageSelectDialog.ImageSelectDialogListener;
+import com.citrusbits.meehab.dialog.MaritalStatusPickerDialog;
 import com.citrusbits.meehab.dialog.MaritalStatusPickerDialog.MaritalStatusDialogListener;
+import com.citrusbits.meehab.dialog.SexualOrientationPickerDialog;
 import com.citrusbits.meehab.dialog.SexualOrientationPickerDialog.SexualOrientationDialogListener;
+import com.citrusbits.meehab.dialog.WeightPickerDialog;
 import com.citrusbits.meehab.dialog.WeightPickerDialog.WeightDialogListener;
+import com.citrusbits.meehab.images.PicassoBlurTransform;
 import com.citrusbits.meehab.images.PicassoCircularTransform;
 import com.citrusbits.meehab.model.UserAccount;
-import com.citrusbits.meehab.pojo.AddUserResponse;
 import com.citrusbits.meehab.services.OnSocketResponseListener;
 import com.citrusbits.meehab.utils.AccountUtils;
+import com.citrusbits.meehab.utils.DateTimeUtils;
+import com.citrusbits.meehab.utils.DeviceUtils;
 import com.citrusbits.meehab.utils.NetworkUtil;
 import com.citrusbits.meehab.utils.UploadImageUtility;
 import com.citrusbits.meehab.utils.UtilityClass;
-import com.github.nkzawa.emitter.Emitter;
-import com.google.gson.Gson;
 import com.soundcloud.android.crop.Crop;
 import com.soundcloud.android.crop.CropUtil;
 import com.squareup.picasso.Picasso;
@@ -113,6 +114,7 @@ public class EditMyProfileActivity extends SocketActivity implements
 	private String[] ethnicities;
 	private EditText sexualOrientOtherEdit;
 	private LinearLayout llOther;
+	private ImageView ivBlurBg;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -140,6 +142,7 @@ public class EditMyProfileActivity extends SocketActivity implements
 		// ui vars
 		findViewById(R.id.doneBtn).setOnClickListener(this);
 		dobBtn = (Button) findViewById(R.id.dobBtn);
+		ivBlurBg = (ImageView) findViewById(R.id.ivBlurBg);
 		maritalStatusBtn = (Button) findViewById(R.id.maritalStatusBtn);
 		llOther = (LinearLayout) findViewById(R.id.llOther);
 		profilePic = (ImageView) findViewById(R.id.profilePic);
@@ -162,6 +165,34 @@ public class EditMyProfileActivity extends SocketActivity implements
 		ethnicityBtn = (Button) findViewById(R.id.ethnicityBtn);
 		soberDateBtn = (Button) findViewById(R.id.soberDateBtn);
 
+		aaStoryEdit.setOnFocusChangeListener(new OnFocusChangeListener() {
+
+			@Override
+			public void onFocusChange(View v, boolean hasFocus) {
+				// TODO Auto-generated method stub
+				if (!hasFocus) {
+					aaStoryEdit.setSelection(0);
+				}
+			}
+		});
+
+		aaStoryEdit.setOnTouchListener(new OnTouchListener() {
+
+			@Override
+			public boolean onTouch(View v, MotionEvent event) {
+				// TODO Auto-generated method stub
+
+				aaStoryEdit.getParent()
+						.requestDisallowInterceptTouchEvent(true);
+				switch (event.getAction() & MotionEvent.ACTION_MASK) {
+				case MotionEvent.ACTION_UP:
+					aaStoryEdit.getParent().requestDisallowInterceptTouchEvent(
+							false);
+					break;
+				}
+				return false;
+			}
+		});
 		heightBtn.setOnClickListener(this);
 		weightBtn.setOnClickListener(this);
 		sexualOrientBtn.setOnClickListener(this);
@@ -213,6 +244,12 @@ public class EditMyProfileActivity extends SocketActivity implements
 			}
 		});
 
+		RelativeLayout.LayoutParams params = (android.widget.RelativeLayout.LayoutParams) ivBlurBg
+				.getLayoutParams();
+		int width = DeviceUtils.getDeviceWidth(this);
+		params.height = (int) (width * 0.82f);
+		ivBlurBg.setLayoutParams(params);
+
 		resetUserInfo();
 	}
 
@@ -253,24 +290,31 @@ public class EditMyProfileActivity extends SocketActivity implements
 
 			break;
 		case R.id.weightBtn:
-			// presentWeightPicker();
-
-			String weightText = weightBtn.getText().toString().trim()
-					.replace("lbs", "").trim().trim().replace("lb", "").trim();
-			;
-			int weight = weightText.isEmpty() ? 50 : Integer
-					.parseInt(weightText);
+			String weightText = weightBtn.getText().toString().trim();
+			// .replace("lbs", "").trim().trim().replace("lb", "").trim();
+			/*
+			 * int weight = weightText.isEmpty() ? 50 : Integer
+			 * .parseInt(weightText);
+			 */
+			if (weightText.isEmpty()) {
+				weightText = "100 Lbs";
+			}
 			new WeightPickerDialog(this).setWeightDialogListener(
 					new WeightDialogListener() {
 
 						@Override
 						public void onDoneClick(WeightPickerDialog dialog,
-								int weight) {
+								String weight) {
 							// TODO Auto-generated method stub
 							dialog.dismiss();
-							weightBtn.setText(weight + " lbs");
-							updateUser.setWeight(String.valueOf(weight)
-									+ " lbs");
+							// weightBtn.setText(weight + " lbs");
+							weightBtn.setText(weight);
+
+							/*
+							 * updateUser.setWeight(String.valueOf(weight) +
+							 * " lbs");
+							 */
+							updateUser.setWeight(weight);
 						}
 
 						@Override
@@ -280,7 +324,7 @@ public class EditMyProfileActivity extends SocketActivity implements
 							dialog.dismiss();
 
 						}
-					}, weight).show();
+					}, weightText).show();
 
 			break;
 		case R.id.sexualOrientBtn:
@@ -341,23 +385,37 @@ public class EditMyProfileActivity extends SocketActivity implements
 			// presentSoberDatePicker();
 			String date = soberDateBtn.getText().toString().trim();
 			new DobPickerDialog(this).setSober(true)
-					.setDobDialogListener(new DatePickerDialogListener() {
+					.setDobDialogListener(
+							new DatePickerDialogListener() {
 
-						@Override
-						public void onDoneClick(DobPickerDialog dialog,
-								String dateSelected) {
-							// TODO Auto-generated method stub
-							dialog.dismiss();
-							soberDateBtn.setText(dateSelected);
-							updateUser.setSoberSence(dateSelected);
-						}
+								@Override
+								public void onDoneClick(DobPickerDialog dialog,
+										String dateSelected) {
+									// TODO Auto-generated method stub
+									dialog.dismiss();
 
-						@Override
-						public void onCancelClick(DobPickerDialog dialog) {
-							// TODO Auto-generated method stub
-							dialog.dismiss();
-						}
-					}, date.isEmpty() ? null : getCalendarFromDb(date)).show();
+									Calendar dbCal = DateTimeUtils
+											.dateToCalendar(dateSelected);
+									if (!dbCal.before(Calendar.getInstance())) {
+										Toast.makeText(
+												EditMyProfileActivity.this,
+												"Can not set future date!",
+												Toast.LENGTH_SHORT).show();
+										return;
+									}
+
+									soberDateBtn.setText(dateSelected);
+									updateUser.setSoberSence(dateSelected);
+								}
+
+								@Override
+								public void onCancelClick(DobPickerDialog dialog) {
+									// TODO Auto-generated method stub
+									dialog.dismiss();
+								}
+							},
+							date.isEmpty() ? null : DateTimeUtils
+									.dateToCalendar(date)).show();
 
 			break;
 		case R.id.hasKidsYesBtn:
@@ -466,9 +524,9 @@ public class EditMyProfileActivity extends SocketActivity implements
 						public void onCancelClick(DobPickerDialog dialog) {
 							// TODO Auto-generated method stub
 							dialog.dismiss();
-
 						}
-					}, dob.isEmpty() ? null : getCalendarFromDb(dob)).show();
+					}, dob.isEmpty() ? null : DateTimeUtils.dateToCalendar(dob))
+					.show();
 
 			break;
 		case R.id.maritalStatusBtn:
@@ -532,6 +590,16 @@ public class EditMyProfileActivity extends SocketActivity implements
 						.transform(new PicassoCircularTransform())
 						.into(profilePic);
 
+				Picasso.with(this)
+						.load(userImage)
+						.placeholder(R.drawable.profile_pic_big)
+						// .resize(300, 200)
+						.error(R.drawable.profile_pic_big)
+						.transform(
+								new PicassoBlurTransform(
+										EditMyProfileActivity.this, 20))
+						.into(ivBlurBg);
+
 			} else {
 
 			}
@@ -553,21 +621,22 @@ public class EditMyProfileActivity extends SocketActivity implements
 				maritalStatusBtn.setText(mUser.getMaritalStatus());
 			}
 
-			if (EventParams.UPDATE_INTRESTED_IN.both.toString().equals(
-					mUser.getIntrestedIn().toLowerCase())) {
-				datingBtn.setChecked(true);
-				fellowshippingBtn.setChecked(true);
-			} else if (EventParams.UPDATE_INTRESTED_IN.dating.toString()
+			if ("Dating & Fellowshipping".trim().toLowerCase()
 					.equals(mUser.getIntrestedIn().toLowerCase())) {
 				datingBtn.setChecked(true);
-			} else if (EventParams.UPDATE_INTRESTED_IN.fellowshipping
-					.toString().equals(mUser.getIntrestedIn().toLowerCase())) {
+				fellowshippingBtn.setChecked(true);
+			} else if (EventParams.UPDATE_INTRESTED_IN.Dating.toString()
+					.toLowerCase().equals(mUser.getIntrestedIn().toLowerCase())) {
+				datingBtn.setChecked(true);
+			} else if (EventParams.UPDATE_INTRESTED_IN.Fellowshipping
+					.toString().toLowerCase()
+					.equals(mUser.getIntrestedIn().toLowerCase())) {
 				fellowshippingBtn.setChecked(true);
 			}
 
 			aaStoryEdit.setText(mUser.getAboutStory());
 
-			if (mUser.getWillingSponsor().equals("yes")) {
+			if (mUser.getWillingSponsor().toLowerCase().equals("yes")) {
 				sponserToggle.setChecked(true);
 			} else {
 				sponserToggle.setChecked(false);
@@ -579,18 +648,11 @@ public class EditMyProfileActivity extends SocketActivity implements
 			soberDateBtn.setText(mUser.getSoberSence());
 			sexualOrientBtn.setText(mUser.getSexualOrientation());
 
-			/*
-			 * for(String value :sextualOrientations){
-			 * if(value.equals(mUser.getSexualOrientation())){
-			 * if("Other".equals(value)){
-			 * sexualOrientOtherEdit.setVisibility(View.VISIBLE);
-			 * sexualOrientOtherEdit.setText(mUser.getSexualOrientation()); }
-			 * sexualOrientBtn.setText(updateUser.getSexualOrientation()); } }
-			 */
-
-			if ("yes".equals(mUser.getHaveKids())) {
+			if ("YES".trim().toLowerCase()
+					.equals(mUser.getHaveKids().toLowerCase())) {
 				haveKidsYesBtn.setChecked(true);
-			} else if ("no".equals(mUser.getHaveKids())) {
+			} else if ("No".trim().toLowerCase()
+					.equals(mUser.getHaveKids().toLowerCase())) {
 				haveKidsNoBtn.setChecked(true);
 			} else if ("".equals(mUser.getHaveKids())) {
 				haveKidsNoAnsBtn.setChecked(true);
@@ -611,9 +673,9 @@ public class EditMyProfileActivity extends SocketActivity implements
 				// gender
 				String genderString = null;
 				if (maleBtn.isChecked()) {
-					genderString = "male";
+					genderString = "Male";
 				} else if (femaleBtn.isChecked()) {
-					genderString = "female";
+					genderString = "Female";
 				} else if (otherBtn.isChecked()) {
 					if (genderOtherEdit.getText().toString().trim().length() > 0) {
 						genderString = genderOtherEdit.getText().toString();
@@ -643,15 +705,24 @@ public class EditMyProfileActivity extends SocketActivity implements
 				// interested in
 				String interestString = null;
 				if (fellowshippingBtn.isChecked() && datingBtn.isChecked()) {
-					interestString = EventParams.UPDATE_INTRESTED_IN.both
+					interestString = EventParams.UPDATE_INTRESTED_IN.Both
 							.toString();
+					interestString = "Dating & Fellowshipping";
 				} else if (fellowshippingBtn.isChecked()) {
-					interestString = EventParams.UPDATE_INTRESTED_IN.fellowshipping
+					interestString = EventParams.UPDATE_INTRESTED_IN.Fellowshipping
 							.toString();
 				} else if (datingBtn.isChecked()) {
-					interestString = EventParams.UPDATE_INTRESTED_IN.dating
+					interestString = EventParams.UPDATE_INTRESTED_IN.Dating
 							.toString();
 				}
+
+				if (interestString == null) {
+					Toast.makeText(EditMyProfileActivity.this,
+							"Please select interested in!", Toast.LENGTH_SHORT)
+							.show();
+					return;
+				}
+
 				if (interestString != null) {
 					params.put("intrested_in", interestString);
 				}
@@ -663,11 +734,11 @@ public class EditMyProfileActivity extends SocketActivity implements
 				}
 
 				// willing_sponsor
-				if (sponserToggle.isChecked()) {
-					// updatedUser.setAboutStory(aaStoryEdit.getText().toString());
-					params.put("willing_sponsor",
-							sponserToggle.isChecked() ? "yes" : "no");
-				}
+				// if (sponserToggle.isChecked()) {
+				// updatedUser.setAboutStory(aaStoryEdit.getText().toString());
+				params.put("willing_sponsor", sponserToggle.isChecked() ? "Yes"
+						: "No");
+				// }
 
 				// Toast.makeText(this, itemName,
 				// Toast.LENGTH_SHORT).show();
@@ -712,12 +783,22 @@ public class EditMyProfileActivity extends SocketActivity implements
 				}
 
 				// have kids : default noans
-				String hasKidsString = "no";
+				String hasKidsString = "Choose Not to Answer";
 				if (haveKidsYesBtn.isChecked()) {
-					hasKidsString = "yes";
+					hasKidsString = "YES";
 				} else if (haveKidsNoBtn.isChecked()) {
-					hasKidsString = "no";
+					hasKidsString = "No";
+				} else if (haveKidsNoAnsBtn.isChecked()) {
+					hasKidsString = "";
 				}
+
+				if (hasKidsString.equals("Choose Not to Answer")) {
+					Toast.makeText(EditMyProfileActivity.this,
+							"Please select have kids?", Toast.LENGTH_SHORT)
+							.show();
+					return;
+				}
+
 				params.put("have_kids", hasKidsString);
 
 			} catch (JSONException e) {
@@ -798,94 +879,6 @@ public class EditMyProfileActivity extends SocketActivity implements
 		}
 	};
 	private String[] sextualOrientations;
-
-	public void presentHeightPicker() {
-
-		final String[] values = new String[] { "3'", "4'", "5'", "6'", "7'" };
-		final String[] valuesInches = new String[] { "0''", "1''", "2''",
-				"3''", "4''", "5''", "6''", "7''", "8''", "9''", "10''", "11''" };
-
-		AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
-		LayoutInflater inflater = getLayoutInflater();
-		View dialogView = inflater.inflate(R.layout.height_picker, null);
-		dialogBuilder.setView(dialogView);
-		dialogBuilder.setTitle("Select Height");
-
-		final NumberPicker np = (NumberPicker) dialogView
-				.findViewById(R.id.heightPickerFeet);
-		np.setMaxValue(4);
-		np.setMinValue(0);
-		np.setDisplayedValues(values);
-		// String index = (String) btnHeight.getTag();
-		// if (index != null) {
-		// np.setValue(values[Integer.parseInt(index)]);
-		// }
-		np.setWrapSelectorWheel(false);
-
-		final NumberPicker npInches = (NumberPicker) dialogView
-				.findViewById(R.id.heightPickerInches);
-		npInches.setMaxValue(11);
-		npInches.setMinValue(0);
-		npInches.setDisplayedValues(valuesInches);
-		// String index = (String) btnHeight.getTag();
-		// if (index != null) {
-		// np.setValue(values[Integer.parseInt(index)]);
-		// }
-		npInches.setWrapSelectorWheel(false);
-
-		dialogBuilder.setPositiveButton("Set",
-				new DialogInterface.OnClickListener() {
-
-					@Override
-					public void onClick(DialogInterface dialog, int which) {
-						// btnHeight.setTag(np.getValue());
-						heightBtn.setText(values[np.getValue()] + " "
-								+ valuesInches[npInches.getValue()]);
-						updateUser.setHeight(values[np.getValue()] + " "
-								+ valuesInches[npInches.getValue()]);
-					}
-				});
-
-		dialogBuilder.setNegativeButton("Cancel", null);
-
-		dialogBuilder.show();
-	}
-
-	public void presentWeightPicker() {
-
-		AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
-		LayoutInflater inflater = this.getLayoutInflater();
-		View dialogView = inflater.inflate(R.layout.picker_weight, null);
-		dialogBuilder.setView(dialogView);
-		dialogBuilder.setTitle("Select Weight");
-
-		final NumberPicker np = (NumberPicker) dialogView
-				.findViewById(R.id.picker);
-		np.setMaxValue(500);
-		np.setMinValue(50);
-		// String str = btnWeight.getText().toString();
-		// if (str.compareTo("Select") != 0) {
-		// String weight = str.substring(0, str.indexOf(" "));
-		// np.setValue(Integer.parseInt(weight));
-		// }
-		np.setWrapSelectorWheel(false);
-
-		dialogBuilder.setPositiveButton("Set",
-				new DialogInterface.OnClickListener() {
-
-					@Override
-					public void onClick(DialogInterface dialog, int which) {
-						weightBtn.setText(String.valueOf(np.getValue())
-								+ " lbs");
-						updateUser.setWeight(String.valueOf(np.getValue())
-								+ " lbs");
-					}
-				});
-
-		dialogBuilder.setNegativeButton("Cancel", null);
-
-		dialogBuilder.show();
-	}
 
 	/**
 	 * 
@@ -1065,9 +1058,21 @@ public class EditMyProfileActivity extends SocketActivity implements
 				newbitmap = fixRotation((Uri) data
 						.getParcelableExtra(MediaStore.EXTRA_OUTPUT));
 				// profilePic.setImageBitmap(newbitmap);
+				Bitmap circularBitamp;
+				circularBitamp = new PicassoCircularTransform()
+						.transform(newbitmap);
+				newbitmap = fixRotation((Uri) data
+						.getParcelableExtra(MediaStore.EXTRA_OUTPUT));
+				Bitmap blurBitmap;
+				blurBitmap = new PicassoBlurTransform(
+						EditMyProfileActivity.this, 20).transform(newbitmap);
 
-				newbitmap = new PicassoCircularTransform().transform(newbitmap);
-				profilePic.setImageBitmap(newbitmap);
+				ivBlurBg.setImageBitmap(blurBitmap);
+
+				profilePic.setImageBitmap(circularBitamp);
+				newbitmap = fixRotation((Uri) data
+						.getParcelableExtra(MediaStore.EXTRA_OUTPUT));
+
 				file.delete();
 
 				Uri uri = (Uri) data
@@ -1198,8 +1203,14 @@ public class EditMyProfileActivity extends SocketActivity implements
 	@Override
 	public void onSocketResponseSuccess(String event, Object obj) {
 		pd.dismiss();
-		App.alert("Updated successfully");
-		EditMyProfileActivity.this.finish();
+
+		if (event.equals(EventParams.EVENT_USER_UPDATE)) {
+			App.alert("Updated successfully");
+			EditMyProfileActivity.this.sendBroadcast(new Intent(
+					HomeActivity.ACTION_PROFILE_UPDATE));
+			EditMyProfileActivity.this.finish();
+		}
+
 	}
 
 	@Override

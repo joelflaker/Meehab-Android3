@@ -21,19 +21,23 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.citrusbits.meehab.app.App;
 import com.citrusbits.meehab.constants.EventParams;
 import com.citrusbits.meehab.dialog.ReportAnInAccuracyDialog;
 import com.citrusbits.meehab.dialog.ReportAnInAccuracyDialog.ReportAnInAccuracyDialogClickListener;
 import com.citrusbits.meehab.map.LocationUtils;
 import com.citrusbits.meehab.model.MeetingModel;
+import com.citrusbits.meehab.model.MeetingModel.MarkerColorType;
 import com.citrusbits.meehab.services.OnSocketResponseListener;
 import com.citrusbits.meehab.utils.AccountUtils;
+import com.citrusbits.meehab.utils.NetworkUtils;
 import com.citrusbits.meehab.utils.UtilityClass;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -42,7 +46,7 @@ public class FullScreenMapActivity extends SocketActivity implements
 		OnSocketResponseListener, OnClickListener {
 
 	public static final String EXTRA_MEETING = "meeting";
-
+	protected float defaultZoom = 14;
 	LatLng target = new LatLng(33, 73);
 	private GoogleMap googleMap;
 	protected Marker marker;
@@ -78,8 +82,8 @@ public class FullScreenMapActivity extends SocketActivity implements
 		ibSettings = (ImageButton) findViewById(R.id.ibSetting);
 
 		ibRating = (ImageButton) findViewById(R.id.ibRating);
-		ibRating.setImageResource(meeting.isFavourite() ? R.drawable.star_yellow
-				: R.drawable.star_pink);
+		ibRating.setImageResource(meeting.isFavourite() ? R.drawable.star_pink
+				: R.drawable.star_white);
 		btnFindMe = (ImageButton) findViewById(R.id.btnFindMe);
 		btnGetDirection = (ImageButton) findViewById(R.id.btnGetDirection);
 
@@ -98,13 +102,19 @@ public class FullScreenMapActivity extends SocketActivity implements
 							public void onMapReady(GoogleMap arg0) {
 								googleMap = arg0;
 								googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
-								marker = googleMap
-										.addMarker(new MarkerOptions()
-												.position(target).title("Loc"));
+								googleMap.setMyLocationEnabled(true);
+								/*
+								 * marker = googleMap .addMarker(new
+								 * MarkerOptions()
+								 * .position(target).title("Loc"));
+								 */
 
-								moveMapCamera(new LatLng(myLocation
-										.getLatitude(), myLocation
-										.getLongitude()));
+								/*
+								 * moveMapCamera(new LatLng(myLocation
+								 * .getLatitude(), myLocation .getLongitude()));
+								 */
+
+								addMarker(meeting);
 
 							}
 						});
@@ -114,13 +124,40 @@ public class FullScreenMapActivity extends SocketActivity implements
 		}
 	}
 
+	public void addMarker(MeetingModel m) {
+		int resourceId = R.drawable.pin_dark_pink;
+		if (m.getMarkertypeColor() == MarkerColorType.GREEN) {
+			resourceId = R.drawable.pin_green;
+		} else if (m.getMarkertypeColor() == MarkerColorType.ORANGE) {
+			resourceId = R.drawable.pin_orange;
+		} else if (m.getMarkertypeColor() == MarkerColorType.RED) {
+			resourceId = R.drawable.pin_dark_pink;
+		}
+
+		MarkerOptions markerOptions = new MarkerOptions()
+				.position(new LatLng(m.getLatitude(), m.getLongitude()))
+				.title(m.getName())
+				.icon(BitmapDescriptorFactory.fromResource(resourceId));
+		Marker marker = googleMap.addMarker(markerOptions);
+		googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(
+				markerOptions.getPosition(), defaultZoom));
+	}
+
 	public void addUserFavourite() {
 
 		try {
+			
+			if (!NetworkUtils.isNetworkAvailable(this)) {
+				App.alert(getString(R.string.no_internet_connection));
+				return;
+			}
+
 
 			JSONObject params = new JSONObject();
-			params.put("meetingid", meeting.getMeetingId());
-			params.put("userid", AccountUtils.getUserId(this));
+
+			params.put("meeting_ids", meeting.getMeetingId());
+			params.put("favorite", meeting.isFavourite() ? 0 : 1);
+
 			socketService.addUserFavourite(params);
 
 			pd.show();
@@ -246,7 +283,7 @@ public class FullScreenMapActivity extends SocketActivity implements
 		if (event.equals(EventParams.EVENT_ADD_USER_FAVOURITE)) {
 			meeting.setFavourite(!meeting.isFavourite());
 			ibRating.setImageResource(meeting.isFavourite() ? R.drawable.star_pink
-					: R.drawable.star_gray);
+					: R.drawable.star_white);
 
 			JSONObject data = ((JSONObject) obj);
 
@@ -258,11 +295,15 @@ public class FullScreenMapActivity extends SocketActivity implements
 		// TODO Auto-generated method stub
 
 	}
-	
+
 	@Override
 	public void onBackPressed() {
 		// TODO Auto-generated method stub
+		Intent intent = new Intent();
+		intent.putExtra(EXTRA_MEETING, meeting);
+		setResult(RESULT_OK, intent);
 		super.onBackPressed();
-		overridePendingTransition(R.anim.activity_back_in, R.anim.activity_back_out);
+		overridePendingTransition(R.anim.activity_back_in,
+				R.anim.activity_back_out);
 	}
 }

@@ -26,12 +26,23 @@ public class DeviceUtils {
 				.getWidth();
 		return width;
 	}
-	
-	public static void hideSoftKeyboard(Context context){
+
+	public static void hideSoftKeyboard(Context context) {
 		View view = ((Activity) context).getCurrentFocus();
-		if (view != null) {  
-		    InputMethodManager imm = (InputMethodManager)context.getSystemService(Context.INPUT_METHOD_SERVICE);
-		    imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+		if (view != null) {
+			InputMethodManager imm = (InputMethodManager) context
+					.getSystemService(Context.INPUT_METHOD_SERVICE);
+			imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+		}
+	}
+
+	public static void showSoftKeyboard(Context context) {
+		View view = ((Activity) context).getCurrentFocus();
+		if (view != null) {
+			InputMethodManager imm = (InputMethodManager) context
+					.getSystemService(Context.INPUT_METHOD_SERVICE);
+
+			imm.showSoftInputFromInputMethod(view.getWindowToken(), 0);
 		}
 	}
 

@@ -423,8 +423,9 @@
                     <TextView
                         android:id="@+id/aaStoryText"
                         android:layout_width="match_parent"
-                        android:layout_height="80dp"
+                        android:layout_height="100dp"
                         android:gravity="left"
+                        android:paddingRight="10dp"
                         android:paddingLeft="15dp"
                         android:text="" />
 
