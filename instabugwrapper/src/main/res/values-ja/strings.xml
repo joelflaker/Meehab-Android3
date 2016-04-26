@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--
+     Localizable.strings
+     Instabug
+     -->
+    <!--Start Alert -->
+    <string name="shakestartalerttext">シェイクしてフィードバックを送信</string>
+    <string name="screenshotstartalerttext">スクリーンショットを撮ってフィードバックをお送りください</string>
+    <string name="twofingerswipestartalerttext">2本の指でスワイプして、フィードバックを送ります</string>
+    <string name="edgeswipestartalerttext">端からスワイプしてフィードバックを送ります</string>
+
+    <!--Tutorial Alert -->
+    <string name="tutorialalerttext">スクリーンショットに描画してテキストを加えます</string>
+
+    <!--Feedback Sent Alert -->
+    <string name="feedbacksentalerttitle">フィードバックは送信されました</string>
+    <string name="feedbacksentalerttext">InstabugApp の向上にご協力いただき、ありがとうございます!</string>
+
+    <!--Invalid Email Alert -->
+    <string name="invalidemailalerttitle">無効なメール</string>
+    <string name="invalidemailalerttext">有効なメールアドレスを入力してください</string>
+
+    <!--Invalid Comment Alert -->
+    <string name="invalidcommentalerttitle">コメントが無効 コメントが無効です</string>
+    <string name="invalidcommentalerttext">有用なコメントを入力してください</string>
+
+    <!--View Elements -->
+    <string name="submitbutton">送信</string>
+    <string name="cancelbutton">キャンセル</string>
+    <string name="bugheader">問題を報告する</string>
+    <string name="feedbackheader">フィードバックを送信</string>
+    <string name="bottommessage">&amp;name&amp; によるフィードバック</string>
+    <string name="emailplaceholder">E メールを入力...</string>
+    <string name="commentplaceholder">フィードバックをここに入力...</string>
+
+    <string-array name="report_options">
+        <item>問題を報告する</item>
+        <item>フィードバックを送信</item>
+    </string-array>
+    <string name="pleasewait">ちょっと待ってください</string>
+</resources>

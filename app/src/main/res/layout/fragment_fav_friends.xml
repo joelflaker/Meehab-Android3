@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+<!--     <GridView -->
+<!--         android:id="@+id/gridFavFriends" -->
+<!--         android:layout_width="match_parent" -->
+<!--         android:layout_height="match_parent" /> -->
+
+    <LinearLayout
+        android:id="@+id/emptyGrid"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:gravity="center"
+        android:orientation="vertical" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/no_favorite_friends_"
+            android:textSize="@dimen/fs_rehab_name_normal"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/empty_fav_friends" />
+    </LinearLayout>
+
+</RelativeLayout>

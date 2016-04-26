@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--
+     Localizable.strings
+     Instabug
+     -->
+    <!--Start Alert -->
+    <string name="shakestartalerttext">Potrząśnij aby wysłać opinię</string>
+    <string name="screenshotstartalerttext">Zrób zrzut ekranu aby wysłać opinię</string>
+    <string name="twofingerswipestartalerttext">Przesuń dwoma palcami aby wysłać opinię</string>
+    <string name="edgeswipestartalerttext">Przesuń palcem od krawędzi aby wysłać opinię</string>
+
+    <!--Tutorial Alert -->
+    <string name="tutorialalerttext">Narysuj na obrazku, a potem dodaj tekst</string>
+
+    <!--Feedback Sent Alert -->
+    <string name="feedbacksentalerttitle">Opinia wysłana</string>
+    <string name="feedbacksentalerttext">Dziękujemy za pomoc przy ulepszaniu InstabugApp!</string>
+
+    <!--Invalid Email Alert -->
+    <string name="invalidemailalerttitle">Niepoprawny adres e-mail</string>
+    <string name="invalidemailalerttext">Wpisz poprawny adres e-mail</string>
+
+    <!--Invalid Comment Alert -->
+    <string name="invalidcommentalerttitle">Niepoprawny komentarz</string>
+    <string name="invalidcommentalerttext">Wpisz poprawny komentarz</string>
+
+    <!--View Elements -->
+    <string name="submitbutton">Wyślij</string>
+    <string name="cancelbutton">Anuluj</string>
+    <string name="bugheader">Zgłoś błąd</string>
+    <string name="feedbackheader">Wyślij opinię</string>
+    <string name="bottommessage">Opinie są obsługiwane przez &amp;name&amp;</string>
+    <string name="emailplaceholder">Wpisz swój adres e-mail...</string>
+    <string name="commentplaceholder">Wpisz swoją opinię...</string>
+
+    <string-array name="report_options">
+        <item>Zgłoś błąd</item>
+        <item>Wyślij opinię</item>
+    </string-array>
+    <string name="pleasewait">Proszę czekać</string>
+</resources>

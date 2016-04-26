@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="instabugsupport">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/instabugwrapper/libs/instabugsupport.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

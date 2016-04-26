@@ -1,0 +1,174 @@
+package com.citrusbits.meehab.adapters;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+
+import android.content.Context;
+import android.graphics.Color;
+import android.graphics.Typeface;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+
+import com.citrusbits.meehab.R;
+import com.citrusbits.meehab.adapters.ChatAdapter.ChatCheckedChangeListener;
+import com.citrusbits.meehab.db.DatabaseHandler;
+import com.citrusbits.meehab.images.PicassoCircularTransform;
+import com.citrusbits.meehab.model.MessageModel;
+import com.squareup.picasso.Picasso;
+
+public class MessagesAdapter extends ArrayAdapter<MessageModel> {
+
+	// arraylists
+	List<MessageModel> messages;
+
+	// context
+	Context mContext;
+	LayoutInflater inflater;
+
+	String baseUrl;
+
+	private boolean edit;
+	MessageCheckedChangeListener messageCheckedChangeListener;
+	
+	int circleBlueBgRes;
+	int circleMaroonBgRes;
+	
+	
+
+	public MessagesAdapter(Context c, int resource, List<MessageModel> m) {
+		super(c, resource, m);
+		mContext = c;
+		messages = m;
+		inflater = (LayoutInflater) mContext
+				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+		baseUrl = c.getString(R.string.url);
+		
+		circleBlueBgRes = R.drawable.circle_bg_blue;
+		circleMaroonBgRes = R.drawable.circle_bg_maroon;
+	}
+
+	public MessagesAdapter setMessageCheckedChangeListener(
+			MessageCheckedChangeListener messageCheckedChangeListener) {
+		this.messageCheckedChangeListener = messageCheckedChangeListener;
+		return this;
+	}
+
+	public MessagesAdapter setEdit(boolean edit) {
+		this.edit = edit;
+		return this;
+	}
+
+	public boolean isEdit() {
+		return this.edit;
+	}
+
+	@Override
+	public View getView(final int position, View convertView, ViewGroup parent) {
+		ViewHolder holder;
+		if (convertView == null) {
+			holder = new ViewHolder();
+			convertView = inflater.inflate(R.layout.list_item_messages, parent,
+					false);
+			holder.ivFriend = (ImageView) convertView
+					.findViewById(R.id.ivFriend);
+			holder.ivOnline = (ImageView) convertView
+					.findViewById(R.id.ivOnline);
+			holder.ivFavourite=(ImageView) convertView.findViewById(R.id.ivFavourite);
+			holder.tvUserName = (TextView) convertView
+					.findViewById(R.id.tvUserName);
+			holder.tvMessage = (TextView) convertView
+					.findViewById(R.id.tvMessage);
+			holder.cbSelected = (CheckBox) convertView
+					.findViewById(R.id.cbSelected);
+			holder.tvMessageTime=(TextView) convertView.findViewById(R.id.tvMessageTime);
+			holder.flUserContainer=(FrameLayout) convertView.findViewById(R.id.flUserContainer);
+
+			convertView.setTag(holder);
+		} else {
+			holder = (ViewHolder) convertView.getTag();
+		}
+
+		final MessageModel message = messages.get(position);
+
+		holder.tvUserName.setText(message.getUsername());
+//		if(message.is
+		holder.tvMessage.setText(message.getMessage());
+		holder.cbSelected.setChecked(message.isChecked());
+		holder.ivFavourite.setVisibility(message.getFavourite()==1?View.VISIBLE:View.GONE);
+		holder.tvMessageTime.setText(getMessageTime(message.getMessageDate()));
+		holder.cbSelected.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				boolean checked = ((CheckBox) v).isChecked();
+				message.setChecked(checked);
+				if (messageCheckedChangeListener != null) {
+					messageCheckedChangeListener.onMessageCheckedChange();
+				}
+			}
+		});
+		
+		if(DatabaseHandler.getInstance(mContext).getUnreadMessageCount(message.getFromID()) > 0){
+			holder.tvMessage.setTypeface(null, Typeface.BOLD);
+		}else{
+			holder.tvMessage.setTypeface(null, Typeface.NORMAL);
+		}
+
+		holder.cbSelected.setVisibility(edit ? View.VISIBLE : View.GONE);
+		holder.ivOnline
+				.setVisibility(message.getCheckInType().equals("online") ? View.VISIBLE
+						: View.GONE);
+
+		String userImage = baseUrl + message.getImage();
+		Picasso.with(mContext).load(userImage)
+				.placeholder(R.drawable.profile_pic).resize(60, 60)
+				.error(R.drawable.profile_pic)
+				.transform(new PicassoCircularTransform())
+				.into(holder.ivFriend);
+		
+		if (message.getUserCheckIn() == 1) {
+			holder.flUserContainer.setBackgroundResource(circleBlueBgRes);
+		} else if (message.getRsvpUser() == 1) {
+			holder.flUserContainer.setBackgroundResource(circleMaroonBgRes);
+		} else {
+			holder.flUserContainer.setBackgroundColor(Color.TRANSPARENT);
+		}
+
+		return convertView;
+	}
+	
+	private String getMessageTime(Date date){
+		SimpleDateFormat dateFormate=new SimpleDateFormat("hh:mm aa");
+		return dateFormate.format(date);
+	}
+
+	public static class ViewHolder {
+		
+		ImageView ivFavourite;
+		ImageView ivFriend;
+		ImageView ivOnline;
+		TextView tvUserName;
+		TextView tvMessage;
+		
+		TextView tvMessageTime;
+		CheckBox cbSelected;
+		
+		FrameLayout flUserContainer;
+
+	}
+
+	public interface MessageCheckedChangeListener {
+		public void onMessageCheckedChange();
+	}
+
+}

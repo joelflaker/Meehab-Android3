@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--
+      Localizable.strings
+      Instabug
+    -->
+    <!--Start Alert -->
+    <string name="shakestartalerttext">هز الجهاز لإرسال تعليقك</string>
+    <string name="screenshotstartalerttext">خذ صورة لإرسال تعليقك</string>
+    <string name="twofingerswipestartalerttext">إمسح اصبعين لإرسال تعليقك</string>
+    <string name="edgeswipestartalerttext">إمسح من الجانب لإرسال تعليقك</string>
+
+    <!--Tutorial Alert -->
+    <string name="tutorialalerttext">ارسم على الشاشة لتسليط الضوء عليها أو أضف نص</string>
+
+    <!--Feedback Sent Alert -->
+    <string name="feedbacksentalerttitle">تم إرسال التعليق</string>
+    <string name="feedbacksentalerttext">شكرا لكم لمساعدتنا على تحسين InstabugApp!</string>
+
+    <!--Invalid Email Alert -->
+    <string name="invalidemailalerttitle">بريد إلكتروني غير صحيح</string>
+    <string name="invalidemailalerttext">الرجاء إدخال بريد إلكتروني صحيح لاتاحة الفرصة لنا لنعود اليكم</string>
+
+    <!--Invalid Comment Alert -->
+    <string name="invalidcommentalerttitle">تعليق غير صحيح</string>
+    <string name="invalidcommentalerttext">الرجاء إدخال تعليق صحيح</string>
+
+    <!--View Elements -->
+    <string name="submitbutton">إرسال</string>
+    <string name="cancelbutton">إلغاء</string>
+    <string name="feedbackheader">أرسل ملاحظاتك</string>
+    <string name="bottommessage">&amp;name&amp; خاصية الاقتراحات مقدمة من</string>
+    <string name="emailplaceholder">...أدخل بريدك الإلكتروني</string>
+    <string name="commentplaceholder">...اكتب ملاحظاتك هنا</string>
+
+    <string-array name="report_options">
+        <item>أبلغ عن مشكلة</item>
+        <item>أرسل ملاحظاتك</item>
+    </string-array>
+    <string name="pleasewait">من فضلك انتظر لحظة</string>
+    <string name="bugheader">أبلغ عن مشكلة</string>
+</resources>

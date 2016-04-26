@@ -1,0 +1,270 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MeetingAdditionActivity"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical" >
+
+        <RelativeLayout
+            android:id="@+id/relativeTop"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:background="#888888" >
+
+            <ImageView
+                android:id="@+id/topMenuBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="8dp"
+                android:background="@drawable/simple_button_selector"
+                android:clickable="true"
+                android:paddingBottom="8dp"
+                android:paddingRight="15dp"
+                android:paddingTop="8dp"
+                android:src="@drawable/back_btn" />
+
+            <TextView
+                android:id="@+id/topCenterText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:paddingLeft="8dp"
+                android:text="Request Add Meeting"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@android:color/white" />
+
+            <ImageView
+                android:id="@+id/topRightImage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="10dp" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/activity_vertical_margin"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin"
+            android:paddingTop="@dimen/activity_vertical_margin" >
+
+            <EditText
+                android:id="@+id/etPhoneNumber"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_marginTop="10dp"
+                android:background="@android:color/transparent"
+                android:gravity="center"
+                android:hint="Your Phone Number"
+                android:inputType="phone"
+                android:maxLength="14"
+                android:singleLine="true" />
+
+            <ImageView
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/profile_divider" />
+
+            <EditText
+                android:id="@+id/etMeetingName"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_marginTop="10dp"
+                android:background="@android:color/transparent"
+                android:gravity="center"
+                android:hint="@string/meeting_name"
+                android:inputType="textCapSentences"
+                android:maxLength="30"
+                android:singleLine="true" />
+
+            <ImageView
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/profile_divider" />
+
+            <TextView
+                android:id="@+id/tvMeetingDay"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_marginTop="10dp"
+                android:background="@android:color/transparent"
+                android:drawableRight="@drawable/right_arrow"
+                android:gravity="center"
+                android:hint="@string/meeting_day"
+                android:inputType="phone"
+                android:singleLine="true"
+                android:textSize="16sp" />
+
+            <ImageView
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/profile_divider" />
+
+            <TextView
+                android:id="@+id/tvMeetingTime"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_marginTop="10dp"
+                android:background="@android:color/transparent"
+                android:drawableRight="@drawable/right_arrow"
+                android:gravity="center"
+                android:hint="@string/meeting_time"
+                android:inputType="phone"
+                android:singleLine="true"
+                android:textSize="16sp" />
+
+            <ImageView
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/profile_divider" />
+
+            <EditText
+                android:id="@+id/etAddress"
+                android:editable="false"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_marginTop="10dp"
+                android:background="@android:color/transparent"
+                android:gravity="center"
+                android:hint="@string/address"
+                android:inputType="text"
+                android:maxLength="60"
+                android:singleLine="true" />
+            
+<!--             <fragment -->
+<!--                 android:id="@+id/place_autocomplete_fragment" -->
+<!--                 android:name="android.support.v4.app.Fragment.SupportPlaceAutocompleteFragment " -->
+<!--                 android:layout_width="match_parent" -->
+<!--                 android:layout_height="35dp" -->
+<!--                 android:layout_marginTop="10dp" -->
+<!--                 android:background="@android:color/transparent" -->
+<!--                 android:gravity="center" -->
+<!--                 android:hint="@string/address" -->
+<!--                 android:inputType="text" -->
+<!--                 android:maxLength="50" -->
+<!--                 android:singleLine="true" /> -->
+
+            <ImageView
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/profile_divider" />
+
+            <EditText
+                android:id="@+id/etCity"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_marginTop="10dp"
+                android:background="@android:color/transparent"
+                android:gravity="center"
+                android:hint="@string/city"
+                android:inputType="text"
+                android:maxLength="30"
+                android:singleLine="true" />
+
+            <ImageView
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/profile_divider" />
+
+            <EditText
+                android:id="@+id/etZipcode"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_marginTop="10dp"
+                android:background="@android:color/transparent"
+                android:gravity="center"
+                android:hint="@string/zip_code"
+                android:inputType="number"
+                android:maxLength="5"
+                android:singleLine="true" />
+
+            <ImageView
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/profile_divider" />
+
+            <TextView
+                android:id="@+id/tvTypeOfMeeting"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_marginTop="10dp"
+                android:background="@android:color/transparent"
+                android:drawableRight="@drawable/right_arrow"
+                android:gravity="center"
+                android:hint="@string/type_of_meeting"
+                android:inputType="phone"
+                android:singleLine="true"
+                android:textSize="16sp" />
+
+            <ImageView
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/profile_divider" />
+
+            <TextView
+                android:id="@+id/tvTypeOfFacility"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_marginTop="10dp"
+                android:background="@android:color/transparent"
+                android:drawableRight="@drawable/right_arrow"
+                android:gravity="center"
+                android:hint="@string/type_of_facility"
+                android:inputType="phone"
+                android:singleLine="true"
+                android:textSize="16sp" />
+
+            <ImageView
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/profile_divider" />
+
+            <EditText
+                android:id="@+id/etYourRelationshipToMeeting"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_marginTop="10dp"
+                android:background="@android:color/transparent"
+                android:gravity="center"
+                android:hint="Your relationship to the meeting"
+                android:inputType="text"
+                android:maxLength="30"
+                android:singleLine="true" />
+
+            <ImageView
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/profile_divider" />
+
+            <ImageButton
+                android:id="@+id/ibSubmit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="20dp"
+                android:background="@null"
+                android:src="@drawable/submit_btn_blue" />
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>

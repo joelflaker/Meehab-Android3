@@ -1,0 +1,68 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/root"
+    android:background="@color/gray_trasparent_bg"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.citrusbits.meehab.MediaFullScreenActivity" >
+    
+
+    <ImageView
+        android:id="@+id/image" 
+        android:scaleType="fitCenter"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true"/>
+
+
+    <FrameLayout
+        android:id="@+id/videoContainer"
+        android:layout_width="match_parent"
+        android:background="@android:color/black"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        >
+
+
+        <com.google.android.exoplayer.AspectRatioFrameLayout android:id="@+id/video_frame"
+            android:layout_width="match_parent"
+            android:layout_height="240dp"
+            android:layout_gravity="top|center_horizontal">
+
+            <SurfaceView android:id="@+id/surface_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"/>
+
+            <View android:id="@+id/shutter"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@android:color/black"/>
+
+            <com.google.android.exoplayer.text.SubtitleLayout android:id="@+id/subtitles"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+
+        </com.google.android.exoplayer.AspectRatioFrameLayout>
+
+        <FrameLayout
+            android:id="@+id/frame"
+            android:layout_width="match_parent"
+            android:layout_height="260dp" />
+
+    </FrameLayout>
+    
+    <ImageButton 
+        android:id="@+id/btnClose"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:padding="@dimen/activity_horizontal_margin"
+        android:layout_width="wrap_content"
+        android:background="@null"
+        android:layout_height="wrap_content"
+        android:src="@drawable/cross_white"/>
+    
+</RelativeLayout>

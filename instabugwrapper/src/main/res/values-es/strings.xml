@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--
+     Localizable.strings
+     Instabug
+     -->
+    <!--Start Alert -->
+    <string name="shakestartalerttext">Sacuda el teléfono para enviarnos sus comentarios</string>
+    <string name="screenshotstartalerttext">Realice una captura de pantalla para enviarnos sus comentarios</string>
+    <string name="twofingerswipestartalerttext">Deslice dos dedos para enviarnos sus comentarios</string>
+    <string name="edgeswipestartalerttext">Deslice los dedos desde el borde para enviarnos sus comentarios</string>
+
+    <!--Tutorial Alert -->
+    <string name="tutorialalerttext">Dibuje en la captura de pantalla y luego añada texto</string>
+
+    <!--Feedback Sent Alert -->
+    <string name="feedbacksentalerttitle">Comentarios enviados</string>
+    <string name="feedbacksentalerttext">Gracias por ayudarnos a mejorar InstabugApp</string>
+
+    <!--Invalid Email Alert -->
+    <string name="invalidemailalerttitle">Correo electrónico no válido</string>
+    <string name="invalidemailalerttext">Introduzca un correo electrónico válido</string>
+
+    <!--Invalid Comment Alert -->
+    <string name="invalidcommentalerttitle">Comentario no válido</string>
+    <string name="invalidcommentalerttext">Introduzca un comentario válido</string>
+
+    <!--View Elements -->
+    <string name="submitbutton">Enviar</string>
+    <string name="cancelbutton">Cancelar</string>
+    <string name="bugheader">Informar de una incidencia</string>
+    <string name="feedbackheader">Enviar comentarios</string>
+    <string name="bottommessage">Comentarios proporcionados mediante &amp;name&amp;</string>
+    <string name="emailplaceholder">Introduzca su correo electrónico...</string>
+    <string name="commentplaceholder">Escriba sus comentarios aquí...</string>
+    <string-array name="report_options">
+        <item>Informar de una incidencia</item>
+        <item>Enviar comentarios</item>
+    </string-array>
+    <string name="pleasewait">Por favor, espere un momento</string>
+</resources>

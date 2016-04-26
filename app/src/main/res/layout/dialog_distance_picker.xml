@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_height="wrap_content"
+        
+        android:orientation="vertical" >
+        
+        <RelativeLayout 
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:background="@android:color/white"
+            >
+            <ImageButton 
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:id="@+id/ibCancel"
+                android:src="@drawable/cancel_btn_small"
+                />
+            
+            <TextView 
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true"
+                android:textColor="#888888"
+                android:text="Set Distance"
+                />
+            
+            <ImageButton 
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:layout_alignParentRight="true"
+                android:id="@+id/ibDone"
+                android:src="@drawable/done_btn_small"
+                />
+            
+        </RelativeLayout>
+        
+        <LinearLayout 
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center_horizontal|center_vertical"
+            android:background="#888888"
+            >
+        
+        <NumberPicker 
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            
+            android:gravity="center_vertical"
+            android:id="@+id/npDistance"
+            android:calendarViewShown="false"
+            />
+        
+        </LinearLayout>
+    </LinearLayout>
+
+</RelativeLayout>
