@@ -97,7 +97,6 @@ public class MeetingDetailsActivity extends SocketActivity implements
 	public static final int CODE_FULL_SCREEN = 5;
 
 	private MeetingModel meeting;
-	private ArrayList<TMeeting> meetings;
 	private LinearLayout reviewsContainer;
 	private ImageButton ibSetting;
 	private ImageButton ibRating;
@@ -121,7 +120,6 @@ public class MeetingDetailsActivity extends SocketActivity implements
 	protected GoogleMap map;
 	protected float defaultZoom = 8;
 	protected ArrayList<MeetingReviewModel> meetingReviewModels = new ArrayList<>();
-	private boolean isFavorite;
 
 	private TextView[] tvCodes = new TextView[8];
 
@@ -248,6 +246,9 @@ public class MeetingDetailsActivity extends SocketActivity implements
 		if (extra != null) {
 			meeting = (MeetingModel) extra.getSerializable("meeting");
 
+			//recalculate relative time
+			MeetingUtils.setStartInTime(meeting, meeting.getOnDateOrigion(),
+					meeting.getNearestTime());
 			/*
 			 * if (meeting.getMarkertypeColor() == MarkerColorType.RED) {
 			 * setCheckInButton(); } else { //setRSVPButton(); }
@@ -256,8 +257,7 @@ public class MeetingDetailsActivity extends SocketActivity implements
 			txtDate.setText(formateDate(meeting.getOnDateOrigion()));
 			txtMeetingName.setText(meeting.getName());
 			txtTime.setText(meeting.getOnTime());
-			numReviewsText.setText(String.valueOf(meeting.getReviewsCount())
-					+ " REVIEWS");
+			numReviewsText.setText(String.valueOf(meeting.getReviewsCount()) + " REVIEWS");
 			txtMeetingCurrentStatus.setText(meeting.getStartInTime());
 
 			if (meeting.getMarkertypeColor() == MarkerColorType.GREEN) {
@@ -280,13 +280,12 @@ public class MeetingDetailsActivity extends SocketActivity implements
 
 			String[] codes = meeting.getCodes().split(",");
 
-			int i = 0;
-			for (String value : codes) {
+			for (int i = 0; i < codes.length; i++) {
 				tvCodes[i].setText(codes[i]);
 				tvCodes[i].setTag(codes[i]);
 				tvCodes[i].setVisibility(View.VISIBLE);
 				tvCodes[i].setOnClickListener(codeClickListener);
-				i++;
+
 				if (i >= MeetingsListAdapter.MAX_CODE_SIZE) {
 					break;
 				}
@@ -301,8 +300,7 @@ public class MeetingDetailsActivity extends SocketActivity implements
 			}
 
 			String favAttendingMsg = meeting.getRsvpCount() == 0 ? "" : String
-					.format(getString(R.string.num_favourites_attending),
-							meeting.getRsvpCount());
+					.format(getString(R.string.num_favourites_attending), meeting.getRsvpCount());
 
 			tvRSVPAttending.setText(favAttendingMsg);
 
@@ -333,7 +331,10 @@ public class MeetingDetailsActivity extends SocketActivity implements
 
 		for (int i = 0; i < dayStr.length; i++) {
 			MultiDatesManager multidate = multidateMap.get(i);
-			if (minDayDiffer > multidate.getDayDiffer()) {
+			if (multidate.getDayDiffer() == 0){
+				nearPosition = i;
+				break;
+			}else if (minDayDiffer > multidate.getDayDiffer()) {
 				minDayDiffer = multidate.getDayDiffer();
 				nearPosition = i;
 			}
@@ -490,8 +491,7 @@ public class MeetingDetailsActivity extends SocketActivity implements
 	String daysInWeek[] = { "monday", "tuesday", "wednesday", "thursday",
 			"friday", "saturday", "sunday" };
 
-	public HashMap<Integer, MultiDatesManager> getMultiDate(String days,
-			String times) {
+	public HashMap<Integer, MultiDatesManager> getMultiDate(String days,String times) {
 		HashMap<Integer, MultiDatesManager> multidateMap = new HashMap<>();
 		String daysStr[] = days.split(",");
 		String timeStr[] = times.split(",");
@@ -518,10 +518,11 @@ public class MeetingDetailsActivity extends SocketActivity implements
 			if (onDayPositon > todayPosition) {
 				int dayDiffer = onDayPositon - todayPosition;
 				sCalendar.add(Calendar.DAY_OF_MONTH, dayDiffer);
+
 				multiDate.setDayDiffer(dayDiffer);
 				multiDate.setDayFormated(dayDiffer == 1 ? "Tomorrow" : onDay);
 
-			} else if (onDayPositon < todayPosition) {
+			} else if (onDayPositon < todayPosition && onDayPositon != -1) {
 				sCalendar.add(Calendar.DAY_OF_MONTH, ((daysInWeek.length)
 						- todayPosition + onDayPositon));
 
@@ -554,7 +555,6 @@ public class MeetingDetailsActivity extends SocketActivity implements
 							sCalendar.get(Calendar.MINUTE)
 									- dateObj.getMinutes());
 				} catch (ParseException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
@@ -572,7 +572,6 @@ public class MeetingDetailsActivity extends SocketActivity implements
 
 		@Override
 		public void onClick(View v) {
-			// TODO Auto-generated method stub
 			String dayformated = (String) v.getTag();
 
 			MultiDatesManager multiDate = getMultiDateFromDayFormated(dayformated);
@@ -608,8 +607,7 @@ public class MeetingDetailsActivity extends SocketActivity implements
 		 */
 
 		
-		MultiDatesManager multidate = getMultiDateFromDayFormated(txtDate
-				.getText().toString().trim());
+		MultiDatesManager multidate = getMultiDateFromDayFormated(txtDate.getText().toString().trim());
 		
 		/*
 		 * String calendarUri = dbHandler.getEventUri(meeting.getMeetingId(),
@@ -694,7 +692,6 @@ public class MeetingDetailsActivity extends SocketActivity implements
 			socketService.rsvpMeeting(params);
 
 		} catch (JSONException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -719,7 +716,6 @@ public class MeetingDetailsActivity extends SocketActivity implements
 			socketService.checkInMeeting(params);
 
 		} catch (JSONException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -1162,7 +1158,6 @@ public class MeetingDetailsActivity extends SocketActivity implements
 
 				@Override
 				public void onClick(View v) {
-					// TODO Auto-generated method stub
 
 					MeetingReviewModel rev = (MeetingReviewModel) v.getTag();
 					Intent intent = new Intent(MeetingDetailsActivity.this,
@@ -1470,7 +1465,6 @@ public class MeetingDetailsActivity extends SocketActivity implements
 			Log.e("Day:", cal.get(Calendar.DAY_OF_MONTH) + "");
 
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return cal;
@@ -1483,7 +1477,6 @@ public class MeetingDetailsActivity extends SocketActivity implements
 			Date date2 = prevFormate.parse(date);
 			return newFormate.format(date2);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return date;
 		}

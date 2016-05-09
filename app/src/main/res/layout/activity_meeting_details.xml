@@ -385,13 +385,15 @@
 
                                         <TextView
                                             android:id="@+id/txtDate"
-                                            android:layout_width="match_parent"
+                                            android:layout_width="0dp"
                                             android:layout_height="wrap_content"
                                             android:layout_weight="1"
                                             android:drawableLeft="@drawable/calendar_icon_yellow"
                                             android:drawablePadding="4dp"
                                             android:gravity="center|left"
+                                            android:paddingRight="8dp"
                                             android:paddingTop="4dp"
+                                            android:textSize="12sp"
                                             android:text="3/3/2080"
                                             android:textColor="#CCCCCC" />
 
@@ -403,6 +405,7 @@
                                             android:drawableLeft="@drawable/clock_icon_yellow"
                                             android:drawablePadding="4dp"
                                             android:gravity="center|left"
+                                            android:textSize="12sp"
                                             android:text="8:00 PM"
                                             android:textColor="#CCCCCC" />
                                     </LinearLayout>
@@ -420,6 +423,7 @@
                                     android:id="@+id/txtMeetingCurrentStatus"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
+                                    android:layout_marginTop="4dp"
                                     android:layout_alignParentRight="true"
                                     android:layout_weight="1"
                                     android:background="@drawable/hours_bg_green"
@@ -476,7 +480,6 @@
                                 android:layout_toLeftOf="@+id/tvRSVPAttending"
                                 android:gravity="left|center_vertical"
                                 android:text="RSVP&apos;d"
-                                android:textColor="#666666"
                                 android:textSize="16sp" />
 
                             <TextView
@@ -486,9 +489,9 @@
                                 android:layout_alignParentRight="true"
                                 android:layout_centerVertical="true"
                                 android:background="@android:color/transparent"
+                                android:textColor="@color/light_dark_detail"
                                 android:gravity="center_vertical"
-                                android:text="44 favorites Attending!"
-                                android:textColor="#888888" />
+                                android:text="44 favorites Attending!" />
                         </RelativeLayout>
 
                         <ImageView
@@ -548,7 +551,6 @@
                                 android:layout_centerVertical="true"
                                 android:gravity="left|center_vertical"
                                 android:text="Make Homegroup"
-                                android:textColor="#666666"
                                 android:textSize="16sp" />
 
                             <CheckBox
@@ -564,8 +566,21 @@
                                 android:textOn="" />
                         </RelativeLayout>
 
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="48dp"
+                            android:paddingTop="8dp"
+                            android:layout_marginLeft="15dp"
+                            android:layout_marginRight="15dp"
+                            android:gravity="bottom"
+                            android:layout_centerVertical="true"
+                            android:background="@drawable/simple_button_selector"
+                            android:text="Reviews"
+                            android:textColor="@color/light_dark_detail"
+                            android:textAllCaps="true"
+                            android:textSize="16sp" />
                         <ImageView
-                            android:layout_width="fill_parent"
+                            android:layout_width="match_parent"
                             android:layout_height="2dp"
                             android:layout_marginBottom="6dp"
                             android:layout_marginLeft="15dp"
@@ -573,21 +588,10 @@
                             android:layout_marginTop="6dp"
                             android:src="@drawable/filter_divider" />
 
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_centerVertical="true"
-                            android:background="@drawable/simple_button_selector"
-                            android:paddingLeft="@dimen/activity_horizontal_margin"
-                            android:paddingRight="@dimen/activity_horizontal_margin"
-                            android:paddingTop="@dimen/activity_vertical_margin"
-                            android:text="User Reviews"
-                            android:textAllCaps="true"
-                            android:textColor="#666666"
-                            android:textSize="16sp" />
-
                         <LinearLayout
                             android:id="@+id/reviewsContainer"
+                            android:layout_marginLeft="15dp"
+                            android:layout_marginRight="15dp"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="vertical" />

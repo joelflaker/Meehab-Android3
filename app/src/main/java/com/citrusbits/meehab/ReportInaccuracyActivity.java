@@ -103,6 +103,7 @@ public class ReportInaccuracyActivity extends SocketActivity implements
 			JSONObject params = new JSONObject();
 			params.put("comments", message);
 			if(isMeetingId){
+				params.put("userid", AccountUtils.getUserId(this));
 				params.put("meetingid", reportId);
 				socketService.reportMeeting(params);
 			}else{

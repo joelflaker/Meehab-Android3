@@ -248,7 +248,6 @@
                         android:focusable="false"
                         android:gravity="left|center_vertical"
                         android:text="Other Services"
-                        android:textColor="#666666"
                         android:textSize="16sp" />
 
                     <TextView
@@ -274,7 +273,7 @@
                             android:background="@drawable/simple_button_selector"
                             android:gravity="left|center_vertical"
                             android:text="Insurance accepted and payment"
-                            android:textColor="#666666"
+                            android:textColor="@color/light_dark_detail"
                             android:textSize="16sp" />
                     </LinearLayout>
                     
@@ -298,7 +297,6 @@
                         android:drawableRight="@drawable/down_arrow"
                         android:gravity="left|center_vertical"
                         android:text="@string/insurance_accepted_and_payment"
-                        android:textColor="#666666"
                         android:textSize="16sp" />
 					<TextView
                         android:layout_width="match_parent"
@@ -339,7 +337,7 @@
                         android:paddingRight="@dimen/activity_horizontal_margin"
                         android:paddingTop="15dp"
                         android:text="ABOUT"
-                        android:textColor="#666666"
+                        android:textColor="@color/light_dark_detail"
                         android:textSize="16sp" />
 
                     <TextView
@@ -362,7 +360,7 @@
                         android:paddingRight="@dimen/activity_horizontal_margin"
                         android:paddingTop="15dp"
                         android:text="PHOTOS"
-                        android:textColor="#666666"
+                        android:textColor="@color/light_dark_detail"
                         android:textSize="16sp" />
 
                     <android.support.v7.widget.RecyclerView
@@ -384,7 +382,7 @@
                         android:paddingRight="@dimen/activity_horizontal_margin"
                         android:paddingTop="15dp"
                         android:text="VIDEOS"
-                        android:textColor="#666666"
+                        android:textColor="@color/light_dark_detail"
                         android:textSize="16sp" />
 
                    <android.support.v7.widget.RecyclerView

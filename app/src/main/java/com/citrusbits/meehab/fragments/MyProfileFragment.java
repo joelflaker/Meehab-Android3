@@ -206,10 +206,11 @@ public class MyProfileFragment extends Fragment implements
 			SoberDateText.setText(RecoverClockDateUtils.getSoberDifference(
 					user.getSoberSence(), true, getActivity()));
 
-			if ("both".toLowerCase().toString()
-					.equals(user.getIntrestedIn().toLowerCase())) {
+			if (user.getIntrestedIn().isEmpty()){
+				interestedInText.setText("Interested in Nothing!");
+			} else if ("both".toString().equalsIgnoreCase(user.getIntrestedIn())) {
 				interestedInText.setText(R.string.dating_and_fellowshiping);
-			} else {
+			}else{
 				interestedInText.setText(user.getIntrestedIn());
 			}
 

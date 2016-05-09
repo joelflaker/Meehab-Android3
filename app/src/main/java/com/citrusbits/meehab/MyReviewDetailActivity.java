@@ -51,7 +51,7 @@ public class MyReviewDetailActivity extends SocketActivity implements
 		timeZoneOffset=MeetingUtils.getTimeZoneOffset();
 		pd = UtilityClass.getProgressDialog(MyReviewDetailActivity.this);
 		setContentView(R.layout.activity_my_review_detail);
-		object = (Object) getIntent().getSerializableExtra(
+		object = getIntent().getSerializableExtra(
 				MyReview.EXTRA_REVIEW);
 
 		TextView tvReviewTitle = (TextView) this
@@ -75,13 +75,13 @@ public class MyReviewDetailActivity extends SocketActivity implements
 					.getDateTimeAdded(),timeZoneOffset));
 			tvComment.setText(myReview.getComment());
 			String commentUserId = myReview.getUserId() + "";
+
+			ivUserIcon.setVisibility(View.GONE);
+
 			topRightBtn
 					.setVisibility(userId.equals(commentUserId) ? View.VISIBLE
 							: View.GONE);
-			
-			ivUserIcon.setVisibility(View.GONE);
-			
-			
+
 
 		} else if (object instanceof MeetingReviewModel) {
 			reviewModel = (MeetingReviewModel) object;
@@ -153,7 +153,6 @@ public class MyReviewDetailActivity extends SocketActivity implements
 											@Override
 											public void onDeleteClick(
 													DeleteReviewConfirmDialog dialog) {
-												// TODO Auto-generated method
 												// stub
 												dialog.dismiss();
 
@@ -168,7 +167,6 @@ public class MyReviewDetailActivity extends SocketActivity implements
 											@Override
 											public void onCancelClick(
 													DeleteReviewConfirmDialog dialog) {
-												// TODO Auto-generated method
 												// stub
 												dialog.dismiss();
 
@@ -209,7 +207,6 @@ public class MyReviewDetailActivity extends SocketActivity implements
 
 	@Override
 	public void onBackendConnected() {
-		// TODO Auto-generated method stub
 
 	}
 
@@ -229,7 +226,6 @@ public class MyReviewDetailActivity extends SocketActivity implements
 				Toast.makeText(MyReviewDetailActivity.this,
 						data.getString("message"), Toast.LENGTH_SHORT).show();
 			} catch (JSONException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			MyReviewDetailActivity.this.finish();
@@ -240,13 +236,11 @@ public class MyReviewDetailActivity extends SocketActivity implements
 
 	@Override
 	public void onSocketResponseFailure(String onEvent, String message) {
-		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public void onBackPressed() {
-		// TODO Auto-generated method stub
 		super.onBackPressed();
 		overridePendingTransition(R.anim.activity_back_in,
 				R.anim.activity_back_out);

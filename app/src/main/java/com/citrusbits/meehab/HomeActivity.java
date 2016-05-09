@@ -133,8 +133,8 @@ public class HomeActivity extends SocketActivity implements
 				mCurrentFragment = new MessagesFragment();
 //				((MessagesFragment)mCurrentFragment).setPushExtra(extra);
 			}else{
-//				mCurrentFragment = new MeetingsFragment(this);
-				mCurrentFragment = new RehabsFragment();
+				mCurrentFragment = new MeetingsFragment();
+//				mCurrentFragment = new RehabsFragment();
 //				mCurrentFragment = new MyFavoritesFragment(this);
 				//displayFragment(3);
 			}

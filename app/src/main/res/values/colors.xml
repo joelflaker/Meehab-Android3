@@ -111,5 +111,6 @@
     
 <!--     dialog gray bg -->
     <color name="gray_trasparent_bg">#EF666666</color>
+    <color name="light_dark_detail" >#555555</color>
 
 </resources>

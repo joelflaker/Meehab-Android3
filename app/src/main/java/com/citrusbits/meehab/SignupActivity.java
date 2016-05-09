@@ -179,7 +179,16 @@ public class SignupActivity extends SocketActivity implements
 		        		return;
 		        	}
 		        	
-		        	facebookFriends = friends;
+					try {
+						for (int i = 0; i < friends.length(); i++) {
+							friends.getJSONObject(i).put("social_id", friends.getJSONObject(i).get("id"));
+						}
+					}catch (Exception e){
+						e.printStackTrace();
+					}
+
+					facebookFriends = friends;
+
 		        	App.toast(friends.length() + " friends of "+ fbNameString);
 //		        	Toast.makeText(getApplicationContext(), "" + friends, Toast.LENGTH_LONG).show();
 		        	App.log(""+friends);
@@ -454,7 +463,7 @@ public class SignupActivity extends SocketActivity implements
 			checkInfoParams.put("email", usernameString);
 			checkInfoParams.put("username", emailString);
 			checkInfoParams.put("phone", phone);
-
+			checkInfoParams.put("facebook",facebookFriends);
 			pd.show();
 			socketService.checkUserInfo(checkInfoParams);
 		} catch (JSONException e) {
@@ -542,10 +551,8 @@ public class SignupActivity extends SocketActivity implements
 
 	private void openActivity(String method, SignupModel signup) {
 		Intent verification = new Intent(this, VerificationActivity.class);
-		verification.putExtra(VerificationActivity.INTENT_PHONENUMBER,
-				signup.getPhoneNumber());
-		verification.putExtra(VerificationActivity.EXTRA_SIGNUP,
-				(Serializable) signup);
+		verification.putExtra(VerificationActivity.INTENT_PHONENUMBER,signup.getPhoneNumber());
+		verification.putExtra(VerificationActivity.EXTRA_SIGNUP,signup);
 		verification.putExtra(VerificationActivity.INTENT_METHOD, method);
 
 		verification.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP

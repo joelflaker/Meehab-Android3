@@ -351,9 +351,9 @@ public class MeetingsFragment extends Fragment implements
 				continue;
 			}
 
-			mapMeetings.add(meetings.get(i));
+			MeetingModel m = meetings.get(i);
+			mapMeetings.add(m);
 
-			MeetingModel m = mapMeetings.get(i);
 			// Creating an instance of MarkerOptions to set position
 			int resourceId = R.drawable.pin_dark_pink;
 			if (m.getMarkertypeColor() == MarkerColorType.GREEN) {
@@ -856,20 +856,26 @@ public class MeetingsFragment extends Fragment implements
 					 * meeting.setOnDate(formateDate(dateObje)); } else {
 					 */
 					// meeting.setOnDate(meetings.get(i - 1).getOnDate());
-					Date dateObje = getDateObject(onDate);
+					Date dateObje = MeetingUtils.getDateObject(onDate);
 					meeting.setDateObj(dateObje);
-					meeting.setOnDate(formateDate(dateObje));
+					meeting.setOnDate(MeetingUtils.formateDate(dateObje));
 					// }
 
 					/*
 					 * setStartInTime(meeting, meeting.getOnDateOrigion(),
 					 * meeting.getOnTime());
 					 */
-					setStartInTime(meeting, meeting.getOnDateOrigion(),
+					MeetingUtils.setStartInTime(meeting, meeting.getOnDateOrigion(),
 							meeting.getNearestTime());
 				}
 
-				Collections.sort(meetings);
+				//sorting for nearest meeting first
+				Collections.sort(meetings, new Comparator<MeetingModel>() {
+					@Override
+					public int compare(MeetingModel lhs, MeetingModel rhs) {
+						return lhs.getDistanceInMiles() < rhs.getDistanceInMiles() ? -1: 1;
+					}
+				});
 
 			}
 
@@ -929,9 +935,8 @@ public class MeetingsFragment extends Fragment implements
 					}
 
 				} else if (onDayPositon < todayPosition) {
-					sCalendar.add(Calendar.DAY_OF_MONTH, ((daysInWeek.length)
-							- todayPosition + onDayPositon));
-					
+					sCalendar.add(Calendar.DAY_OF_MONTH, ((daysInWeek.length) - todayPosition + onDayPositon));
+
 					int dayDiffer = ((daysInWeek.length) - todayPosition + onDayPositon);
 					if (minDayDiffer > dayDiffer) {
 						minDayDiffer = dayDiffer;
@@ -969,8 +974,7 @@ public class MeetingsFragment extends Fragment implements
 					}
 				}
 
-				SimpleDateFormat dateFormate = new SimpleDateFormat(
-						"dd/MM/yyyy");
+				SimpleDateFormat dateFormate = new SimpleDateFormat("dd/MM/yyyy", Locale.US);
 				String dateMade = dateFormate.format(sCalendar.getTime());
 
 				NearesDateTime nearDateTime = new NearesDateTime();
@@ -995,93 +999,12 @@ public class MeetingsFragment extends Fragment implements
 			// refrshFavList();
 
 			meetingsAdapter.filter(resultHolder);
-
+			updateEmptyViewVisibility();
 			// refreshMap();
 		}
 
 	}
 
-	public Date getDateObject(String date) {
-		SimpleDateFormat prevFormate = new SimpleDateFormat("dd/MM/yyyy", Locale.US);
-		try {
-			Date date2 = prevFormate.parse(date);
-			return date2;
-		} catch (ParseException e) {
-
-			e.printStackTrace();
-			return null;
-		}
-	}
-
-	public String formateDate(Date date) {
-		SimpleDateFormat newFormate = new SimpleDateFormat("EEEE MMM dd, yyyy");
-		return newFormate.format(date);
-	}
-
-	public void setStartInTime(MeetingModel model, String date, String onTime) {
-		SimpleDateFormat prevFormate = new SimpleDateFormat("dd/MM/yyyy");
-		try {
-			Date date2 = prevFormate.parse(date);
-			SimpleDateFormat _12HourSDF = new SimpleDateFormat("hh:mm a");
-			final Date dateObj = _12HourSDF.parse(onTime);
-			Calendar calendar = Calendar.getInstance();
-
-			calendar.setTime(date2);
-
-			calendar.set(Calendar.HOUR_OF_DAY, dateObj.getHours());
-			calendar.set(Calendar.MINUTE, dateObj.getMinutes());
-			calendar.set(Calendar.SECOND, 0);
-
-			Calendar currentCalendar = Calendar.getInstance();
-
-			// currentCalendar.set(Calendar.SECOND, 0);
-
-			long difference = calendar.getTimeInMillis()
-					- currentCalendar.getTimeInMillis();
-
-			long x = difference / 1000;
-			Log.e("Difference ", x + "");
-
-			long days = x / (60 * 60 * 24);
-
-			long seconds = x % 60;
-			x /= 60;
-			long minutes = x % 60;
-			x /= 60;
-			long hours = x % 24;
-			Log.i("Meeting Name ", model.getName());
-			Log.i("Hours Difference ", hours + ":" + minutes);
-			SimpleDateFormat mmmDate = new SimpleDateFormat(
-					"dd/MM/yyyy hh:mm a");
-			String mDate = mmmDate.format(calendar.getTime());
-			String mNow = mmmDate.format(currentCalendar.getTime());
-			Log.e("Meeting date time ", mDate);
-			Log.e("Nnow date time ", mNow);
-
-			if (days > 0) {
-				model.setMarkerTypeColor(MarkerColorType.GREEN);
-				model.setStartInTime("AFTER " + days + " "
-						+ (days == 1 ? "DAY" : "DAYS"));
-			} else if (hours > 1 || hours == 1 && minutes > 0) {
-				model.setMarkerTypeColor(MarkerColorType.GREEN);
-				model.setStartInTime("AFTER " + hours + " "
-						+ (hours == 1 ? "HOUR" : "HOURS"));
-			} else if (hours == 0 && minutes > 0
-					|| (hours == 0 && minutes == 0 && seconds > 1)) {
-				model.setMarkerTypeColor(MarkerColorType.ORANGE);
-				model.setStartInTime("START IN HOUR");
-			} else if (hours == 0 && minutes <= 0 || hours < 0 && hours > -2) {
-				model.setMarkerTypeColor(MarkerColorType.RED);
-				model.setStartInTime("ONGOING");
-			} else if (hours <= -1) {
-				model.setMarkerTypeColor(MarkerColorType.RED);
-				model.setStartInTime("COMPLETED");
-			}
-
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
-	}
 
 	@Override
 	public void onSocketResponseFailure(String onEvent, String message) {

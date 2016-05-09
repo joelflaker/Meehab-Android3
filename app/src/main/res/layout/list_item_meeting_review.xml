@@ -11,7 +11,7 @@
         android:id="@+id/llRow"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingLeft="8dp" >
+         >
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -65,7 +65,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_toRightOf="@+id/rating"
-                        android:paddingRight="4dp"
                         android:scrollbars="none" >
 
                         <LinearLayout
@@ -74,7 +73,7 @@
                             android:layout_alignParentRight="true"
                             android:gravity="center_vertical"
                             android:orientation="horizontal"
-                            android:paddingLeft="18dp"
+                            android:paddingLeft="8dp"
                             android:paddingRight="8dp" >
 
                             <TextView

@@ -478,7 +478,7 @@ public class SocketService extends Service {
 		@Override
 		public void call(final Object... args) {
 			Log.e("Socket service ", "Socket is connected!");
-			startKeepAlives();
+//			startKeepAlives();
 			updateAccessToken();
 		}
 	};

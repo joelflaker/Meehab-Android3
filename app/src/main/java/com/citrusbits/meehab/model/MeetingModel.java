@@ -15,12 +15,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class MeetingModel implements Serializable, Comparable<MeetingModel> {
-
-	@Override
-	public int compareTo(MeetingModel another) {
-		return distanceInMiles < another.getDistanceInMiles() ? 1 : -1;
-	}
+public class MeetingModel implements Serializable {
 
 	@SerializedName("is_rsvp")
 	@Expose
