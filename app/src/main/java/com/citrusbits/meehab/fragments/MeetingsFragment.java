@@ -944,8 +944,7 @@ public class MeetingsFragment extends Fragment implements
 					}
 
 				} else if (onDayPositon == todayPosition) {
-					SimpleDateFormat _12HourSDF = new SimpleDateFormat(
-							"hh:mm a", Locale.US);
+					SimpleDateFormat _12HourSDF = new SimpleDateFormat("hh:mm a", Locale.US);
 					try {
 						final Date dateObj = _12HourSDF.parse(onTime);
 						sCalendar.set(Calendar.HOUR_OF_DAY,

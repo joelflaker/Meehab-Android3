@@ -6,6 +6,7 @@
     <JAVADOC />
     <SOURCES>
       <root url="jar://$APPLICATION_HOME_DIR$/gradle/m2repository/com/google/code/gson/gson/2.2.4/gson-2.2.4-sources.jar!/" />
+      <root url="jar://D:/QamarDevCenter/Android Studio/gradle/m2repository/com/google/code/gson/gson/2.2.4/gson-2.2.4-sources.jar!/" />
     </SOURCES>
   </library>
 </component>
