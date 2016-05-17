@@ -1,5 +1,3 @@
-include ':volley', ':library'
+include ':library'
 include ':crop'
-include ':facebook'
-include ':instabugwrapper'
 include ':app'

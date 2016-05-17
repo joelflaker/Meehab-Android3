@@ -19,14 +19,20 @@ android {
 //        incremental true
 //        dexInProcess = true
     }
-        signingConfigs {
+
+    signingConfigs {
         release {
-            keyAlias 'meehabKey'
-            keyPassword 'meehab123'
-            storeFile file('D:/Company/Meehab/source code/meehabRelease.jks')
-            storePassword 'meehab123'
+
+            def key = file('D:/Company/PlayStore Certificates/meehab-store/meehab-keyalias.txt').text
+            keyAlias = key
+
+            def pass = file('D:/Company/PlayStore Certificates/meehab-store/meehab-pass.txt').text
+            storePassword = pass
+            keyPassword = pass
+            storeFile file('sign/meehabRelease.jks')
         }
     }
+
     buildTypes {
         release {
             shrinkResources true
@@ -40,27 +46,19 @@ android {
 }
 
 dependencies {
+    // http://mvnrepository.com/artifact/com.facebook.android/facebook-android-sdk
+    compile group: 'com.facebook.android', name: 'facebook-android-sdk', version: '4.4.0'
     compile fileTree(include: ['*.jar'], dir: 'libs')
     //    compile 'com.android.support:multidex:1.0.1'
     compile project(':crop')
-    compile project(':instabugwrapper')
+    compile group: 'com.instabug.library', name: 'instabugsupport', version: '1.3'
+
+//    compile (group: 'com.instabug.library', name: 'instabugsupport', version: '1.3') {
+//        exclude module: 'volley'
+//    }
+
     //    compile 'com.google.android.exoplayer:exoplayer:r1.5.5'
-    compile project(':facebook')
     compile project(':library')
-    //    compile files('libs/engine.io-client-0.6.0.jar')
-    //    compile files('libs/libphonenumber-3.8.jar')
-    //    compile files('libs/okhttp-2.4.0.jar')
-    //    compile files('libs/okhttp-ws-2.4.0.jar')
-    //    compile files('libs/okio-1.4.0.jar')
-    //    compile files('libs/picasso-2.5.2.jar')
-    //    compile files('libs/sinch-android-verification-1.0.4.jar')
-    //    compile files('libs/socket.io-client-0.6.0.jar')
-    //    compile 'com.android.support:appcompat-v7:21.0.3'
-    //    compile 'com.android.support:appcompat-v7:23.2.0'
-    //    compile 'com.google.android.gms:play-services:8.4.0'
-    //    compile 'com.google.android.gms:play-services-ads:8.4.0'
-    //    compile 'com.google.android.gms:play-services-auth:8.4.0'
-    //    compile 'com.android.support:appcompat-v7:23.2.0'
     compile 'com.android.support:recyclerview-v7:23.3.0'
     compile 'com.android.support:cardview-v7:23.3.0'
     compile 'com.google.code.gson:gson:2.2.4'

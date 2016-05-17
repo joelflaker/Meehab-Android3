@@ -176,8 +176,7 @@ public class GPSTracker implements LocationListener {
 
 		
 		// prepare the Request
-		JsonObjectRequest getRequest = new JsonObjectRequest(
-				com.android.volley.Request.Method.GET, url, null,
+		JsonObjectRequest getRequest = new JsonObjectRequest(url, null,
 				new Response.Listener<JSONObject>() {
 					@Override
 					public void onResponse(JSONObject response) {

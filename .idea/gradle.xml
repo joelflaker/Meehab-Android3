@@ -11,10 +11,7 @@
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/crop" />
-            <option value="$PROJECT_DIR$/facebook" />
-            <option value="$PROJECT_DIR$/instabugwrapper" />
             <option value="$PROJECT_DIR$/library" />
-            <option value="$PROJECT_DIR$/volley" />
           </set>
         </option>
         <option name="myModules">
@@ -22,10 +19,7 @@
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/crop" />
-            <option value="$PROJECT_DIR$/facebook" />
-            <option value="$PROJECT_DIR$/instabugwrapper" />
             <option value="$PROJECT_DIR$/library" />
-            <option value="$PROJECT_DIR$/volley" />
           </set>
         </option>
       </GradleProjectSettings>

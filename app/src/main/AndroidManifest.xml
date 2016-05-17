@@ -148,9 +148,6 @@
             android:parentActivityName=".SignupActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="RegisterActivity" />
         </activity>
         <activity
             android:name=".TermsAndConditionsActivity"
@@ -158,9 +155,6 @@
             android:parentActivityName=".SignupActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="RegisterActivity" />
         </activity>
         <activity
             android:name=".ProfileSetupMoreActivity"
