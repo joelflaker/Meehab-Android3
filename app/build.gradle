@@ -2,15 +2,15 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 23
-    buildToolsVersion "23.0.1"
+    buildToolsVersion "23.0.3"
 //    buildToolsVersion "23.0.1"
     defaultConfig {
         applicationId "com.citrusbits.meehab"
-        versionCode = 1
-        versionName = "v0.9 Build 9"
+        versionCode = 2
+        versionName = "v1 Build 10"
         minSdkVersion 14
         targetSdkVersion 21
-        multiDexEnabled = true
+//        multiDexEnabled = true
     }
 
     dexOptions {
@@ -29,11 +29,14 @@ android {
             def pass = file('D:/Company/PlayStore Certificates/meehab-store/meehab-pass.txt').text
             storePassword = pass
             keyPassword = pass
-            storeFile file('sign/meehabRelease.jks')
+            storeFile file('D:/Company/PlayStore Certificates/meehab-store/meehabRelease.jks')
         }
     }
 
     buildTypes {
+        debug{
+            minifyEnabled = false
+        }
         release {
             shrinkResources true
             minifyEnabled true
@@ -46,9 +49,14 @@ android {
 }
 
 dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
     // http://mvnrepository.com/artifact/com.facebook.android/facebook-android-sdk
     compile group: 'com.facebook.android', name: 'facebook-android-sdk', version: '4.4.0'
-    compile fileTree(include: ['*.jar'], dir: 'libs')
+    compile ('io.socket:socket.io-client:0.7.0') {
+        // excluding org.json which is provided by Android
+        exclude group: 'org.json', module: 'json'
+    }
+    compile group: 'com.squareup.picasso', name: 'picasso', version: '2.5.2'
     //    compile 'com.android.support:multidex:1.0.1'
     compile project(':crop')
     compile group: 'com.instabug.library', name: 'instabugsupport', version: '1.3'

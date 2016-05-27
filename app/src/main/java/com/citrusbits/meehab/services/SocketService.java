@@ -54,11 +54,11 @@ import com.citrusbits.meehab.pojo.MeetingReviewsResponse;
 import com.citrusbits.meehab.prefrences.AppPrefs;
 import com.citrusbits.meehab.receivers.EventReceiver;
 import com.citrusbits.meehab.utils.AccountUtils;
-import com.github.nkzawa.emitter.Emitter;
-import com.github.nkzawa.emitter.Emitter.Listener;
-import com.github.nkzawa.socketio.client.IO;
-import com.github.nkzawa.socketio.client.Socket;
 import com.google.gson.Gson;
+
+import io.socket.client.IO;
+import io.socket.client.Socket;
+import io.socket.emitter.Emitter;
 
 public class SocketService extends Service {
 
@@ -1317,9 +1317,9 @@ public class SocketService extends Service {
 	 * @param event
 	 * @param params
 	 * @param listener
-	 * @return
+	 * @return success
 	 */
-	public boolean emit(final String event, JSONObject params, Listener listener) {
+	public boolean emit(final String event, JSONObject params, Emitter.Listener listener) {
 
 		// cache
 		/*

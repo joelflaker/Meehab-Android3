@@ -23,8 +23,7 @@
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="8dp"
                 android:clickable="true"
-                android:paddingBottom="8dp"
-                android:paddingRight="15dp"
+                android:padding="12dp"
                 android:paddingTop="8dp"
                 android:src="@drawable/back_btn" />
 
@@ -42,15 +41,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_toLeftOf="@+id/ibFav"
                 android:background="@null"
+                android:layout_alignParentRight="true"
                 android:clickable="false"
-                android:padding="8dp"
-                android:paddingRight="8dp"
+                android:padding="12dp"
+                android:layout_marginRight="8dp"
                 android:src="@drawable/more_opiton_icon" />
 
             <ImageButton
                 android:id="@+id/ibFav"
+                android:visibility="gone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"

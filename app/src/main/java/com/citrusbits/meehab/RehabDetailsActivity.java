@@ -713,11 +713,11 @@ OnSocketResponseListener, OnClickListener, OnMapClickListener {
 					Uri.parse(uri));
 			startActivity(Intent.createChooser(intent, "Select an application"));
 			break;
-		case R.id.ibFav:
-			isFavorite = !isFavorite;
-			resetFavoriteIcon();
-			addUserFavourite();
-
+//		case R.id.ibFav:
+//			isFavorite = !isFavorite;
+//			resetFavoriteIcon();
+//			addUserFavourite();
+//			break;
 		case R.id.tvInsuranceAccepted:
 			//toggling payments
 			addPayments(!tvPayments.isShown());

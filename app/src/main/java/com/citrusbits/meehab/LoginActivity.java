@@ -24,9 +24,6 @@ import com.citrusbits.meehab.services.SocketService;
 import com.citrusbits.meehab.utils.DeviceUtils;
 import com.citrusbits.meehab.utils.NetworkUtil;
 import com.citrusbits.meehab.utils.UtilityClass;
-import com.github.nkzawa.emitter.Emitter;
-import com.github.nkzawa.socketio.client.Manager;
-import com.github.nkzawa.socketio.client.Socket;
 import com.google.gson.Gson;
 
 import android.app.Activity;

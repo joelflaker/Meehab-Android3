@@ -32,6 +32,7 @@ import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.CalendarContract;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -39,9 +40,11 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AbsListView.LayoutParams;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.GridView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -92,7 +95,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.squareup.picasso.Picasso;
 
 public class MeetingDetailsActivity extends SocketActivity implements
-		OnSocketResponseListener, OnClickListener, OnMapClickListener {
+		OnSocketResponseListener, OnClickListener, OnMapClickListener, AdapterView.OnItemClickListener {
 
 	public static final int CODE_FULL_SCREEN = 5;
 
@@ -121,8 +124,6 @@ public class MeetingDetailsActivity extends SocketActivity implements
 	protected float defaultZoom = 8;
 	protected ArrayList<MeetingReviewModel> meetingReviewModels = new ArrayList<>();
 
-	private TextView[] tvCodes = new TextView[8];
-
 	UserDatasource userDatasource;
 	UserAccount user;
 
@@ -148,6 +149,8 @@ public class MeetingDetailsActivity extends SocketActivity implements
 	String mNearestDay;
 
 	RsvpAction rsvpAction;
+	private GridView gridMeetingCode;
+	private String[] meetingCodes;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -182,14 +185,8 @@ public class MeetingDetailsActivity extends SocketActivity implements
 					}
 				});
 
-		tvCodes[0] = (TextView) findViewById(R.id.tvCode1);
-		tvCodes[1] = (TextView) findViewById(R.id.tvCode2);
-		tvCodes[2] = (TextView) findViewById(R.id.tvCode3);
-		tvCodes[3] = (TextView) findViewById(R.id.tvCode4);
-		tvCodes[4] = (TextView) findViewById(R.id.tvCode5);
-		tvCodes[5] = (TextView) findViewById(R.id.tvCode6);
-		tvCodes[6] = (TextView) findViewById(R.id.tvCode7);
-		tvCodes[7] = (TextView) findViewById(R.id.tvCode8);
+		gridMeetingCode = (GridView)findViewById(R.id.gridMeetingCode);
+		gridMeetingCode.setOnItemClickListener(this);
 
 		pd = UtilityClass.getProgressDialog(this);
 		ibRating = (ImageButton) findViewById(R.id.ibRating);
@@ -278,22 +275,26 @@ public class MeetingDetailsActivity extends SocketActivity implements
 					+ " MILES AWAY");
 			rating.setRating(meeting.getReviewsAvg());
 
-			String[] codes = meeting.getCodes().split(",");
+			meetingCodes = meeting.getCodes().split(",");
 
-			for (int i = 0; i < codes.length; i++) {
-				tvCodes[i].setText(codes[i]);
-				tvCodes[i].setTag(codes[i]);
-				tvCodes[i].setVisibility(View.VISIBLE);
-				tvCodes[i].setOnClickListener(codeClickListener);
+			ArrayAdapter<String> codesAdapter = new ArrayAdapter<>(this,R.layout.list_item_meeting_code,meetingCodes);
+			gridMeetingCode.setAdapter(codesAdapter);
 
-				if (i >= MeetingsListAdapter.MAX_CODE_SIZE) {
-					break;
-				}
-			}
+//			for (int i = 0; i < codes.length; i++) {
+//				if (i >= MeetingsListAdapter.MAX_CODE_SIZE) {
+//					break;
+//				}
+//
+//				tvCodes[i].setText(codes[i]);
+//				tvCodes[i].setTag(codes[i]);
+//				tvCodes[i].setVisibility(View.VISIBLE);
+//				tvCodes[i].setOnClickListener(codeClickListener);
+//
+//			}
 			ibRating.setImageResource(meeting.isFavourite() ? R.drawable.star_pink
 					: R.drawable.star_white);
 
-			if (user.getMeetingHomeGroup().toLowerCase().trim()
+			if (!TextUtils.isEmpty(user.getMeetingHomeGroup()) && user.getMeetingHomeGroup().toLowerCase().trim()
 					.equals(meeting.getName().toLowerCase().trim())) {
 				cbHomeGroup.setChecked(true);
 				homeGroup = true;
@@ -322,6 +323,16 @@ public class MeetingDetailsActivity extends SocketActivity implements
 		}
 
 		// init meeting adapter
+	}
+
+	/**
+	 *  gridMeetingCode onClick method
+	 */
+	@Override
+	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+		String code = meetingCodes[position];
+		new CodePopup(MeetingDetailsActivity.this,
+				MettingCodes.meetingValuesFromCode(code)).show(view);
 	}
 
 	public MultiDatesManager setNearestDay(String days) {
@@ -642,17 +653,6 @@ public class MeetingDetailsActivity extends SocketActivity implements
 		 * R.drawable.check_in_btn);
 		 */
 	}
-
-	OnClickListener codeClickListener = new OnClickListener() {
-
-		@Override
-		public void onClick(View v) {
-			// TODO Auto-generated method stub
-			String code = (String) v.getTag();
-			new CodePopup(MeetingDetailsActivity.this,
-					MettingCodes.meetingValuesFromCode(code)).show(v);
-		}
-	};
 
 	@Override
 	void onBackendConnected() {

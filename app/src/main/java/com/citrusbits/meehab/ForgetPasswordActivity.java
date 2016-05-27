@@ -9,8 +9,6 @@ import com.citrusbits.meehab.pojo.AddUserResponse;
 import com.citrusbits.meehab.services.OnSocketResponseListener;
 import com.citrusbits.meehab.utils.NetworkUtil;
 import com.citrusbits.meehab.utils.UtilityClass;
-import com.github.nkzawa.emitter.Emitter;
-import com.github.nkzawa.socketio.client.Socket;
 import com.google.gson.Gson;
 
 import android.app.Activity;
@@ -122,30 +120,7 @@ public class ForgetPasswordActivity extends SocketActivity implements OnSocketRe
 		}
 		}
 	}
-	private Emitter.Listener onForgotPassword = new Emitter.Listener() {
-		@Override
-		public void call(final Object... args) {
-			runOnUiThread(new Runnable() {
-				@Override
-				public void run() {
-					Gson gson = new Gson();
-					try {
-						JSONObject data = (JSONObject) args[0];
-						AddUserResponse response = gson.fromJson(data.toString(), AddUserResponse.class);
-						if(response.getType()){
-							App.toast(response.getMessage());
-							finish();
-						}else{
-							App.toast(response.getMessage());
-						}
-					} catch (Exception e) {
-						return;
-					}
 
-				}
-			});
-		}
-	};
 	@Override
 	public void onBackPressed() {
 		super.onBackPressed();

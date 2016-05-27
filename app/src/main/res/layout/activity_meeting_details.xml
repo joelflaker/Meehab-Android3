@@ -1,7 +1,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:orientation="vertical" >
+              android:layout_width="fill_parent"
+              android:layout_height="fill_parent"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:orientation="vertical">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -129,14 +130,14 @@
                         android:src="@drawable/filter_divider" />
 
                     <LinearLayout
-                        android:layout_width="fill_parent"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
                         android:paddingLeft="15dp"
                         android:paddingRight="15dp" >
 
                         <LinearLayout
-                            android:layout_width="fill_parent"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:orientation="vertical" >
@@ -176,11 +177,12 @@
                         </LinearLayout>
 
                         <LinearLayout
-                            android:layout_width="fill_parent"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:orientation="vertical"
-                            android:paddingLeft="15dp" >
+                            android:paddingLeft="15dp"
+                            android:layout_marginRight="8dp">
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -192,127 +194,18 @@
                                 android:textColor="#CCCCCC"
                                 android:textSize="12sp" />
 
-                            <LinearLayout
+                            <com.citrusbits.meehab.customviews.MyGridView
+                                android:id="@+id/gridMeetingCode"
+                                android:padding="4dp"
+                                android:stretchMode="columnWidth"
+                                android:scrollbars="none"
+                                android:numColumns="4"
+                                android:horizontalSpacing="2dp"
+                                android:verticalSpacing="2dp"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:orientation="vertical" >
-
-                                <HorizontalScrollView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:paddingLeft="2dp"
-                                    android:paddingRight="2dp"
-                                    android:scrollbars="none" >
-
-                                    <LinearLayout
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:paddingTop="4dp" >
-
-                                        <TextView
-                                            android:id="@+id/tvCode1"
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:layout_marginLeft="2dp"
-                                            android:background="@drawable/gray_circle"
-                                            android:gravity="center"
-                                            android:textColor="@android:color/white"
-                                            android:textSize="12sp"
-                                            android:visibility="gone" />
-
-                                        <TextView
-                                            android:id="@+id/tvCode2"
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:layout_marginLeft="2dp"
-                                            android:background="@drawable/gray_circle"
-                                            android:gravity="center"
-                                            android:textColor="@android:color/white"
-                                            android:textSize="12sp"
-                                            android:visibility="gone" />
-
-                                        <TextView
-                                            android:id="@+id/tvCode3"
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:layout_marginLeft="2dp"
-                                            android:background="@drawable/gray_circle"
-                                            android:gravity="center"
-                                            android:textColor="@android:color/white"
-                                            android:textSize="12sp"
-                                            android:visibility="gone" />
-
-                                        <TextView
-                                            android:id="@+id/tvCode4"
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:layout_marginLeft="2dp"
-                                            android:background="@drawable/gray_circle"
-                                            android:gravity="center"
-                                            android:textColor="@android:color/white"
-                                            android:textSize="12sp"
-                                            android:visibility="gone" />
-                                    </LinearLayout>
-                                </HorizontalScrollView>
-
-                                <HorizontalScrollView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:paddingLeft="2dp"
-                                    android:paddingRight="2dp"
-                                    android:scrollbars="none" >
-
-                                    <LinearLayout
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:paddingTop="4dp" >
-
-                                        <TextView
-                                            android:id="@+id/tvCode5"
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:layout_marginLeft="2dp"
-                                            android:background="@drawable/gray_circle"
-                                            android:gravity="center"
-                                            android:textColor="@android:color/white"
-                                            android:textSize="12sp"
-                                            android:visibility="gone" />
-
-                                        <TextView
-                                            android:id="@+id/tvCode6"
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:layout_marginLeft="2dp"
-                                            android:background="@drawable/gray_circle"
-                                            android:gravity="center"
-                                            android:textColor="@android:color/white"
-                                            android:textSize="12sp"
-                                            android:visibility="gone" />
-
-                                        <TextView
-                                            android:id="@+id/tvCode7"
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:layout_marginLeft="2dp"
-                                            android:background="@drawable/gray_circle"
-                                            android:gravity="center"
-                                            android:textColor="@android:color/white"
-                                            android:textSize="12sp"
-                                            android:visibility="gone" />
-
-                                        <TextView
-                                            android:id="@+id/tvCode8"
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:layout_marginLeft="2dp"
-                                            android:background="@drawable/gray_circle"
-                                            android:gravity="center"
-                                            android:textColor="@android:color/white"
-                                            android:textSize="12sp"
-                                            android:visibility="gone" />
-                                    </LinearLayout>
-                                </HorizontalScrollView>
-                            </LinearLayout>
+                                android:orientation="vertical"
+                                tools:listitem="@layout/list_item_meeting_code"/>
                         </LinearLayout>
                     </LinearLayout>
 
