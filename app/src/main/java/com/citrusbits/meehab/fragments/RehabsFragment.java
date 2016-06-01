@@ -201,7 +201,6 @@ public class RehabsFragment extends Fragment implements
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		userDatasource = new UserDatasource(getActivity());
-		userDatasource.open();
 
 		user = userDatasource.findUser(AccountUtils.getUserId(getActivity()));
 		mContext = getActivity();

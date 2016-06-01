@@ -16,30 +16,29 @@ public class MeetingDatasource {
 	SQLiteOpenHelper helper;
 	SQLiteDatabase database;
 	Context context;
-	private boolean KeepOpen = false;
 
 	private static final String[] allColumns = {
-		MeehabDBOpenHelper.COLUMN_ID,
-		MeehabDBOpenHelper.COLUMN_USERID,
-		MeehabDBOpenHelper.COLUMN_USER_NAME,
-		MeehabDBOpenHelper.COLUMN_USER_EMAIL,
-		MeehabDBOpenHelper.COLUMN_PHONE,
-		MeehabDBOpenHelper.COLUMN_PICTURE,
-		MeehabDBOpenHelper.COLUMN_GENDER, 
-		MeehabDBOpenHelper.COLUMN_DOB,
-		MeehabDBOpenHelper.COLUMN_HOME_GROUP,
-		MeehabDBOpenHelper.COLUMN_MARITAL_STATUS,
-		MeehabDBOpenHelper.COLUMN_INTRESTED_IN,
-		MeehabDBOpenHelper.COLUMN_ABOUT_STORY,
-		MeehabDBOpenHelper.COLUMN_WILLING_SPONSOR,
-		MeehabDBOpenHelper.COLUMN_HEIGHT,
-		MeehabDBOpenHelper.COLUMN_WEIGHT,
-		MeehabDBOpenHelper.COLUMN_SEXUAL_ORIENTATION,
-		MeehabDBOpenHelper.COLUMN_ETHNICITY,
-		MeehabDBOpenHelper.COLUMN_HAVE_KIDS, 
-		MeehabDBOpenHelper.COLUMN_SOBER_DATE,
-		MeehabDBOpenHelper.COLUMN_LNG,
-		MeehabDBOpenHelper.COLUMN_LAT 
+			MeehabDBOpenHelper.COLUMN_ID,
+			MeehabDBOpenHelper.COLUMN_USERID,
+			MeehabDBOpenHelper.COLUMN_USER_NAME,
+			MeehabDBOpenHelper.COLUMN_USER_EMAIL,
+			MeehabDBOpenHelper.COLUMN_PHONE,
+			MeehabDBOpenHelper.COLUMN_PICTURE,
+			MeehabDBOpenHelper.COLUMN_GENDER,
+			MeehabDBOpenHelper.COLUMN_DOB,
+			MeehabDBOpenHelper.COLUMN_HOME_GROUP,
+			MeehabDBOpenHelper.COLUMN_MARITAL_STATUS,
+			MeehabDBOpenHelper.COLUMN_INTRESTED_IN,
+			MeehabDBOpenHelper.COLUMN_ABOUT_STORY,
+			MeehabDBOpenHelper.COLUMN_WILLING_SPONSOR,
+			MeehabDBOpenHelper.COLUMN_HEIGHT,
+			MeehabDBOpenHelper.COLUMN_WEIGHT,
+			MeehabDBOpenHelper.COLUMN_SEXUAL_ORIENTATION,
+			MeehabDBOpenHelper.COLUMN_ETHNICITY,
+			MeehabDBOpenHelper.COLUMN_HAVE_KIDS,
+			MeehabDBOpenHelper.COLUMN_SOBER_DATE,
+			MeehabDBOpenHelper.COLUMN_LNG,
+			MeehabDBOpenHelper.COLUMN_LAT
 	};
 
 	public MeetingDatasource(Context context) {
@@ -47,29 +46,27 @@ public class MeetingDatasource {
 		this.context = context;
 	}
 
-	public MeetingDatasource open() {
+	private MeetingDatasource open() {
 		database = helper.getWritableDatabase();
-		KeepOpen = true;
 		return this;
 	}
 
-	public void close() {
+	private void close() {
 		helper.close();
-		KeepOpen = false;
 	}
 
 	public UserAccount add(UserAccount user) {
 		if(user == null) return null;
-		
-		openIfNot();
-		
+
+		open();
+
 		ContentValues values = new ContentValues();
 		values.put(MeehabDBOpenHelper.COLUMN_USER_ID, user.getId());
 		values.put(MeehabDBOpenHelper.COLUMN_USER_NAME, user.getUsername());
 		values.put(MeehabDBOpenHelper.COLUMN_USER_EMAIL, user.getEmail());
 		values.put(MeehabDBOpenHelper.COLUMN_PHONE,user.getPhone());
 		values.put(MeehabDBOpenHelper.COLUMN_PICTURE, user.getImage());
-		values.put(MeehabDBOpenHelper.COLUMN_GENDER,user.getGender()); 
+		values.put(MeehabDBOpenHelper.COLUMN_GENDER,user.getGender());
 		values.put(MeehabDBOpenHelper.COLUMN_DOB,user.getDateOfBirth());
 		values.put(MeehabDBOpenHelper.COLUMN_HOME_GROUP,user.getMeetingHomeGroup());
 		values.put(MeehabDBOpenHelper.COLUMN_MARITAL_STATUS,user.getMaritalStatus());
@@ -80,7 +77,7 @@ public class MeetingDatasource {
 		values.put(MeehabDBOpenHelper.COLUMN_WEIGHT, user.getWeight());
 		values.put(MeehabDBOpenHelper.COLUMN_SEXUAL_ORIENTATION,user.getSexualOrientation());
 		values.put(MeehabDBOpenHelper.COLUMN_ETHNICITY,user.getEthnicity());
-		values.put(MeehabDBOpenHelper.COLUMN_LAT,user.getLatitude()); 
+		values.put(MeehabDBOpenHelper.COLUMN_LAT,user.getLatitude());
 		values.put(MeehabDBOpenHelper.COLUMN_LNG,user.getLongitude());
 		values.put(MeehabDBOpenHelper.COLUMN_SOBER_DATE,user.getSoberSence());
 		values.put(MeehabDBOpenHelper.COLUMN_HAVE_KIDS,user.getHaveKids());
@@ -88,18 +85,18 @@ public class MeetingDatasource {
 		database.insert(MeehabDBOpenHelper.TABLE_USER, null, values);
 		// user.setId(id);
 
-		closeIfNot();
+		close();
 		return user;
 	}
 
 	public List<UserAccount> findAll() {
 
-		openIfNot();
-		
+		open();
+
 		List<UserAccount> users = new ArrayList<UserAccount>();
 		Cursor c = database.query(MeehabDBOpenHelper.TABLE_USER, allColumns,
 				null, null, null, null, null);
-		
+
 		if (c.getCount() > 0) {
 			while (c.moveToNext()) {
 				UserAccount user = new UserAccount();
@@ -126,70 +123,15 @@ public class MeetingDatasource {
 				users.add(user);
 			}
 		}
-
-		closeIfNot();
+		c.close();
+		close();
 		return users;
 	}
 
-	public UserAccount findUser(String userId) {
-		UserAccount user = new UserAccount();
-
-		//		String where = MeehabDBOpenHelper.COLUMN_USER_ID + "='" + userId + "'";
-		//		Cursor c = database.query(MeehabDBOpenHelper.TABLE_USER, allColumns,
-		//				where, null, null, null, null);
-		//
-		//		if (c.getCount() > 0) {
-		//			while (c.moveToNext()) {
-		//
-		//				user.setUserId(c.getString(c
-		//						.getColumnIndex(MeehabDBOpenHelper.COLUMN_USER_ID)));
-		//				user.setEmail(c.getString(c
-		//						.getColumnIndex(MeehabDBOpenHelper.COLUMN_USER_EMAIL)));
-		//				user.setUsername(c.getString(c
-		//						.getColumnIndex(MeehabDBOpenHelper.COLUMN_USER_NAME)));
-		//				user.setPassword(c.getString(c
-		//						.getColumnIndex(MeehabDBOpenHelper.COLUMN_PASSWORD)));
-		//				user.setPicture(c.getString(c
-		//						.getColumnIndex(MeehabDBOpenHelper.COLUMN_PICTURE)));
-		//				user.setWeight(c.getString(c
-		//						.getColumnIndex(MeehabDBOpenHelper.COLUMN_WEIGHT)));
-		//				user.setBodyType(c.getString(c
-		//						.getColumnIndex(MeehabDBOpenHelper.COLUMN_BODY_TYPE)));
-		//				user.setEthnicity(c.getString(c
-		//						.getColumnIndex(MeehabDBOpenHelper.COLUMN_ETHNICITY)));
-		//				user.setStatus(c.getString(c
-		//						.getColumnIndex(MeehabDBOpenHelper.COLUMN_STATUS)));
-		//				user.setAge(c.getString(c
-		//						.getColumnIndex(MeehabDBOpenHelper.COLUMN_AGE)));
-		//				user.setHeight(c.getString(c
-		//						.getColumnIndex(MeehabDBOpenHelper.COLUMN_HEIGHT)));
-		//				user.setLookingForDating(c.getString(c
-		//						.getColumnIndex(MeehabDBOpenHelper.COLUMN_LOOKING_FOR_DATING)));
-		//				user.setLookingForFriends(c.getString(c
-		//						.getColumnIndex(MeehabDBOpenHelper.COLUMN_LOOKING_FOR_FRIENDS)));
-		//				user.setLookingForRelationship(c.getString(c
-		//						.getColumnIndex(MeehabDBOpenHelper.COLUMN_LOOKING_FOR_RELATIONSHIP)));
-		//				user.setLat(c.getString(c
-		//						.getColumnIndex(MeehabDBOpenHelper.COLUMN_LAT)));
-		//				user.setLng(c.getString(c
-		//						.getColumnIndex(MeehabDBOpenHelper.COLUMN_LNG)));
-		//				user.setBio(c.getString(c
-		//						.getColumnIndex(MeehabDBOpenHelper.COLUMN_BIO)));
-		//				user.setQbid(c.getString(c
-		//						.getColumnIndex(MeehabDBOpenHelper.COLUMN_QB_ID)));
-		//				user.setPushN(c.getString(c
-		//						.getColumnIndex(MeehabDBOpenHelper.COLUMN_PUSH_NOTIFICATION)));
-		//				user.setShowD(c.getString(c
-		//						.getColumnIndex(MeehabDBOpenHelper.COLUMN_SHOW_DISTANCE)));
-		//			}
-		//		}
-
-		return (user != null ? user : null);
-	}
 
 	public UserAccount findUser() {
 		UserAccount user = null;
-		openIfNot();
+		open();
 		Cursor c = database.query(MeehabDBOpenHelper.TABLE_USER, allColumns,
 				null, null, null, null, null);
 
@@ -218,33 +160,33 @@ public class MeetingDatasource {
 				user.setHaveKids(c.getString(c.getColumnIndex(MeehabDBOpenHelper.COLUMN_HAVE_KIDS)));
 			}
 		}
-
-		closeIfNot();
+		c.close();
+		close();
 		return (user != null ? user : null);
 	}
 
 	public boolean remove(UserAccount user) {
-		openIfNot();
+		open();
 		String where = MeehabDBOpenHelper.COLUMN_USER_ID + "='"
 				+ user.getId() + "'";
 
 		int result = database
 				.delete(MeehabDBOpenHelper.TABLE_USER, where, null);
 
-		closeIfNot();
+		close();
 		return (result == 1);
 	}
 
 	public boolean update(UserAccount user) {
-		if(user == null) return false; 
-		openIfNot();
+		if(user == null) return false;
+		open();
 		ContentValues values = new ContentValues();
 		values.put(MeehabDBOpenHelper.COLUMN_USER_ID, user.getId());
 		values.put(MeehabDBOpenHelper.COLUMN_USER_NAME, user.getUsername());
 		values.put(MeehabDBOpenHelper.COLUMN_USER_EMAIL, user.getEmail());
 		values.put(MeehabDBOpenHelper.COLUMN_PHONE,user.getPhone());
 		values.put(MeehabDBOpenHelper.COLUMN_PICTURE, user.getImage());
-		values.put(MeehabDBOpenHelper.COLUMN_GENDER,user.getGender()); 
+		values.put(MeehabDBOpenHelper.COLUMN_GENDER,user.getGender());
 		values.put(MeehabDBOpenHelper.COLUMN_DOB,user.getDateOfBirth());
 		values.put(MeehabDBOpenHelper.COLUMN_HOME_GROUP,user.getMeetingHomeGroup());
 		values.put(MeehabDBOpenHelper.COLUMN_MARITAL_STATUS,user.getMaritalStatus());
@@ -255,7 +197,7 @@ public class MeetingDatasource {
 		values.put(MeehabDBOpenHelper.COLUMN_WEIGHT, user.getWeight());
 		values.put(MeehabDBOpenHelper.COLUMN_SEXUAL_ORIENTATION,user.getSexualOrientation());
 		values.put(MeehabDBOpenHelper.COLUMN_ETHNICITY,user.getEthnicity());
-		values.put(MeehabDBOpenHelper.COLUMN_LAT,user.getLatitude()); 
+		values.put(MeehabDBOpenHelper.COLUMN_LAT,user.getLatitude());
 		values.put(MeehabDBOpenHelper.COLUMN_LNG,user.getLongitude());
 		values.put(MeehabDBOpenHelper.COLUMN_SOBER_DATE,user.getSoberSence());
 		values.put(MeehabDBOpenHelper.COLUMN_HAVE_KIDS,user.getHaveKids());
@@ -267,15 +209,15 @@ public class MeetingDatasource {
 
 		int result = database.update(MeehabDBOpenHelper.TABLE_USER, values,
 				where, null);
-		closeIfNot();
+		close();
 
 		return (result == 1);
 	}
 
 	public boolean removeAllUsers() {
-		openIfNot();
+		open();
 		database.execSQL("delete from " + MeehabDBOpenHelper.TABLE_USER);
-		closeIfNot();
+		close();
 		return true;
 	}
 
@@ -283,27 +225,15 @@ public class MeetingDatasource {
 	 * @return
 	 */
 	public boolean hasAccounts() {
-			openIfNot();
-			Cursor c = database.query(MeehabDBOpenHelper.TABLE_USER, allColumns,null, null, null, null, null);
+		open();
+		Cursor c = database.query(MeehabDBOpenHelper.TABLE_USER, allColumns,null, null, null, null, null);
 
-			if (c.getCount() > 0) {
-				return true;
-			}
-			closeIfNot();
-			return false;
-
-	}
-
-	private void closeIfNot() {
-		if( !KeepOpen ){
-			close();
+		if (c.getCount() > 0) {
+			return true;
 		}
-	}
+		c.close();
+		close();
+		return false;
 
-	private void openIfNot() {
-		if( !KeepOpen ){
-			open();
-		}
 	}
-
 }

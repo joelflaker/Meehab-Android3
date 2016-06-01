@@ -75,10 +75,10 @@ public class RsvpActivity extends SocketActivity implements
 	private int mAccountPosition = -1;
 
 	private int meetingId;
+	private boolean rsvpFriendsUpdated = false;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		pd = UtilityClass.getProgressDialog(this);
 		setContentView(R.layout.activity_rsvp_friends);
@@ -197,7 +197,6 @@ public class RsvpActivity extends SocketActivity implements
 			return getDiffYears(dateOfBirthDate, currentDate);
 
 		} catch (Exception e) {
-			// TODO: handle exception
 			Log.i("Exception Date Of birth", dateOfBirth);
 			return 0;
 		}
@@ -342,7 +341,6 @@ public class RsvpActivity extends SocketActivity implements
 
 				socketService.getAllRSVPUsers(object);
 			} catch (JSONException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 
@@ -351,15 +349,16 @@ public class RsvpActivity extends SocketActivity implements
 
 	@Override
 	public void onBackendConnected() {
-		// TODO Auto-generated method stub
-		getRSVPFriends();
+		if(rsvpFriendsUpdated) {
+			getRSVPFriends();
+		}
 	}
 
 	@Override
 	public void onSocketResponseSuccess(String event, Object obj) {
-		// TODO Auto-generated method stub
 		pd.dismiss();
 		if (event.equals(EventParams.METHOD_RSVP_USERS)) {
+			rsvpFriendsUpdated = true;
 			userAccounts.clear();
 			Gson gson = new Gson();
 			JSONObject data = (JSONObject) obj;
@@ -379,7 +378,6 @@ public class RsvpActivity extends SocketActivity implements
 
 	@Override
 	public void onSocketResponseFailure(String onEvent, String message) {
-		// TODO Auto-generated method stub
 		if (pd != null) {
 			pd.dismiss();
 		}
@@ -387,7 +385,6 @@ public class RsvpActivity extends SocketActivity implements
 
 	@Override
 	public void onBackPressed() {
-		// TODO Auto-generated method stub
 		super.onBackPressed();
 		this.overridePendingTransition(R.anim.activity_back_in,
 				R.anim.activity_back_out);

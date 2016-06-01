@@ -75,7 +75,6 @@ public class ProfileSetupMoreActivity extends SocketActivity implements
 		// App.getInstance().initConnectNodeJS();
 		// }
 		userDatasource = new UserDatasource(this);
-		userDatasource.open();
 
 		mUser = userDatasource.findUser(AccountUtils.getUserId(this));
 		user = new UserAccount();

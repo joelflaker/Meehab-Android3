@@ -68,7 +68,7 @@ public class GcmIntentService extends IntentService {
 
 		if (!extras.isEmpty()) { // has effect of unparcelling Bundle
 			/*
-			 * Filter messages based on message type. Since it is likely that
+			 * applyFilter messages based on message type. Since it is likely that
 			 * GCM will be extended in the future with new message types, just
 			 * ignore any message types you're not interested in, or that you
 			 * don't recognize.

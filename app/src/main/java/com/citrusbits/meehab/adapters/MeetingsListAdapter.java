@@ -171,7 +171,7 @@ public class MeetingsListAdapter extends ArrayAdapter<MeetingModel> {
 		return v;
 	}
 
-	// Filter Class
+	// applyFilter Class
 	public void filter(String charText) {
 		charText = charText.toLowerCase(Locale.getDefault());
 		meetings.clear();
@@ -386,7 +386,12 @@ public class MeetingsListAdapter extends ArrayAdapter<MeetingModel> {
 		 * meeting.getLatitude()+","+meeting.getLongitude());
 		 */
 
-		long mil = Long.parseLong(mile);
+		long mil = 50;
+		try {
+			mil = Long.parseLong(mile);
+		}catch (Exception e){
+			e.printStackTrace();
+		}
 		double distance = meeting.getDistanceInMiles();
 
 		/*

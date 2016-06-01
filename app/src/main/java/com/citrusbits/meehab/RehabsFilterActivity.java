@@ -158,10 +158,10 @@ public class RehabsFilterActivity extends SocketActivity implements
 		
 		//distance
 		if(filterModel.is50Distance()){
-			txtDistance.setText("more than 50 miles");
+			txtDistance.setText(R.string.more_than_50_miles);
 		}else{
 			String miles = filterModel.getDistance();
-			txtDistance.setText(miles == null ? "5 miles": miles);
+			txtDistance.setText(miles == null ? "5 Miles": miles);
 		}
 	}
 
@@ -187,7 +187,7 @@ public class RehabsFilterActivity extends SocketActivity implements
 			}
 
 			String distance = txtDistance.getText().toString().trim();
-			if (distance.equals("more than 50 miles")) {
+			if (distance.equalsIgnoreCase(getString(R.string.more_than_50_miles))) {
 				filterModel.setanyDistance(true);
 			} else {
 				filterModel.setanyDistance(false);

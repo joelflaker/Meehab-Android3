@@ -103,7 +103,6 @@ public class MyProfileFragment extends Fragment implements
 	public void onCreate(@Nullable Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		userDatasource = new UserDatasource(getActivity());
-		userDatasource.open();
 		this.homeActivity = (HomeActivity) getActivity();
 		pd = UtilityClass.getProgressDialog(homeActivity);
 
@@ -222,7 +221,6 @@ public class MyProfileFragment extends Fragment implements
 				kidsText.setText("No Answer");
 			}
 
-
 			homegroupText.setText(user.getMeetingHomeGroup());
 
 			String aaStoryTxt = user.getAboutStory();
@@ -270,7 +268,6 @@ public class MyProfileFragment extends Fragment implements
 	@Override
 	public void onResume() {
 		super.onResume();
-		userDatasource.open();
 		user = userDatasource.findUser(AccountUtils.getUserId(getActivity()));
 		resetUserInfo();
 	}
@@ -278,7 +275,6 @@ public class MyProfileFragment extends Fragment implements
 	@Override
 	public void onPause() {
 		super.onPause();
-		userDatasource.close();
 	}
 
 	@Override

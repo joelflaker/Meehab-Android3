@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <!-- Filter Days -->
+    <!-- applyFilter Days -->
     <string-array name="daysValues">
         <item>Select All</item>
         <item>Monday</item>
@@ -21,7 +21,7 @@
         <item>School</item>
     </string-array>
 
-    <!-- Filter Days -->
+    <!-- applyFilter Days -->
     <string-array name="days_arr">
         <item>Monday</item>
         <item>Tuesday</item>
@@ -32,7 +32,7 @@
         <item>Sunday</item>
     </string-array>
 
-    <!-- Filter Days -->
+    <!-- applyFilter Days -->
     <string-array name="timeRangeValues">
         <item>Select All</item>
         <item>06 AM - 09 AM</item>
@@ -44,7 +44,7 @@
     </string-array>
     
 
-    <!-- Filter Days -->
+    <!-- applyFilter Days -->
     <string-array name="meetingsTypesValues">
         <item>B - Beginners</item>
         <item>BS - Book Study</item>

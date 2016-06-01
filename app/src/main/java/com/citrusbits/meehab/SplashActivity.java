@@ -64,7 +64,7 @@ public class SplashActivity extends Activity {
 
 		}
 
-		if(BuildConfig.DEBUG) {
+		/*if(BuildConfig.DEBUG) {
 			// Activate StrictMode
 			StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
 					.detectAll()
@@ -82,7 +82,7 @@ public class SplashActivity extends Activity {
 					.penaltyLog()
 //				.penaltyDeath()
 					.build());
-		}
+		}*/
 
 		/* this.startService(new Intent(this, LocationService.class)); */
 		requestWindowFeature(Window.FEATURE_NO_TITLE);

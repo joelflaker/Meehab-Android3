@@ -170,7 +170,6 @@ public class MeetingDetailsActivity extends SocketActivity implements
 		rlRSVP.setOnClickListener(this);
 
 		userDatasource = new UserDatasource(MeetingDetailsActivity.this);
-		userDatasource.open();
 
 		user = userDatasource.findUser(AccountUtils.getUserId(this));
 
@@ -1310,7 +1309,6 @@ public class MeetingDetailsActivity extends SocketActivity implements
 									@Override
 									public void onNoClick(
 											AddReviewToCalendarDialog dialog) {
-										// TODO Auto-generated method stub
 										dialog.dismiss();
 									}
 
@@ -1318,7 +1316,6 @@ public class MeetingDetailsActivity extends SocketActivity implements
 									public void onYesClick(
 											AddReviewToCalendarDialog dialog,
 											RsvpAction rsvpAction) {
-										// TODO Auto-generated method stub
 										dialog.dismiss();
 										// addMeetingToCalendar();
 										if (rsvpAction != null) {
@@ -1346,7 +1343,6 @@ public class MeetingDetailsActivity extends SocketActivity implements
 								}, rsvpAction).show();
 
 			} catch (JSONException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 
@@ -1357,8 +1353,7 @@ public class MeetingDetailsActivity extends SocketActivity implements
 				String message = data.getString("message");
 				Toast.makeText(MeetingDetailsActivity.this, message,
 						Toast.LENGTH_SHORT).show();
-				meeting.setCheckInMeeting(meeting.getCheckInMeeting() == 1 ? 0
-						: 1);
+				meeting.setCheckInMeeting(meeting.getCheckInMeeting() == 1 ? 0 : 1);
 
 				if (rsvpAction != null) {
 					switch (rsvpAction) {
@@ -1375,7 +1370,6 @@ public class MeetingDetailsActivity extends SocketActivity implements
 
 				setCheckInButton();
 			} catch (JSONException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 

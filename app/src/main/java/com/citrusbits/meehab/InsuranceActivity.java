@@ -53,7 +53,6 @@ public class InsuranceActivity extends SocketActivity implements
 		}
 
 		userDatasource = new UserDatasource(this);
-		userDatasource.open();
 		user = userDatasource.findUser(AccountUtils.getUserId(this));
 
 		

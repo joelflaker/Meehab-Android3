@@ -15,7 +15,9 @@ import java.util.concurrent.TimeUnit;
 
 public class MeetingUtils {
 
-	
+
+	private static final long MINUTES_BEFORE = 14;
+
 	public static Date getDateObject(String date) {
 		SimpleDateFormat prevFormate = new SimpleDateFormat("dd/MM/yyyy", Locale.US);
 		try {
@@ -53,7 +55,6 @@ public class MeetingUtils {
 			return getDiffYears(dateOfBirthDate, currentDate);
 
 		} catch (Exception e) {
-			// TODO: handle exception
 			return 0;
 		}
 	}
@@ -108,8 +109,7 @@ public class MeetingUtils {
 			long hours = x % 24;
 			Log.i("Meeting Name ", model.getName());
 			Log.i("Hours Difference ", hours + ":" + minutes);
-			SimpleDateFormat mmmDate = new SimpleDateFormat(
-					"dd/MM/yyyy hh:mm a");
+			SimpleDateFormat mmmDate = new SimpleDateFormat("dd/MM/yyyy hh:mm a");
 			String mDate = mmmDate.format(calendar.getTime());
 			String mNow = mmmDate.format(currentCalendar.getTime());
 			Log.e("Meeting date time ", mDate);
@@ -123,11 +123,12 @@ public class MeetingUtils {
 				model.setMarkerTypeColor(MeetingModel.MarkerColorType.GREEN);
 				model.setStartInTime("AFTER " + hours + " "
 						+ (hours == 1 ? "HOUR" : "HOURS"));
-			} else if (hours == 0 && minutes > 0
-					|| (hours == 0 && minutes == 0 && seconds > 1)) {
+
+				//Qamar - change old if (hours == 0 && minutes > 0 || (hours == 0 && minutes == 0 && seconds > 1))
+			} else if (hours == 0 && minutes > MINUTES_BEFORE) {
 				model.setMarkerTypeColor(MeetingModel.MarkerColorType.ORANGE);
 				model.setStartInTime("STARTS IN UNDER AN HOUR");
-			} else if (hours == 0 && minutes <= 0 || hours < 0 && hours > -2) {
+			} else if (hours == 0 && minutes <= MINUTES_BEFORE || hours < 0 && hours > -2) {
 				model.setMarkerTypeColor(MeetingModel.MarkerColorType.RED);
 				model.setStartInTime("ONGOING");
 			} else if (hours <= -1) {

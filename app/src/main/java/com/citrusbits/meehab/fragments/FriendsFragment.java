@@ -9,9 +9,7 @@ import java.util.List;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.R.integer;
 import android.app.Dialog;
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -33,7 +31,6 @@ import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.citrusbits.meehab.FriendsFilterActivity;
 import com.citrusbits.meehab.HomeActivity;
@@ -78,7 +75,6 @@ public class FriendsFragment extends Fragment implements
 
 	private HomeActivity homeActivity;
 	private EditText editTopCenter;
-	private View focus_thief;
 
 	private Dialog pd;;
 
@@ -130,7 +126,6 @@ public class FriendsFragment extends Fragment implements
 		ivListBar = (ImageView) v.findViewById(R.id.ivListBar);
 
 		editTopCenter = (EditText) v.findViewById(R.id.editTopCenter);
-		focus_thief = v.findViewById(R.id.focus_thief);
 		editTopCenter.addTextChangedListener(new TextWatcher() {
 
 			@Override
@@ -350,7 +345,7 @@ public class FriendsFragment extends Fragment implements
 		}
 	}
 
-	public void Filter(FriendFilterResultHolder fFilterResultHolder) {
+	public void applyFilter(FriendFilterResultHolder fFilterResultHolder) {
 
 		this.fFilterResultHolder = fFilterResultHolder;
 		boolean onlineNowFilter = fFilterResultHolder.isOnlineNow();
@@ -867,7 +862,7 @@ public class FriendsFragment extends Fragment implements
 	public void onSocketResponseSuccess(String event, Object obj) {
 		pd.dismiss();
 		if (event.equals(EventParams.METHOD_GET_ALL_FRIENDS)) {
-			isFriendsFetch=true;
+			isFriendsFetch = true;
 			userAccounts.clear();
 			Gson gson = new Gson();
 			JSONObject data = (JSONObject) obj;
@@ -900,7 +895,7 @@ public class FriendsFragment extends Fragment implements
 			userAccountsCache.addAll(friends);
 			friendsGridAdapter.notifyDataSetChanged();
 
-			Filter(fFilterResultHolder);
+			applyFilter(fFilterResultHolder);
 
 			updateEmptyViewVisibility();
 			/*

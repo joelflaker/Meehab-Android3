@@ -16,7 +16,6 @@ public class UserDatasource {
 	SQLiteOpenHelper helper;
 	SQLiteDatabase database;
 	Context context;
-	private boolean KeepOpen = false;
 
 	private static final String[] allColumns = { MeehabDBOpenHelper.COLUMN_ID,
 			MeehabDBOpenHelper.COLUMN_USERID,
@@ -45,22 +44,20 @@ public class UserDatasource {
 		this.context = context;
 	}
 
-	public UserDatasource open() {
+	private UserDatasource open() {
 		database = helper.getWritableDatabase();
-		KeepOpen = true;
 		return this;
 	}
 
-	public void close() {
+	private void close() {
 		helper.close();
-		KeepOpen = false;
 	}
 
 	public UserAccount add(UserAccount user) {
 		if (user == null)
 			return null;
 
-		openIfNot();
+		open();
 
 		ContentValues values = new ContentValues();
 		int userId = user.getId();
@@ -98,13 +95,13 @@ public class UserDatasource {
 		database.insert(MeehabDBOpenHelper.TABLE_USER, null, values);
 		// user.setId(id);
 
-		closeIfNot();
+		close();
 		return user;
 	}
 
 	public List<UserAccount> findAll() {
 
-		openIfNot();
+		open();
 
 		List<UserAccount> users = new ArrayList<UserAccount>();
 		Cursor c = database.query(MeehabDBOpenHelper.TABLE_USER, allColumns,
@@ -165,70 +162,13 @@ public class UserDatasource {
 			}
 		}
 
-		closeIfNot();
+		close();
 		return users;
-	}
-
-	public UserAccount findUser(String userId) {
-		UserAccount user = new UserAccount();
-
-		// String where = MeehabDBOpenHelper.COLUMN_USER_ID + "='" + userId +
-		// "'";
-		// Cursor c = database.query(MeehabDBOpenHelper.TABLE_USER, allColumns,
-		// where, null, null, null, null);
-		//
-		// if (c.getCount() > 0) {
-		// while (c.moveToNext()) {
-		//
-		// user.setUserId(c.getString(c
-		// .getColumnIndex(MeehabDBOpenHelper.COLUMN_USER_ID)));
-		// user.setEmail(c.getString(c
-		// .getColumnIndex(MeehabDBOpenHelper.COLUMN_USER_EMAIL)));
-		// user.setUsername(c.getString(c
-		// .getColumnIndex(MeehabDBOpenHelper.COLUMN_USER_NAME)));
-		// user.setPassword(c.getString(c
-		// .getColumnIndex(MeehabDBOpenHelper.COLUMN_PASSWORD)));
-		// user.setPicture(c.getString(c
-		// .getColumnIndex(MeehabDBOpenHelper.COLUMN_PICTURE)));
-		// user.setWeight(c.getString(c
-		// .getColumnIndex(MeehabDBOpenHelper.COLUMN_WEIGHT)));
-		// user.setBodyType(c.getString(c
-		// .getColumnIndex(MeehabDBOpenHelper.COLUMN_BODY_TYPE)));
-		// user.setEthnicity(c.getString(c
-		// .getColumnIndex(MeehabDBOpenHelper.COLUMN_ETHNICITY)));
-		// user.setStatus(c.getString(c
-		// .getColumnIndex(MeehabDBOpenHelper.COLUMN_STATUS)));
-		// user.setAge(c.getString(c
-		// .getColumnIndex(MeehabDBOpenHelper.COLUMN_AGE)));
-		// user.setHeight(c.getString(c
-		// .getColumnIndex(MeehabDBOpenHelper.COLUMN_HEIGHT)));
-		// user.setLookingForDating(c.getString(c
-		// .getColumnIndex(MeehabDBOpenHelper.COLUMN_LOOKING_FOR_DATING)));
-		// user.setLookingForFriends(c.getString(c
-		// .getColumnIndex(MeehabDBOpenHelper.COLUMN_LOOKING_FOR_FRIENDS)));
-		// user.setLookingForRelationship(c.getString(c
-		// .getColumnIndex(MeehabDBOpenHelper.COLUMN_LOOKING_FOR_RELATIONSHIP)));
-		// user.setLat(c.getString(c
-		// .getColumnIndex(MeehabDBOpenHelper.COLUMN_LAT)));
-		// user.setLng(c.getString(c
-		// .getColumnIndex(MeehabDBOpenHelper.COLUMN_LNG)));
-		// user.setBio(c.getString(c
-		// .getColumnIndex(MeehabDBOpenHelper.COLUMN_BIO)));
-		// user.setQbid(c.getString(c
-		// .getColumnIndex(MeehabDBOpenHelper.COLUMN_QB_ID)));
-		// user.setPushN(c.getString(c
-		// .getColumnIndex(MeehabDBOpenHelper.COLUMN_PUSH_NOTIFICATION)));
-		// user.setShowD(c.getString(c
-		// .getColumnIndex(MeehabDBOpenHelper.COLUMN_SHOW_DISTANCE)));
-		// }
-		// }
-
-		return (user != null ? user : null);
 	}
 
 	public UserAccount findUser(int userId) {
 		UserAccount user = null;
-		openIfNot();
+		open();
 		Cursor c = database.query(MeehabDBOpenHelper.TABLE_USER, null,
 				MeehabDBOpenHelper.COLUMN_USER_ID + "=?",
 				new String[] { String.valueOf(userId) }, null, null, null);
@@ -291,27 +231,27 @@ public class UserDatasource {
 					.getColumnIndex(MeehabDBOpenHelper.COLUMN_ACCUPATION)));
 			// }
 		}
-
-		closeIfNot();
+		c.close();
+		close();
 		return (user != null ? user : null);
 	}
 
 	public boolean remove(UserAccount user) {
-		openIfNot();
+		open();
 		String where = MeehabDBOpenHelper.COLUMN_USER_ID + "='" + user.getId()
 				+ "'";
 
 		int result = database
 				.delete(MeehabDBOpenHelper.TABLE_USER, where, null);
 
-		closeIfNot();
+		close();
 		return (result == 1);
 	}
 
 	public boolean update(UserAccount user) {
 		if (user == null)
 			return false;
-		openIfNot();
+		open();
 		ContentValues values = new ContentValues();
 		values.put(MeehabDBOpenHelper.COLUMN_USER_ID, user.getId());
 		values.put(MeehabDBOpenHelper.COLUMN_USER_NAME, user.getUsername());
@@ -354,7 +294,7 @@ public class UserDatasource {
 
 		int result = database.update(MeehabDBOpenHelper.TABLE_USER, values,
 				where, null);
-		closeIfNot();
+		close();
 
 		return (result == 1);
 	}
@@ -363,7 +303,7 @@ public class UserDatasource {
 	public boolean updateHomeGroup(UserAccount user) {
 		if (user == null)
 			return false;
-		openIfNot();
+		open();
 		ContentValues values = new ContentValues();
 		
 		
@@ -378,15 +318,15 @@ public class UserDatasource {
 
 		int result = database.update(MeehabDBOpenHelper.TABLE_USER, values,
 				where, null);
-		closeIfNot();
+		close();
 
 		return (result == 1);
 	}
 
 	public boolean removeAllUsers() {
-		openIfNot();
+		open();
 		database.execSQL("delete from " + MeehabDBOpenHelper.TABLE_USER);
-		closeIfNot();
+		close();
 		return true;
 	}
 
@@ -394,28 +334,17 @@ public class UserDatasource {
 	 * @return
 	 */
 	public boolean hasAccounts() {
-		openIfNot();
+		open();
 		Cursor c = database.query(MeehabDBOpenHelper.TABLE_USER, allColumns,
 				null, null, null, null, null);
 
 		if (c.getCount() > 0) {
 			return true;
 		}
-		closeIfNot();
+		c.close();
+		close();
 		return false;
 
-	}
-
-	private void closeIfNot() {
-		if (!KeepOpen) {
-			close();
-		}
-	}
-
-	private void openIfNot() {
-		if (!KeepOpen) {
-			open();
-		}
 	}
 
 }

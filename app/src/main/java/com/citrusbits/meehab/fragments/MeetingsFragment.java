@@ -209,10 +209,8 @@ public class MeetingsFragment extends Fragment implements
 		pd = UtilityClass.getProgressDialog(homeActivity);
 
 		userDatasource = new UserDatasource(getActivity());
-		userDatasource.open();
 		timeZone = MeetingUtils.getTimeZoneOffset();
 		user = userDatasource.findUser(AccountUtils.getUserId(getActivity()));
-		userDatasource.close();
 		mContext = getActivity();
 		meetings = new ArrayList<>();
 		spots = new HashMap<>();

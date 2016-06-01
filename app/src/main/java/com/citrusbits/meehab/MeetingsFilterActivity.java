@@ -30,8 +30,6 @@ public class MeetingsFilterActivity extends SocketActivity implements
 		OnClickListener {
 	public static final int CLEAR_FILTER = 11;
 	public static final String MEETING_FILTER = "meeting_filter";
-	private int ParentClickStatus = -1;
-	private int ChildClickStatus = -1;
 	private ExpandableListView expListFilter;
 	private static ArrayList<ExpCategory> cacheCategories = new ArrayList<>();
 	private ArrayList<ExpCategory> categories = new ArrayList<>();
@@ -199,14 +197,14 @@ public class MeetingsFilterActivity extends SocketActivity implements
 		filter.setAnyCode(zipcode.isEmpty() ? true : false);
 		filter.setZipCode(zipcode);
 		String distanceString = txtDistance.getText().toString().trim();
-		filter.setAnyDistance(distanceString.equals("more than 50 miles") ? true
+		filter.setAnyDistance(distanceString.equalsIgnoreCase(getString(R.string.more_than_50_miles)) ? true
 				: false);
 
 		filter.setDistance(distanceString);
 
 		String ratingString = txtRating.getText().toString().trim();
 
-		filter.setAnyStar(ratingString.trim().equals("5 Stars") ? true : false);
+		filter.setAnyStar(ratingString.trim().equalsIgnoreCase("5 Stars") ? true : false);
 
 		filter.setRating(ratingString);
 

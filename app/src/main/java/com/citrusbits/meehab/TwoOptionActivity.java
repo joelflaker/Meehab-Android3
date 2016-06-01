@@ -32,14 +32,12 @@ public class TwoOptionActivity extends Activity implements OnClickListener {
 
 		UserDatasource userDatasource = new UserDatasource(
 				TwoOptionActivity.this);
-//		userDatasource.open();
 		UserAccount user = userDatasource.findUser(AccountUtils.getUserId(this));
 		
 		//if null then logout
 		if( user == null || user.getUsername() == null) {
 			new LogoutHelper(this).attemptLogout();
 		}
-//		userDatasource.close();
 		TextView tvUserName = (TextView) findViewById(R.id.tvUserName);
 		String userName = user.getUsername();
 		tvUserName.setText(String.format(

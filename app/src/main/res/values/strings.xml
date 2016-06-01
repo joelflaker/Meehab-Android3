@@ -204,4 +204,5 @@
 
     <!--media controller-->
     <string name="description">Media Controls</string>
+    <string name="more_than_50_miles">more than 50 Miles</string>
 </resources>

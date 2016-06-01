@@ -27,8 +27,8 @@ public class DistancePickerDialog extends Dialog implements
 	
 	
 	
-	 private String[] distanceValues = new String[] { "5 miles", "10 miles", "15 miles",
-			"20 miles", "30 miles", "40 miles", "more than 50 miles" };
+	 private String[] distanceValues = new String[] { "5 Miles", "10 Miles", "15 Miles",
+			"20 Miles", "30 Miles", "40 Miles", "more than 50 Miles" };
 
 	public DistancePickerDialog(Context context) {
 

@@ -87,10 +87,8 @@ public class HomeActivity extends SocketActivity implements
 		filter.addAction(ACTION_PROFILE_UPDATE);
 		this.registerReceiver(receiver, filter);
 		userDatasource = new UserDatasource(HomeActivity.this);
-		userDatasource.open();
 		user = userDatasource.findUser(AccountUtils.getUserId(this));
-		userDatasource.close();
-		
+
 		FacebookSdk.sdkInitialize(this.getApplicationContext());
 		setContentView(R.layout.activity_home);
 		ivUserIcon = (ImageView) findViewById(R.id.ivUserIcon);
@@ -547,11 +545,9 @@ public class HomeActivity extends SocketActivity implements
 					adapter.updateUnreadMessageCount();
 				}
 			} else if (intent.getAction().equals(ACTION_PROFILE_UPDATE)) {
-				userDatasource.open();
 				user = userDatasource.findUser(AccountUtils
 						.getUserId(HomeActivity.this));
 				initUser();
-				userDatasource.close();
 			}
 
 		}

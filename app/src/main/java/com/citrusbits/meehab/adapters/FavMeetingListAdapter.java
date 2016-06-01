@@ -155,7 +155,7 @@ public class FavMeetingListAdapter extends ArrayAdapter<MeetingModel> {
 		return v;
 	}
 
-	// Filter Class
+	// applyFilter Class
 	public void filter(String charText) {
 		charText = charText.toLowerCase(Locale.getDefault());
 		meetings.clear();

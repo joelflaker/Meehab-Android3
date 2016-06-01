@@ -134,7 +134,7 @@ public class RehabListAdapter extends ArrayAdapter<RehabModel> {
 		public TextView tvStatus;
 	}
 
-	// Filter Class
+	// applyFilter Class
 	public void filter(String charText) {
 		charText = charText.toLowerCase();
 		rehabs.clear();

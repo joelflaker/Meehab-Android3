@@ -706,7 +706,7 @@ public class ChatActivity extends SocketActivity implements OnClickListener,
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
-
+		chatDatasource.close();
 		friendId = 0;
 		prefs.saveIntegerPrefs(AppPrefs.KEY_CHAT_FRIEND_ID, -1);
 		refreshHandler.removeCallbacks(timeRefreshRunnable);

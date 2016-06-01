@@ -856,8 +856,8 @@ public class MyFavoritesFragment extends Fragment implements
 					meeting.setOnDate(MeetingUtils.formateDate(dateObje));
 					// }
 
-					setStartInTime(meeting, meeting.getOnDateOrigion(),
-							meeting.getOnTime());
+					MeetingUtils.setStartInTime(meeting, meeting.getOnDateOrigion(),
+							meeting.getNearestTime());
 				}
 
 				sortData();
@@ -877,69 +877,69 @@ public class MyFavoritesFragment extends Fragment implements
 			return null;
 		}
 
-		public void setStartInTime(MeetingModel model, String date,
-				String onTime) {
-			SimpleDateFormat prevFormate = new SimpleDateFormat("dd/MM/yyyy");
-			try {
-				Date date2 = prevFormate.parse(date);
-				SimpleDateFormat _12HourSDF = new SimpleDateFormat("hh:mm a");
-				final Date dateObj = _12HourSDF.parse(onTime);
-				Calendar calendar = Calendar.getInstance();
-
-				calendar.setTime(date2);
-
-				calendar.set(Calendar.HOUR_OF_DAY, dateObj.getHours());
-				calendar.set(Calendar.MINUTE, dateObj.getMinutes());
-				calendar.set(Calendar.SECOND, 0);
-
-				Calendar currentCalendar = Calendar.getInstance();
-
-				long difference = calendar.getTimeInMillis()
-						- currentCalendar.getTimeInMillis();
-
-				long x = difference / 1000;
-				Log.e("Difference ", x + "");
-
-				long days = x / (60 * 60 * 24);
-
-				long seconds = x % 60;
-				x /= 60;
-				long minutes = x % 60;
-				x /= 60;
-				long hours = x % 24;
-
-				Log.e("Hours Difference ", hours + ":" + minutes);
-				SimpleDateFormat mmmDate = new SimpleDateFormat(
-						"dd/MM/yyyy hh:mm a");
-				String mDate = mmmDate.format(calendar.getTime());
-				String mNow = mmmDate.format(currentCalendar.getTime());
-				Log.e("Meeting date time ", mDate);
-				Log.e("Nnow date time ", mNow);
-
-				if (days > 0) {
-					model.setMarkerTypeColor(MarkerColorType.GREEN);
-					model.setStartInTime("AFTER " + days + " "
-							+ (days == 1 ? "DAY" : "DAYS"));
-				} else if (hours > 1 || hours == 1 && minutes > 0) {
-					model.setMarkerTypeColor(MarkerColorType.GREEN);
-					model.setStartInTime("AFTER " + hours + " "
-							+ (hours == 1 ? "HOUR" : "HOURS"));
-				} else if (hours == 0 && minutes >= 0) {
-					model.setMarkerTypeColor(MarkerColorType.ORANGE);
-					model.setStartInTime("START IN HOUR");
-				} else if (hours == 0 && minutes <= 0 || hours < 0
-						&& hours > -2) {
-					model.setMarkerTypeColor(MarkerColorType.RED);
-					model.setStartInTime("ONGOING");
-				} else if (hours <= -1) {
-					model.setMarkerTypeColor(MarkerColorType.RED);
-					model.setStartInTime("COMPLETED");
-				}
-
-			} catch (ParseException e) {
-				e.printStackTrace();
-			}
-		}
+//		public void setStartInTime(MeetingModel model, String date,
+//				String onTime) {
+//			SimpleDateFormat prevFormate = new SimpleDateFormat("dd/MM/yyyy");
+//			try {
+//				Date date2 = prevFormate.parse(date);
+//				SimpleDateFormat _12HourSDF = new SimpleDateFormat("hh:mm a");
+//				final Date dateObj = _12HourSDF.parse(onTime);
+//				Calendar calendar = Calendar.getInstance();
+//
+//				calendar.setTime(date2);
+//
+//				calendar.set(Calendar.HOUR_OF_DAY, dateObj.getHours());
+//				calendar.set(Calendar.MINUTE, dateObj.getMinutes());
+//				calendar.set(Calendar.SECOND, 0);
+//
+//				Calendar currentCalendar = Calendar.getInstance();
+//
+//				long difference = calendar.getTimeInMillis()
+//						- currentCalendar.getTimeInMillis();
+//
+//				long x = difference / 1000;
+//				Log.e("Difference ", x + "");
+//
+//				long days = x / (60 * 60 * 24);
+//
+//				long seconds = x % 60;
+//				x /= 60;
+//				long minutes = x % 60;
+//				x /= 60;
+//				long hours = x % 24;
+//
+//				Log.e("Hours Difference ", hours + ":" + minutes);
+//				SimpleDateFormat mmmDate = new SimpleDateFormat(
+//						"dd/MM/yyyy hh:mm a");
+//				String mDate = mmmDate.format(calendar.getTime());
+//				String mNow = mmmDate.format(currentCalendar.getTime());
+//				Log.e("Meeting date time ", mDate);
+//				Log.e("Nnow date time ", mNow);
+//
+//				if (days > 0) {
+//					model.setMarkerTypeColor(MarkerColorType.GREEN);
+//					model.setStartInTime("AFTER " + days + " "
+//							+ (days == 1 ? "DAY" : "DAYS"));
+//				} else if (hours > 1 || hours == 1 && minutes > 0) {
+//					model.setMarkerTypeColor(MarkerColorType.GREEN);
+//					model.setStartInTime("AFTER " + hours + " "
+//							+ (hours == 1 ? "HOUR" : "HOURS"));
+//				} else if (hours == 0 && minutes >= 0) {
+//					model.setMarkerTypeColor(MarkerColorType.ORANGE);
+//					model.setStartInTime("START IN HOUR");
+//				} else if (hours == 0 && minutes <= 0 || hours < 0
+//						&& hours > -2) {
+//					model.setMarkerTypeColor(MarkerColorType.RED);
+//					model.setStartInTime("ONGOING");
+//				} else if (hours <= -1) {
+//					model.setMarkerTypeColor(MarkerColorType.RED);
+//					model.setStartInTime("COMPLETED");
+//				}
+//
+//			} catch (ParseException e) {
+//				e.printStackTrace();
+//			}
+//		}
 
 		public void sortData() {
 			Collections.sort(meetings, new Comparator<MeetingModel>() {

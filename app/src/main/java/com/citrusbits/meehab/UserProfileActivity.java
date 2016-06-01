@@ -335,33 +335,9 @@ public class UserProfileActivity extends SocketActivity implements
 		}
 	}
 
-	@Override
-	public void onResume() {
-		// TODO Auto-generated method stub
-		super.onResume();
-	}
-
-	@Override
-	public void onPause() {
-		// TODO Auto-generated method stub
-		super.onPause();
-	}
-
-	@Override
-	protected void onStop() {
-		// TODO Auto-generated method stub
-		super.onStop();
-	}
-
-	@Override
-	protected void onDestroy() {
-		// TODO Auto-generated method stub
-		super.onDestroy();
-	}
 
 	@Override
 	public void onBackendConnected() {
-		// TODO Auto-generated method stub
 		getUserReviews();
 	}
 
@@ -380,7 +356,6 @@ public class UserProfileActivity extends SocketActivity implements
 				Log.e("json send ", object.toString());
 				socketService.getUserReviews(object);
 			} catch (JSONException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 
@@ -389,7 +364,6 @@ public class UserProfileActivity extends SocketActivity implements
 
 	@Override
 	public void onSocketResponseSuccess(String event, Object obj) {
-		// TODO Auto-generated method stub
 		if (pd.isShowing()) {
 
 			pd.dismiss();
@@ -434,7 +408,6 @@ public class UserProfileActivity extends SocketActivity implements
 				}
 
 			} catch (JSONException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			reviewsContainer.removeAllViews();
@@ -461,7 +434,6 @@ public class UserProfileActivity extends SocketActivity implements
 				onBackPressed();
 
 			} catch (JSONException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 
@@ -482,7 +454,6 @@ public class UserProfileActivity extends SocketActivity implements
 							.show();
 				}
 			} catch (JSONException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 
@@ -497,7 +468,6 @@ public class UserProfileActivity extends SocketActivity implements
 				user.setBlocked(user.isBlocked() == 1 ? 0 : 1);
 				onBackPressed();
 			} catch (JSONException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 
@@ -507,7 +477,6 @@ public class UserProfileActivity extends SocketActivity implements
 
 	@Override
 	protected void onActivityResult(int arg0, int arg1, Intent arg2) {
-		// TODO Auto-generated method stub
 		super.onActivityResult(arg0, arg1, arg2);
 
 		if (arg0 == REQUEST_CODE_CHAT && arg1 == RESULT_CODE_BLOCKED) {
