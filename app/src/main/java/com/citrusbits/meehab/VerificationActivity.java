@@ -1,7 +1,9 @@
 package com.citrusbits.meehab;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -25,18 +27,27 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
 import com.citrusbits.meehab.app.App;
+import com.citrusbits.meehab.app.GsonRequest;
+import com.citrusbits.meehab.constants.Consts;
 import com.citrusbits.meehab.constants.EventParams;
 import com.citrusbits.meehab.contacts.PhoneContacts;
 import com.citrusbits.meehab.db.DatabaseHandler;
 import com.citrusbits.meehab.model.SignupModel;
+import com.citrusbits.meehab.pojo.AddUserResponse;
 import com.citrusbits.meehab.prefrences.AppPrefs;
 import com.citrusbits.meehab.services.DeviceContact;
 import com.citrusbits.meehab.services.OnSocketResponseListener;
+import com.citrusbits.meehab.utils.CustomRequest;
 import com.citrusbits.meehab.utils.DeviceUtils;
 import com.citrusbits.meehab.utils.NetworkUtils;
 import com.citrusbits.meehab.utils.Prefs;
 import com.citrusbits.meehab.utils.UtilityClass;
+import com.google.gson.JsonObject;
 import com.sinch.verification.Config;
 import com.sinch.verification.SinchVerification;
 import com.sinch.verification.Verification;
@@ -87,8 +98,9 @@ public class VerificationActivity extends SocketActivity implements
 	PhoneContacts phoneContacts;
 	List<DeviceContact> contacts = new ArrayList<>();
 	DatabaseHandler dbHandler;
+    private String smsCode= "";
 
-	@Override
+    @Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_verification);
@@ -154,19 +166,70 @@ public class VerificationActivity extends SocketActivity implements
 	}
 
 	void createVerification(String phoneNumber, String method) {
-		Config config = SinchVerification.config()
-				.applicationKey(APPLICATION_KEY)
-				.context(getApplicationContext()).build();
-		VerificationListener listener = new MyVerificationListener();
 
-		if (method.equalsIgnoreCase(SMS)) {
 
-			verification = SinchVerification.createSmsVerification(config,
-					phoneNumber, listener);
 
-			verification.initiate();
+			/*<?xml version='1.0' encoding='UTF-8'?>
+			<TwilioResponse>
+			<SMSMessage>
+			<Sid>SM838eba9ac1574e878025072b93bb123a</Sid>
+			<DateCreated>Wed, 07 Sep 2016 05:19:32 +0000</DateCreated>
+			<DateUpdated>Wed, 07 Sep 2016 05:19:32 +0000</DateUpdated>
+			<DateSent/>
+			<AccountSid>AC05f81aa73348b83219be2613c794871f</AccountSid>
+			<To>+923215427693</To>
+			<From>+12017205413</From>
+			<Body>1234</Body>
+			<Status>queued</Status>
+			<Direction>outbound-api</Direction>
+			<ApiVersion>2010-04-01</ApiVersion>
+			<Price/>
+			<PriceUnit>USD</PriceUnit>
+			<Uri>/2010-04-01/Accounts/AC05f81aa73348b83219be2613c794871f/SMS/Messages/SM838eba9ac1574e878025072b93bb123a</Uri>
+			<NumSegments>1</NumSegments>
+			</SMSMessage>
+			</TwilioResponse>*/
+        final int randomNum = (int)(Math.random()*90000)+10000;
+        smsCode= String.format("%05d",randomNum);
+        Map<String, String> params = new HashMap<String, String>();
+        params.put("From", Consts.FromNumber);
+        params.put("To", phoneNumber);
+        params.put("Body", smsCode);
 
-		}
+        RequestQueue requestQueue = App.getInstance().getRequestQueue();
+
+        CustomRequest request = new CustomRequest(Request.Method.POST, "https://" + Consts.SID + Consts.TwilioSecret +
+                "@api.twilio.com/2010-04-01/Accounts/" + Consts.SID + "/SMS/Messages.json", params, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+				try {
+                    Log.i("response", response.toString());
+					String status= response.getString("status");
+					if(status.equals("queued")){
+
+					}
+                    else{
+                        Toast.makeText(VerificationActivity.this, "Unable to Send Msg", Toast.LENGTH_SHORT).show();
+                    }
+				} catch (JSONException e) {
+					e.printStackTrace();
+                    Toast.makeText(VerificationActivity.this, "Unable to Send Msg", Toast.LENGTH_SHORT).show();
+
+                }
+				Log.i("response", response.toString());
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.i("response", error.toString());
+                Toast.makeText(VerificationActivity.this, "Unable to Send Msg", Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
+        requestQueue.add(request);
+
+
 
 	}
 
@@ -343,9 +406,11 @@ public class VerificationActivity extends SocketActivity implements
 						Toast.LENGTH_SHORT).show();
 				return;
 			}
-			if (!verify && !verifyRequest) {
+			/*if (!verify && !verifyRequest) {
 				verify(code);
 			} else if (verify) {
+				signup(signup);*/
+			if (code.equals(smsCode)) {
 				signup(signup);
 			} else {
 				Toast.makeText(VerificationActivity.this, "Code not verified!",

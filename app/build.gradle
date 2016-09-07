@@ -23,13 +23,13 @@ android {
     signingConfigs {
         release {
 
-            def key = file('D:/Company/PlayStore Certificates/meehab-store/meehab-keyalias.txt').text
+            def key = file('D:/waleed/Meehab/meehab-keyalias.txt').text
             keyAlias = key
 
-            def pass = file('D:/Company/PlayStore Certificates/meehab-store/meehab-pass.txt').text
+            def pass = file('D:/waleed/Meehab/meehab-pass.txt').text
             storePassword = pass
             keyPassword = pass
-            storeFile file('D:/Company/PlayStore Certificates/meehab-store/meehabRelease.jks')
+            storeFile file('D:/waleed/Meehab/meehabRelease.jks')
         }
     }
 

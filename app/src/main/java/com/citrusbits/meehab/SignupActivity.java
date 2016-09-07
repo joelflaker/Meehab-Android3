@@ -364,8 +364,14 @@ public class SignupActivity extends SocketActivity implements
 	}
 
 	private boolean validatePhoneNumber(String phoneNumber) {
+        phoneNumber = phoneNumber.replaceAll("[^\\d.]", "");
 
-		return PhoneNumberUtils.isGlobalPhoneNumber(phoneNumber);
+        if(phoneNumber.length()>=10) {
+            return true;
+//            return PhoneNumberUtils.isGlobalPhoneNumber(phoneNumber);
+        }else{
+            return false;
+        }
 
 	}
 
@@ -396,8 +402,8 @@ public class SignupActivity extends SocketActivity implements
 		String emailString = etEmail.getText().toString();
 		String passwordString = etPassword.getText().toString();
 		String phoneNumber = etPhoneNumber.getText().toString().trim();
-		phoneNumber = "+1" + phoneNumber;
-//		phoneNumber = "+92"+phoneNumber;
+//		phoneNumber = "+1" + phoneNumber;
+		phoneNumber = "+92"+phoneNumber;
 
 		if (!validatePhoneNumber(phoneNumber)) {
 			etPhoneNumber.setError(getString(R.string.phone_number_is_invalid));

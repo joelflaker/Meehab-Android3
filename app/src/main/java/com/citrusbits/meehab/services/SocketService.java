@@ -1385,7 +1385,7 @@ public class SocketService extends Service {
 						response.getAccessToken().getAccessToken())
 				.commit();
 		String notify = response.getUser().getNotification();
-		if(TextUtils.isEmpty(notify) && notify.equalsIgnoreCase("on")){
+		if(!TextUtils.isEmpty(notify) && notify.equalsIgnoreCase("on")){
 			AppPrefs.getAppPrefs(getApplicationContext()).saveBooleanPrefs(AppPrefs.KEY_MSG_NOTIFICATION, true);
 		}else{
 			AppPrefs.getAppPrefs(getApplicationContext()).saveBooleanPrefs(AppPrefs.KEY_MSG_NOTIFICATION, false);
