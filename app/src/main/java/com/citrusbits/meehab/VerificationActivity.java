@@ -72,6 +72,7 @@ public class VerificationActivity extends SocketActivity implements
 	public static final String INTENT_PHONENUMBER = "phonenumber";
 	public static final String INTENT_METHOD = "method";
 	public static final String EXTRA_SIGNUP = "signup";
+	public static final String EXTRA_FACEBOOK_FRIEND = "facebookFriend";
 
 	SignupModel signup;
 
@@ -99,6 +100,7 @@ public class VerificationActivity extends SocketActivity implements
 	List<DeviceContact> contacts = new ArrayList<>();
 	DatabaseHandler dbHandler;
     private String smsCode= "";
+	public String facebookFriends;
 
     @Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -137,6 +139,9 @@ public class VerificationActivity extends SocketActivity implements
 
 			String method = intent.getStringExtra(INTENT_METHOD);
 
+			if(intent.hasExtra(EXTRA_FACEBOOK_FRIEND)){
+				facebookFriends = intent.getStringExtra(EXTRA_FACEBOOK_FRIEND);
+			}
 			createVerification(phoneNumber, method);
 
 		}

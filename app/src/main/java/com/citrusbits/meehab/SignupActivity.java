@@ -560,6 +560,9 @@ public class SignupActivity extends SocketActivity implements
 		verification.putExtra(VerificationActivity.INTENT_PHONENUMBER,signup.getPhoneNumber());
 		verification.putExtra(VerificationActivity.EXTRA_SIGNUP,signup);
 		verification.putExtra(VerificationActivity.INTENT_METHOD, method);
+        if(facebookFriends != null) {
+            verification.putExtra(VerificationActivity.EXTRA_FACEBOOK_FRIEND, facebookFriends.toString());
+        }
 
 		verification.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
 				| Intent.FLAG_ACTIVITY_NEW_TASK);

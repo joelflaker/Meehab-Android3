@@ -848,9 +848,9 @@ public class MeetingDetailsActivity extends SocketActivity implements
 
 			break;
 		case R.id.rlRSVP:
-			if (meeting.getRsvpCount() == 0) {
+			/*if (meeting.getRsvpCount() == 0) {
 				return;
-			}
+			}*/
 			Intent rsvpIntent = new Intent(this, RsvpActivity.class);
 			rsvpIntent.putExtra(RsvpActivity.EXTRA_MEETING_ID, meeting.getId());
 			startActivity(rsvpIntent);

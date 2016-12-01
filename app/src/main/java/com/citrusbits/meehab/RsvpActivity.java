@@ -161,7 +161,8 @@ public class RsvpActivity extends SocketActivity implements
 
 	}
 
-	@Override
+
+    @Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
 		if (resultCode == RESULT_OK) {
@@ -349,7 +350,7 @@ public class RsvpActivity extends SocketActivity implements
 
 	@Override
 	public void onBackendConnected() {
-		if(rsvpFriendsUpdated) {
+		if(!rsvpFriendsUpdated) {
 			getRSVPFriends();
 		}
 	}
