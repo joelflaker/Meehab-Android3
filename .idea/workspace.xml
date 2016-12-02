@@ -10,360 +10,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="249e763b-9471-407f-986e-4918a109a8df" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/GetCurrentActivity.bat" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/build.gradle" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/library.iml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/androidTest/.classpath" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/androidTest/.project" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/androidTest/.settings/org.eclipse.jdt.core.prefs" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/androidTest/AndroidManifest.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/androidTest/assets/dash/sample_mpd_1" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/androidTest/assets/smoothstreaming/sample_ismc_1" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/androidTest/assets/smoothstreaming/sample_ismc_2" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/androidTest/assets/subrip/empty" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/androidTest/assets/subrip/no_end_timecodes" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/androidTest/assets/subrip/typical" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/androidTest/assets/subrip/typical_extra_blank_line" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/androidTest/assets/subrip/typical_missing_sequence" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/androidTest/assets/subrip/typical_missing_timecode" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/androidTest/assets/subrip/typical_with_byte_order_mark" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/androidTest/assets/ttml/chain_multiple_styles.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/androidTest/assets/ttml/font_size.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/androidTest/assets/ttml/font_size_empty.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/androidTest/assets/ttml/font_size_invalid.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/androidTest/assets/ttml/font_size_no_unit.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/androidTest/assets/ttml/inherit_and_override_style.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/androidTest/assets/ttml/inherit_global_and_parent.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/androidTest/assets/ttml/inherit_multiple_styles.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/androidTest/assets/ttml/inherit_style.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/androidTest/assets/ttml/inline_style_attributes.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/androidTest/assets/ttml/namespace_confusion.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/androidTest/assets/ttml/namespace_not_declared.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/androidTest/assets/ttml/no_underline_linethrough.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/androidTest/assets/webm/vorbis_codec_private" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/androidTest/assets/webvtt/empty" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/androidTest/assets/webvtt/typical" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/androidTest/assets/webvtt/typical_with_comments" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/androidTest/assets/webvtt/typical_with_identifiers" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/androidTest/assets/webvtt/with_bad_cue_header" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/androidTest/assets/webvtt/with_positioning" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/androidTest/assets/webvtt/with_tags" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/androidTest/java/com/google/android/exoplayer/CTest.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/androidTest/java/com/google/android/exoplayer/MediaFormatTest.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/androidTest/java/com/google/android/exoplayer/TimeRangeTest.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/androidTest/java/com/google/android/exoplayer/dash/DashChunkSourceTest.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/androidTest/java/com/google/android/exoplayer/dash/mpd/MediaPresentationDescriptionParserTest.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/androidTest/java/com/google/android/exoplayer/dash/mpd/RangedUriTest.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/androidTest/java/com/google/android/exoplayer/dash/mpd/RepresentationTest.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/androidTest/java/com/google/android/exoplayer/dash/mpd/UrlTemplateTest.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/androidTest/java/com/google/android/exoplayer/extractor/DefaultExtractorInputTest.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/androidTest/java/com/google/android/exoplayer/extractor/ExtractorTest.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/androidTest/java/com/google/android/exoplayer/extractor/mp3/XingSeekerTest.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/androidTest/java/com/google/android/exoplayer/extractor/mp4/Mp4ExtractorTest.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/androidTest/java/com/google/android/exoplayer/extractor/ts/AdtsReaderTest.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/androidTest/java/com/google/android/exoplayer/extractor/webm/DefaultEbmlReaderTest.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/androidTest/java/com/google/android/exoplayer/extractor/webm/StreamBuilder.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/androidTest/java/com/google/android/exoplayer/extractor/webm/VarintReaderTest.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/androidTest/java/com/google/android/exoplayer/extractor/webm/WebmExtractorTest.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/androidTest/java/com/google/android/exoplayer/hls/HlsMasterPlaylistParserTest.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/androidTest/java/com/google/android/exoplayer/hls/HlsMediaPlaylistParserTest.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/androidTest/java/com/google/android/exoplayer/metadata/id3/Id3ParserTest.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/androidTest/java/com/google/android/exoplayer/smoothstreaming/SmoothStreamingManifestParserTest.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/androidTest/java/com/google/android/exoplayer/testutil/FakeDataSource.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/androidTest/java/com/google/android/exoplayer/testutil/FakeExtractorInput.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/androidTest/java/com/google/android/exoplayer/testutil/FakeExtractorOutput.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/androidTest/java/com/google/android/exoplayer/testutil/FakeTrackOutput.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/androidTest/java/com/google/android/exoplayer/testutil/TestUtil.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/androidTest/java/com/google/android/exoplayer/text/subrip/SubripParserTest.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/androidTest/java/com/google/android/exoplayer/text/ttml/TtmlColorParserTest.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/androidTest/java/com/google/android/exoplayer/text/ttml/TtmlParserTest.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/androidTest/java/com/google/android/exoplayer/text/ttml/TtmlRenderUtilTest.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/androidTest/java/com/google/android/exoplayer/text/ttml/TtmlStyleTest.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/androidTest/java/com/google/android/exoplayer/text/webvtt/Mp4WebvttParserTest.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/androidTest/java/com/google/android/exoplayer/text/webvtt/WebvttCueParserTest.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/androidTest/java/com/google/android/exoplayer/text/webvtt/WebvttParserTest.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/androidTest/java/com/google/android/exoplayer/text/webvtt/WebvttSubtitleTest.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/androidTest/java/com/google/android/exoplayer/upstream/ByteArrayDataSourceTest.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/androidTest/java/com/google/android/exoplayer/util/FakeClock.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/androidTest/java/com/google/android/exoplayer/util/NalUnitUtilTest.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/androidTest/java/com/google/android/exoplayer/util/ParsableByteArrayTest.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/androidTest/java/com/google/android/exoplayer/util/UriUtilTest.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/androidTest/java/com/google/android/exoplayer/util/UtilTest.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/androidTest/libs/.README.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/androidTest/project.properties" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/androidTest/res/.README.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/.classpath" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/.project" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/.settings/org.eclipse.jdt.core.prefs" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/AndroidManifest.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/AspectRatioFrameLayout.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/BehindLiveWindowException.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/C.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/CodecCounters.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/CryptoInfo.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/DecoderInfo.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/DefaultLoadControl.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/DummyTrackRenderer.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/ExoPlaybackException.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/ExoPlayer.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/ExoPlayerImpl.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/ExoPlayerImplInternal.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/ExoPlayerLibraryInfo.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/FrameworkSampleSource.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/LoadControl.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/MediaClock.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/MediaCodecAudioTrackRenderer.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/MediaCodecSelector.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/MediaCodecTrackRenderer.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/MediaCodecUtil.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/MediaCodecVideoTrackRenderer.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/MediaFormat.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/MediaFormatHolder.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/ParserException.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/SampleHolder.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/SampleSource.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/SampleSourceTrackRenderer.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/SingleSampleSource.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/StandaloneMediaClock.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/TimeRange.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/TrackRenderer.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/VideoFrameReleaseTimeHelper.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/audio/AudioCapabilities.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/audio/AudioCapabilitiesReceiver.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/audio/AudioTrack.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/chunk/BaseChunkSampleSourceEventListener.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/chunk/BaseMediaChunk.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/chunk/Chunk.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/chunk/ChunkExtractorWrapper.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/chunk/ChunkOperationHolder.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/chunk/ChunkSampleSource.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/chunk/ChunkSource.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/chunk/ContainerMediaChunk.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/chunk/DataChunk.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/chunk/Format.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/chunk/FormatEvaluator.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/chunk/FormatWrapper.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/chunk/InitializationChunk.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/chunk/MediaChunk.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/chunk/SingleSampleMediaChunk.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/chunk/VideoFormatSelectorUtil.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/dash/DashChunkSource.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/dash/DashSegmentIndex.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/dash/DashTrackSelector.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/dash/DashWrappingSegmentIndex.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/dash/DefaultDashTrackSelector.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/dash/mpd/AdaptationSet.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/dash/mpd/ContentProtection.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/dash/mpd/DashSingleSegmentIndex.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/dash/mpd/MediaPresentationDescription.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/dash/mpd/MediaPresentationDescriptionParser.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/dash/mpd/Period.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/dash/mpd/RangedUri.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/dash/mpd/Representation.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/dash/mpd/SegmentBase.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/dash/mpd/UrlTemplate.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/dash/mpd/UtcTimingElement.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/dash/mpd/UtcTimingElementResolver.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/drm/DrmInitData.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/drm/DrmSessionManager.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/drm/KeysExpiredException.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/drm/MediaDrmCallback.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/drm/StreamingDrmSessionManager.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/drm/UnsupportedDrmException.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/extractor/ChunkIndex.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/extractor/DefaultExtractorInput.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/extractor/DefaultTrackOutput.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/extractor/DummyTrackOutput.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/extractor/Extractor.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/extractor/ExtractorInput.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/extractor/ExtractorOutput.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/extractor/ExtractorSampleSource.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/extractor/GaplessInfo.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/extractor/PositionHolder.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/extractor/RollingSampleBuffer.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/extractor/SeekMap.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/extractor/TrackOutput.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/extractor/flv/AudioTagPayloadReader.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/extractor/flv/FlvExtractor.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/extractor/flv/ScriptTagPayloadReader.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/extractor/flv/TagPayloadReader.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/extractor/flv/VideoTagPayloadReader.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/extractor/mp3/ConstantBitrateSeeker.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/extractor/mp3/Id3Util.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/extractor/mp3/Mp3Extractor.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/extractor/mp3/VbriSeeker.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/extractor/mp3/XingSeeker.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/extractor/mp4/Atom.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/extractor/mp4/AtomParsers.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/extractor/mp4/DefaultSampleValues.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/extractor/mp4/FragmentedMp4Extractor.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/extractor/mp4/Mp4Extractor.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/extractor/mp4/PsshAtomUtil.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/extractor/mp4/Sniffer.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/extractor/mp4/Track.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/extractor/mp4/TrackEncryptionBox.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/extractor/mp4/TrackFragment.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/extractor/mp4/TrackSampleTable.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/extractor/ts/Ac3Reader.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/extractor/ts/AdtsExtractor.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/extractor/ts/AdtsReader.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/extractor/ts/DtsReader.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/extractor/ts/ElementaryStreamReader.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/extractor/ts/H262Reader.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/extractor/ts/H264Reader.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/extractor/ts/H265Reader.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/extractor/ts/Id3Reader.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/extractor/ts/MpegAudioReader.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/extractor/ts/NalUnitTargetBuffer.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/extractor/ts/PsExtractor.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/extractor/ts/PtsTimestampAdjuster.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/extractor/ts/SeiReader.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/extractor/ts/TsExtractor.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/extractor/webm/DefaultEbmlReader.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/extractor/webm/EbmlReader.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/extractor/webm/EbmlReaderOutput.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/extractor/webm/Sniffer.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/extractor/webm/VarintReader.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/extractor/webm/WebmExtractor.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/hls/Aes128DataSource.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/hls/DefaultHlsTrackSelector.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/hls/HlsChunkSource.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/hls/HlsExtractorWrapper.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/hls/HlsMasterPlaylist.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/hls/HlsMediaPlaylist.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/hls/HlsParserUtil.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/hls/HlsPlaylist.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/hls/HlsPlaylistParser.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/hls/HlsSampleSource.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/hls/HlsTrackSelector.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/hls/PtsTimestampAdjusterProvider.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/hls/TsChunk.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/hls/Variant.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/hls/WebvttExtractor.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/metadata/MetadataParser.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/metadata/MetadataTrackRenderer.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/metadata/id3/BinaryFrame.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/metadata/id3/GeobFrame.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/metadata/id3/Id3Frame.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/metadata/id3/Id3Parser.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/metadata/id3/PrivFrame.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/metadata/id3/TxxxFrame.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/smoothstreaming/DefaultSmoothStreamingTrackSelector.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/smoothstreaming/SmoothStreamingChunkSource.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/smoothstreaming/SmoothStreamingManifest.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/smoothstreaming/SmoothStreamingManifestParser.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/smoothstreaming/SmoothStreamingTrackSelector.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/text/CaptionStyleCompat.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/text/Cue.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/text/CuePainter.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/text/PlayableSubtitle.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/text/Subtitle.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/text/SubtitleLayout.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/text/SubtitleParser.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/text/SubtitleParserHelper.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/text/TextRenderer.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/text/TextTrackRenderer.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/text/eia608/ClosedCaption.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/text/eia608/ClosedCaptionCtrl.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/text/eia608/ClosedCaptionList.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/text/eia608/ClosedCaptionText.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/text/eia608/Eia608Parser.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/text/eia608/Eia608TrackRenderer.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/text/subrip/SubripParser.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/text/subrip/SubripSubtitle.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/text/ttml/TtmlColorParser.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/text/ttml/TtmlNode.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/text/ttml/TtmlParser.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/text/ttml/TtmlRenderUtil.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/text/ttml/TtmlStyle.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/text/ttml/TtmlSubtitle.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/text/tx3g/Tx3gParser.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/text/tx3g/Tx3gSubtitle.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/text/webvtt/Mp4WebvttParser.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/text/webvtt/Mp4WebvttSubtitle.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/text/webvtt/WebvttCue.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/text/webvtt/WebvttCueParser.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/text/webvtt/WebvttParser.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/text/webvtt/WebvttParserUtil.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/text/webvtt/WebvttSubtitle.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/upstream/Allocation.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/upstream/Allocator.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/upstream/AssetDataSource.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/upstream/BandwidthMeter.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/upstream/ByteArrayDataSink.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/upstream/ByteArrayDataSource.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/upstream/ContentDataSource.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/upstream/DataSink.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/upstream/DataSource.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/upstream/DataSourceInputStream.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/upstream/DataSpec.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/upstream/DefaultAllocator.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/upstream/DefaultBandwidthMeter.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/upstream/DefaultHttpDataSource.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/upstream/DefaultUriDataSource.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/upstream/FileDataSource.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/upstream/HttpDataSource.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/upstream/Loader.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/upstream/NetworkLock.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/upstream/PriorityDataSource.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/upstream/TeeDataSource.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/upstream/TransferListener.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/upstream/UdpDataSource.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/upstream/UriDataSource.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/upstream/UriLoadable.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/upstream/cache/Cache.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/upstream/cache/CacheDataSink.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/upstream/cache/CacheDataSource.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/upstream/cache/CacheEvictor.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/upstream/cache/CacheSpan.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/upstream/cache/LeastRecentlyUsedCacheEvictor.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/upstream/cache/NoOpCacheEvictor.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/upstream/cache/SimpleCache.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/util/Ac3Util.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/util/Assertions.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/util/Clock.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/util/CodecSpecificDataUtil.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/util/DebugTextViewHelper.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/util/DtsUtil.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/util/LongArray.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/util/ManifestFetcher.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/util/MimeTypes.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/util/MpegAudioHeader.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/util/NalUnitUtil.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/util/ParsableBitArray.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/util/ParsableByteArray.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/util/ParserUtil.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/util/PlayerControl.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/util/Predicate.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/util/PriorityHandlerThread.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/util/SlidingPercentile.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/util/SystemClock.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/util/TraceUtil.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/util/UriUtil.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/util/Util.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/google/android/exoplayer/util/VerboseLogUtil.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/project.properties" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/res/.README.txt" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/gradle.xml" afterPath="$PROJECT_DIR$/.idea/gradle.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/modules.xml" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/app.iml" afterPath="$PROJECT_DIR$/app/app.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build.gradle" afterPath="$PROJECT_DIR$/app/build.gradle" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/MediaFullScreenActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/MediaFullScreenActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/MeetingDetailsActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/MeetingDetailsActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/RehabDetailsActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/RehabDetailsActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/SocketActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/SocketActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/UserProfileActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/UserProfileActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/adapters/PhotosAdapter.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/adapters/PhotosAdapter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/app/App.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/app/App.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/fragments/FriendsFragment.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/fragments/FriendsFragment.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/fragments/MyFavoritesFragment.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/fragments/MyFavoritesFragment.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_media_full_screen.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_media_full_screen.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build.gradle" afterPath="$PROJECT_DIR$/build.gradle" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/crop/crop.iml" afterPath="$PROJECT_DIR$/crop/crop.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/local.properties" afterPath="$PROJECT_DIR$/local.properties" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/settings.gradle" afterPath="$PROJECT_DIR$/settings.gradle" />
     </list>
     <ignored path="Meehab-Android.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -396,7 +44,7 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="MyFavoritesFragment.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="MyFavoritesFragment.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/fragments/MyFavoritesFragment.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="396">
@@ -406,11 +54,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="build.gradle" pinned="false" current-in-tab="false">
+      <file leaf-file-name="build.gradle" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/build.gradle">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="272">
-              <caret line="16" column="16" selection-start-line="16" selection-start-column="16" selection-end-line="16" selection-end-column="16" />
+            <state relative-caret-position="425">
+              <caret line="25" column="36" selection-start-line="25" selection-start-column="36" selection-end-line="25" selection-end-column="36" />
               <folding />
             </state>
           </provider>
@@ -3321,24 +2969,6 @@
               <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
             </PATH_ELEMENT>
           </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Meehab-Android" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="meehab" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
         </subPane>
       </pane>
     </panes>
@@ -3664,6 +3294,14 @@
       <option name="presentableId" value="Default" />
       <updated>1476423482548</updated>
     </task>
+    <task id="LOCAL-00001" summary="Change Exoplayer library to dependency, multiple bug fixes">
+      <created>1480685852377</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1480685852377</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -3680,7 +3318,7 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32879046" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Android Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32806325" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.66186106" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.66139656" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Properties" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32806325" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -3714,6 +3352,12 @@
   </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
+    <option name="CHECK_NEW_TODO" value="false" />
+    <MESSAGE value="Change Exoplayer library to dependency, multiple bug fixes" />
+    <option name="LAST_COMMIT_MESSAGE" value="Change Exoplayer library to dependency, multiple bug fixes" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -4030,14 +3674,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/build.gradle">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="16" column="16" selection-start-line="16" selection-start-column="16" selection-end-line="16" selection-end-column="16" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$APPLICATION_CONFIG_DIR$/scratches/scratch.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -4132,6 +3768,14 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="396">
           <caret line="219" column="24" selection-start-line="219" selection-start-column="24" selection-end-line="219" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/build.gradle">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="425">
+          <caret line="25" column="36" selection-start-line="25" selection-start-column="36" selection-end-line="25" selection-end-column="36" />
           <folding />
         </state>
       </provider>
