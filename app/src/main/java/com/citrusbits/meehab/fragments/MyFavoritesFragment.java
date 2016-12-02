@@ -15,6 +15,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.w3c.dom.ls.LSInput;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.ComponentName;
@@ -121,9 +122,9 @@ public class MyFavoritesFragment extends Fragment implements
 
 	private Context mContext;
 
-	List<UserAccount> userAccounts = new ArrayList<UserAccount>();
+	List<UserAccount> userAccounts = new ArrayList<>();
 
-	List<UserAccount> userAccountsCache = new ArrayList<UserAccount>();
+	List<UserAccount> userAccountsCache = new ArrayList<>();
 
 	private int currentTabPosition;
 	
@@ -219,7 +220,7 @@ public class MyFavoritesFragment extends Fragment implements
 				} else {
 					meetingsAdapter.filter(inputText);
 				}
-
+				updateEmptyViews();
 			}
 		});
 
@@ -315,54 +316,70 @@ public class MyFavoritesFragment extends Fragment implements
 		@Override
 		public void onItemClick(AdapterView<?> arg0, View v, int position,
 				long id) {
-			if (!meetingsAdapter.getEdit()) {
-				Intent intent = new Intent(getActivity(), MeetingDetailsActivity.class);
-				Bundle bundle = new Bundle();
-
-				bundle.putSerializable("meeting", meetings.get(position));
-
-				intent.putExtras(bundle);
-
-				// getActivity().startActivity(intent);
-				mReqPosition = position;
-				// Toast.makeText(mContext, "Request Position is "+mReqPosition,
-				// Toast.LENGTH_SHORT).show();
-				startActivityForResult(intent, MeetingsFragment.REQUEST_MEETING_DETAILS);
-				getActivity().overridePendingTransition(R.anim.activity_in,
-						R.anim.activity_out);
+			if (meetingsAdapter.getEdit()) {
+				meetings.get(position).setChecked(!meetings.get(position).isChecked());
+				meetingsAdapter.notifyDataSetChanged();
+				setRemoveResource();
 				return;
 			}
-			meetings.get(position).setChecked(!meetings.get(position).isChecked());
-			meetingsAdapter.notifyDataSetChanged();
-			setRemoveResource();
+
+			Intent intent = new Intent(getActivity(), MeetingDetailsActivity.class);
+			Bundle bundle = new Bundle();
+
+			bundle.putSerializable("meeting", meetings.get(position));
+
+			intent.putExtras(bundle);
+
+			// getActivity().startActivity(intent);
+			mReqPosition = position;
+			// Toast.makeText(mContext, "Request Position is "+mReqPosition,
+			// Toast.LENGTH_SHORT).show();
+			startActivityForResult(intent, MeetingsFragment.REQUEST_MEETING_DETAILS);
+			getActivity().overridePendingTransition(R.anim.activity_in,
+					R.anim.activity_out);
 
 		}
 	};
+
+	@Override
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+		if(requestCode == MeetingsFragment.REQUEST_MEETING_DETAILS && resultCode == Activity.RESULT_OK){
+			//remove un-fav
+			refreshMeetingList();
+		}
+		if(requestCode == FriendsFragment.DETAIL_REQUEST && resultCode == Activity.RESULT_OK){
+			//remove un-fav
+			getFriends();
+		}
+		super.onActivityResult(requestCode, resultCode, data);
+	}
 
 	OnItemClickListener gridItemClickListener = new OnItemClickListener() {
 
 		@Override
 		public void onItemClick(AdapterView<?> adapter, View v, int position,
 				long id) {
-			if (!friendsGridAdapter.isEdit()) {
-				mAccountPosition = position;
-				UserAccount account = userAccounts.get(position);
+			if (friendsGridAdapter.isEdit()) {
 
-				Intent intent = new Intent(getActivity(), UserProfileActivity.class);
-				intent.putExtra(UserProfileActivity.EXTRA_USER_ACCOUNT, account);
+				userAccounts.get(position).setChecked(
+						!userAccounts.get(position).isChecked());
 
-				// put friend
-				startActivityForResult(intent, FriendsFragment.DETAIL_REQUEST);
-				getActivity().overridePendingTransition(R.anim.activity_in,
-						R.anim.activity_out);
+				friendsGridAdapter.notifyDataSetChanged();
+
+				setRemoveResource();
 				return;
 			}
-			userAccounts.get(position).setChecked(
-					!userAccounts.get(position).isChecked());
 
-			friendsGridAdapter.notifyDataSetChanged();
+			mAccountPosition = position;
+			UserAccount account = userAccounts.get(position);
 
-			setRemoveResource();
+			Intent intent = new Intent(getActivity(), UserProfileActivity.class);
+			intent.putExtra(UserProfileActivity.EXTRA_USER_ACCOUNT, account);
+
+			// put friend
+			startActivityForResult(intent, FriendsFragment.DETAIL_REQUEST);
+			getActivity().overridePendingTransition(R.anim.activity_in,
+					R.anim.activity_out);
 
 		}
 	};
@@ -734,6 +751,7 @@ public class MyFavoritesFragment extends Fragment implements
 			// refrshFavList();
 
 		} else if (event.equals(EventParams.METHOD_GET_ALL_FRIENDS)) {
+			userAccountsCache.clear();
 			userAccounts.clear();
 			Gson gson = new Gson();
 			JSONObject data = (JSONObject) obj;
@@ -749,8 +767,7 @@ public class MyFavoritesFragment extends Fragment implements
 				friends.get(i).setAge(
 						MeetingUtils.calculateAge(friends.get(i)
 								.getDateOfBirth()));
-				UserAccount user = friends.get(i);
-
+//				UserAccount user = friends.get(i);
 			}
 
 			userAccounts.addAll(friends);

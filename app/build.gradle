@@ -3,7 +3,7 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 23
     buildToolsVersion "23.0.3"
-//    buildToolsVersion "23.0.1"
+
     defaultConfig {
         applicationId "com.citrusbits.meehab"
         versionCode = 2
@@ -23,13 +23,13 @@ android {
     signingConfigs {
         release {
 
-            def key = file('D:/waleed/Meehab/meehab-keyalias.txt').text
+            def key = file('D:/company/Meehab/Meehab-store/meehab-keyalias.txt').text
             keyAlias = key
 
-            def pass = file('D:/waleed/Meehab/meehab-pass.txt').text
+            def pass = file('D:/company/Meehab/Meehab-store/meehab-pass.txt').text
             storePassword = pass
             keyPassword = pass
-            storeFile file('D:/waleed/Meehab/meehabRelease.jks')
+            storeFile file('D:/company/Meehab/Meehab-store/meehabRelease.jks')
         }
     }
 
@@ -59,14 +59,14 @@ dependencies {
     compile group: 'com.squareup.picasso', name: 'picasso', version: '2.5.2'
     //    compile 'com.android.support:multidex:1.0.1'
     compile project(':crop')
-    compile group: 'com.instabug.library', name: 'instabugsupport', version: '1.3'
+    compile group: 'com.instabug.library', name: 'instabugsupport', version: '1.7.4'
 
 //    compile (group: 'com.instabug.library', name: 'instabugsupport', version: '1.3') {
 //        exclude module: 'volley'
 //    }
 
-    //    compile 'com.google.android.exoplayer:exoplayer:r1.5.5'
-    compile project(':library')
+        compile 'com.google.android.exoplayer:exoplayer:r1.5.6'
+//    compile project(':library')
     compile 'com.android.support:recyclerview-v7:23.3.0'
     compile 'com.android.support:cardview-v7:23.3.0'
     compile 'com.google.code.gson:gson:2.2.4'

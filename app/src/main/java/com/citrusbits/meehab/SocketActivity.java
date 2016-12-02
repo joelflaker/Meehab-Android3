@@ -16,6 +16,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.SystemClock;
+import android.support.v4.app.FragmentActivity;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.MenuItem;
@@ -26,10 +27,9 @@ import com.citrusbits.meehab.constants.Consts;
 import com.citrusbits.meehab.services.SocketService;
 import com.citrusbits.meehab.services.SocketService.SocketServiceConnectionBinder;
 import com.citrusbits.meehab.services.OnSocketResponseListener;
-import com.instabug.wrapper.support.activity.InstabugFragmentActivity;
 
 
-public abstract class SocketActivity extends InstabugFragmentActivity {
+public abstract class SocketActivity extends FragmentActivity {
 
 	protected static final int REQUEST_ANNOUNCE_PGP = 0x0101;
 	protected static final int REQUEST_INVITE_TO_CONVERSATION = 0x0102;

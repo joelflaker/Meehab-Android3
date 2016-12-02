@@ -935,7 +935,7 @@ public class FriendsFragment extends Fragment implements
 			JSONObject data = ((JSONObject) obj);
 			try {
 
-				String message = data.getString("message");
+//				String message = data.getString("message");
 
 				int friendId = data.getInt("friend_id");
 				String checkInType = data.getString("checkin_type");

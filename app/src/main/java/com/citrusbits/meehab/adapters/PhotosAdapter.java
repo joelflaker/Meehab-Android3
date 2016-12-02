@@ -15,6 +15,7 @@ import android.os.AsyncTask;
 import android.provider.MediaStore;
 import android.support.v4.os.AsyncTaskCompat;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -73,10 +74,16 @@ public class PhotosAdapter extends RecyclerView.Adapter<PhotosAdapter.ImageViewH
 
 		if(isPhotoUrls){
 			//image
-			Picasso.with(context).load(url).centerCrop()
-			.placeholder(R.drawable.loading_img).resize(rowHeight, rowHeight)
-			.error(R.drawable.loading_img)
-			.into(holder.photo);
+			if(!TextUtils.isEmpty(url)) {
+				Picasso.with(context).load(url).centerCrop()
+						.placeholder(R.drawable.loading_img).resize(rowHeight, rowHeight)
+						.error(R.drawable.loading_img)
+						.into(holder.photo);
+			}else {
+				Picasso.with(context).load(R.drawable.loading_img)
+						.resize(rowHeight, rowHeight)
+						.into(holder.photo);
+			}
 
 		}else{
 //			AsyncTaskCompat.executeParallel(new AsyncTask<Object, Void, Bitmap>() {

@@ -309,28 +309,28 @@
             android:value="@string/google_api_key" />
 
         <!-- Insta bug -->
-        <activity
-            android:name="com.instabug.wrapper.impl.v10.InstabugAnnotationActivity"
-            android:theme="@style/AppTheme"
-            android:windowSoftInputMode="adjustPan" />
-        <activity
-            android:name="com.instabug.wrapper.impl.support.InstabugAnnotationActivity"
-            android:windowSoftInputMode="adjustPan" />
+        <!--<activity-->
+            <!--android:name="com.instabug.wrapper.impl.v10.InstabugAnnotationActivity"-->
+            <!--android:theme="@style/AppTheme"-->
+            <!--android:windowSoftInputMode="adjustPan" />-->
+        <!--<activity-->
+            <!--android:name="com.instabug.wrapper.impl.support.InstabugAnnotationActivity"-->
+            <!--android:windowSoftInputMode="adjustPan" />-->
 
-        <service android:name="com.instabug.library.network.UploadCacheService" />
+        <!--<service android:name="com.instabug.library.network.UploadCacheService" />-->
 
-        <receiver android:name="com.instabug.library.network.InstabugNetworkReceiver" >
-            <intent-filter>
-                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
-            </intent-filter>
-        </receiver>
+        <!--<receiver android:name="com.instabug.library.network.InstabugNetworkReceiver" >-->
+            <!--<intent-filter>-->
+                <!--<action android:name="android.net.conn.CONNECTIVITY_CHANGE" />-->
+            <!--</intent-filter>-->
+        <!--</receiver>-->
 
-        <meta-data
-            android:name="com.instabug.DevelopmentAppToken"
-            android:value="2dfe3b005171f96ba7b6151aa82be713" />
-        <meta-data
-            android:name="com.instabug.ProductionMode"
-            android:value="false" />
+        <!--<meta-data-->
+            <!--android:name="com.instabug.DevelopmentAppToken"-->
+            <!--android:value="2dfe3b005171f96ba7b6151aa82be713" />-->
+        <!--<meta-data-->
+            <!--android:name="com.instabug.ProductionMode"-->
+            <!--android:value="false" />-->
 
         <activity
             android:name=".ChangeEmailActivity"

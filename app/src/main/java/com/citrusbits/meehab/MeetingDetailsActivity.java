@@ -290,6 +290,7 @@ public class MeetingDetailsActivity extends SocketActivity implements
 //				tvCodes[i].setOnClickListener(codeClickListener);
 //
 //			}
+
 			ibRating.setImageResource(meeting.isFavourite() ? R.drawable.star_pink
 					: R.drawable.star_white);
 

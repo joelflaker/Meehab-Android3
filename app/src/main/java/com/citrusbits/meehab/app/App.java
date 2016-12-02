@@ -29,7 +29,6 @@ import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
 import com.google.android.gms.maps.model.LatLng;
 import com.instabug.library.Instabug;
-import com.instabug.wrapper.impl.support.InstabugAnnotationActivity;
 
 public class App extends Application {
 	
@@ -80,21 +79,21 @@ public class App extends Application {
 	private static App sInstance;
 	private static LatLng myPosition = new LatLng(33.671447, 73.069612);;
 
-	@SuppressLint("NewApi")
 	@Override
 	public void onCreate() {
 		super.onCreate();
 
-		//instabug code
-		Instabug.initialize(this,"2dfe3b005171f96ba7b6151aa82be713")
-		.setAnnotationActivityClass(InstabugAnnotationActivity.class)
-		.setShowIntroDialog(true)
-		.setEnableOverflowMenuItem(true);
+		sInstance = this;
+		context = this;
+
+		//Instabug updated to new 1.7.4
+//		Instabug.initialize((Application) context, "2dfe3b005171f96ba7b6151aa82be713")
+//                    .setInvocationEvent(Instabug.IBGInvocationEvent.IBGInvocationEventShake);
+
 	//	UserAccount user = new UserDatasource(this).findUser();
 	//	accountId = (user != null )? user.getId(): -1;
 		// initialize the singleton
-		sInstance = this;
-		context = this;
+
 		if (Build.VERSION.SDK_INT >= 14) {
 			registerActivityLifecycleCallbacks(new MyLifecycleHandler());
 		}

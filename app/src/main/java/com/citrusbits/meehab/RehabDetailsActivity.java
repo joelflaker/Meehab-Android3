@@ -344,6 +344,12 @@ OnSocketResponseListener, OnClickListener, OnMapClickListener {
 			@Override
 			public void onPhotoClick(int position) {
 				String url  = photoUrls.get(position);
+
+				if(TextUtils.isEmpty(url)){
+					App.toast("Sorry broken link!");
+					return;
+				}
+
 				//passing photo to media activity
 				Intent intent = new Intent(RehabDetailsActivity.this, MediaFullScreenActivity.class);
 				intent.putExtra(MediaFullScreenActivity.MEDIA_TYPE, MediaFullScreenActivity.TYPE_IMAGE);
@@ -363,7 +369,12 @@ OnSocketResponseListener, OnClickListener, OnMapClickListener {
 			public void onPhotoClick(int position) {
 				//passing video to media activity
 				String url = videoUrls.get(position);
-				
+
+				if(TextUtils.isEmpty(url)){
+					App.toast("Sorry broken link!");
+					return;
+				}
+
 				Intent intent = new Intent(RehabDetailsActivity.this, MediaFullScreenActivity.class);
 				intent.putExtra(MediaFullScreenActivity.MEDIA_TYPE, MediaFullScreenActivity.TYPE_VIDEO);
 				intent.putExtra("link", url);

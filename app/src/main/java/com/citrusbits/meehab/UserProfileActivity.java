@@ -185,7 +185,7 @@ public class UserProfileActivity extends SocketActivity implements
 			usernameText.setText(user.getUsername());
 			// String ageGenderEtcString = "24";
 
-			tvAge.setText(String.valueOf(user.getAge()));
+			tvAge.setText(String.valueOf(user.getAge()) + " YEAR"+(user.getAge() > 1 ? "S" :""));
 			tvGender.setText(user.getGender());
 			tvOriendation.setText(user.getSexualOrientation());
 			tvMaritalStatus.setText(user.getMaritalStatus());

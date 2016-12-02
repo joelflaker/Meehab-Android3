@@ -51,6 +51,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.MediaController;
 import android.widget.PopupMenu;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.net.CookieHandler;
@@ -107,6 +108,7 @@ public class MediaFullScreenActivity extends Activity implements SurfaceHolder.C
 
 	private AudioCapabilitiesReceiver audioCapabilitiesReceiver;
 	private String videoUrl;
+	private TextView textViewDebug;
 
 	@SuppressLint("NewApi")
 	@Override
@@ -173,6 +175,8 @@ public class MediaFullScreenActivity extends Activity implements SurfaceHolder.C
 			audioCapabilitiesReceiver.register();
 
 		}
+
+		textViewDebug = (TextView)findViewById(R.id.textViewDebug);
 
 		findViewById(R.id.btnClose).setOnClickListener(new View.OnClickListener() {
 
@@ -323,7 +327,7 @@ public class MediaFullScreenActivity extends Activity implements SurfaceHolder.C
 			player.addListener(eventLogger);
 			player.setInfoListener(eventLogger);
 			player.setInternalErrorListener(eventLogger);
-			debugViewHelper = new DebugTextViewHelper(player);
+			debugViewHelper = new DebugTextViewHelper(player,textViewDebug);
 			debugViewHelper.start();
 		}
 		if (playerNeedsPrepare) {
