@@ -57,16 +57,10 @@ dependencies {
         exclude group: 'org.json', module: 'json'
     }
     compile group: 'com.squareup.picasso', name: 'picasso', version: '2.5.2'
-    //    compile 'com.android.support:multidex:1.0.1'
     compile project(':crop')
     compile group: 'com.instabug.library', name: 'instabugsupport', version: '1.7.4'
 
-//    compile (group: 'com.instabug.library', name: 'instabugsupport', version: '1.3') {
-//        exclude module: 'volley'
-//    }
-
         compile 'com.google.android.exoplayer:exoplayer:r1.5.6'
-//    compile project(':library')
     compile 'com.android.support:recyclerview-v7:23.3.0'
     compile 'com.android.support:cardview-v7:23.3.0'
     compile 'com.google.code.gson:gson:2.2.4'
