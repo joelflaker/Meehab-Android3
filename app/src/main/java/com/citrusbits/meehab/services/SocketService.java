@@ -258,7 +258,7 @@ public class SocketService extends Service {
 				Log.d("query", opts.query);
 			}
 
-			mSocket = IO.socket(getResources().getString(R.string.url), opts);
+			mSocket = IO.socket(Consts.SOCKET_URL, opts);
 			mSocket.on(Socket.EVENT_CONNECT_ERROR, onConnectError);
 			mSocket.on(Socket.EVENT_CONNECT_TIMEOUT, onConnectError);
 			
@@ -1633,6 +1633,36 @@ public class SocketService extends Service {
 		
 		return emit(EventParams.EVENT_GET_USER_REVIEWS, params,
 				onGetUserReviews);
+	}
+	public boolean getBigBookLink() {
+		Emitter.Listener onEvent = new Emitter.Listener() {
+			@Override
+			public void call(final Object... args) {
+				try {
+
+					JSONObject data = (JSONObject) args[0];
+
+					Log.d(tag, data.toString());
+
+					if (data.getBoolean("type") == true) {
+						// userDatasource.update(response.getUser());
+						//
+						onSocketResponseSuccess(EventParams.METHOD_BIG_BOOK,
+								data);
+
+						// App.getInstance().connectNodeJS();
+					} else {
+						onSocketResponseFailure(EventParams.METHOD_BIG_BOOK,data.getString("message"));
+					}
+				} catch (Exception e) {
+					onSocketResponseFailure(EventParams.METHOD_BIG_BOOK,getString(R.string.server_response_error));
+				}
+				mSocket.off(EventParams.METHOD_BIG_BOOK);
+			}
+		};
+		mSocket.on(EventParams.METHOD_BIG_BOOK, onEvent);
+		return emit(EventParams.METHOD_BIG_BOOK, new JSONObject(),
+				onEvent);
 	}
 
 	public boolean sendReceiveChatMessage(final JSONObject params) {

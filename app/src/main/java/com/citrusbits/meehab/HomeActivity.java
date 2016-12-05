@@ -29,9 +29,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.citrusbits.meehab.adapters.NavDrawerListAdapter;
+import com.citrusbits.meehab.constants.Consts;
+import com.citrusbits.meehab.constants.EventParams;
 import com.citrusbits.meehab.db.UserDatasource;
 import com.citrusbits.meehab.dialog.InsuranceDialog;
 import com.citrusbits.meehab.dialog.InsuranceDialog.InsuranceDialogClickListener;
+import com.citrusbits.meehab.dialog.MessageDialog;
 import com.citrusbits.meehab.dialog.SocialShareDialog;
 import com.citrusbits.meehab.dialog.SocialShareDialog.SocialShareDialogClickListener;
 import com.citrusbits.meehab.fragments.FilterResultHolder;
@@ -53,8 +56,11 @@ import com.citrusbits.meehab.model.UserAccount;
 import com.citrusbits.meehab.services.OnBackendConnectListener;
 import com.citrusbits.meehab.services.OnSocketResponseListener;
 import com.citrusbits.meehab.utils.AccountUtils;
+import com.citrusbits.meehab.utils.NetworkUtils;
 import com.facebook.FacebookSdk;
 import com.squareup.picasso.Picasso;
+
+import org.json.JSONObject;
 
 @SuppressWarnings("ResourceType")
 public class HomeActivity extends SocketActivity implements
@@ -164,7 +170,7 @@ public class HomeActivity extends SocketActivity implements
 
 			return;
 		}
-		userImage = getString(R.string.url) + userImage;
+		userImage = Consts.SOCKET_URL + userImage;
 
 		Picasso.with(this)
 				.load(userImage)
@@ -319,8 +325,6 @@ public class HomeActivity extends SocketActivity implements
 			}
 
 			return;
-
-			// break;
 		case 6:
 			fragment = new RecoveryClockFragment();
 			setHomeTitle(position);
@@ -369,11 +373,15 @@ public class HomeActivity extends SocketActivity implements
 					}).show();
 			break;
 		case 8: // Big Book
-			Intent i = new Intent(Intent.ACTION_VIEW,
-					Uri.parse("http://www.aa.org/pages/en_US/alcoholics-anonymous"));
-			startActivity(i);
+			if (NetworkUtils.isNetworkAvailable(this)) {
+				socketService.getBigBookLink();
+			}else {
+				Toast.makeText(this,
+						getString(R.string.no_internet_connection),
+						Toast.LENGTH_SHORT).show();
+			}
 			break;
-		case 9:
+		case 9: // Settings
 			fragment = new OptionsFragment();
 			setHomeTitle(position);
 			break;
@@ -475,8 +483,6 @@ public class HomeActivity extends SocketActivity implements
 
 	@Override
 	protected void onDestroy() {
-		// TODO Auto-generated method stub
-		super.onDestroy();
 
 		MeetingsFragment.resultHolder = new FilterResultHolder();
 		FriendsFragment.fFilterResultHolder=new FriendFilterResultHolder();
@@ -484,6 +490,7 @@ public class HomeActivity extends SocketActivity implements
 		FriendsFilterActivity.applyClear();
 
 		this.unregisterReceiver(receiver);
+		super.onDestroy();
 	}
 
 	/**
@@ -496,10 +503,38 @@ public class HomeActivity extends SocketActivity implements
 
 	@Override
 	public void onSocketResponseSuccess(String event, Object obj) {
-		synchronized (mCurrentFragment) {
-			if (mCurrentFragment instanceof OnSocketResponseListener) {
-				((OnSocketResponseListener) mCurrentFragment)
-						.onSocketResponseSuccess(event, obj);
+		if (EventParams.METHOD_BIG_BOOK.equals(event)) {
+			//open link
+
+			JSONObject data = ((JSONObject) obj);
+
+			String url = data.optString("bigBook");
+
+			if(!TextUtils.isEmpty(url)){
+				Intent i = new Intent(Intent.ACTION_VIEW,
+						Uri.parse(url));
+				startActivity(i);
+			}
+		}else {
+			synchronized (mCurrentFragment) {
+				if (mCurrentFragment instanceof OnSocketResponseListener) {
+					((OnSocketResponseListener) mCurrentFragment)
+							.onSocketResponseSuccess(event, obj);
+				}
+			}
+		}
+	}
+
+	@Override
+	public void onSocketResponseFailure(String event,String message) {
+		if (EventParams.METHOD_BIG_BOOK.equals(event)) {
+
+		}else {
+			synchronized (mCurrentFragment) {
+				if (mCurrentFragment instanceof OnSocketResponseListener) {
+					((OnSocketResponseListener) mCurrentFragment)
+							.onSocketResponseFailure(event, message);
+				}
 			}
 		}
 	}
@@ -522,16 +557,6 @@ public class HomeActivity extends SocketActivity implements
 			}
 		}
 	};
-
-	@Override
-	public void onSocketResponseFailure(String onEvent,String message) {
-		synchronized (mCurrentFragment) {
-			if (mCurrentFragment instanceof OnSocketResponseListener) {
-				((OnSocketResponseListener) mCurrentFragment)
-						.onSocketResponseFailure(onEvent,message);
-			}
-		}
-	}
 
 	BroadcastReceiver receiver = new BroadcastReceiver() {
 

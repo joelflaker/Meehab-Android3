@@ -50,6 +50,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.citrusbits.meehab.app.App;
+import com.citrusbits.meehab.constants.Consts;
 import com.citrusbits.meehab.constants.EventParams;
 import com.citrusbits.meehab.db.UserDatasource;
 import com.citrusbits.meehab.dialog.DobPickerDialog;
@@ -571,7 +572,7 @@ public class EditMyProfileActivity extends SocketActivity implements
 			// UtilityClass.setDefaultIfNull(mUser);
 			if (mUser.getImage() != null) {
 
-				String userImage = getString(R.string.url) + mUser.getImage();
+				String userImage = Consts.SOCKET_URL + mUser.getImage();
 				Picasso.with(EditMyProfileActivity.this).load(userImage)
 						.placeholder(R.drawable.profile_pic).resize(100, 100)
 						.error(R.drawable.profile_pic)

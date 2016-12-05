@@ -16,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.citrusbits.meehab.app.App;
+import com.citrusbits.meehab.constants.Consts;
 import com.citrusbits.meehab.constants.EventParams;
 import com.citrusbits.meehab.dialog.DeleteReviewConfirmDialog;
 import com.citrusbits.meehab.dialog.DeleteReviewConfirmDialog.DeleteReviewConfirmDialogClickListener;
@@ -96,7 +97,7 @@ public class MyReviewDetailActivity extends SocketActivity implements
 			tvComment.setText(reviewModel.getComments());
 			String commentUserId = reviewModel.getUserId() + "";
 			
-			String userImage = getString(R.string.url) + reviewModel.getImage();
+			String userImage = Consts.SOCKET_URL + reviewModel.getImage();
 
 			Log.e("User image is ", userImage);
 

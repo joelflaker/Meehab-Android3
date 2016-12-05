@@ -26,6 +26,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.citrusbits.meehab.app.App;
+import com.citrusbits.meehab.constants.Consts;
 import com.citrusbits.meehab.constants.EventParams;
 import com.citrusbits.meehab.dialog.BlockFrindConfirmationDialog;
 import com.citrusbits.meehab.dialog.BlockFrindConfirmationDialog.BlockFrindConfirmationDialogClickListener;
@@ -157,7 +158,7 @@ public class UserProfileActivity extends SocketActivity implements
 				 * profileNetworkImageView.setImageUrl(getString(R.string.url) +
 				 * user.getImage(), App.getInstance().getImageLoader());
 				 */
-				String userImage = getString(R.string.url) + user.getImage();
+				String userImage = Consts.SOCKET_URL+ user.getImage();
 
 				Picasso.with(this).load(userImage)
 						.placeholder(R.drawable.profile_pic).resize(100, 100)

@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.citrusbits.meehab.R;
 import com.citrusbits.meehab.adapters.FriendsListAdapter.ViewHolder;
+import com.citrusbits.meehab.constants.Consts;
 import com.citrusbits.meehab.images.PicassoCircularTransform;
 import com.citrusbits.meehab.model.FriendModel;
 import com.citrusbits.meehab.model.UserAccount;
@@ -35,7 +36,7 @@ public class FriendAdapterList extends ArrayAdapter<FriendModel> {
 		inflater = (LayoutInflater) mContext
 				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-		baseUrl = c.getString(R.string.url);
+		baseUrl = Consts.SOCKET_URL;
 	}
 
 	@Override

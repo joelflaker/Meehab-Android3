@@ -75,6 +75,7 @@ public class EventParams {
 	public static final String EVENT_REHAB_REPORT = "rehabs:add:report";
 	
 	public static final String METHOD_REPORT_MEETING = "meetings:reportMeeting";
+	public static final String METHOD_BIG_BOOK = "other:get:bigbook";
 	public static final String METHOD_FAVOURITE_USER = "users:favoriteUser";
 	public static final String METHOD_ACCESS_TOKEN = "users:accessToken";
 

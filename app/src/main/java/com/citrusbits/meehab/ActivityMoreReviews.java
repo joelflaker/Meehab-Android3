@@ -3,6 +3,7 @@ package com.citrusbits.meehab;
 import java.util.ArrayList;
 import java.util.Collections;
 
+import com.citrusbits.meehab.constants.Consts;
 import com.citrusbits.meehab.images.PicassoCircularTransform;
 import com.citrusbits.meehab.model.MeetingReviewModel;
 import com.citrusbits.meehab.model.MyReview;
@@ -99,7 +100,7 @@ public class ActivityMoreReviews extends Activity implements OnClickListener {
 			ImageView ivUserIcon = (ImageView) view
 					.findViewById(R.id.ivUserIcon);
 
-			String userImage = getString(R.string.url) + m.getImage();
+			String userImage = Consts.SOCKET_URL + m.getImage();
 
 			Log.e("User image is ", userImage);
 

@@ -19,6 +19,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.citrusbits.meehab.R;
+import com.citrusbits.meehab.constants.Consts;
 import com.citrusbits.meehab.images.PicassoCircularTransform;
 import com.citrusbits.meehab.model.FriendModel;
 import com.citrusbits.meehab.model.UserAccount;
@@ -51,7 +52,7 @@ public class FriendsGridAdapter extends ArrayAdapter<UserAccount> {
 		grid_spacing = (int) TypedValue.applyDimension(
 				TypedValue.COMPLEX_UNIT_DIP, 10, c.getResources()
 						.getDisplayMetrics()) * 4;
-		baseUrl = c.getString(R.string.url);
+		baseUrl = Consts.SOCKET_URL;
 		cellWidthHeight = (ScreenUtils.screenWidthHeigh(c)[0] - grid_spacing) / 3;
 		rectBlueBgRes = R.drawable.rectangle_bg_blue;
 		rectMaroonBgRes = R.drawable.rectangle_bg_maroon;

@@ -17,11 +17,6 @@
     <string name="qb_auth_key">WYO2AaVeK6YOC5V</string>
     <string name="qb_auth_secret">3GD4muBBFVHRPEe</string>
 
-    <!-- Server -->
-    <string name="url">http://54.67.29.66:8081/</string>
-
-    <!-- <string name="url">http://192.168.0.150:8081/</string> -->
-
 
     <!-- General Messages -->
     <string name="time_out">There seems to be a problem with your connection... please try again.</string>
@@ -35,7 +30,7 @@
     <string name="title_activity_request_rehab_addition">RequestRehabAdditionActivity</string>
     <string name="title_activity_two_option">TwoOptionActivity</string>
     <string name="network_problem">It\'s seems to be network problem</string>
-    <string name="email_has_been_send">Email has been send!</string>
+    <string name="email_has_been_send">Email has been sent!</string>
     <string name="server_response_error">Server Response error</string>
     <string name="title_activity_change_email">ChangeEmailActivity</string>
     <string name="title_activity_change_password">ChangePasswordActivity</string>

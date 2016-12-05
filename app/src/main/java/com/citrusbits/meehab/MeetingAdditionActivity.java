@@ -103,7 +103,7 @@ public class MeetingAdditionActivity extends SocketActivity implements
 
 	private String lng = "73.6667";
 
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -122,11 +122,11 @@ public class MeetingAdditionActivity extends SocketActivity implements
 		tvTypeOfMeeting = (TextView) findViewById(R.id.tvTypeOfMeeting);
 		tvTypeOfFacility = (TextView) findViewById(R.id.tvTypeOfFacility);
 		etYourRelationshipToMeeting = (EditText) findViewById(R.id.etYourRelationshipToMeeting);
-		
+
 		//places
 //		aetAddress.setAdapter(new GooglePlacesAutocompleteAdapter(this, R.layout.list_item_spinner));
 //		aetAddress.setOnItemClickListener(this);
-		
+
 		etAddress.setFocusable(false);
 		etAddress.setClickable(true);
 		etAddress.setOnClickListener(this);
@@ -143,30 +143,30 @@ public class MeetingAdditionActivity extends SocketActivity implements
 						onBackPressed();
 					}
 				});
-		
+
 		etPhoneNumber.addTextChangedListener(new PhoneNumberFormattingTextWatcher("US"));
 		etPhoneNumber.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+			@Override
+			public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
-            }
+			}
 
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
+			@Override
+			public void onTextChanged(CharSequence s, int start, int before, int count) {
 //                if (editPhone.getText().toString().trim().length() > 13) {
 //                    btnNext.setVisibility(View.VISIBLE);
 //                } else {
 //                    btnNext.setVisibility(View.INVISIBLE);
 //                }
-            }
+			}
 
-            @Override
-            public void afterTextChanged(Editable s) {
+			@Override
+			public void afterTextChanged(Editable s) {
 
-            }
-        });
+			}
+		});
 	}
-	
+
 
 	@Override
 	public void onBackPressed() {
@@ -178,112 +178,112 @@ public class MeetingAdditionActivity extends SocketActivity implements
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
-		case R.id.ibSubmit:
-			submitMeeting();
-			break;
-		case R.id.etAddress:
-			findPlace(v);
-			break;
-		case R.id.tvMeetingDay:
-			// Toast.makeText(RequestMeetingAdditionActivity.this,
-			// "Meeting Day!", Toast.LENGTH_SHORT).show();
+			case R.id.ibSubmit:
+				submitMeeting();
+				break;
+			case R.id.etAddress:
+				findPlace(v);
+				break;
+			case R.id.tvMeetingDay:
+				// Toast.makeText(RequestMeetingAdditionActivity.this,
+				// "Meeting Day!", Toast.LENGTH_SHORT).show();
 
-			hideKeyboard();
-			String day = tvMeetingDay.getText().toString().trim();
+				hideKeyboard();
+				String day = tvMeetingDay.getText().toString().trim();
 
-			new DayPickerDialog(MeetingAdditionActivity.this)
-					.setDayDialogListener(new SelectDayDialogListener() {
+				new DayPickerDialog(MeetingAdditionActivity.this)
+						.setDayDialogListener(new SelectDayDialogListener() {
 
-						@Override
-						public void onDoneClick(DayPickerDialog dialog,
-								String daySelected) {
-							dialog.dismiss();
-							tvMeetingDay.setText(daySelected);
-						}
+							@Override
+							public void onDoneClick(DayPickerDialog dialog,
+													String daySelected) {
+								dialog.dismiss();
+								tvMeetingDay.setText(daySelected);
+							}
 
-						@Override
-						public void onCancelClick(DayPickerDialog dialog) {
-							dialog.dismiss();
-						}
-					}, day).show();
+							@Override
+							public void onCancelClick(DayPickerDialog dialog) {
+								dialog.dismiss();
+							}
+						}, day).show();
 
-			break;
-		case R.id.tvMeetingTime:
-			// Toast.makeText(RequestMeetingAdditionActivity.this,
-			// "Meeting Time!", Toast.LENGTH_SHORT).show();
-			String time = tvMeetingTime.getText().toString().trim();
+				break;
+			case R.id.tvMeetingTime:
+				// Toast.makeText(RequestMeetingAdditionActivity.this,
+				// "Meeting Time!", Toast.LENGTH_SHORT).show();
+				String time = tvMeetingTime.getText().toString().trim();
 
-			hideKeyboard();
-			new CustomTimePickerDialog(MeetingAdditionActivity.this)
-					.setTimePickerDialog(new TimePickerDialogListener() {
+				hideKeyboard();
+				new CustomTimePickerDialog(MeetingAdditionActivity.this)
+						.setTimePickerDialog(new TimePickerDialogListener() {
 
-						@Override
-						public void onDoneClick(CustomTimePickerDialog dialog,
-								String dateSelected) {
-							dialog.dismiss();
-							tvMeetingTime.setText(dateSelected);
+							@Override
+							public void onDoneClick(CustomTimePickerDialog dialog,
+													String dateSelected) {
+								dialog.dismiss();
+								tvMeetingTime.setText(dateSelected);
 //							etAddress.requestFocus();
-							hideKeyboard();
-						}
+								hideKeyboard();
+							}
 
-						@Override
-						public void onCancelClick(CustomTimePickerDialog dialog) {
-							dialog.dismiss();
+							@Override
+							public void onCancelClick(CustomTimePickerDialog dialog) {
+								dialog.dismiss();
 
-						}
-					}, time).show();
+							}
+						}, time).show();
 
-			break;
-		case R.id.tvTypeOfMeeting:
-			String meetingType = tvTypeOfMeeting.getText().toString().trim();
+				break;
+			case R.id.tvTypeOfMeeting:
+				String meetingType = tvTypeOfMeeting.getText().toString().trim();
 
-			hideKeyboard();
-			new MeetingTypeDialog(MeetingAdditionActivity.this)
-					.setMeetingTypeListener(new MeetingTypeDialogListener() {
+				hideKeyboard();
+				new MeetingTypeDialog(MeetingAdditionActivity.this)
+						.setMeetingTypeListener(new MeetingTypeDialogListener() {
 
-						@Override
-						public void onDoneClick(MeetingTypeDialog dialog,
-								String meetingSelected) {
-							dialog.dismiss();
-							tvTypeOfMeeting.setText(meetingSelected);
+							@Override
+							public void onDoneClick(MeetingTypeDialog dialog,
+													String meetingSelected) {
+								dialog.dismiss();
+								tvTypeOfMeeting.setText(meetingSelected);
 //							etCity.requestFocus();
-							hideKeyboard();
-						}
+								hideKeyboard();
+							}
 
-						@Override
-						public void onCancelClick(MeetingTypeDialog dialog) {
-							dialog.dismiss();
+							@Override
+							public void onCancelClick(MeetingTypeDialog dialog) {
+								dialog.dismiss();
 
-						}
-					}, meetingType).show();
-			break;
-		case R.id.tvTypeOfFacility:
-			hideKeyboard();
-			// Toast.makeText(RequestMeetingAdditionActivity.this,
-			// "Type of Facility!", Toast.LENGTH_SHORT).show();
-			String meetingFacility = tvTypeOfFacility.getText().toString()
-					.trim();
-			new MeetingFacilityDialog(MeetingAdditionActivity.this)
-					.setMeetingFacilityListener(
-							new MeetingFacilityDialogListener() {
+							}
+						}, meetingType).show();
+				break;
+			case R.id.tvTypeOfFacility:
+				hideKeyboard();
+				// Toast.makeText(RequestMeetingAdditionActivity.this,
+				// "Type of Facility!", Toast.LENGTH_SHORT).show();
+				String meetingFacility = tvTypeOfFacility.getText().toString()
+						.trim();
+				new MeetingFacilityDialog(MeetingAdditionActivity.this)
+						.setMeetingFacilityListener(
+								new MeetingFacilityDialogListener() {
 
-								@Override
-								public void onDoneClick(
-										MeetingFacilityDialog dialog,
-										String meetingFacility) {
-									dialog.dismiss();
-									tvTypeOfFacility.setText(meetingFacility);
-									etYourRelationshipToMeeting.requestFocus();
-								}
+									@Override
+									public void onDoneClick(
+											MeetingFacilityDialog dialog,
+											String meetingFacility) {
+										dialog.dismiss();
+										tvTypeOfFacility.setText(meetingFacility);
+										etYourRelationshipToMeeting.requestFocus();
+									}
 
-								@Override
-								public void onCancelClick(
-										MeetingFacilityDialog dialog) {
-									dialog.dismiss();
+									@Override
+									public void onCancelClick(
+											MeetingFacilityDialog dialog) {
+										dialog.dismiss();
 
-								}
-							}, meetingFacility).show();
-			break;
+									}
+								}, meetingFacility).show();
+				break;
 		}
 
 	}
@@ -300,26 +300,26 @@ public class MeetingAdditionActivity extends SocketActivity implements
 //    } catch (GooglePlayServicesNotAvailableException e) {
 //        // TODO: Handle the error.
 //    }
-		
-		 // Construct an intent for the place picker
-	    try {
-	        PlacePicker.IntentBuilder intentBuilder =
-	            new PlacePicker.IntentBuilder();
-	        Intent intent = intentBuilder.build(this);
-	        // Start the intent by requesting a result,
-	        // identified by a request code.
-	        startActivityForResult(intent, REQUEST_PLACE_PICKER);
 
-	    } catch (GooglePlayServicesRepairableException e) {
-	        // ...
-	    } catch (GooglePlayServicesNotAvailableException e) {
-	        // ...
-	    }
-}
+		// Construct an intent for the place picker
+		try {
+			PlacePicker.IntentBuilder intentBuilder =
+					new PlacePicker.IntentBuilder();
+			Intent intent = intentBuilder.build(this);
+			// Start the intent by requesting a result,
+			// identified by a request code.
+			startActivityForResult(intent, REQUEST_PLACE_PICKER);
 
-// A place has been received; use requestCode to track the request.
-@Override
-protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		} catch (GooglePlayServicesRepairableException e) {
+			// ...
+		} catch (GooglePlayServicesNotAvailableException e) {
+			// ...
+		}
+	}
+
+	// A place has been received; use requestCode to track the request.
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 //    if (requestCode == PLACE_AUTOCOMPLETE_REQUEST_CODE) {
 //        if (resultCode == RESULT_OK) {
 //            Place place = PlaceAutocomplete.getPlace(this, data);
@@ -340,37 +340,38 @@ protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 //            // The user canceled the operation.
 //        }
 //    }
-	
-	if (requestCode == REQUEST_PLACE_PICKER
-	        && resultCode == Activity.RESULT_OK) {
 
-	        // The user has selected a place. Extract the name and address.
-	        final Place place = PlacePicker.getPlace(data, this);
+		if (requestCode == REQUEST_PLACE_PICKER
+				&& resultCode == Activity.RESULT_OK) {
 
-	        LatLng latlng = place.getLatLng();
-	        if(latlng != null){
-	        	lat = String.valueOf(latlng.latitude);
-	        	lng = String.valueOf(latlng.longitude);
-	        }
-	        CharSequence name = place.getName();
-	        CharSequence address = place.getAddress();
-	        String attributions = PlacePicker.getAttributions(data);
-	        if (attributions == null) {
-	            attributions = "";
-	        }
-	        
-	        if(TextUtils.isEmpty(address)){
-	        	address = "Pin point location";
-	        }
+			// The user has selected a place. Extract the name and address.
+			final Place place = PlacePicker.getPlace(data, this);
+
+			LatLng latlng = place.getLatLng();
+			if(latlng != null){
+				lat = String.valueOf(latlng.latitude);
+				lng = String.valueOf(latlng.longitude);
+			}
+			CharSequence name = place.getName();
+			CharSequence address = place.getAddress();
+			String attributions = PlacePicker.getAttributions(data);
+			if (attributions == null) {
+				attributions = "";
+			}
+
+			if(TextUtils.isEmpty(address)){
+				address = "Pin point location";
+			}
 
 //	        mViewName.setText(name);
-	        etAddress.setText(address);
+			etAddress.setText(address);
 //	        mViewAttributions.setText(Html.fromHtml(attributions));
 
-	    } else {
-	        super.onActivityResult(requestCode, resultCode, data);
-	    }
-}
+		} else {
+			super.onActivityResult(requestCode, resultCode, data);
+		}
+	}
+
 	public void submitMeeting() {
 		String phone = UtilityClass.phoneNumberNormal(etPhoneNumber.getText().toString().trim());
 		String meetingName = etMeetingName.getText().toString().trim();
@@ -448,8 +449,8 @@ protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 					Toast.LENGTH_SHORT).show();
 			return;
 		}
-		
-		
+
+
 
 		JSONObject json = new JSONObject();
 		try {
@@ -497,6 +498,7 @@ protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 			pd.dismiss();
 		}
 		if (event.equals(EventParams.EVENT_ADD_MEETING)) {
+
 //			Toast.makeText(mContext, "Meeting added successfully!", Toast.LENGTH_SHORT).show();
 			new MessageDialog(this,R.string.thanks_on_meeting_addition)
 					.setDialogClickListener(new MessageDialog.MessageDialogClickListener() {
@@ -507,8 +509,8 @@ protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 						}
 					}).show();
 		}
-		
-		
+
+
 
 	}
 
@@ -519,7 +521,7 @@ protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		}
 		Toast.makeText(mContext, message, Toast.LENGTH_LONG).show();
 	}
-	
+
 	public static ArrayList autocomplete(String input) {
 		ArrayList resultList = null;
 
@@ -553,7 +555,7 @@ protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 			}
 		}
 
-		try {			
+		try {
 			// Create a JSON object hierarchy from the results
 			JSONObject jsonObj = new JSONObject(jsonResults.toString());
 			JSONArray predsJsonArray = jsonObj.getJSONArray("predictions");
@@ -572,84 +574,84 @@ protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		return resultList;
 	}
 	class GooglePlacesAutocompleteAdapter extends ArrayAdapter implements Filterable {
-		
-		        private ArrayList resultList;
-		
-		        public GooglePlacesAutocompleteAdapter(Context context, int textViewResourceId) {
-		            super(context, textViewResourceId);
-		
-		        }
-		
-		        @Override
-		
-		        public int getCount() {
-		
-		            return resultList.size();
-		
-		        }
-		
-		        @Override
-		
-		        public String getItem(int index) {
-		            return (String) resultList.get(index);
-		
-		        }
-		
-		        @Override
-		
-		        public Filter getFilter() {
-		
-		            Filter filter = new Filter() {
-		
-		                @Override
-		
-		                protected FilterResults performFiltering(CharSequence constraint) {
-		
-		                    FilterResults filterResults = new FilterResults();
-		
-		                    if (constraint != null) {
-		
-		                        // Retrieve the autocomplete results.
-		
-		                        resultList = autocomplete(constraint.toString());
-		
-		
-		                        // Assign the data to the FilterResults
-		
-		                        filterResults.values = resultList;
-		
-		                        filterResults.count = resultList.size();
-		
-		                    }
-		
-		                    return filterResults;
-		
-		                }
-		
-		 
-		
-		                @Override
-		
-		                protected void publishResults(CharSequence constraint, FilterResults results) {
-	
-		                    if (results != null && results.count > 0) {
-		
-		                        notifyDataSetChanged();
-		
-		                    } else {
-		
-		                        notifyDataSetInvalidated();
-		
-		                    }
-		
-		                }
-		
-		            };
-		
-		            return filter;
-		
-		        }
-		
-		    }
+
+		private ArrayList resultList;
+
+		public GooglePlacesAutocompleteAdapter(Context context, int textViewResourceId) {
+			super(context, textViewResourceId);
+
+		}
+
+		@Override
+
+		public int getCount() {
+
+			return resultList.size();
+
+		}
+
+		@Override
+
+		public String getItem(int index) {
+			return (String) resultList.get(index);
+
+		}
+
+		@Override
+
+		public Filter getFilter() {
+
+			Filter filter = new Filter() {
+
+				@Override
+
+				protected FilterResults performFiltering(CharSequence constraint) {
+
+					FilterResults filterResults = new FilterResults();
+
+					if (constraint != null) {
+
+						// Retrieve the autocomplete results.
+
+						resultList = autocomplete(constraint.toString());
+
+
+						// Assign the data to the FilterResults
+
+						filterResults.values = resultList;
+
+						filterResults.count = resultList.size();
+
+					}
+
+					return filterResults;
+
+				}
+
+
+
+				@Override
+
+				protected void publishResults(CharSequence constraint, FilterResults results) {
+
+					if (results != null && results.count > 0) {
+
+						notifyDataSetChanged();
+
+					} else {
+
+						notifyDataSetInvalidated();
+
+					}
+
+				}
+
+			};
+
+			return filter;
+
+		}
+
+	}
 
 }

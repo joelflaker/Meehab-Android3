@@ -11,6 +11,7 @@ import com.android.volley.VolleyError;
 import com.citrusbits.meehab.R;
 import com.citrusbits.meehab.app.App;
 import com.citrusbits.meehab.app.GsonRequest;
+import com.citrusbits.meehab.constants.Consts;
 import com.citrusbits.meehab.pojo.AddUserResponse;
 
 public class AddUserService extends BaseDataSource {
@@ -35,8 +36,7 @@ public class AddUserService extends BaseDataSource {
 		RequestQueue requestQueue = App.getInstance().getRequestQueue();
 
 		GsonRequest<AddUserResponse> request = new GsonRequest<AddUserResponse>(
-				com.android.volley.Request.Method.POST, context.getResources().getString(
-						R.string.url) + "adduser", AddUserResponse.class, params,
+				com.android.volley.Request.Method.POST, Consts.SOCKET_URL + "adduser", AddUserResponse.class, params,
 				successListener(), errorListener());
 		requestQueue.add(request);
 	}
@@ -49,8 +49,7 @@ public class AddUserService extends BaseDataSource {
 		RequestQueue requestQueue = App.getInstance().getRequestQueue();
 
 		GsonRequest<AddUserResponse> request = new GsonRequest<AddUserResponse>(
-				com.android.volley.Request.Method.POST, context.getResources().getString(
-						R.string.url) + "checkemail", AddUserResponse.class, params,
+				com.android.volley.Request.Method.POST, Consts.SOCKET_URL + "checkemail", AddUserResponse.class, params,
 				successListener(), errorListener());
 		requestQueue.add(request);
 	}
@@ -63,8 +62,7 @@ public class AddUserService extends BaseDataSource {
 		RequestQueue requestQueue = App.getInstance().getRequestQueue();
 
 		GsonRequest<AddUserResponse> request = new GsonRequest<AddUserResponse>(
-				com.android.volley.Request.Method.POST, context.getResources().getString(
-						R.string.url) + "checkusername", AddUserResponse.class, params,
+				com.android.volley.Request.Method.POST, Consts.SOCKET_URL + "checkusername", AddUserResponse.class, params,
 				successListener(), errorListener());
 		requestQueue.add(request);
 	}

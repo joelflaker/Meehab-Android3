@@ -13,6 +13,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 
 import com.citrusbits.meehab.R;
+import com.citrusbits.meehab.constants.Consts;
 import com.citrusbits.meehab.model.UserAccount;
 import com.citrusbits.meehab.utils.ScreenUtils;
 import com.squareup.picasso.Picasso;
@@ -41,7 +42,7 @@ public class FavFriendsGridAdapter  extends ArrayAdapter<UserAccount> {
 		grid_spacing = (int) TypedValue.applyDimension(
 				TypedValue.COMPLEX_UNIT_DIP, 10, c.getResources()
 						.getDisplayMetrics())*4;
-		baseUrl = c.getString(R.string.url);
+		baseUrl = Consts.SOCKET_URL;
 		cellWidthHeight = (ScreenUtils.screenWidthHeigh(c)[0] - grid_spacing) / 3;
 		rectBlueBgRes = R.drawable.rectangle_bg_blue;
 		rectMaroonBgRes = R.drawable.rectangle_bg_maroon;

@@ -55,6 +55,7 @@ import android.widget.Toast;
 
 import com.citrusbits.meehab.adapters.MeetingsListAdapter;
 import com.citrusbits.meehab.app.App;
+import com.citrusbits.meehab.constants.Consts;
 import com.citrusbits.meehab.constants.EventParams;
 import com.citrusbits.meehab.db.DatabaseHandler;
 import com.citrusbits.meehab.db.UserDatasource;
@@ -1181,7 +1182,7 @@ public class MeetingDetailsActivity extends SocketActivity implements
 			ImageView ivUserIcon = (ImageView) view
 					.findViewById(R.id.ivUserIcon);
 
-			String userImage = getString(R.string.url) + m.getImage();
+			String userImage = Consts.SOCKET_URL + m.getImage();
 
 			Log.e("User image is ", userImage);
 

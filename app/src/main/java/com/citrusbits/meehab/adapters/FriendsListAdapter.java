@@ -16,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.citrusbits.meehab.R;
+import com.citrusbits.meehab.constants.Consts;
 import com.citrusbits.meehab.images.PicassoCircularTransform;
 import com.citrusbits.meehab.model.UserAccount;
 import com.squareup.picasso.Picasso;
@@ -47,7 +48,7 @@ public class FriendsListAdapter extends ArrayAdapter<UserAccount> {
 		inflater = (LayoutInflater) mContext
 				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-		baseUrl = c.getString(R.string.url);
+		baseUrl = Consts.SOCKET_URL;
 
 		circleBlueBgRes = R.drawable.circle_bg_blue;
 		circleMaroonBgRes = R.drawable.circle_bg_maroon;

@@ -43,6 +43,7 @@ import com.citrusbits.meehab.MyReviewDetailActivity;
 import com.citrusbits.meehab.R;
 import com.citrusbits.meehab.UserProfileActivity;
 import com.citrusbits.meehab.app.App;
+import com.citrusbits.meehab.constants.Consts;
 import com.citrusbits.meehab.constants.EventParams;
 import com.citrusbits.meehab.db.UserDatasource;
 import com.citrusbits.meehab.helpers.AgeHelper;
@@ -165,7 +166,7 @@ public class MyProfileFragment extends Fragment implements
 				 * profileNetworkImageView.setImageUrl(getString(R.string.url) +
 				 * user.getImage(), App.getInstance().getImageLoader());
 				 */
-				String userImage = getString(R.string.url) + user.getImage();
+				String userImage = Consts.SOCKET_URL + user.getImage();
 
 				Picasso.with(getActivity()).load(userImage)
 						.placeholder(R.drawable.profile_pic).resize(100, 100)

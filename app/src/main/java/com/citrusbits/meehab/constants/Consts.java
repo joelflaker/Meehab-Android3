@@ -18,7 +18,9 @@ public class Consts {
 	public static final int REFRESH_UI_INTERVAL = 500;
 	//contacts
 	public static final String IS_CONTACT_SYNC = "is_contact_sync";
-	
+
+	public static final String SOCKET_URL = "http://ec2-52-87-182-251.compute-1.amazonaws.com/";
+
 	//settings
 	public static final String IMAGE_NAME = "image_name";
 	

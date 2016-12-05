@@ -68,7 +68,6 @@ public class CannotFindInsuranceActivity extends SocketActivity implements OnSoc
 					Toast.makeText(this,
 							getString(R.string.no_internet_connection),
 							Toast.LENGTH_SHORT).show();
-
 					return;
 				}
 				
