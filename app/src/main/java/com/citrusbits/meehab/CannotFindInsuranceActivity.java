@@ -73,7 +73,7 @@ public class CannotFindInsuranceActivity extends SocketActivity implements OnSoc
 				
 			AlertDialog dialog = new AlertDialog.Builder(this).create();
 			dialog.setMessage("Thank you for filling in your insurance provider. We will get back you to you shortly regarding your addition");
-			dialog.setButton("Ok", new DialogInterface.OnClickListener() {
+			dialog.setButton(DialogInterface.BUTTON_POSITIVE,"Ok", new DialogInterface.OnClickListener() {
 
 				@Override
 				public void onClick(DialogInterface dialog, int which) {
@@ -94,14 +94,7 @@ public class CannotFindInsuranceActivity extends SocketActivity implements OnSoc
 	
 	public void addInsurance(String insurance){
 		this.insurance = insurance;
-		JSONObject obj=new JSONObject();
-		try {
-			obj.put("insurance", insurance);
-			socketService.updateAccount(obj);
-			pd.show();
-		} catch (JSONException e) {
-			e.printStackTrace();
-		}
+		socketService.addInsurance(insurance);
 	}
 
 	
@@ -110,9 +103,16 @@ public class CannotFindInsuranceActivity extends SocketActivity implements OnSoc
 		if(pd != null && pd.isShowing()){
 			pd.dismiss();
 		}
-		
-		
-		if(event.equals(EventParams.EVENT_USER_UPDATE)){
+
+		if(event.equals(EventParams.EVENT_ADD_INSURANCE)) {
+			Toast.makeText(CannotFindInsuranceActivity.this, "Insurance added successfully!", Toast.LENGTH_SHORT).show();
+			Intent i = new Intent(CannotFindInsuranceActivity.this, HomeActivity.class);
+			i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
+					| Intent.FLAG_ACTIVITY_NEW_TASK);
+			startActivity(i);
+			overridePendingTransition(R.anim.activity_in, R.anim.activity_out);
+
+		}else if (event.equals(EventParams.EVENT_USER_UPDATE)){
 			UserDatasource uds = new UserDatasource(this);
 			UserAccount user = uds.findUser(AccountUtils.getUserId(this));
 			user.setInsurance(insurance);
@@ -127,9 +127,11 @@ public class CannotFindInsuranceActivity extends SocketActivity implements OnSoc
 	}
 
 	@Override
-	public void onSocketResponseFailure(String onEvent,String message) {
-		
-		if(pd != null && pd.isShowing()){
+	public void onSocketResponseFailure(String event,String message) {
+		if(event.equals(EventParams.EVENT_ADD_INSURANCE)) {
+			Toast.makeText(CannotFindInsuranceActivity.this, "Error "+message, Toast.LENGTH_SHORT).show();
+		}
+			if(pd != null && pd.isShowing()){
 			pd.dismiss();
 		}
 	}

@@ -1,5 +1,6 @@
 package com.citrusbits.meehab;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -10,11 +11,8 @@ import com.citrusbits.meehab.services.OnSocketResponseListener;
 import com.citrusbits.meehab.utils.AccountUtils;
 import com.citrusbits.meehab.utils.NetworkUtils;
 import com.citrusbits.meehab.utils.UtilityClass;
-import com.citrusbits.meehab.utils.ValidationUtils;
 
-import android.app.Activity;
 import android.app.Dialog;
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -64,13 +62,7 @@ public class InsuranceActivity extends SocketActivity implements
 
 		values = getResources().getStringArray(R.array.insurance_arr);
 
-		npInsurance
-				.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS);
-		npInsurance.setMinValue(0);
-		npInsurance.setMaxValue(values.length - 1);
-		npInsurance.setDisplayedValues(values);
-		npInsurance.setWrapSelectorWheel(false);
-		String insurance = user.getEthnicity();
+		updateInsurancesData();
 		
 //		if(getIntent().hasExtra("fromOption")){
 //			findViewById(R.id.text).setVisibility(View.GONE);
@@ -95,6 +87,22 @@ public class InsuranceActivity extends SocketActivity implements
 			npInsurance.setValue(position);
 
 		}
+	}
+
+	private void updateInsurancesData() {
+		npInsurance
+				.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS);
+		npInsurance.setMinValue(0);
+		npInsurance.setMaxValue(values.length - 1);
+		npInsurance.setDisplayedValues(values);
+		npInsurance.setWrapSelectorWheel(false);
+		String insurance = user.getEthnicity();
+	}
+
+
+	@Override
+	void onBackendConnected() {
+		socketService.listOfInsurances();
 	}
 
 	@Override
@@ -159,7 +167,20 @@ public class InsuranceActivity extends SocketActivity implements
 		}
 		
 		
-		if(event.equals(EventParams.EVENT_USER_UPDATE)){
+		if(event.equals(EventParams.EVENT_INSURANCE_LIST)) {
+			//update insurance list
+			JSONObject data = (JSONObject)obj;
+			JSONArray insurances = data.optJSONArray("insurances");
+			if(insurances != null){
+				String[] insurancesString = new String[insurances.length()];
+				for (int i = 0; i < insurances.length(); i++) {
+					insurancesString[i] = insurances.optJSONObject(i).optString("name");
+				}
+				values = insurancesString;
+				updateInsurancesData();
+			}
+//			{"type":true,"message":"Insurance List","insurances":[{"id":3,"name":"Anthem"},{"id":4,"name":"APS Healthcare"},{"id":5,"name":"Assurant"},{"id":6,"name":"BJC Behavioral"},{"id":7,"name":"BlueCross BlueShield"},{"id":8,"name":"Cigna"},{"id":9,"name":"ComPsych"},{"id":10,"name":"Consociate-Dansig"},{"id":11,"name":"Core Source"},{"id":12,"name":"Geha Health Plans"},{"id":13,"name":"Greatwest"},{"id":14,"name":"HealthLink"},{"id":15,"name":"Health Alliance"},{"id":17,"name":"Humana\/LifeSync"},{"id":18,"name":"Kaiser"},{"id":19,"name":"Medicaid"},{"id":20,"name":"Medical Mutual"},{"id":21,"name":"MHN Managed Health Network"},{"id":22,"name":"MH Net\/Group Health Plan (GHP)"},{"id":23,"name":"MVP HealthCare"},{"id":24,"name":"Obamacare"},{"id":25,"name":"Oxfort"},{"id":26,"name":"Perspectives"},{"id":27,"name":"PHCS"},{"id":28,"name":"Primary Physicians Care"},{"id":29,"name":"St. John's Mercy Health Plan"},{"id":31,"name":"Unite Behavioral Healthcare"},{"id":32,"name":"ValueOptions"},{"id":33,"name":"Vista"},{"id":47,"name":"asdasdas"},{"id":49,"name":"test insurance"}]}
+		}else if(event.equals(EventParams.EVENT_USER_UPDATE)){
 			UserDatasource uds = new UserDatasource(this);
 			UserAccount user = uds.findUser(AccountUtils.getUserId(this));
 			user.setInsurance(insurance);

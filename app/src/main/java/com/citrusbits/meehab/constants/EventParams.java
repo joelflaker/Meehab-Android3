@@ -25,7 +25,9 @@ public class EventParams {
 	public static final String EVENT_DELETE_USER_REVIEW = "meetings:deleteUserReviews";
 
 	public static final String EVENT_FAVOURITE_LIST = "meetings:getAllFavorites";
-	
+	public static final String EVENT_INSURANCE_LIST = "insurances:getAllInsurances";
+	public static final String EVENT_ADD_INSURANCE = "insurances:add:insurance";
+
 	//use in ProvideAppFeedBackActivity
 	public static final String EVENT_APP_FEED_BACK = "users:add:feedback";
 
@@ -34,8 +36,7 @@ public class EventParams {
 	public static final String EVENT_ADD_MEETING = "meetings:addMeeting";
 	
 	public static final String EVENT_ADD_REHAB = "rehabs:add:rehab";
-	
-//	public static final String EVENT_ADD_INSURANCE = "rehabs:update:insurance";
+	public static final String EVENT_REHAB_TYPES_LIST = "rehabs:types:list";
 
 	public static final String METHOD_USER_LOGIN = "users:login";
 

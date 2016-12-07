@@ -31,7 +31,7 @@ public class CustomTimePickerDialog extends Dialog implements
 
 	private String timeSelected;
 
-	private String[] timeRangeValues;
+	private String[] timeValues;
 
 
 	public CustomTimePickerDialog(Context context) {
@@ -61,18 +61,18 @@ public class CustomTimePickerDialog extends Dialog implements
 
 		setContentView(R.layout.dialog_time_picker);
 		getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-		
 
-		 String[] arr = context.getResources().getStringArray(
-				R.array.timeRangeValues);
+
+		timeValues = context.getResources().getStringArray(
+				R.array.timeValues);
 		
-		 int n = arr.length - 1;
-		 timeRangeValues = new String[n];
-		System.arraycopy(arr,1,timeRangeValues,0,n);
+//		 int n = arr.length - 1;
+//		 timeValues = new String[n];
+//		System.arraycopy(arr,1,timeRangeValues,0,n);
 
 		int position = 0;
-		for (int i = 0; i < timeRangeValues.length; i++) {
-			String status = timeRangeValues[i];
+		for (int i = 0; i < timeValues.length; i++) {
+			String status = timeValues[i];
 			if (status.equals(timeSelected)) {
 				position = i;
 				break;
@@ -82,9 +82,9 @@ public class CustomTimePickerDialog extends Dialog implements
 		picker = (NumberPicker) findViewById(R.id.npTimeRange);
 		picker.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS);
 		picker.setMinValue(0);
-		picker.setMaxValue(timeRangeValues.length - 1);
+		picker.setMaxValue(timeValues.length - 1);
 		picker.setValue(position);
-		picker.setDisplayedValues(timeRangeValues);
+		picker.setDisplayedValues(timeValues);
 		picker.setWrapSelectorWheel(false);
 		
 		findViewById(R.id.ibDone).setOnClickListener(this);
@@ -97,7 +97,7 @@ public class CustomTimePickerDialog extends Dialog implements
 		switch (v.getId()) {
 		case R.id.ibDone:
 			if (timePickerDialogListener != null) {
-				timeSelected = timeRangeValues[picker
+				timeSelected = timeValues[picker
 				         						.getValue()];
 				timePickerDialogListener.onDoneClick(this, timeSelected);
 			}

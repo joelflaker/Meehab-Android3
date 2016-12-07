@@ -1,6 +1,7 @@
 package com.citrusbits.meehab.services;
 
 import java.net.URISyntaxException;
+import java.util.HashMap;
 import java.util.List;
 
 import org.json.JSONException;
@@ -1623,14 +1624,87 @@ public class SocketService extends Service {
 		return emit(EventParams.EVENT_ADD_REHAB, params,
 				onAddRehab);
 	}
-	
-//	public boolean addInsurance(final JSONObject params) {
-//		return emit(EventParams.EVENT_ADD_INSURANCE, params,
-//				onAddInsurance);
-//	}
+	public boolean listOfRehabTypes() {
+		Emitter.Listener onEvent = new Emitter.Listener() {
+			@Override
+			public void call(final Object... args) {
+				try {
+
+					JSONObject data = (JSONObject) args[0];
+
+					if (data.getBoolean("type") == true) {
+						onSocketResponseSuccess(
+								EventParams.EVENT_REHAB_TYPES_LIST, data);
+					} else {
+						onSocketResponseFailure(EventParams.EVENT_REHAB_TYPES_LIST,data.getString("message"));
+					}
+				} catch (Exception e) {
+					onSocketResponseFailure(EventParams.EVENT_REHAB_TYPES_LIST,getString(R.string.server_response_error));
+				}
+				mSocket.off(EventParams.EVENT_REHAB_TYPES_LIST);
+			}
+		};
+
+		mSocket.on(EventParams.EVENT_REHAB_TYPES_LIST, onEvent);
+		return emit(EventParams.EVENT_REHAB_TYPES_LIST, new JSONObject(),
+				onEvent);
+	}
+	public boolean listOfInsurances() {
+		Emitter.Listener onEvent = new Emitter.Listener() {
+			@Override
+			public void call(final Object... args) {
+				try {
+
+					JSONObject data = (JSONObject) args[0];
+
+					if (data.getBoolean("type") == true) {
+						onSocketResponseSuccess(
+								EventParams.EVENT_INSURANCE_LIST, data);
+					} else {
+						onSocketResponseFailure(EventParams.EVENT_INSURANCE_LIST,data.getString("message"));
+					}
+				} catch (Exception e) {
+					onSocketResponseFailure(EventParams.EVENT_INSURANCE_LIST,getString(R.string.server_response_error));
+				}
+				mSocket.off(EventParams.EVENT_INSURANCE_LIST);
+			}
+		};
+
+		mSocket.on(EventParams.EVENT_INSURANCE_LIST, onEvent);
+		return emit(EventParams.EVENT_INSURANCE_LIST, new JSONObject(),
+				onEvent);
+	}
+
+	public boolean addInsurance(String name) {
+		Emitter.Listener onEvent = new Emitter.Listener() {
+			@Override
+			public void call(final Object... args) {
+				try {
+
+					JSONObject data = (JSONObject) args[0];
+
+					if (data.getBoolean("type") == true) {
+						onSocketResponseSuccess(
+								EventParams.EVENT_ADD_INSURANCE, data);
+					} else {
+						onSocketResponseFailure(EventParams.EVENT_ADD_INSURANCE,data.getString("message"));
+					}
+				} catch (Exception e) {
+					onSocketResponseFailure(EventParams.EVENT_ADD_INSURANCE,getString(R.string.server_response_error));
+				}
+				mSocket.off(EventParams.EVENT_ADD_INSURANCE);
+			}
+		};
+
+		mSocket.on(EventParams.EVENT_ADD_INSURANCE, onEvent);
+		HashMap<String,Object> obj = new HashMap<>();
+			obj.put("name", name);
+		return emit(EventParams.EVENT_ADD_INSURANCE, new JSONObject(obj),
+				onEvent);
+	}
 
 	public boolean getUserReviews(final JSONObject params) {
-		
+
 		return emit(EventParams.EVENT_GET_USER_REVIEWS, params,
 				onGetUserReviews);
 	}

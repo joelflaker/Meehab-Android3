@@ -44,6 +44,7 @@ import android.widget.Filterable;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.citrusbits.meehab.app.App;
 import com.citrusbits.meehab.constants.EventParams;
 import com.citrusbits.meehab.dialog.CustomTimePickerDialog;
 import com.citrusbits.meehab.dialog.CustomTimePickerDialog.TimePickerDialogListener;
@@ -246,7 +247,6 @@ public class MeetingAdditionActivity extends SocketActivity implements
 													String meetingSelected) {
 								dialog.dismiss();
 								tvTypeOfMeeting.setText(meetingSelected);
-//							etCity.requestFocus();
 								hideKeyboard();
 							}
 
@@ -467,6 +467,7 @@ public class MeetingAdditionActivity extends SocketActivity implements
 			json.put("longitude", lng);
 			json.put("building_type", typeOfFacility);
 			json.put("relation", yourRelationshipToMeeting);
+
 			socketService.addMeeting(json);
 
 			Log.e("json", json.toString());
@@ -477,7 +478,6 @@ public class MeetingAdditionActivity extends SocketActivity implements
 		}
 
 	}
-
 
 	public Calendar getTime(String time) {
 		SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");

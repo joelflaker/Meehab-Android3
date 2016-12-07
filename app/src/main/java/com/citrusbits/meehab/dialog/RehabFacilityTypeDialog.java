@@ -57,6 +57,7 @@ public class RehabFacilityTypeDialog extends Dialog implements
 		findViewById(R.id.ibCancel).setOnClickListener(this);
 
 		int position = 0;
+		if(rehabTypeStatus == null)
 		rehabTypeStatus = context.getResources().getStringArray(
 				R.array.rehab_facility_arr);
 
@@ -98,6 +99,11 @@ public class RehabFacilityTypeDialog extends Dialog implements
 			break;
 		}
 
+	}
+
+	public RehabFacilityTypeDialog setData(String[] rehabTypes) {
+		rehabTypeStatus = rehabTypes;
+		return this;
 	}
 
 	public interface RehabFacilityTypeDialogListener {

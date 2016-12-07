@@ -2,6 +2,7 @@ package com.citrusbits.meehab;
 
 import java.util.regex.Pattern;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -51,6 +52,7 @@ public class RehabAdditionActivity extends SocketActivity implements
 	ImageButton ibSubmit;
 
 	private Context mContext;
+	private String[] rehabTypes;
 
 	private Dialog pd;
 	
@@ -158,7 +160,8 @@ public class RehabAdditionActivity extends SocketActivity implements
 										RehabFacilityTypeDialog dialog) {
 									dialog.dismiss();
 								}
-							}, facilityType).show();
+							}, facilityType)
+					.setData(rehabTypes).show();
 			break;
 		}
 
@@ -229,13 +232,6 @@ public class RehabAdditionActivity extends SocketActivity implements
 
 		JSONObject json = new JSONObject();
 		try {
-//			[addRehabDict setValue:_txtName.text forKey:KEY_REHAB_USERNAME];
-//            [addRehabDict setValue:_txtPhoneNumber.text forKey:KEY_REHAB_USERPHONE];
-//            [addRehabDict setValue:_txtEmail.text forKey:KEY_REHAB_USEREMAIL];
-//            [addRehabDict setValue:_txtRehabName.text forKey:KEY_REHAB_NAME];
-//            [addRehabDict setValue:_txtWebsite.text forKey:KEY_REHAB_WEBSITE];
-//            [addRehabDict setValue:_txtRehabFacility.text forKey:KEY_REHAB_CODES];
-//            [addRehabDict setValue:_txtRehabRelation.text forKey:KEY_REHAB_RELATION];
 			json.put("user_name", name);
 			json.put("user_phone", phone);
 			json.put("user_email", email);
@@ -265,11 +261,29 @@ public class RehabAdditionActivity extends SocketActivity implements
 	}
 
 	@Override
+	void onBackendConnected() {
+		socketService.listOfRehabTypes();
+	}
+
+
+	@Override
 	public void onSocketResponseSuccess(String event, Object obj) {
 		if (pd != null) {
 			pd.dismiss();
 		}
 
+		if (event.equals(EventParams.EVENT_REHAB_TYPES_LIST)) {
+//			JSONObject data = (JSONObject)obj;
+//			JSONArray rehabTypes = data.optJSONArray("insurances");
+//			if(rehabTypes != null){
+//				String[] rehabTypesString = new String[insurances.length()];
+//				for (int i = 0; i < insurances.length(); i++) {
+//					rehabTypesString[i] = rehabTypes.optJSONObject(i).optString("name");
+//				}
+//				values = rehabTypesString;
+//				updateData();
+//			}
+		}else
 		if (event.equals(EventParams.EVENT_ADD_REHAB)) {
 			new MessageDialog(this,R.string.thanks_on_rehab_addition)
 					.setDialogClickListener(new MessageDialog.MessageDialogClickListener() {
