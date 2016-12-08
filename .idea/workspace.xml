@@ -11,18 +11,10 @@
   <component name="ChangeListManager">
     <list default="true" id="249e763b-9471-407f-986e-4918a109a8df" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/CannotFindInsuranceActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/CannotFindInsuranceActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/InsuranceActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/InsuranceActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/MeetingAdditionActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/MeetingAdditionActivity.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/app.iml" afterPath="$PROJECT_DIR$/app/app.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build.gradle" afterPath="$PROJECT_DIR$/app/build.gradle" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/RehabAdditionActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/RehabAdditionActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/constants/Consts.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/constants/Consts.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/constants/EventParams.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/constants/EventParams.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/dialog/CustomTimePickerDialog.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/dialog/CustomTimePickerDialog.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/dialog/RehabFacilityTypeDialog.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/dialog/RehabFacilityTypeDialog.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/services/SocketService.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/services/SocketService.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/values/arrays.xml" afterPath="$PROJECT_DIR$/app/src/main/res/values/arrays.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build.gradle" afterPath="$PROJECT_DIR$/build.gradle" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/crop/crop.iml" afterPath="$PROJECT_DIR$/crop/crop.iml" />
     </list>
     <ignored path="Meehab-Android.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -65,25 +57,22 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MeetingAdditionActivity.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/MeetingAdditionActivity.java">
+      <file leaf-file-name="build.gradle" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/build.gradle">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="227">
-              <caret line="500" column="0" selection-start-line="500" selection-start-column="0" selection-end-line="500" selection-end-column="0" />
+            <state relative-caret-position="918">
+              <caret line="54" column="46" selection-start-line="54" selection-start-column="46" selection-end-line="54" selection-end-column="46" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="RehabAdditionActivity.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="RehabAdditionActivity.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/RehabAdditionActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="4403">
-              <caret line="299" column="4" selection-start-line="299" selection-start-column="4" selection-end-line="299" selection-end-column="4" />
-              <folding>
-                <element signature="e#8172#8173#0" expanded="true" />
-                <element signature="e#8211#8212#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="506">
+              <caret line="255" column="32" selection-start-line="255" selection-start-column="32" selection-end-line="255" selection-end-column="32" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -91,8 +80,8 @@
       <file leaf-file-name="SocketService.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/services/SocketService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="27540">
-              <caret line="1687" column="53" selection-start-line="1687" selection-start-column="53" selection-end-line="1687" selection-end-column="53" />
+            <state relative-caret-position="26673">
+              <caret line="1636" column="24" selection-start-line="1636" selection-start-column="24" selection-end-line="1636" selection-end-column="24" />
               <folding />
             </state>
           </provider>
@@ -2401,7 +2390,7 @@
     <option name="modificationStamps">
       <map>
         <entry key="D:\AndroidProjects\Meehab-Android" value="7368998874253" />
-        <entry key="D:\Company\Meehab\Meehab-Android" value="5923336436949" />
+        <entry key="D:\Company\Meehab\Meehab-Android" value="5923607370307" />
       </map>
     </option>
     <option name="projectBuildClasspath">
@@ -2919,7 +2908,6 @@
         <option value="$PROJECT_DIR$/GetCurrentActivity.bat" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/fragments/FriendsFragment.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/fragments/MyFavoritesFragment.java" />
-        <option value="$PROJECT_DIR$/app/build.gradle" />
         <option value="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/ActivityMoreReviews.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/adapters/FavFriendsGridAdapter.java" />
@@ -2941,8 +2929,9 @@
         <option value="$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/constants/EventParams.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/CannotFindInsuranceActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/InsuranceActivity.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/dialog/RehabFacilityTypeDialog.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/services/SocketService.java" />
+        <option value="$PROJECT_DIR$/app/build.gradle" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/dialog/RehabFacilityTypeDialog.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/RehabAdditionActivity.java" />
       </list>
     </option>
@@ -2978,6 +2967,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="PackagesPane" />
       <pane id="AndroidView">
         <subPane>
           <PATH>
@@ -2998,6 +2988,7 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scratches" />
       <pane id="Scope">
         <subPane subId="Project Files">
           <PATH>
@@ -3028,8 +3019,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
-      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -3037,8 +3026,8 @@
     <property name="settings.editor.splitter.proportion" value="0.2" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="UI_DESIGNER_EDITOR_MODE.NlPaletteManager-NlPreviewForm.SHOW" value="false" />
-    <property name="device.picker.selection" value="04e1af370a6730b2" />
-    <property name="DEBUGGABLE_DEVICE" value="lge-nexus_5-04e1af370a6730b2" />
+    <property name="device.picker.selection" value="04aa9d3925273dbf" />
+    <property name="DEBUGGABLE_DEVICE" value="emulator-5554" />
     <property name="DEBUGGABLE_PROCESS" value="com.citrusbits.meehab" />
     <property name="SHOW_ALL_PROCESSES" value="false" />
     <property name="DEBUGGER_ID" value="Auto" />
@@ -3376,23 +3365,30 @@
       <option name="project" value="LOCAL" />
       <updated>1480947578817</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Make insurances list dynamic, Implement new service for add insurance, Meeting request fixes">
+      <created>1481124515208</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1481124515208</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1616" height="916" extended-state="0" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Nl-Palette" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33069828" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
+      <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.1773779" sideWeight="0.5046113" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32879046" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Android Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32806325" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32806325" sideWeight="0.5025707" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Android Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32806325" sideWeight="0.4974293" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32806325" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.66139656" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Properties" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32806325" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -3400,12 +3396,12 @@
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1773779" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1773779" sideWeight="0.49538866" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Android Model" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3992095" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3992095" sideWeight="0.4974293" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -3434,7 +3430,8 @@
     <MESSAGE value="Change Exoplayer library to dependency, multiple bug fixes" />
     <MESSAGE value="Update Instabug from v1.3 to 1.7.4 and closes #1" />
     <MESSAGE value="Getting big book link from server" />
-    <option name="LAST_COMMIT_MESSAGE" value="Getting big book link from server" />
+    <MESSAGE value="Make insurances list dynamic, Implement new service for add insurance, Meeting request fixes" />
+    <option name="LAST_COMMIT_MESSAGE" value="Make insurances list dynamic, Implement new service for add insurance, Meeting request fixes" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -3463,14 +3460,8 @@
           <properties />
           <option name="timeStamp" value="25" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/services/SocketService.java</url>
-          <line>1634</line>
-          <properties />
-          <option name="timeStamp" value="32" />
-        </line-breakpoint>
       </breakpoints>
-      <option name="time" value="33" />
+      <option name="time" value="37" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -3504,13 +3495,13 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_user_profile.xml">
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="242">
           <caret line="139" column="46" selection-start-line="139" selection-start-column="41" selection-end-line="139" selection-end-column="46" />
         </state>
-      </provider>
-      <provider editor-type-id="android-designer2">
-        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/model/UserAccount.java">
@@ -3528,13 +3519,13 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_meeting_details.xml">
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="306">
           <caret line="18" column="40" selection-start-line="18" selection-start-column="33" selection-end-line="18" selection-end-column="40" />
         </state>
-      </provider>
-      <provider editor-type-id="android-designer2">
-        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/fragments/MeetingsFragment.java">
@@ -3555,14 +3546,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2380">
           <caret line="219" column="24" selection-start-line="219" selection-start-column="24" selection-end-line="219" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/build.gradle">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1071">
-          <caret line="63" column="0" selection-start-line="63" selection-start-column="0" selection-end-line="63" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -3708,20 +3691,12 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_insurance.xml">
-      <provider editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
       <provider selected="true" editor-type-id="android-designer2">
         <state />
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/HomeActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="7769">
-          <caret line="523" column="13" selection-start-line="523" selection-start-column="13" selection-end-line="523" selection-end-column="13" />
-          <folding />
+      <provider editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
     </entry>
@@ -3729,18 +3704,17 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="153">
           <caret line="66" column="28" selection-start-line="66" selection-start-column="28" selection-end-line="66" selection-end-column="28" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/dialog_meeting_type.xml">
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="464">
           <caret line="57" column="28" selection-start-line="57" selection-start-column="28" selection-end-line="57" selection-end-column="28" />
         </state>
-      </provider>
-      <provider editor-type-id="android-designer2">
-        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/values/arrays.xml">
@@ -3773,20 +3747,19 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_cannot_find_insurance.xml">
+      <provider selected="true" editor-type-id="android-designer2">
+        <state />
+      </provider>
       <provider editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
-      </provider>
-      <provider selected="true" editor-type-id="android-designer2">
-        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/dialog/MeetingTypeDialog.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="362">
           <caret line="61" column="35" selection-start-line="61" selection-start-column="35" selection-end-line="61" selection-end-column="35" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -3804,13 +3777,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/dialog/RehabFacilityTypeDialog.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="59" column="34" selection-start-line="59" selection-start-column="34" selection-end-line="59" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/CannotFindInsuranceActivity.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="272">
@@ -3825,14 +3791,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/services/SocketService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="27540">
-          <caret line="1687" column="53" selection-start-line="1687" selection-start-column="53" selection-end-line="1687" selection-end-column="53" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/constants/EventParams.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="425">
@@ -3841,21 +3799,50 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/RehabAdditionActivity.java">
+    <entry file="file://$PROJECT_DIR$/app/build.gradle">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4403">
-          <caret line="299" column="4" selection-start-line="299" selection-start-column="4" selection-end-line="299" selection-end-column="4" />
-          <folding>
-            <element signature="e#8172#8173#0" expanded="true" />
-            <element signature="e#8211#8212#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="918">
+          <caret line="54" column="46" selection-start-line="54" selection-start-column="46" selection-end-line="54" selection-end-column="46" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/MeetingAdditionActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="227">
-          <caret line="500" column="0" selection-start-line="500" selection-start-column="0" selection-end-line="500" selection-end-column="0" />
+        <state relative-caret-position="261">
+          <caret line="517" column="36" selection-start-line="517" selection-start-column="36" selection-end-line="517" selection-end-column="36" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/HomeActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="7769">
+          <caret line="523" column="13" selection-start-line="523" selection-start-column="13" selection-end-line="523" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/services/SocketService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="26673">
+          <caret line="1636" column="24" selection-start-line="1636" selection-start-column="24" selection-end-line="1636" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/dialog/RehabFacilityTypeDialog.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="363">
+          <caret line="65" column="49" selection-start-line="65" selection-start-column="49" selection-end-line="65" selection-end-column="49" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/RehabAdditionActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="506">
+          <caret line="255" column="32" selection-start-line="255" selection-start-column="32" selection-end-line="255" selection-end-column="32" />
           <folding />
         </state>
       </provider>

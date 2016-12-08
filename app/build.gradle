@@ -52,7 +52,7 @@ dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     // http://mvnrepository.com/artifact/com.facebook.android/facebook-android-sdk
     compile group: 'com.facebook.android', name: 'facebook-android-sdk', version: '4.4.0'
-    compile ('io.socket:socket.io-client:0.7.0') {
+    compile ('io.socket:socket.io-client:0.8.2') {
         // excluding org.json which is provided by Android
         exclude group: 'org.json', module: 'json'
     }

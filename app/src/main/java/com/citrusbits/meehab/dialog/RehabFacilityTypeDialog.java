@@ -88,7 +88,7 @@ public class RehabFacilityTypeDialog extends Dialog implements
 			if (facilityTypeListener != null) {
 				facilityTypeSelected = rehabTypeStatus[npRehabType
 						.getValue()];
-				facilityTypeListener.onDoneClick(this, facilityTypeSelected);
+				facilityTypeListener.onDoneClick(this, facilityTypeSelected,npRehabType.getValue());
 			}
 
 			break;
@@ -109,7 +109,7 @@ public class RehabFacilityTypeDialog extends Dialog implements
 	public interface RehabFacilityTypeDialogListener {
 
 		public void onDoneClick(RehabFacilityTypeDialog dialog,
-				String rehabFacilityType);
+				String rehabFacilityType,int position);
 
 		public void onCancelClick(RehabFacilityTypeDialog dialog);
 	}
