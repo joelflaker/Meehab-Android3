@@ -3,6 +3,7 @@ package com.citrusbits.meehab;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -72,13 +73,13 @@ import com.citrusbits.meehab.images.PicassoCircularTransform;
 import com.citrusbits.meehab.model.UserAccount;
 import com.citrusbits.meehab.services.OnSocketResponseListener;
 import com.citrusbits.meehab.utils.AccountUtils;
+import com.citrusbits.meehab.utils.CropUtil;
 import com.citrusbits.meehab.utils.DateTimeUtils;
 import com.citrusbits.meehab.utils.DeviceUtils;
 import com.citrusbits.meehab.utils.NetworkUtil;
 import com.citrusbits.meehab.utils.UploadImageUtility;
 import com.citrusbits.meehab.utils.UtilityClass;
 import com.soundcloud.android.crop.Crop;
-import com.soundcloud.android.crop.CropUtil;
 import com.squareup.picasso.Picasso;
 
 public class EditMyProfileActivity extends SocketActivity implements
@@ -465,8 +466,8 @@ public class EditMyProfileActivity extends SocketActivity implements
 							if (fileUri != null) {
 								Intent intent = new Intent(
 										MediaStore.ACTION_IMAGE_CAPTURE);
-								// intent.putExtra(MediaStore.EXTRA_OUTPUT,
-								// fileUri);
+								 intent.putExtra(MediaStore.EXTRA_OUTPUT,
+								 fileUri);
 								startActivityForResult(intent,
 										REQUEST_FROM_CAMERA);
 							}
@@ -503,7 +504,6 @@ public class EditMyProfileActivity extends SocketActivity implements
 						@Override
 						public void onDoneClick(DobPickerDialog dialog,
 								String dateSelected) {
-							// TODO Auto-generated method stub
 							dialog.dismiss();
 							dobBtn.setText(dateSelected);
 							updateUser.setDateOfBirth(dateSelected);
@@ -511,7 +511,6 @@ public class EditMyProfileActivity extends SocketActivity implements
 
 						@Override
 						public void onCancelClick(DobPickerDialog dialog) {
-							// TODO Auto-generated method stub
 							dialog.dismiss();
 						}
 					}, dob.isEmpty() ? null : DateTimeUtils.dateToCalendar(dob))
@@ -529,7 +528,6 @@ public class EditMyProfileActivity extends SocketActivity implements
 						public void onDoneClick(
 								MaritalStatusPickerDialog dialog,
 								String maritalStatusSelected) {
-							// TODO Auto-generated method stub
 							dialog.dismiss();
 							maritalStatusBtn.setText(maritalStatusSelected);
 							updateUser.setMaritalStatus(maritalStatusSelected);
@@ -539,7 +537,6 @@ public class EditMyProfileActivity extends SocketActivity implements
 						@Override
 						public void onCancelClick(
 								MaritalStatusPickerDialog dialog) {
-							// TODO Auto-generated method stub
 							dialog.dismiss();
 
 						}
@@ -973,20 +970,29 @@ public class EditMyProfileActivity extends SocketActivity implements
 			if (requestCode == REQUEST_FROM_CAMERA) {
 				try {
 
-					if (data.getData() != null) {
+//					if (data.getExtras().get("data") != null) {
 
-						file = new File(data.getData().getPath());
-						fullPath = file.getAbsolutePath();
+//						try {
+//							FileOutputStream fileOutputStream = new FileOutputStream(fileUri.getPath());
+//							Bitmap bm = (Bitmap) data.getExtras().get("data");
+//							bm.compress(Bitmap.CompressFormat.PNG, 100, fileOutputStream);
+//							fileOutputStream.flush();
+//							fileOutputStream.close();
+//
+//						} catch (Exception e) {
+//							e.printStackTrace();
+//							return;
+//						}
+						file = new File(fileUri.getPath());
 
-						doScanFile(fullPath);
+						doScanFile(file.getAbsolutePath());
 
 						File cropFilePath = new File(UploadImageUtility
 								.genarateUri().getPath());
 						fullPath = cropFilePath.getAbsolutePath();
 
-						Log.d("cropfile::::", fullPath);
 						Uri outputUri = Uri.fromFile(cropFilePath);
-						new Crop(data.getData()).output(outputUri).asSquare()
+						Crop.of(fileUri,outputUri).asSquare()
 								.withMaxSize(400, 400)
 								.start(this, REQUEST_RESIZE_CROP);
 						// Intent intent = new Intent(this,
@@ -1000,7 +1006,7 @@ public class EditMyProfileActivity extends SocketActivity implements
 						// intent.putExtra("return-data", true);
 						// startActivityForResult(intent, 3);
 
-					}
+//					}
 
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -1025,7 +1031,7 @@ public class EditMyProfileActivity extends SocketActivity implements
 					fullPath = cropFilePath.getAbsolutePath();
 
 					Uri outputUri = Uri.fromFile(cropFilePath);
-					new Crop(Uri.fromFile(file)).output(outputUri).asSquare()
+					Crop.of(Uri.fromFile(file),outputUri).asSquare()
 							.withMaxSize(400, 400)
 							.start(this, REQUEST_RESIZE_CROP);
 
@@ -1046,43 +1052,31 @@ public class EditMyProfileActivity extends SocketActivity implements
 			} else if (requestCode == REQUEST_RESIZE_CROP) {
 				newbitmap = fixRotation((Uri) data
 						.getParcelableExtra(MediaStore.EXTRA_OUTPUT));
+
+				File imageFileFixed = new File(getCacheDir(),"image_fixed.png");
+				try {
+					FileOutputStream fileOutputStream = new FileOutputStream(
+							imageFileFixed);
+					newbitmap.compress(Bitmap.CompressFormat.PNG,100,fileOutputStream);
+					fileOutputStream.close();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+
 				// profilePic.setImageBitmap(newbitmap);
-				Bitmap circularBitamp;
-				circularBitamp = new PicassoCircularTransform()
-						.transform(newbitmap);
-				newbitmap = fixRotation((Uri) data
-						.getParcelableExtra(MediaStore.EXTRA_OUTPUT));
-				Bitmap blurBitmap;
-				blurBitmap = new PicassoBlurTransform(
-						EditMyProfileActivity.this, 20).transform(newbitmap);
+				Bitmap circularBitamp = new PicassoCircularTransform()
+						.transform(newbitmap.copy(Bitmap.Config.ARGB_8888,false));
+				Bitmap blurBitmap = new PicassoBlurTransform(
+						EditMyProfileActivity.this, 20).transform(newbitmap.copy(Bitmap.Config.ARGB_8888,false));
 
 				ivBlurBg.setImageBitmap(blurBitmap);
-
 				profilePic.setImageBitmap(circularBitamp);
-				newbitmap = fixRotation((Uri) data
-						.getParcelableExtra(MediaStore.EXTRA_OUTPUT));
 
 				file.delete();
-
-				Uri uri = (Uri) data
-						.getParcelableExtra(MediaStore.EXTRA_OUTPUT);
 				try {
-					FileInputStream input = new FileInputStream(new File(
-							uri.getPath()));
-					StringBuffer fileContent = new StringBuffer("");
 					ByteArrayOutputStream output = new ByteArrayOutputStream();
-
-					byte[] buffer = new byte[1024];
-					int count;
-					while ((count = input.read(buffer)) != -1) {
-						output.write(buffer, 0, count);
-					}
-					// byte[] buffer = new byte[8192];
-					// int bytesRead;
-					// while ((bytesRead = input.read(buffer)) != -1) {
-					// output.write(buffer, 0, bytesRead);
-					// }
-
+					newbitmap.compress(Bitmap.CompressFormat.PNG, 100, output);
+					newbitmap.recycle();
 					byte[] byteArray = output.toByteArray();
 					// updatedUser.setImage("data:image/png;base64,"+Base64.encodeToString(byteArray,
 					// Base64.DEFAULT));
@@ -1093,8 +1087,8 @@ public class EditMyProfileActivity extends SocketActivity implements
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
-				// image to Base64 string
 
+				imageFileFixed.delete();
 			}
 		}
 	}
@@ -1165,7 +1159,7 @@ public class EditMyProfileActivity extends SocketActivity implements
 					if (fileUri != null) {
 						Intent intent = new Intent(
 								MediaStore.ACTION_IMAGE_CAPTURE);
-						// intent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri);
+						 intent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri);
 						startActivityForResult(intent, REQUEST_FROM_CAMERA);
 					}
 				} else if (options[item].equals("Choose from Gallery")) {

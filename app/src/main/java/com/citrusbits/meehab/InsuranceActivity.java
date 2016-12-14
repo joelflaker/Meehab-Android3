@@ -4,6 +4,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.citrusbits.meehab.app.App;
 import com.citrusbits.meehab.constants.EventParams;
 import com.citrusbits.meehab.db.UserDatasource;
 import com.citrusbits.meehab.model.UserAccount;
@@ -195,8 +196,10 @@ public class InsuranceActivity extends SocketActivity implements
 	}
 
 	@Override
-	public void onSocketResponseFailure(String onEvent, String message) {
-
+	public void onSocketResponseFailure(String event, String message) {
+		if(EventParams.EVENT_USER_UPDATE.equals(event)){
+			App.toast(""+message);
+		}
 		if(pd!=null && pd.isShowing()){
 			pd.dismiss();
 		}

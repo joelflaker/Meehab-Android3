@@ -1063,6 +1063,7 @@ public class RehabsFragment extends Fragment implements
 			
 			rehabAdapter = new RehabListAdapter(getActivity(),
 					R.layout.list_item_meeting, rehabResponse);
+			if(!isAdded()) return;
 			list.setAdapter(rehabAdapter);
 			if(RehabsFilterActivity.filterModel.isApplied()){
 				rehabAdapter.filter(RehabsFilterActivity.filterModel);				

@@ -1072,6 +1072,7 @@ public class MyFavoritesFragment extends Fragment implements
 
 			meetingsAdapter = new FavMeetingListAdapter(getActivity(),
 					R.layout.list_item_meeting, meetings);
+			if(!isAdded()) return;
 			list.setAdapter(meetingsAdapter);
 			meetingsAdapter.notifyDataSetChanged();
 			updateEmptyViews();

@@ -238,7 +238,7 @@ public class RehabListAdapter extends ArrayAdapter<RehabModel> {
 		notifyDataSetChanged();
 	}
 	public boolean isMiles(String mile, double rehabDistance) {
-		mile = mile.replace("miles", "").replace("mile", "").trim();
+		mile = mile.toLowerCase().replace("miles", "").replace("mile", "").trim();
 		/*
 		 * Log.e("My Location",
 		 * myLocation.getLatitude()+","+myLocation.getLongitude());

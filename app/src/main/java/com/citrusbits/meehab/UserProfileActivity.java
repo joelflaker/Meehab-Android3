@@ -12,6 +12,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -208,11 +209,11 @@ public class UserProfileActivity extends SocketActivity implements
 			aaStoryText.setText(user.getAboutStory());
 
 			String aaStoryTxt = user.getAboutStory();
-			if (aaStoryTxt.length() > 100) {
+			if (aaStoryTxt != null && aaStoryTxt.length() > 100) {
 				aaStoryText.setText(aaStoryTxt.substring(0, 100));
 				ibSeeMore.setVisibility(View.VISIBLE);
 			} else {
-				aaStoryText.setText(aaStoryTxt);
+				aaStoryText.setText(aaStoryTxt+"");
 				ibSeeMore.setVisibility(View.GONE);
 			}
 

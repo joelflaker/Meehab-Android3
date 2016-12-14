@@ -789,6 +789,7 @@ public class FriendsFragment extends Fragment implements
 		@Override
 		public void onResume() {
 			super.onResume();
+			if(grid != null)
 			((FriendsGridAdapter) grid.getAdapter()).notifyDataSetChanged();
 		}
 	}
@@ -804,6 +805,7 @@ public class FriendsFragment extends Fragment implements
 		@Override
 		public void onResume() {
 			super.onResume();
+			if(list != null)
 			((FriendsListAdapter) list.getAdapter()).notifyDataSetChanged();
 		}
 	}

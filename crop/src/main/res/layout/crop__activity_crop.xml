@@ -10,7 +10,7 @@
         layout="@layout/crop__layout_done_cancel" />
 
     <com.soundcloud.android.crop.CropImageView
-        android:id="@+id/crop_image_view"
+        android:id="@+id/crop_image"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/crop__texture"

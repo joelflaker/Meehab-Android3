@@ -34,7 +34,6 @@ import com.citrusbits.meehab.constants.EventParams;
 import com.citrusbits.meehab.db.UserDatasource;
 import com.citrusbits.meehab.dialog.InsuranceDialog;
 import com.citrusbits.meehab.dialog.InsuranceDialog.InsuranceDialogClickListener;
-import com.citrusbits.meehab.dialog.MessageDialog;
 import com.citrusbits.meehab.dialog.SocialShareDialog;
 import com.citrusbits.meehab.dialog.SocialShareDialog.SocialShareDialogClickListener;
 import com.citrusbits.meehab.fragments.FilterResultHolder;
@@ -51,7 +50,6 @@ import com.citrusbits.meehab.images.PicassoBlurTransform;
 import com.citrusbits.meehab.images.PicassoCircularTransform;
 import com.citrusbits.meehab.model.FriendFilterResultHolder;
 import com.citrusbits.meehab.model.MeehabShare;
-import com.citrusbits.meehab.model.MeetingFilterModel;
 import com.citrusbits.meehab.model.UserAccount;
 import com.citrusbits.meehab.services.OnBackendConnectListener;
 import com.citrusbits.meehab.services.OnSocketResponseListener;
@@ -68,6 +66,7 @@ public class HomeActivity extends SocketActivity implements
 	public static final String ACTION_MESSAGE_COUNT_UPDATE = "com.citrusbits.meehab.message.count";
 	public static final String ACTION_LOGOUT = "com.citrusbits.meehab.logout";
 	public static final String ACTION_PROFILE_UPDATE = "com.citrusbits.meehab.profile_updated";
+	private static final String CURRENT_FRAGMENT_TAG = "currentFragment";
 
 	DrawerLayout drawer;
 	ListView navList;
@@ -397,7 +396,7 @@ public class HomeActivity extends SocketActivity implements
 		} else {
 			fragment = mCurrentFragment;
 		}
-		fragmentManager.beginTransaction().replace(R.id.container, fragment)
+		fragmentManager.beginTransaction().replace(R.id.container, fragment, CURRENT_FRAGMENT_TAG)
 				.commit();
 	}
 

@@ -16,18 +16,11 @@
 
 package com.soundcloud.android.crop;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.util.concurrent.CountDownLatch;
-
-import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.BitmapRegionDecoder;
-import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.graphics.Rect;
 import android.graphics.RectF;
@@ -39,15 +32,18 @@ import android.os.Handler;
 import android.provider.MediaStore;
 import android.view.View;
 import android.view.Window;
+import android.view.WindowManager;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.util.concurrent.CountDownLatch;
 
 /*
  * Modified from original in AOSP.
  */
-@SuppressLint("NewApi")
 public class CropImageActivity extends MonitoredActivity {
 
-    @SuppressLint("NewApi")
-	private static final boolean IN_MEMORY_CROP = Build.VERSION.SDK_INT < Build.VERSION_CODES.GINGERBREAD_MR1;
     private static final int SIZE_DEFAULT = 2048;
     private static final int SIZE_LIMIT = 4096;
 
@@ -60,6 +56,7 @@ public class CropImageActivity extends MonitoredActivity {
     private int maxX;
     private int maxY;
     private int exifRotation;
+    private boolean saveAsPng;
 
     private Uri sourceUri;
     private Uri saveUri;
@@ -74,11 +71,10 @@ public class CropImageActivity extends MonitoredActivity {
     @Override
     public void onCreate(Bundle icicle) {
         super.onCreate(icicle);
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setContentView(R.layout.crop__activity_crop);
-        initViews();
+        setupWindowFlags();
+        setupViews();
 
-        setupFromIntent();
+        loadInput();
         if (rotateBitmap == null) {
             finish();
             return;
@@ -86,10 +82,21 @@ public class CropImageActivity extends MonitoredActivity {
         startCrop();
     }
 
-    private void initViews() {
-        imageView = (CropImageView) findViewById(R.id.crop_image_view);
+    @TargetApi(Build.VERSION_CODES.KITKAT)
+    private void setupWindowFlags() {
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        }
+    }
+
+    private void setupViews() {
+        setContentView(R.layout.crop__activity_crop);
+
+        imageView = (CropImageView) findViewById(R.id.crop_image);
         imageView.context = this;
         imageView.setRecycler(new ImageViewTouchBase.Recycler() {
+            @Override
             public void recycle(Bitmap b) {
                 b.recycle();
                 System.gc();
@@ -110,7 +117,7 @@ public class CropImageActivity extends MonitoredActivity {
         });
     }
 
-    private void setupFromIntent() {
+    private void loadInput() {
         Intent intent = getIntent();
         Bundle extras = intent.getExtras();
 
@@ -119,6 +126,7 @@ public class CropImageActivity extends MonitoredActivity {
             aspectY = extras.getInt(Crop.Extra.ASPECT_Y);
             maxX = extras.getInt(Crop.Extra.MAX_X);
             maxY = extras.getInt(Crop.Extra.MAX_Y);
+            saveAsPng = extras.getBoolean(Crop.Extra.AS_PNG, false);
             saveUri = extras.getParcelable(MediaStore.EXTRA_OUTPUT);
         }
 
@@ -173,8 +181,7 @@ public class CropImageActivity extends MonitoredActivity {
         }
     }
 
-    @SuppressLint("NewApi")
-	private int getMaxTextureSize() {
+    private int getMaxTextureSize() {
         // The OpenGL texture size is the maximum size that can be drawn in an ImageView
         int[] maxSize = new int[1];
         GLES10.glGetIntegerv(GLES10.GL_MAX_TEXTURE_SIZE, maxSize, 0);
@@ -193,7 +200,7 @@ public class CropImageActivity extends MonitoredActivity {
                         handler.post(new Runnable() {
                             public void run() {
                                 if (imageView.getScale() == 1F) {
-                                    imageView.center(true, true);
+                                    imageView.center();
                                 }
                                 latch.countDown();
                             }
@@ -257,11 +264,6 @@ public class CropImageActivity extends MonitoredActivity {
         }
     }
 
-    /*
-     * TODO
-     * This should use the decode/crop/encode single step API so that the whole
-     * (possibly large) Bitmap doesn't need to be read into memory
-     */
     private void onSaveClicked() {
         if (cropView == null || isSaving) {
             return;
@@ -286,27 +288,18 @@ public class CropImageActivity extends MonitoredActivity {
             }
         }
 
-        if (IN_MEMORY_CROP && rotateBitmap != null) {
-            croppedImage = inMemoryCrop(rotateBitmap, r, outWidth, outHeight);
-            if (croppedImage != null) {
-                imageView.setImageBitmapResetBase(croppedImage, true);
-                imageView.center(true, true);
-                imageView.highlightViews.clear();
-            }
-        } else {
-            try {
-                croppedImage = decodeRegionCrop(r, outWidth, outHeight);
-            } catch (IllegalArgumentException e) {
-                setResultException(e);
-                finish();
-                return;
-            }
+        try {
+            croppedImage = decodeRegionCrop(r, outWidth, outHeight);
+        } catch (IllegalArgumentException e) {
+            setResultException(e);
+            finish();
+            return;
+        }
 
-            if (croppedImage != null) {
-                imageView.setImageRotateBitmapResetBase(new RotateBitmap(croppedImage, exifRotation), true);
-                imageView.center(true, true);
-                imageView.highlightViews.clear();
-            }
+        if (croppedImage != null) {
+            imageView.setImageRotateBitmapResetBase(new RotateBitmap(croppedImage, exifRotation), true);
+            imageView.center();
+            imageView.highlightViews.clear();
         }
         saveImage(croppedImage);
     }
@@ -326,7 +319,6 @@ public class CropImageActivity extends MonitoredActivity {
         }
     }
 
-    @TargetApi(10)
     private Bitmap decodeRegionCrop(Rect rect, int outWidth, int outHeight) {
         // Release memory now
         clearImageView();
@@ -354,7 +346,7 @@ public class CropImageActivity extends MonitoredActivity {
 
             try {
                 croppedImage = decoder.decodeRegion(rect, new BitmapFactory.Options());
-                if (rect.width() > outWidth || rect.height() > outHeight) {
+                if (croppedImage != null && (rect.width() > outWidth || rect.height() > outHeight)) {
                     Matrix matrix = new Matrix();
                     matrix.postScale((float) outWidth / rect.width(), (float) outHeight / rect.height());
                     croppedImage = Bitmap.createBitmap(croppedImage, 0, 0, croppedImage.getWidth(), croppedImage.getHeight(), matrix, true);
@@ -367,40 +359,13 @@ public class CropImageActivity extends MonitoredActivity {
 
         } catch (IOException e) {
             Log.e("Error cropping image: " + e.getMessage(), e);
-            finish();
+            setResultException(e);
         } catch (OutOfMemoryError e) {
             Log.e("OOM cropping image: " + e.getMessage(), e);
             setResultException(e);
         } finally {
             CropUtil.closeSilently(is);
         }
-        return croppedImage;
-    }
-
-    private Bitmap inMemoryCrop(RotateBitmap rotateBitmap, Rect rect, int outWidth, int outHeight) {
-        // In-memory crop means potential OOM errors,
-        // but we have no choice as we can't selectively decode a bitmap with this API level
-        System.gc();
-
-        Bitmap croppedImage = null;
-        try {
-            croppedImage = Bitmap.createBitmap(outWidth, outHeight, Bitmap.Config.RGB_565);
-
-            Canvas canvas = new Canvas(croppedImage);
-            RectF dstRect = new RectF(0, 0, rect.width(), rect.height());
-
-            Matrix m = new Matrix();
-            m.setRectToRect(new RectF(rect), dstRect, Matrix.ScaleToFit.FILL);
-            m.preConcat(rotateBitmap.getRotateMatrix());
-            canvas.drawBitmap(rotateBitmap.getBitmap(), m, null);
-        } catch (OutOfMemoryError e) {
-            Log.e("OOM cropping image: " + e.getMessage(), e);
-            setResultException(e);
-            System.gc();
-        }
-
-        // Release Bitmap memory as soon as possible
-        clearImageView();
         return croppedImage;
     }
 
@@ -418,7 +383,9 @@ public class CropImageActivity extends MonitoredActivity {
             try {
                 outputStream = getContentResolver().openOutputStream(saveUri);
                 if (outputStream != null) {
-                    croppedImage.compress(Bitmap.CompressFormat.JPEG, 90, outputStream);
+                    croppedImage.compress(saveAsPng ? Bitmap.CompressFormat.PNG : Bitmap.CompressFormat.JPEG,
+                            90,     // note: quality is ignored when using PNG
+                            outputStream);
                 }
             } catch (IOException e) {
                 setResultException(e);
@@ -427,13 +394,10 @@ public class CropImageActivity extends MonitoredActivity {
                 CropUtil.closeSilently(outputStream);
             }
 
-            if (!IN_MEMORY_CROP) {
-                // In-memory crop negates the rotation
-                CropUtil.copyExifRotation(
-                        CropUtil.getFromMediaUri(this, getContentResolver(), sourceUri),
-                        CropUtil.getFromMediaUri(this, getContentResolver(), saveUri)
-                );
-            }
+            CropUtil.copyExifRotation(
+                    CropUtil.getFromMediaUri(this, getContentResolver(), sourceUri),
+                    CropUtil.getFromMediaUri(this, getContentResolver(), saveUri)
+            );
 
             setResultUri(saveUri);
         }

@@ -62,6 +62,7 @@ import com.citrusbits.meehab.model.UserAccount;
 import com.citrusbits.meehab.prefrences.AppPrefs;
 import com.citrusbits.meehab.services.OnSocketResponseListener;
 import com.citrusbits.meehab.utils.AccountUtils;
+import com.citrusbits.meehab.utils.CropUtil;
 import com.citrusbits.meehab.utils.DateTimeUtils;
 import com.citrusbits.meehab.utils.DeviceUtils;
 import com.citrusbits.meehab.utils.NetworkUtil;
@@ -69,7 +70,6 @@ import com.citrusbits.meehab.utils.NetworkUtils;
 import com.citrusbits.meehab.utils.UploadImageUtility;
 import com.citrusbits.meehab.utils.UtilityClass;
 import com.soundcloud.android.crop.Crop;
-import com.soundcloud.android.crop.CropUtil;
 
 public class ProfileSetupActivity extends SocketActivity implements
 		OnSocketResponseListener, View.OnClickListener {
@@ -284,7 +284,6 @@ public class ProfileSetupActivity extends SocketActivity implements
 
 						@Override
 						public void onGalleryClick(ImageSelectDialog dialog) {
-							// TODO Auto-generated method stub
 							dialog.cancel();
 							String state = Environment
 									.getExternalStorageState();
@@ -305,14 +304,12 @@ public class ProfileSetupActivity extends SocketActivity implements
 
 						@Override
 						public void onCancelClick(ImageSelectDialog dialog) {
-							// TODO Auto-generated method stub
 							dialog.cancel();
 
 						}
 
 						@Override
 						public void onCameraClick(ImageSelectDialog dialog) {
-							// TODO Auto-generated method stub
 							dialog.cancel();
 
 							fileUri = UploadImageUtility.genarateUri();
@@ -608,9 +605,9 @@ public class ProfileSetupActivity extends SocketActivity implements
 			} else if (requestCode == REQUEST_FROM_CAMERA) {
 				try {
 
-					if (data.getData() != null) {
+//					if (data.getExtras().get("data") != null) {
 
-						file = new File(data.getData().getPath());
+						file = new File(fileUri.getPath());
 						fullPath = file.getAbsolutePath();
 
 						doScanFile(fullPath);
@@ -619,9 +616,8 @@ public class ProfileSetupActivity extends SocketActivity implements
 								.genarateUri().getPath());
 						fullPath = cropFilePath.getAbsolutePath();
 
-						Log.d("cropfile::::", fullPath);
 						Uri outputUri = Uri.fromFile(cropFilePath);
-						new Crop(data.getData()).output(outputUri).asSquare()
+						Crop.of(fileUri,outputUri).asSquare()
 								.withMaxSize(400, 400)
 								.start(this, REQUEST_RESIZE_CROP);
 
@@ -636,7 +632,7 @@ public class ProfileSetupActivity extends SocketActivity implements
 						// intent.putExtra("return-data", true);
 						// startActivityForResult(intent, 3);
 
-					}
+//					}
 
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -665,7 +661,7 @@ public class ProfileSetupActivity extends SocketActivity implements
 					}
 
 					Uri outputUri = Uri.fromFile(cropFilePath);
-					new Crop(Uri.fromFile(file)).output(outputUri).asSquare()
+					Crop.of(Uri.fromFile(file),outputUri).asSquare()
 							.withMaxSize(400, 400)
 							.start(this, REQUEST_RESIZE_CROP);
 				} catch (Exception e) {
@@ -676,19 +672,11 @@ public class ProfileSetupActivity extends SocketActivity implements
 				newbitmap = fixRotation((Uri) data
 						.getParcelableExtra(MediaStore.EXTRA_OUTPUT));
 
-				Bitmap circularBitamp;
-				circularBitamp = new PicassoCircularTransform()
-						.transform(newbitmap);
+				Bitmap circularBitamp = new PicassoCircularTransform()
+						.transform(newbitmap.copy(Bitmap.Config.ARGB_8888,false));
 
-				newbitmap = fixRotation((Uri) data
-						.getParcelableExtra(MediaStore.EXTRA_OUTPUT));
-
-				Bitmap blurBitmap;
-				blurBitmap = new PicassoBlurTransform(
-						ProfileSetupActivity.this, 20).transform(newbitmap);
-
-				newbitmap = fixRotation((Uri) data
-						.getParcelableExtra(MediaStore.EXTRA_OUTPUT));
+				Bitmap blurBitmap = new PicassoBlurTransform(
+						ProfileSetupActivity.this, 20).transform(newbitmap.copy(Bitmap.Config.ARGB_8888,false));
 
 				ivBlurBg.setImageBitmap(blurBitmap);
 				profilePic.setImageBitmap(circularBitamp);
@@ -697,6 +685,7 @@ public class ProfileSetupActivity extends SocketActivity implements
 				try {
 					ByteArrayOutputStream output = new ByteArrayOutputStream();
 					newbitmap.compress(CompressFormat.PNG, 100, output);
+					newbitmap.recycle();
 					byte[] byteArray = output.toByteArray();
 					user.setImage(EventParams.BASE64_IMAGE_PNG_STRING
 							+ Base64.encodeToString(byteArray, Base64.NO_WRAP));
@@ -776,7 +765,7 @@ public class ProfileSetupActivity extends SocketActivity implements
 					if (fileUri != null) {
 						Intent intent = new Intent(
 								MediaStore.ACTION_IMAGE_CAPTURE);
-						// intent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri);
+						 intent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri);
 						startActivityForResult(intent, REQUEST_FROM_CAMERA);
 					}
 				} else if (options[item].equals("Choose from Gallery")) {
