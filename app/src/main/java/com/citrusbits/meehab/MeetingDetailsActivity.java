@@ -801,6 +801,7 @@ public class MeetingDetailsActivity extends SocketActivity implements
 			params.put("meeting_ids", meeting.getMeetingId());
 			params.put("favorite", meeting.isFavourite() ? 0 : 1);
 
+			pd.show();
 			socketService.addUserFavourite(params);
 
 		} catch (JSONException e) {
@@ -1001,9 +1002,7 @@ public class MeetingDetailsActivity extends SocketActivity implements
 
 			break;
 		case R.id.ibRating:
-			pd.show();
 			addUserFavourite();
-
 			break;
 		case R.id.btnSeeMoreReviews:
 			// fillContainer(true, reviewsContainer, meetingReviewModels);

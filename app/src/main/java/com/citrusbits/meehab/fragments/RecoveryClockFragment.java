@@ -94,6 +94,10 @@ public class RecoveryClockFragment extends Fragment implements OnClickListener,
 
 		String soberDate = user.getSoberSence();
 		Log.i("Sober date", soberDate);
+		if(soberDate == null){
+			App.toast("User sober date= "+soberDate+ " to fix this situation!");
+			return v;
+		}
 		mDateSelected = soberDate;
 		tvSoberDate.setText(RecoverClockDateUtils
 				.getDateWithMonthName(soberDate));

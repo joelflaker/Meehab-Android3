@@ -112,11 +112,11 @@ public class SplashActivity extends Activity {
 		Log.e("Device Id ", deviceId);
 
 		// start background service
-		Intent intent = new Intent(this, SocketService.class);
+		Intent intent = new Intent(getApplicationContext(), SocketService.class);
 		intent.setAction("ui");
 		startService(intent);
 
-		startService(new Intent(this, ContactSyncService.class));
+		startService(new Intent(getApplicationContext(), ContactSyncService.class));
 
 		final int userId = AppPrefs.getAppPrefs(this).getIntegerPrefs(
 				AppPrefs.KEY_USER_ID, AppPrefs.DEFAULT.USER_ID);

@@ -161,7 +161,7 @@ public class MyProfileFragment extends Fragment implements
 	private void resetUserInfo() {
 		if (user != null) {
 
-			if (user.getImage() != null) {
+			if (!TextUtils.isEmpty(user.getImage())) {
 				/*
 				 * profileNetworkImageView.setImageUrl(getString(R.string.url) +
 				 * user.getImage(), App.getInstance().getImageLoader());

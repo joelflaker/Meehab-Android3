@@ -87,7 +87,7 @@ public class App extends Application {
 		context = this;
 
 		//Instabug updated to new 1.7.4
-//		Instabug.initialize((Application) context, "2dfe3b005171f96ba7b6151aa82be713")
+//		Instabug.initialize(this, "2dfe3b005171f96ba7b6151aa82be713")
 //                    .setInvocationEvent(Instabug.IBGInvocationEvent.IBGInvocationEventShake);
 
 	//	UserAccount user = new UserDatasource(this).findUser();

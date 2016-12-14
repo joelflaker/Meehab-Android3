@@ -89,7 +89,7 @@ public abstract class SocketActivity extends FragmentActivity {
 	}
 
 	public void connectToBackend() {
-		Intent intent = new Intent(this, SocketService.class);
+		Intent intent = new Intent(getApplicationContext(), SocketService.class);
 		intent.setAction("ui");
 		startService(intent);
 		bindService(intent, mConnection, Context.BIND_AUTO_CREATE);

@@ -86,7 +86,7 @@ public class FriendsFragment extends Fragment implements
 
 	DatabaseHandler dbHandler;
 	
-	private boolean isFriendsFetch=false;
+	private boolean isFriendsFetched =false;
 
 	private View emptyList;
 
@@ -828,7 +828,7 @@ public class FriendsFragment extends Fragment implements
 
 	public void getFriends() {
 		
-		if(isFriendsFetch){
+		if(isFriendsFetched){
 			return;
 		}
 		if (!NetworkUtils.isNetworkAvailable(homeActivity)) {
@@ -862,7 +862,7 @@ public class FriendsFragment extends Fragment implements
 	public void onSocketResponseSuccess(String event, Object obj) {
 		pd.dismiss();
 		if (event.equals(EventParams.METHOD_GET_ALL_FRIENDS)) {
-			isFriendsFetch = true;
+			isFriendsFetched = true;
 			userAccounts.clear();
 			Gson gson = new Gson();
 			JSONObject data = (JSONObject) obj;

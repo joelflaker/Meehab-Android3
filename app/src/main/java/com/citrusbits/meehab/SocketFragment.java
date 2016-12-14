@@ -80,7 +80,7 @@ public abstract class SocketFragment extends Fragment {
 	}
 
 	public void connectToBackend() {
-		Intent intent = new Intent(getActivity(), SocketService.class);
+		Intent intent = new Intent(getContext().getApplicationContext(), SocketService.class);
 		intent.setAction("ui");
 		getActivity().startService(intent);
 		getActivity().bindService(intent, mConnection, Context.BIND_AUTO_CREATE);

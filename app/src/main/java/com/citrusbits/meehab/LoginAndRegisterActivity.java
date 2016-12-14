@@ -281,7 +281,7 @@ public class LoginAndRegisterActivity extends SocketActivity implements
 
 	public void startSocketService() {
 		pd.show();
-		Intent serviceIntent = new Intent(this, SocketService.class);
+		Intent serviceIntent = new Intent(getApplicationContext(), SocketService.class);
 		serviceIntent.setAction("ui");
 		serviceIntent.setAction(SocketService.ACTION_RECONNECT_NODE_JS_SERVER);
 		startService(serviceIntent);

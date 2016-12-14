@@ -170,7 +170,7 @@ public class MyFavoritesFragment extends Fragment implements
 		pd = UtilityClass.getProgressDialog(homeActivity);
 
 		myLocation = LocationUtils.getLastLocation(getActivity());
-		Intent i = new Intent(mContext, LocationService.class);
+		Intent i = new Intent(mContext.getApplicationContext(), LocationService.class);
 		mContext.bindService(i, locServiceConnection, Context.BIND_AUTO_CREATE);
 		mContext.startService(i);
 

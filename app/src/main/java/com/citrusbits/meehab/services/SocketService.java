@@ -1109,7 +1109,6 @@ public class SocketService extends Service {
 		}
 	};
 
-
 	private Emitter.Listener onUpdate = new Emitter.Listener() {
 		@Override
 		public void call(final Object... args) {

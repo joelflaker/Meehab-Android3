@@ -172,7 +172,7 @@ OnSocketResponseListener, OnClickListener, OnMapClickListener {
 		setContentView(R.layout.activity_rehab_details);
 
 		myLocation = LocationUtils.getLastLocation(this);
-		Intent i = new Intent(this, LocationService.class);
+		Intent i = new Intent(getApplicationContext(), LocationService.class);
 		this.bindService(i, locServiceConnection, Context.BIND_AUTO_CREATE);
 		this.startService(i);
 		
