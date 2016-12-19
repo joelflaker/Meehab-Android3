@@ -162,16 +162,16 @@ public class UserProfileActivity extends SocketActivity implements
 				String userImage = Consts.SOCKET_URL+ user.getImage();
 
 				Picasso.with(this).load(userImage)
-						.placeholder(R.drawable.profile_pic).resize(100, 100)
-						.error(R.drawable.profile_pic)
+						.placeholder(R.drawable.profile_pic_border).resize(100, 100)
+						.error(R.drawable.profile_pic_border)
 						.transform(new PicassoCircularTransform())
 						.into(ivUserIcon);
 
 				Picasso.with(this)
 						.load(userImage)
-						.placeholder(R.drawable.profile_pic_big)
+						.placeholder(R.drawable.profile_pic_border)
 						// .resize(300, 200)
-						.error(R.drawable.profile_pic_big)
+						.error(R.drawable.profile_pic_border)
 						.transform(
 								new PicassoBlurTransform(
 										UserProfileActivity.this, 20))

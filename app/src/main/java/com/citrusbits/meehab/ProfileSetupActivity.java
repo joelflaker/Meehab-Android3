@@ -218,7 +218,6 @@ public class ProfileSetupActivity extends SocketActivity implements
 
 		@Override
 		public void onClick(View v) {
-			// TODO Auto-generated method stub
 			boolean isChecked = ((CheckBox) v).isChecked();
 			switch (v.getId()) {
 			case R.id.maleBtn:
@@ -316,8 +315,8 @@ public class ProfileSetupActivity extends SocketActivity implements
 							if (fileUri != null) {
 								Intent intent = new Intent(
 										MediaStore.ACTION_IMAGE_CAPTURE);
-								// intent.putExtra(MediaStore.EXTRA_OUTPUT,
-								// fileUri);
+								 intent.putExtra(MediaStore.EXTRA_OUTPUT,
+								 fileUri);
 								startActivityForResult(intent,
 										REQUEST_FROM_CAMERA);
 							}

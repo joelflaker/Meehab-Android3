@@ -132,8 +132,8 @@ public class MessagesAdapter extends ArrayAdapter<MessageModel> {
 
 		String userImage = baseUrl + message.getImage();
 		Picasso.with(mContext).load(userImage)
-				.placeholder(R.drawable.profile_pic).resize(60, 60)
-				.error(R.drawable.profile_pic)
+				.placeholder(R.drawable.profile_pic_border).resize(60, 60)
+				.error(R.drawable.profile_pic_border)
 				.transform(new PicassoCircularTransform())
 				.into(holder.ivFriend);
 		

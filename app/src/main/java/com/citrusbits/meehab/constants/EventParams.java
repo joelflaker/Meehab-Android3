@@ -66,7 +66,8 @@ public class EventParams {
 	
 	public static final String METHOD_SYNC_PHONE = "users:syncPhone";
 	public static final String METHOD_REPORT_USER = "users:reportUser";
-	
+//	public static final String METHOD_INSURANCE_UPDATE = "rehabs:update:insurance";
+
 	public static final String METHOD_HOME_GROUP_USER = "meetings:homeGroupUser";
 	
 	public static final String METHOD_RSVP = "users:rsvpMeeting";

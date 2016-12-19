@@ -50,7 +50,7 @@
     <string name="title_activity_full_screen_map">FullScreenMapActivity</string>
     <string name="title_activity_add_review_over_meeting">AddReviewOverMeetingActivity</string>
     <string name="title_activity_report_inaccuracy">ReportInaccuracyActivity</string>
-    <string name="simple_long_text">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</string>
+    <string name="simple_long_text">What is Lorem Ipsum?\nLorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</string>
     <string name="title_activity_my_review_detail">MyReviewDetailActivity</string>
     <string name="forget_password_screen_msg">Please enter the email associated with your account. We will send you login details.</string>
     <string name="problems_logging_in">Problems Logging in</string>
@@ -65,6 +65,7 @@
     <string name="my_aa_story">My AA Story</string>
     <string name="create_account_term_and_conditions_text">By creating an account you agree to the </string>
     <string name="terms_conditions">Terms &amp; Conditions</string>
+    <string name="privacy_policy">Privacy &amp; Policy</string>
     <string name="occupation">Occupation</string>
     <string name="ethnicity">Ethnicity</string>
     <string name="do_you_have_kids_">Do you have kids?</string>

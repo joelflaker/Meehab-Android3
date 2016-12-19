@@ -37,6 +37,7 @@ import com.citrusbits.meehab.R;
 import com.citrusbits.meehab.RehabAdditionActivity;
 import com.citrusbits.meehab.MeetingAdditionActivity;
 import com.citrusbits.meehab.LoginAndRegisterActivity.PendingAction;
+import com.citrusbits.meehab.TermsAndConditionsActivity;
 import com.citrusbits.meehab.app.App;
 import com.citrusbits.meehab.constants.Consts;
 import com.citrusbits.meehab.constants.EventParams;
@@ -207,8 +208,15 @@ public class OptionsFragment extends Fragment implements OnSocketResponseListene
 		prefs = AppPrefs.getAppPrefs(getActivity());
 		user = userDatasource.findUser(AccountUtils.getUserId(getActivity()));
 
+		if(user == null) {
+			getActivity().finish();
+			return v;
+		}
+
 		v.findViewById(R.id.topMenuBtn).setOnClickListener(this);
 		v.findViewById(R.id.btnChangeEmail).setOnClickListener(this);
+		v.findViewById(R.id.btnTermsCondition).setOnClickListener(this);
+		v.findViewById(R.id.btnPrivacy).setOnClickListener(this);
 		v.findViewById(R.id.btnChangePassword).setOnClickListener(this);
 		v.findViewById(R.id.btnChangeInsurance).setOnClickListener(this);
 		btnAppearTitle = (Button)v.findViewById(R.id.btnAppearTitle);
@@ -514,6 +522,19 @@ public class OptionsFragment extends Fragment implements OnSocketResponseListene
 			break;
 		case R.id.btnChangeEmail:
 			intent = new Intent(getActivity(), ChangeEmailActivity.class);
+			getActivity().startActivity(intent);
+			getActivity().overridePendingTransition(R.anim.activity_in,
+					R.anim.activity_out);
+			break;
+		case R.id.btnTermsCondition:
+			intent = new Intent(getActivity(), TermsAndConditionsActivity.class);
+			intent.putExtra(TermsAndConditionsActivity.EXTRA_TERMS,1);
+			getActivity().startActivity(intent);
+			getActivity().overridePendingTransition(R.anim.activity_in,
+					R.anim.activity_out);
+			break;
+		case R.id.btnPrivacy:
+			intent = new Intent(getActivity(), TermsAndConditionsActivity.class);
 			getActivity().startActivity(intent);
 			getActivity().overridePendingTransition(R.anim.activity_in,
 					R.anim.activity_out);

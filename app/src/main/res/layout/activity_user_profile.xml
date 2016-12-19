@@ -22,7 +22,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:scaleType="fitXY"
-                    android:src="@drawable/profile_pic_big" />
+                    android:src="@drawable/profile_pic_border" />
 
                 <RelativeLayout
                     android:id="@+id/relativeTop"

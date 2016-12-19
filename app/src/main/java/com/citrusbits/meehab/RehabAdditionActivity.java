@@ -241,7 +241,6 @@ public class RehabAdditionActivity extends SocketActivity implements
 			json.put("user_email", email);
 
 			json.put("name", rehabName);
-			// json.put("on_date",on);
 			json.put("website", webiste);
 			json.put("relation", relationToRehab);
 			json.put("type", typeOfRehabFacility);

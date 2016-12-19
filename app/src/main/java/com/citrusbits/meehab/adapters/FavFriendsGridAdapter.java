@@ -96,9 +96,9 @@ public class FavFriendsGridAdapter  extends ArrayAdapter<UserAccount> {
 		UserAccount account = useraccount.get(position);
 		String url = baseUrl + account.getImage();
 
-		Picasso.with(mContext).load(url).placeholder(R.drawable.profile_pic)
+		Picasso.with(mContext).load(url).placeholder(R.drawable.profile_pic_border)
 				.resize(cellWidthHeight + 20, cellWidthHeight + 20)
-				.error(R.drawable.profile_pic)
+				.error(R.drawable.profile_pic_border)
 
 				.into(holder.ivFriend);
 

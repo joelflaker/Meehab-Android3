@@ -990,6 +990,7 @@ public class MeetingsFragment extends Fragment implements
 
 			meetingsAdapter = new MeetingsListAdapter(getActivity(),
 					R.layout.list_item_meeting, meetings);
+			//avoid crashing
 			if(!isAdded()) return;
 			list.setAdapter(meetingsAdapter);
 			meetingsAdapter.notifyDataSetChanged();

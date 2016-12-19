@@ -156,12 +156,6 @@ public class MyFavoritesFragment extends Fragment implements
 		}
 	};
 	
-	public void onDestroy() {
-		grid = null;
-		list = null;
-		super.onDestroy();
-	}
-
 	@Override
 	public void onCreate(@Nullable Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -772,6 +766,10 @@ public class MyFavoritesFragment extends Fragment implements
 
 			userAccounts.addAll(friends);
 			userAccountsCache.addAll(friends);
+
+			//avoid crashing
+			if(!isAdded()) return;
+
 			friendsGridAdapter.notifyDataSetChanged();
 			updateEmptyViews();
 			/*
@@ -799,6 +797,8 @@ public class MyFavoritesFragment extends Fragment implements
 					i--;
 				}
 			}
+			//avoid crashing
+			if(!isAdded()) return;
 
 			meetingsAdapter.notifyDataSetChanged();
 			updateEmptyViews();
@@ -820,6 +820,9 @@ public class MyFavoritesFragment extends Fragment implements
 					i--;
 				}
 			}
+
+			//avoid crashing
+			if(!isAdded()) return;
 
 			friendsGridAdapter.notifyDataSetChanged();
 			updateEmptyViews();
@@ -1072,7 +1075,7 @@ public class MyFavoritesFragment extends Fragment implements
 
 			meetingsAdapter = new FavMeetingListAdapter(getActivity(),
 					R.layout.list_item_meeting, meetings);
-			if(!isAdded()) return;
+			if(!isAdded() || list == null) return;
 			list.setAdapter(meetingsAdapter);
 			meetingsAdapter.notifyDataSetChanged();
 			updateEmptyViews();

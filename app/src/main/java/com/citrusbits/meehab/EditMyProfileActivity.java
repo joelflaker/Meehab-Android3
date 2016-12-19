@@ -571,16 +571,16 @@ public class EditMyProfileActivity extends SocketActivity implements
 
 				String userImage = Consts.SOCKET_URL + mUser.getImage();
 				Picasso.with(EditMyProfileActivity.this).load(userImage)
-						.placeholder(R.drawable.profile_pic).resize(100, 100)
-						.error(R.drawable.profile_pic)
+						.placeholder(R.drawable.profile_pic_border).resize(100, 100)
+						.error(R.drawable.profile_pic_border)
 						.transform(new PicassoCircularTransform())
 						.into(profilePic);
 
 				Picasso.with(this)
 						.load(userImage)
-						.placeholder(R.drawable.profile_pic_big)
+						.placeholder(R.drawable.profile_pic_border)
 						// .resize(300, 200)
-						.error(R.drawable.profile_pic_big)
+						.error(R.drawable.profile_pic_border)
 						.transform(
 								new PicassoBlurTransform(
 										EditMyProfileActivity.this, 20))

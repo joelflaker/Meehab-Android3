@@ -387,7 +387,6 @@ public class VerificationActivity extends SocketActivity implements
 
 	@Override
 	public void onClick(View v) {
-		// TODO Auto-generated method stub
 		switch (v.getId()) {
 		case R.id.btnDidnotGetACode:
 
@@ -405,6 +404,10 @@ public class VerificationActivity extends SocketActivity implements
 			break;
 
 		case R.id.ibNext:
+//			if(true){
+//				signup(signup);
+//				return;
+//			}
 			String code = etVerificationCode.getText().toString().trim();
 			if (code.isEmpty()) {
 				Toast.makeText(VerificationActivity.this, "Please enter code",
@@ -424,10 +427,11 @@ public class VerificationActivity extends SocketActivity implements
 
 			break;
 		case R.id.txtTerms:
-			startActivity(new Intent(this, TermsAndConditionsActivity.class));
-			break;
 		case R.id.textTermsAndconditions:
-			startActivity(new Intent(this, TermsAndConditionsActivity.class));
+			intent = new Intent(this, TermsAndConditionsActivity.class);
+			intent.putExtra(TermsAndConditionsActivity.EXTRA_TERMS,1);
+			startActivity(intent);
+			overridePendingTransition(R.anim.activity_in, R.anim.activity_out);
 			break;
 		case R.id.ivBack:
 			onBackPressed();
@@ -438,14 +442,12 @@ public class VerificationActivity extends SocketActivity implements
 
 	@Override
 	public void onBackPressed() {
-		// TODO Auto-generated method stub
 		super.onBackPressed();
 		overridePendingTransition(R.anim.activity_back_in, R.anim.activity_back_out);
 	}
 
 	@Override
 	protected void onDestroy() {
-		// TODO Auto-generated method stub
 		super.onDestroy();
 		unregisterReceiver(smsReceiver);
 	}

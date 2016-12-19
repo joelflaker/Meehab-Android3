@@ -95,12 +95,6 @@ public class FriendsFragment extends Fragment implements
 	public FriendsFragment() {
 	}
 	
-	public void onDestroy() {
-		grid = null;
-		list = null;
-		super.onDestroy();
-	}
-
 	@Override
 	public void onCreate(@Nullable Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);

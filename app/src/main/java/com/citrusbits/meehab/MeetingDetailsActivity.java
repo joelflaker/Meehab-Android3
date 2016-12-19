@@ -1186,8 +1186,8 @@ public class MeetingDetailsActivity extends SocketActivity implements
 			Log.e("User image is ", userImage);
 
 			Picasso.with(MeetingDetailsActivity.this).load(userImage)
-					.placeholder(R.drawable.profile_pic).resize(80, 80)
-					.error(R.drawable.profile_pic)
+					.placeholder(R.drawable.profile_pic_border).resize(80, 80)
+					.error(R.drawable.profile_pic_border)
 					.transform(new PicassoCircularTransform()).into(ivUserIcon);
 
 			tvReviewTitle.setText(m.getTitle());

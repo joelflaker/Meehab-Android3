@@ -152,7 +152,6 @@
         <activity
             android:name=".TermsAndConditionsActivity"
             android:label="@string/app_name"
-            android:parentActivityName=".SignupActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden" >
         </activity>

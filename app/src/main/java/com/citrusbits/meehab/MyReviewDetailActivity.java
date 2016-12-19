@@ -102,8 +102,8 @@ public class MyReviewDetailActivity extends SocketActivity implements
 			Log.e("User image is ", userImage);
 
 			Picasso.with(MyReviewDetailActivity.this).load(userImage)
-					.placeholder(R.drawable.profile_pic).resize(80, 80)
-					.error(R.drawable.profile_pic)
+					.placeholder(R.drawable.profile_pic_border).resize(80, 80)
+					.error(R.drawable.profile_pic_border)
 					.transform(new PicassoCircularTransform()).into(ivUserIcon);
 
 			topRightBtn

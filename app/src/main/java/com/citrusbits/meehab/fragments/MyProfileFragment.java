@@ -169,16 +169,16 @@ public class MyProfileFragment extends Fragment implements
 				String userImage = Consts.SOCKET_URL + user.getImage();
 
 				Picasso.with(getActivity()).load(userImage)
-						.placeholder(R.drawable.profile_pic).resize(100, 100)
-						.error(R.drawable.profile_pic)
+						.placeholder(R.drawable.profile_pic_border).resize(100, 100)
+						.error(R.drawable.profile_pic_border)
 						.transform(new PicassoCircularTransform())
 						.into(ivUserIcon);
 
 				Picasso.with(getActivity())
 						.load(userImage)
-						.placeholder(R.drawable.profile_pic_big)
+						.placeholder(R.drawable.profile_pic_border)
 						// .resize(300, 200)
-						.error(R.drawable.profile_pic_big)
+						.error(R.drawable.profile_pic_border)
 						.transform(new PicassoBlurTransform(getActivity(), 20))
 						.into(ivBlurBg);
 			}
@@ -330,8 +330,8 @@ public class MyProfileFragment extends Fragment implements
 					JSONObject reviewObject = userReviews.getJSONObject(i);
 
 					String comment = reviewObject.getString("comments");
-					String onDate = reviewObject.getString("on_date");
-					String onTime = reviewObject.getString("on_time");
+					String onDate = ""+reviewObject.optString("on_date");
+					String onTime = ""+reviewObject.optString("on_time");
 
 					String meetingName = reviewObject.getString("meeting_name");
 					int rating = reviewObject.getInt("stars");

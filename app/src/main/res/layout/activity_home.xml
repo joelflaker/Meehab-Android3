@@ -31,7 +31,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"
-                android:src="@drawable/profile_pic_big" />
+                android:src="@drawable/profile_pic_border" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -51,7 +51,7 @@
                     android:padding="8dp"
                     
                     android:scaleType="fitXY"
-                    android:src="@drawable/profile_pic" >
+                    android:src="@drawable/profile_pic_border" >
                 </ImageView>
 
                 <TextView

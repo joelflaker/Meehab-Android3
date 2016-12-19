@@ -309,7 +309,39 @@
                 android:layout_width="fill_parent"
                 android:layout_height="1dp"
                 android:background="#99cccccc" />
+            <Button
+                android:id="@+id/btnTermsCondition"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/simple_button_selector"
+                android:drawableRight="@drawable/right_arrow"
+                android:gravity="left|center_vertical"
+                android:textColor="#888888"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:paddingRight="@dimen/activity_horizontal_margin"
+                android:text="@string/terms_conditions" />
 
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:background="#99cccccc" />
+
+            <Button
+                android:id="@+id/btnPrivacy"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/simple_button_selector"
+                android:drawableRight="@drawable/right_arrow"
+                android:gravity="left|center_vertical"
+                android:textColor="#888888"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:paddingRight="@dimen/activity_horizontal_margin"
+                android:text="@string/privacy_policy" />
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:background="#99cccccc" />
             <Button
                 android:id="@+id/logout"
                 android:textColor="#888888"

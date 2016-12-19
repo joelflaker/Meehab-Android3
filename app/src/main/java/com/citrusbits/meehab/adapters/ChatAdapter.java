@@ -102,7 +102,6 @@ public class ChatAdapter extends ArrayAdapter<ChatModel> {
 
 				@Override
 				public void onClick(View v) {
-					// TODO Auto-generated method stub
 					boolean checked = ((CheckBox) v).isChecked();
 					chat.setChecked(checked);
 					notifyCheckedChange();
@@ -122,7 +121,6 @@ public class ChatAdapter extends ArrayAdapter<ChatModel> {
 
 				@Override
 				public void onClick(View v) {
-					// TODO Auto-generated method stub
 					boolean checked = ((CheckBox) v).isChecked();
 					chat.setChecked(checked);
 					notifyCheckedChange();
