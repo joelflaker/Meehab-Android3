@@ -91,6 +91,7 @@ public class InsuranceActivity extends SocketActivity implements
 	}
 
 	private void updateInsurancesData() {
+		npInsurance.setDisplayedValues(null);
 		npInsurance
 				.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS);
 		npInsurance.setMinValue(0);

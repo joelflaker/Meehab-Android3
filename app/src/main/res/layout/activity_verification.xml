@@ -139,30 +139,6 @@
                     android:src="@drawable/create_account_btn"
                     android:text="" />
 
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal" >
-
-                    <TextView
-                        android:id="@+id/txtTerms"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingTop="12dp"
-                        android:text="@string/create_account_term_and_conditions_text"
-                        android:textColor="#888888"
-                        android:textSize="12sp" />
-
-                    <TextView
-                        android:id="@+id/textTermsAndconditions"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingTop="12dp"
-                        android:text="@string/terms_conditions"
-                        android:textColor="#888888"
-                        android:textSize="12sp"
-                        android:textStyle="bold" />
-                </LinearLayout>
             </LinearLayout>
         </RelativeLayout>
     </LinearLayout>

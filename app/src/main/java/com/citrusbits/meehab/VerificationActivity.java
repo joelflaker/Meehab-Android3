@@ -114,11 +114,9 @@ public class VerificationActivity extends SocketActivity implements
 		contacts.clear();
 		contacts.addAll(phoneContacts.getPhoneContacts());
 		etVerificationCode = (EditText) findViewById(R.id.etVerificationCode);
-		textTermsAndconditions = (TextView) findViewById(R.id.textTermsAndconditions);
+
 
 		findViewById(R.id.ivBack).setOnClickListener(this);
-		findViewById(R.id.txtTerms).setOnClickListener(this);
-		textTermsAndconditions.setOnClickListener(this);
 
 		btnDidnotGetACode = (TextView) findViewById(R.id.btnDidnotGetACode);
 		tvCodeResent = (TextView) findViewById(R.id.tvCodeResent);
@@ -384,7 +382,6 @@ public class VerificationActivity extends SocketActivity implements
 				.show();
 		pd.dismiss();
 	}
-
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
@@ -425,13 +422,6 @@ public class VerificationActivity extends SocketActivity implements
 						Toast.LENGTH_SHORT).show();
 			}
 
-			break;
-		case R.id.txtTerms:
-		case R.id.textTermsAndconditions:
-			intent = new Intent(this, TermsAndConditionsActivity.class);
-			intent.putExtra(TermsAndConditionsActivity.EXTRA_TERMS,1);
-			startActivity(intent);
-			overridePendingTransition(R.anim.activity_in, R.anim.activity_out);
 			break;
 		case R.id.ivBack:
 			onBackPressed();

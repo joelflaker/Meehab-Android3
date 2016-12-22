@@ -24,6 +24,7 @@ import android.view.View.OnClickListener;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.citrusbits.meehab.app.App;
@@ -102,6 +103,9 @@ public class SignupActivity extends SocketActivity implements
 		etPassword = (EditText) findViewById(R.id.etPassword);
 		etPhoneNumber = (EditText) findViewById(R.id.etPhoneNumber);
 		ibNext = (ImageButton) findViewById(R.id.ibNext);
+
+		findViewById(R.id.txtTerms).setOnClickListener(this);
+		findViewById(R.id.textTermsAndconditions).setOnClickListener(this);
 
 		// top back button
 		findViewById(R.id.ivBack).setOnClickListener(this);
@@ -385,14 +389,21 @@ public class SignupActivity extends SocketActivity implements
 
 		Intent intent = null;
 		switch (v.getId()) {
-		case R.id.ibNext:
-			attemptSignup();
-			break;
-		case R.id.ivBack:
-			onBackPressed();
-			break;
-		default:
-			break;
+			case R.id.ibNext:
+				attemptSignup();
+				break;
+			case R.id.ivBack:
+				onBackPressed();
+				break;
+			case R.id.txtTerms:
+			case R.id.textTermsAndconditions:
+				intent = new Intent(this, TermsAndConditionsActivity.class);
+				intent.putExtra(TermsAndConditionsActivity.EXTRA_TERMS,1);
+				startActivity(intent);
+				overridePendingTransition(R.anim.activity_in, R.anim.activity_out);
+				break;
+			default:
+				break;
 		}
 	}
 

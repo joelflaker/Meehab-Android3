@@ -240,7 +240,6 @@ public class UserProfileActivity extends SocketActivity implements
 
 								@Override
 								public void onReportUser(BlockUserDialog dialog) {
-									// TODO Auto-generated method stub
 									dialog.dismiss();
 									Intent i = new Intent(
 											UserProfileActivity.this,
@@ -253,13 +252,11 @@ public class UserProfileActivity extends SocketActivity implements
 
 								@Override
 								public void onCancelClick(BlockUserDialog dialog) {
-									// TODO Auto-generated method stub
 									dialog.dismiss();
 								}
 
 								@Override
 								public void onBlockUser(BlockUserDialog dialog) {
-									// TODO Auto-generated method stub
 									dialog.dismiss();
 
 									new BlockFrindConfirmationDialog(
@@ -270,9 +267,6 @@ public class UserProfileActivity extends SocketActivity implements
 														@Override
 														public void onYesClick(
 																BlockFrindConfirmationDialog dialog) {
-															// TODO
-															// Auto-generated
-															// method stub
 															dialog.dismiss();
 															blockUser();
 														}
@@ -280,9 +274,6 @@ public class UserProfileActivity extends SocketActivity implements
 														@Override
 														public void onNoClick(
 																BlockFrindConfirmationDialog dialog) {
-															// TODO
-															// Auto-generated
-															// method stub
 															dialog.dismiss();
 														}
 													},
@@ -367,7 +358,6 @@ public class UserProfileActivity extends SocketActivity implements
 	@Override
 	public void onSocketResponseSuccess(String event, Object obj) {
 		if (pd.isShowing()) {
-
 			pd.dismiss();
 		}
 
@@ -478,6 +468,16 @@ public class UserProfileActivity extends SocketActivity implements
 	}
 
 	@Override
+	public void onSocketResponseFailure(String onEvent, String message) {
+		if (pd.isShowing()) {
+			pd.dismiss();
+
+			Toast.makeText(UserProfileActivity.this, message,
+					Toast.LENGTH_SHORT).show();
+		}
+	}
+
+	@Override
 	protected void onActivityResult(int arg0, int arg1, Intent arg2) {
 		super.onActivityResult(arg0, arg1, arg2);
 
@@ -535,16 +535,6 @@ public class UserProfileActivity extends SocketActivity implements
 				e.printStackTrace();
 			}
 
-		}
-	}
-
-	@Override
-	public void onSocketResponseFailure(String onEvent, String message) {
-		if (pd.isShowing()) {
-			pd.dismiss();
-
-			Toast.makeText(UserProfileActivity.this, message,
-					Toast.LENGTH_SHORT).show();
 		}
 	}
 
