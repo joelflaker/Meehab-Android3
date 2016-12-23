@@ -30,6 +30,7 @@ import android.media.MediaScannerConnection;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.PersistableBundle;
 import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.util.Base64;
@@ -964,6 +965,22 @@ public class EditMyProfileActivity extends SocketActivity implements
 	}
 
 	@Override
+	protected void onSaveInstanceState(Bundle outState) {
+		if(fileUri != null){
+			outState.putString("fileUri",fileUri.getPath());
+		}
+		super.onSaveInstanceState(outState);
+	}
+
+	@Override
+	public void onRestoreInstanceState(Bundle savedInstanceState, PersistableBundle persistentState) {
+		super.onRestoreInstanceState(savedInstanceState, persistentState);
+		if (savedInstanceState.containsKey("fileUri")){
+			fileUri = Uri.parse(savedInstanceState.getString("fileUri"));
+		}
+	}
+
+	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
 		if (resultCode == RESULT_OK) {
@@ -1136,52 +1153,52 @@ public class EditMyProfileActivity extends SocketActivity implements
 			output.write(buffer, 0, bytesRead);
 		}
 	}
-
-	/**
-	 * 
-	 */
-	private void presentImagePicker() {
-		final CharSequence[] options = { "Take Photo", "Choose from Gallery",
-				"Cancel" };
-
-		AlertDialog.Builder builder = new AlertDialog.Builder(this);
-		builder.setTitle("Add Photo!");
-		builder.setItems(options, new DialogInterface.OnClickListener() {
-			@Override
-			public void onClick(DialogInterface dialog, int item) {
-				dialog.dismiss();
-				if (options[item].equals("Take Photo")) {
-
-					// Toast.makeText(getActivity(), "Button clicked",
-					// Toast.LENGTH_SHORT).show();
-					// file = getOutputMediaFile(1);
-					fileUri = UploadImageUtility.genarateUri();
-					if (fileUri != null) {
-						Intent intent = new Intent(
-								MediaStore.ACTION_IMAGE_CAPTURE);
-						 intent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri);
-						startActivityForResult(intent, REQUEST_FROM_CAMERA);
-					}
-				} else if (options[item].equals("Choose from Gallery")) {
-					String state = Environment.getExternalStorageState();
-					if (Environment.MEDIA_MOUNTED.equals(state)) {
-						file = new File(Environment
-								.getExternalStorageDirectory(),
-								UploadImageUtility.genarateFileName());
-					} else {
-						file = new File(getFilesDir(), UploadImageUtility
-								.genarateFileName());
-					}
-
-					Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
-					photoPickerIntent.setType("image/*");
-					startActivityForResult(photoPickerIntent, 2);
-
-				}
-			}
-		});
-		builder.show();
-	}
+//
+//	/**
+//	 *
+//	 */
+//	private void presentImagePicker() {
+//		final CharSequence[] options = { "Take Photo", "Choose from Gallery",
+//				"Cancel" };
+//
+//		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+//		builder.setTitle("Add Photo!");
+//		builder.setItems(options, new DialogInterface.OnClickListener() {
+//			@Override
+//			public void onClick(DialogInterface dialog, int item) {
+//				dialog.dismiss();
+//				if (options[item].equals("Take Photo")) {
+//
+//					// Toast.makeText(getActivity(), "Button clicked",
+//					// Toast.LENGTH_SHORT).show();
+//					// file = getOutputMediaFile(1);
+//					fileUri = UploadImageUtility.genarateUri();
+//					if (fileUri != null) {
+//						Intent intent = new Intent(
+//								MediaStore.ACTION_IMAGE_CAPTURE);
+//						 intent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri);
+//						startActivityForResult(intent, REQUEST_FROM_CAMERA);
+//					}
+//				} else if (options[item].equals("Choose from Gallery")) {
+//					String state = Environment.getExternalStorageState();
+//					if (Environment.MEDIA_MOUNTED.equals(state)) {
+//						file = new File(Environment
+//								.getExternalStorageDirectory(),
+//								UploadImageUtility.genarateFileName());
+//					} else {
+//						file = new File(getFilesDir(), UploadImageUtility
+//								.genarateFileName());
+//					}
+//
+//					Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
+//					photoPickerIntent.setType("image/*");
+//					startActivityForResult(photoPickerIntent, 2);
+//
+//				}
+//			}
+//		});
+//		builder.show();
+//	}
 
 	@Override
 	public void onSocketResponseSuccess(String event, Object obj) {

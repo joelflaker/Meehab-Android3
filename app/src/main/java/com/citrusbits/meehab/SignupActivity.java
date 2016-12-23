@@ -105,7 +105,7 @@ public class SignupActivity extends SocketActivity implements
 		ibNext = (ImageButton) findViewById(R.id.ibNext);
 
 		findViewById(R.id.txtTerms).setOnClickListener(this);
-		findViewById(R.id.textTermsAndconditions).setOnClickListener(this);
+		findViewById(R.id.txtPolicy).setOnClickListener(this);
 
 		// top back button
 		findViewById(R.id.ivBack).setOnClickListener(this);
@@ -396,9 +396,13 @@ public class SignupActivity extends SocketActivity implements
 				onBackPressed();
 				break;
 			case R.id.txtTerms:
-			case R.id.textTermsAndconditions:
 				intent = new Intent(this, TermsAndConditionsActivity.class);
 				intent.putExtra(TermsAndConditionsActivity.EXTRA_TERMS,1);
+				startActivity(intent);
+				overridePendingTransition(R.anim.activity_in, R.anim.activity_out);
+				break;
+			case R.id.txtPolicy:
+				intent = new Intent(this, TermsAndConditionsActivity.class);
 				startActivity(intent);
 				overridePendingTransition(R.anim.activity_in, R.anim.activity_out);
 				break;
