@@ -27,7 +27,9 @@ import android.media.MediaMetadataRetriever;
 import android.os.Build;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
+import android.view.View;
 import android.view.Window;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Spinner;
 
 import com.citrusbits.meehab.HomeActivity;
@@ -442,6 +444,11 @@ public class UtilityClass {
                 }
             }
             return bitmap;
+	}
+
+	public static void hideSoftKeyboard(Context context, View view){
+		InputMethodManager imm = (InputMethodManager)context.getSystemService(Context.INPUT_METHOD_SERVICE);
+		imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
 	}
 
 }

@@ -12,10 +12,12 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.SurfaceView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -135,6 +137,24 @@ public class App extends Application {
 			return "";
 		}
 		return registrationId;
+	}
+
+	public static class VVV extends SurfaceView{
+
+		public VVV(Context context) {
+			super(context);
+		}
+
+		@Override
+		public void draw(Canvas canvas) {
+			super.draw(canvas);
+		}
+
+		@Override
+		protected void onDraw(Canvas canvas) {
+			super.onDraw(canvas);
+		}
+
 	}
 
 	private SharedPreferences getGCMPreferences(Context context) {

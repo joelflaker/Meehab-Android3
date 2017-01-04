@@ -50,7 +50,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/rsvp_d"
+                    android:text="@string/rsvp_title"
                     android:layout_centerHorizontal="true"
                     android:textColor="#FFFFFF"
                     android:textSize="16sp" />

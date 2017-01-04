@@ -29,13 +29,16 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -157,6 +160,7 @@ public class MeetingsFragment extends Fragment implements
 	private Marker myLocMarker;
 
 	private View emptyList;
+	private View IbtnCross;
 
 	public MeetingsFragment() {
 	}
@@ -234,10 +238,32 @@ public class MeetingsFragment extends Fragment implements
 		btnList = (ImageButton) v.findViewById(R.id.btnList);
 		btnFindMe = (ImageButton) v.findViewById(R.id.btnFindMe);
 		editTopCenter = (EditText) v.findViewById(R.id.editTopCenter);
-
+		IbtnCross = v.findViewById(R.id.IbtnCross);
+		IbtnCross.setOnClickListener(this);
 		meetingsAdapter = new MeetingsListAdapter(getActivity(),
 				R.layout.list_item_meeting, meetings);
 
+		/*editTopCenter.setOnTouchListener(new View.OnTouchListener() {
+
+			@Override
+			public boolean onTouch(View v, MotionEvent event) {
+				final int DRAWABLE_LEFT = 0;
+				final int DRAWABLE_TOP = 1;
+				final int DRAWABLE_RIGHT = 2;
+				final int DRAWABLE_BOTTOM = 3;
+
+				if (event.getAction() == MotionEvent.ACTION_UP) {
+					if (event.getRawX() >= (editTopCenter.getRight() - editTopCenter
+							.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds()
+							.width())) {
+						// your action here
+						editTopCenter.setText("");
+						return true;
+					}
+				}
+				return false;
+			}
+		});*/
 		editTopCenter.addTextChangedListener(new TextWatcher() {
 
 			@Override
@@ -255,10 +281,13 @@ public class MeetingsFragment extends Fragment implements
 				String inputText = s.toString().trim().toLowerCase();
 				searchMeetings(inputText);
 				if (inputText.trim().length() == 0) {
+					IbtnCross.setVisibility(View.INVISIBLE);
 					if (listWasInvisible) {
 						switchList();
 						listWasInvisible = false;
 					}
+				}else{
+					IbtnCross.setVisibility(View.VISIBLE);
 				}
 				updateEmptyViewVisibility();
 			}
@@ -340,8 +369,8 @@ public class MeetingsFragment extends Fragment implements
 		spots.clear();
 		mapMeetings.clear();
 
-		BitmapDescriptor icon = BitmapDescriptorFactory
-				.fromResource(R.drawable.pin);
+//		BitmapDescriptor icon = BitmapDescriptorFactory
+//				.fromResource(R.drawable.pin);
 		// add marker
 		for (int i = 0; i < meetings.size(); i++) {
 
@@ -604,7 +633,10 @@ public class MeetingsFragment extends Fragment implements
 					myLocation.getLongitude()));
 
 			break;
-
+			case R.id.IbtnCross:
+				editTopCenter.setText("");
+				UtilityClass.hideSoftKeyboard(getContext(), editTopCenter);
+				break;
 		default:
 			break;
 		}

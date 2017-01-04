@@ -38,7 +38,7 @@
     <string name="title_activity_provide_app_feed_back">ProvideAppFeedBackActivity</string>
     <string name="disconnect_my_facebook">Disconnect My Facebook Account</string>
     <string name="dating_and_fellowshiping">Dating and Fellowshiping</string>
-    <string name="search_for_favorites">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;Search for Favorites</string>
+    <string name="search_for_favorites">Search for Favorites</string>
     <string name="search_for_friends">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;Search for Friends</string>
     <string name="search_for_meetings">Search for Meetings</string>
     <string name="search_for_rehabs">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;Search for Rehabs</string>
@@ -129,7 +129,7 @@
     <string name="plz_enter_insurance_txt">Please enter your insurance from the list provided.</string>
     <string name="if_you_dont_have_insurance">If you don\'t have insurance,you can skip this step by clicking \"Skip\" in the top right.</string>
     <string name="please_explain_the_inaccuracy">Please explain the inaccuracy...(250 character limit)</string>
-    <string name="feedback_hint">Please write any comments you have for us in here. We appreciate any and all types of feedback. (250 character limit)</string>
+    <string name="feedback_hint">Please write any comments you have for us in here. We appreciate any and all types of feedback.\n(250 character limit)</string>
     <string name="type_of_facility">Type of Facility</string>
     <string name="type_of_meeting">Type of Meeting</string>
     <string name="zip_code">Zip Code</string>
@@ -145,6 +145,7 @@
     <string name="num_favourites_attending">%1$d favorites Attending!</string>
     <string name="no_favourite_attending">No favorite Attending!</string>
     <string name="rsvp_d">RSVP\'d</string>
+    <string name="rsvp_title">RSVP\'d Friends</string>
     <string name="add_meeting_to_calendar_confirmation_text">Would you like to add this meeting to your calendar?</string>
     <string name="remove_meeting_from_calendar_confirmation_text">Would you like to remove this meeting from your calendar?</string>
     <string name="check_meeting_confirmation_text">Would you like to check-in this meeting?</string>

@@ -110,7 +110,7 @@
             android:paddingTop="2dp"
             android:text="Start in 1 hours"
             android:textColor="#FFFFFF"
-            android:textSize="10sp" />
+            android:textSize="9sp" />
     </RelativeLayout>
 
     

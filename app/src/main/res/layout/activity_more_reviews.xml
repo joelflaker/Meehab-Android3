@@ -44,8 +44,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="4dp"
+            android:paddingLeft="4dp"
+            android:paddingRight="4dp"
             android:background="@android:color/white" >
-            <LinearLayout
+
+            <LinearLayout
                 android:id="@+id/reviewsContainer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

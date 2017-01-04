@@ -372,7 +372,7 @@
                                 android:layout_centerVertical="true"
                                 android:layout_toLeftOf="@+id/tvRSVPAttending"
                                 android:gravity="left|center_vertical"
-                                android:text="RSVP&apos;d"
+                                android:text="@string/rsvp_title"
                                 android:textSize="16sp" />
 
                             <TextView

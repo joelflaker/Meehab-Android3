@@ -58,7 +58,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="8dp"
-                android:layout_toLeftOf="@+id/tvFiltereSeparater"
+                android:layout_toLeftOf="@+id/IbtnCross"
                 android:layout_toRightOf="@+id/ivSearch"
                 android:layout_weight="1"
                 android:background="@null"
@@ -67,11 +67,20 @@
                 android:imeOptions="actionSearch"
                 android:inputType="textWebEditText|textCapWords"
                 android:maxLength="100"
-                android:singleLine="true"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="#ffffff"
                 android:textColorHint="#efefef"
                 android:textSize="12sp" />
+            <ImageButton
+                android:id="@+id/IbtnCross"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toLeftOf="@+id/tvFiltereSeparater"
+                android:background="@android:color/transparent"
+                android:layout_centerVertical="true"
+                android:padding="4dp"
+                android:src="@drawable/cross_white"
+                android:visibility="invisible"/>
 
             <TextView
                 android:id="@+id/tvFiltereSeparater"

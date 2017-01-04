@@ -285,7 +285,6 @@ public class MeetingAdditionActivity extends SocketActivity implements
 								}, meetingFacility).show();
 				break;
 		}
-
 	}
 
 	public void findPlace(View view) {
@@ -333,7 +332,6 @@ public class MeetingAdditionActivity extends SocketActivity implements
 //            etAddress.setText(placeDetailsStr);
 //        } else if (resultCode == PlaceAutocomplete.RESULT_ERROR) {
 //            Status status = PlaceAutocomplete.getStatus(this, data);
-//            // TODO: Handle the error.
 //            Log.i(TAG, status.getStatusMessage());
 //
 //        } else if (resultCode == RESULT_CANCELED) {

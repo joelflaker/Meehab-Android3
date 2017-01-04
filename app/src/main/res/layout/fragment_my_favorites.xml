@@ -55,9 +55,9 @@
 
                 <EditText
                     android:id="@+id/editTopCenter"
-                    android:layout_width="fill_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                   
+                   android:layout_toLeftOf="@+id/IbtnCross"
                     android:layout_centerVertical="true"
                   
                     android:layout_toRightOf="@+id/ivSearch"
@@ -74,6 +74,16 @@
                     android:textColor="#ffffff"
                     android:textColorHint="#efefef"
                     android:textSize="12sp" />
+                <ImageButton
+                    android:id="@+id/IbtnCross"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:background="@android:color/transparent"
+                    android:layout_centerVertical="true"
+                    android:padding="4dp"
+                    android:src="@drawable/cross_white"
+                    android:visibility="invisible"/>
             </RelativeLayout>
 
             <ImageButton

@@ -61,7 +61,7 @@
             android:id="@+id/editFeedback"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:gravity="left"
+            android:gravity="center_horizontal"
             android:maxLength="250"
             android:textSize="14sp"
             android:hint="@string/feedback_hint" />

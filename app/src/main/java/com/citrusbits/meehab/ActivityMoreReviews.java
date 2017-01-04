@@ -15,6 +15,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -71,7 +72,9 @@ public class ActivityMoreReviews extends Activity implements OnClickListener {
 					R.layout.list_item_meeting_review, null);
 			view.setId(i);
 
-			view.setTag(list.get(i));
+			MeetingReviewModel m = list.get(i);
+
+			view.setTag(m);
 			view.setOnClickListener(new OnClickListener() {
 
 				@Override
@@ -87,7 +90,6 @@ public class ActivityMoreReviews extends Activity implements OnClickListener {
 							R.anim.activity_out);
 				}
 			});
-			MeetingReviewModel m = list.get(i);
 
 			// init
 			TextView tvReviewTitle = (TextView) view
@@ -99,6 +101,23 @@ public class ActivityMoreReviews extends Activity implements OnClickListener {
 			TextView tvComment = (TextView) view.findViewById(R.id.tvComment);
 			ImageView ivUserIcon = (ImageView) view
 					.findViewById(R.id.ivUserIcon);
+
+			ivUserIcon.setTag(m);
+			ivUserIcon.setOnClickListener(new OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					MeetingReviewModel aMeeting = (MeetingReviewModel) v.getTag();
+					if(TextUtils.isEmpty(aMeeting.getImage())) return;
+
+					String userImageUrl = Consts.SOCKET_URL + aMeeting.getImage();
+
+					Intent intent = new Intent(ActivityMoreReviews.this, MediaFullScreenActivity.class);
+					intent.putExtra(MediaFullScreenActivity.MEDIA_TYPE, MediaFullScreenActivity.TYPE_IMAGE);
+					intent.putExtra("link",  userImageUrl);
+					startActivity(intent);
+					overridePendingTransition(R.anim.bottom_in_instant,R.anim.abc_fade_out);
+				}
+			});
 
 			String userImage = Consts.SOCKET_URL + m.getImage();
 

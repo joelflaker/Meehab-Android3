@@ -16,9 +16,44 @@
         <item>Church</item>
         <item>Park</item>
         <item>Building</item>
-        <item>Club</item>
+        <item>Center</item>
+        <item>Upstairs</item>
+        <item>Church library</item>
+        <item>Back entrance</item>
+        <item>House</item>
+        <item>Hospital</item>
         <item>Hall</item>
+        <item>Restaurant</item>
+        <item>Coffee shop</item>
+        <item>Bowling alley</item>
+        <item>Hotel</item>
         <item>School</item>
+        <item>On beach</item>
+        <item>Hostel</item>
+        <item>Cafe</item>
+        <item>Rec</item>
+        <item>Lodge</item>
+        <item>Trailer</item>
+        <item>Garden room</item>
+        <item>Auditorium</item>
+        <item>Stadium</item>
+        <item>Mission</item>
+        <item>Main entrance</item>
+        <item>Jewish center</item>
+        <item>Theater</item>
+        <item>Lodge</item>
+        <item>Synagogue</item>
+        <item>Parish hall</item>
+        <item>Back hall</item>
+        <item>Club</item>
+        <item>Pier</item>
+        <item>Craft room</item>
+        <item>Community room</item>
+        <item>Chapel</item>
+        <item>Rotary building</item>
+        <item>Meeting room</item>
+        <item>Basement</item>
+        <item>Other</item>
     </string-array>
 
     <!-- applyFilter Days -->
