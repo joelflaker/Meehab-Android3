@@ -116,7 +116,8 @@ public class MyProfileFragment extends Fragment implements
 		View v = inflater.inflate(R.layout.fragment_my_profile, container,
 				false);
 		
-		timeZone=MeetingUtils.getTimeZoneOffset();
+		timeZone = MeetingUtils.getTimeZoneOffset();
+
 
 		v.findViewById(R.id.topMenuBtn).setOnClickListener(this);
 		v.findViewById(R.id.topRightBtn).setOnClickListener(this);

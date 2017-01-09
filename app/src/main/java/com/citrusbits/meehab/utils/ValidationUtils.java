@@ -33,7 +33,7 @@ public class ValidationUtils {
 		if (TextUtils.isEmpty(target)) {
 			return false;
 		} else {
-			return (target.toString().startsWith("https://") || target.toString().startsWith("http://")) && Pattern.compile("[.]?.*[.x][a-z]{2,3}").matcher(target).find();
+			return (target.toString().startsWith("www.")/* || target.toString().startsWith("http://")*/) && Pattern.compile("[.]?.*[.x][a-z]{2,3}").matcher(target).find();
 		}
 	}
 

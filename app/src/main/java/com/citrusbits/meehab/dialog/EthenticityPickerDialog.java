@@ -37,7 +37,6 @@ public class EthenticityPickerDialog extends Dialog implements
 
 		// super(context,R.style.PauseDialog);
 		super(context);
-		// TODO Auto-generated constructor stub
 		this.context = context;
 	}
 
@@ -52,7 +51,6 @@ public class EthenticityPickerDialog extends Dialog implements
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		this.getWindow().getAttributes().windowAnimations = R.style.PauseDialogAnimation;
@@ -89,7 +87,6 @@ public class EthenticityPickerDialog extends Dialog implements
 
 	@Override
 	public void onClick(View v) {
-		// TODO Auto-generated method stub
 		switch (v.getId()) {
 		case R.id.ibDone:
 			if (ethenticityDialogListener != null) {

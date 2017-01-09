@@ -130,7 +130,7 @@ public class MyFavoritesFragment extends Fragment implements
 	
 	protected int mReqPosition;
 	protected int mAccountPosition;
-	private View IbtnCross;
+	private View textViewCross;
 
 	public MyFavoritesFragment() {
 	}
@@ -183,8 +183,8 @@ public class MyFavoritesFragment extends Fragment implements
 
 		ibEdit = (ImageButton) view.findViewById(R.id.ibEdit);
 		editTopCenter = (EditText) view.findViewById(R.id.editTopCenter);
-		IbtnCross = view.findViewById(R.id.IbtnCross);
-		IbtnCross.setOnClickListener(this);
+		textViewCross = view.findViewById(R.id.textViewCross);
+		textViewCross.setOnClickListener(this);
 
 		editTopCenter.addTextChangedListener(new TextWatcher() {
 
@@ -204,9 +204,9 @@ public class MyFavoritesFragment extends Fragment implements
 			public void afterTextChanged(Editable s) {
 				String inputText = s.toString().trim().toLowerCase();
 				if(inputText.length() == 0){
-					IbtnCross.setVisibility(View.INVISIBLE);
+					textViewCross.setVisibility(View.INVISIBLE);
 				}else{
-					IbtnCross.setVisibility(View.VISIBLE);
+					textViewCross.setVisibility(View.VISIBLE);
 				}
 				if (currentTabPosition == 1) {
 					userAccounts.clear();
@@ -620,7 +620,7 @@ public class MyFavoritesFragment extends Fragment implements
 					: View.GONE);
 
 			break;
-			case R.id.IbtnCross:
+			case R.id.textViewCross:
 				editTopCenter.setText("");
 				UtilityClass.hideSoftKeyboard(getContext(), editTopCenter);
 				break;

@@ -295,9 +295,7 @@ public class MeetingAdditionActivity extends SocketActivity implements
 //                        .setFilter(typeFilter)
 //        startActivityForResult(intent, PLACE_AUTOCOMPLETE_REQUEST_CODE);
 //    } catch (GooglePlayServicesRepairableException e) {
-//        // TODO: Handle the error.
 //    } catch (GooglePlayServicesNotAvailableException e) {
-//        // TODO: Handle the error.
 //    }
 
 		// Construct an intent for the place picker

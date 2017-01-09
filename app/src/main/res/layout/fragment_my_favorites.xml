@@ -57,9 +57,8 @@
                     android:id="@+id/editTopCenter"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                   android:layout_toLeftOf="@+id/IbtnCross"
+                   android:layout_toLeftOf="@+id/textViewCross"
                     android:layout_centerVertical="true"
-                  
                     android:layout_toRightOf="@+id/ivSearch"
                     android:gravity="left"
                     android:background="@null"
@@ -68,21 +67,23 @@
                     android:hint="@string/search_for_favorites"
                     android:imeOptions="actionSearch"
                     android:inputType="textWebEditText|textCapWords"
-                   
-                    android:singleLine="true"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textColor="#ffffff"
                     android:textColorHint="#efefef"
                     android:textSize="12sp" />
-                <ImageButton
-                    android:id="@+id/IbtnCross"
+
+                <TextView
+                    android:id="@+id/textViewCross"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_toLeftOf="@+id/tvFiltereSeparater"
                     android:layout_alignParentRight="true"
                     android:background="@android:color/transparent"
                     android:layout_centerVertical="true"
                     android:padding="4dp"
-                    android:src="@drawable/cross_white"
+                    android:layout_marginRight="4dp"
+                    android:text="X"
+                    android:textColor="@android:color/white"
                     android:visibility="invisible"/>
             </RelativeLayout>
 

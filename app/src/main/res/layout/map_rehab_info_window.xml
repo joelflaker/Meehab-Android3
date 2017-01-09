@@ -2,9 +2,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:background="@drawable/rehab_map_popup"
+    android:background="@drawable/map_popup_bg"
     android:orientation="vertical"
-    android:padding="@dimen/wall_margin" >
+    android:paddingLeft="8dip"
+    android:paddingRight="6dip"
+    android:paddingTop="3dip" >
 
     <TextView
         android:id="@+id/tvRehabName"
@@ -30,7 +32,7 @@
             android:ellipsize="end"
             android:maxLength="26"
             android:ems="11"
-            android:singleLine="true"
+            android:lines="1"
             android:text="GOVERNMENT ORGANIZTION"
             android:textAllCaps="true"
             android:textColor="#22ccdd"
@@ -48,7 +50,7 @@
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/activity_vertical_margin"
         android:paddingBottom="8dp" >
@@ -61,7 +63,12 @@
             android:drawablePadding="4dp"
             android:text="h:mm aa - h:mm aa"
             android:textSize="10sp" />
-
+        <Space
+            android:layout_marginLeft="2dp"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            />
         <TextView
             android:id="@+id/tvStatus"
             android:layout_width="wrap_content"
@@ -72,11 +79,10 @@
             android:minWidth="90dp"
             android:paddingBottom="2dp"
             android:paddingLeft="2dp"
-            android:paddingRight="2dp"
             android:paddingTop="2dp"
             android:text="Open Now"
             android:textColor="#FFFFFF"
-            android:textSize="10sp" />
+            android:textSize="8sp" />
     </LinearLayout>
 
 </LinearLayout>

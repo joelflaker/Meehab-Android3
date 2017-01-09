@@ -401,10 +401,10 @@ public class VerificationActivity extends SocketActivity implements
 			break;
 
 		case R.id.ibNext:
-//			if(true){
-//				signup(signup);
-//				return;
-//			}
+			if(true){
+				signup(signup);
+				return;
+			}
 			String code = etVerificationCode.getText().toString().trim();
 			if (code.isEmpty()) {
 				Toast.makeText(VerificationActivity.this, "Please enter code",

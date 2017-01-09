@@ -136,13 +136,16 @@
     </string-array>
 
     <!-- Ethnicities -->
-
+    Needs to have, "African American, Caucasian, Native American, Latin/Hispanic, Pacific Islander, Asian, White, Other"
     <string-array name="ethnicities">
-        <item>Hispanic</item>
-        <item>American Indian</item>
+        <item>African American</item>
+        <item>Caucasian</item>
+        <item>Native American</item>
+        <item>Latin/Hispanic</item>
+        <item>Pacific Islander</item>
         <item>Asian</item>
-        <item>Black</item>
         <item>White</item>
+        <item>Other</item>
     </string-array>
 
     <!-- Drawer -->

@@ -162,8 +162,8 @@
                 android:background="@android:color/transparent"
                 android:gravity="center"
                 android:hint="Website"
-                android:inputType="textUri"
-                android:singleLine="true" />
+                android:lines="1"
+                android:inputType="textUri" />
 
             <ImageView
                 android:layout_width="fill_parent"

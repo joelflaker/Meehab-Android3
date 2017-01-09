@@ -34,7 +34,7 @@
                 android:layout_centerVertical="true"
                 android:layout_centerHorizontal="true"
                 android:textColor="#888888"
-                android:text="Ethenticity"
+                android:text="Ethnicity"
                 />
             
             <ImageButton 

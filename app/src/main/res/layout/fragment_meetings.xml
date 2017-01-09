@@ -2,7 +2,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical"
+    tools:context="fragments.MeetingsFragment" >
 
     <RelativeLayout
         android:id="@+id/relativeTop"
@@ -53,12 +54,12 @@
 
             <EditText
                 android:id="@+id/editTopCenter"
-                android:layout_width="fill_parent"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="8dp"
-                android:layout_toLeftOf="@+id/IbtnCross"
+                android:layout_toLeftOf="@+id/textViewCross"
                 android:layout_toRightOf="@+id/ivSearch"
                 android:layout_weight="1"
                 android:background="@null"
@@ -71,15 +72,17 @@
                 android:textColor="#ffffff"
                 android:textColorHint="#efefef"
                 android:textSize="12sp" />
-            <ImageButton
-                android:id="@+id/IbtnCross"
+
+            <TextView
+                android:id="@+id/textViewCross"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_toLeftOf="@+id/tvFiltereSeparater"
                 android:background="@android:color/transparent"
                 android:layout_centerVertical="true"
                 android:padding="4dp"
-                android:src="@drawable/cross_white"
+                android:text="X"
+                android:textColor="@android:color/white"
                 android:visibility="invisible"/>
 
             <TextView

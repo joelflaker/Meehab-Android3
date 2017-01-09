@@ -232,6 +232,8 @@ OnSocketResponseListener, OnClickListener, OnMapClickListener {
 		tvWebsite = (TextView) findViewById(R.id.tvWebsite);
 		tvAddress = (TextView) findViewById(R.id.tvAddress);
 
+		tvPhone.setOnClickListener(this);
+		tvWebsite.setOnClickListener(this);
 		ibFav.setOnClickListener(this);
 		ibSetting.setOnClickListener(this);
 
@@ -703,6 +705,22 @@ OnSocketResponseListener, OnClickListener, OnMapClickListener {
 		case R.id.tvOtherServices:
 			addOtherServices(!llOtherServices.isShown());
 			break;
+		case R.id.tvPhone:
+			if(TextUtils.isEmpty(rehab.getPhone())) return;
+
+			Intent intent = new Intent(Intent.ACTION_DIAL);
+			intent.setData(Uri.parse("tel:"+rehab.getPhone()));
+			startActivity(intent);
+			break;
+		case R.id.tvWebsite:
+			if(TextUtils.isEmpty(rehab.getWebsite())) return;
+
+			String url = rehab.getWebsite();
+			if (!url.startsWith("https://") && !url.startsWith("http://")){
+				url = "http://" + url;
+			}
+			startActivity(new Intent(Intent.ACTION_VIEW,Uri.parse(url)));
+			break;
 
 		case R.id.rlGetDirection:
 			if (myLocation == null) {
@@ -720,9 +738,9 @@ OnSocketResponseListener, OnClickListener, OnMapClickListener {
 					+ myLocation.getLatitude() + "," + myLocation.getLongitude()
 					+ "&daddr=" + rehab.getLatitude() + ","
 					+ rehab.getLongitude();
-			Intent intent = new Intent(android.content.Intent.ACTION_VIEW,
+			Intent intent2 = new Intent(android.content.Intent.ACTION_VIEW,
 					Uri.parse(uri));
-			startActivity(Intent.createChooser(intent, "Select an application"));
+			startActivity(Intent.createChooser(intent2, "Select an application"));
 			break;
 //		case R.id.ibFav:
 //			isFavorite = !isFavorite;

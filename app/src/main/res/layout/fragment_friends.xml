@@ -2,7 +2,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical"
+    tools:context="fragments.FriendsFragment">
 
     <RelativeLayout
         android:id="@+id/rlTopBar"
@@ -63,7 +64,7 @@
                     android:layout_centerHorizontal="true"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="8dp"
-                    android:layout_toLeftOf="@+id/tvFiltereSeparater"
+                    android:layout_toLeftOf="@+id/textViewCross"
                     android:layout_toRightOf="@+id/ivSearch"
                     android:layout_weight="1"
                     android:background="@null"
@@ -72,11 +73,22 @@
                     android:imeOptions="actionSearch"
                     android:inputType="textWebEditText|textCapWords"
                     android:maxLength="20"
-                    android:singleLine="true"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textColor="#ffffff"
                     android:textColorHint="#efefef"
                     android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/textViewCross"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toLeftOf="@+id/tvFiltereSeparater"
+                    android:background="@android:color/transparent"
+                    android:layout_centerVertical="true"
+                    android:padding="4dp"
+                    android:text="X"
+                    android:textColor="@android:color/white"
+                    android:visibility="invisible"/>
 
                 <TextView
                     android:id="@+id/tvFiltereSeparater"
@@ -169,29 +181,30 @@
             android:layout_width="match_parent"
             android:layout_height="fill_parent" />
     </LinearLayout>
-    
-    	<LinearLayout
-                 android:id="@+id/emptyList"
-                 android:layout_width="wrap_content"
-                 android:layout_height="wrap_content"
-                 android:layout_centerInParent="true"
-                 android:gravity="center"
-                 android:orientation="vertical"
-                 android:visibility="gone" >
 
-                 <TextView
-                     android:layout_width="wrap_content"
-                     android:layout_height="wrap_content"
-                     android:gravity="center"
-                     android:text="No Friend Found."
-                     android:textSize="@dimen/fs_rehab_name_normal"
-                     android:textStyle="bold" />
+    <LinearLayout
+        android:id="@+id/emptyList"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="visible" >
 
-                 <TextView
-                     android:layout_width="wrap_content"
-                     android:layout_height="wrap_content"
-                     android:gravity="center"
-                     android:text="@string/rehabs_filter_empty" />
-             </LinearLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/no_favorite_friends_"
+            android:textSize="@dimen/fs_rehab_name_normal"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/emptyTextDescription"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/friends_empty" />
+    </LinearLayout>
 
 </RelativeLayout>

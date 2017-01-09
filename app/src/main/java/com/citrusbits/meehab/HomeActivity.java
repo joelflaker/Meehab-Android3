@@ -102,6 +102,13 @@ public class HomeActivity extends SocketActivity implements
 		rl = (RelativeLayout) findViewById(R.id.topDrawer);
 		drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
 		navList = (ListView) findViewById(R.id.navList);
+
+		findViewById(R.id.topMenuProfile).setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				displayFragment(0);
+			}
+		});
 		navList.setOnItemClickListener(new DrawerItemClickListener());
 		String[] navMenuTitles = getResources().getStringArray(
 				R.array.drawer_items_titles);

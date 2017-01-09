@@ -160,7 +160,7 @@ public class MeetingsFragment extends Fragment implements
 	private Marker myLocMarker;
 
 	private View emptyList;
-	private View IbtnCross;
+	private View textViewCross;
 
 	public MeetingsFragment() {
 	}
@@ -238,8 +238,8 @@ public class MeetingsFragment extends Fragment implements
 		btnList = (ImageButton) v.findViewById(R.id.btnList);
 		btnFindMe = (ImageButton) v.findViewById(R.id.btnFindMe);
 		editTopCenter = (EditText) v.findViewById(R.id.editTopCenter);
-		IbtnCross = v.findViewById(R.id.IbtnCross);
-		IbtnCross.setOnClickListener(this);
+		textViewCross = v.findViewById(R.id.textViewCross);
+		textViewCross.setOnClickListener(this);
 		meetingsAdapter = new MeetingsListAdapter(getActivity(),
 				R.layout.list_item_meeting, meetings);
 
@@ -281,13 +281,13 @@ public class MeetingsFragment extends Fragment implements
 				String inputText = s.toString().trim().toLowerCase();
 				searchMeetings(inputText);
 				if (inputText.trim().length() == 0) {
-					IbtnCross.setVisibility(View.INVISIBLE);
+					textViewCross.setVisibility(View.INVISIBLE);
 					if (listWasInvisible) {
 						switchList();
 						listWasInvisible = false;
 					}
 				}else{
-					IbtnCross.setVisibility(View.VISIBLE);
+					textViewCross.setVisibility(View.VISIBLE);
 				}
 				updateEmptyViewVisibility();
 			}
@@ -633,7 +633,7 @@ public class MeetingsFragment extends Fragment implements
 					myLocation.getLongitude()));
 
 			break;
-			case R.id.IbtnCross:
+			case R.id.textViewCross:
 				editTopCenter.setText("");
 				UtilityClass.hideSoftKeyboard(getContext(), editTopCenter);
 				break;

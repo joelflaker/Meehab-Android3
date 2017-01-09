@@ -23,7 +23,6 @@ public class InsuranceDialog extends Dialog implements
 
 	public InsuranceDialog(Context context) {
 		super(context,android.R.style.Theme_Black_NoTitleBar);
-		// TODO Auto-generated constructor stub
 		this.context = context;
 	}
 
@@ -37,7 +36,6 @@ public class InsuranceDialog extends Dialog implements
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
@@ -48,7 +46,6 @@ public class InsuranceDialog extends Dialog implements
 
 	@Override
 	public void onClick(View v) {
-		// TODO Auto-generated method stub
 		switch (v.getId()) {
 		case R.id.ibSkip:
 			if (insuranceDialogClickListener != null) {

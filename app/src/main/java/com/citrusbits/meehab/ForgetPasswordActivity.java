@@ -141,6 +141,6 @@ public class ForgetPasswordActivity extends SocketActivity implements OnSocketRe
 	@Override
 	public void onSocketResponseFailure(String onEvent,String message) {
 		pd.dismiss();
-		App.toast(message);
+		App.toast("Cannot find this email address.");
 	}
 }

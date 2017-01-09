@@ -163,7 +163,7 @@ public class RehabsFragment extends Fragment implements
 	private ResponseProcessingTask responseProcessinTask;
 	private Marker myLocMarker;
 	private View emptyList;
-	private View IbtnCross;
+	private View textViewCross;
 
 	public RehabsFragment() {
 	}
@@ -234,8 +234,8 @@ public class RehabsFragment extends Fragment implements
 		emptyList = v.findViewById(R.id.emptyList);
 		btnList = (ImageButton) v.findViewById(R.id.btnList);
 		btnFindMe = (ImageButton) v.findViewById(R.id.btnFindMe);
-		IbtnCross = v.findViewById(R.id.IbtnCross);
-		IbtnCross.setOnClickListener(this);
+		textViewCross = v.findViewById(R.id.textViewCross);
+		textViewCross.setOnClickListener(this);
 		etSearch = (EditText) v.findViewById(R.id.etSearch);
 
 		etSearch.addTextChangedListener(new TextWatcher() {
@@ -257,13 +257,13 @@ public class RehabsFragment extends Fragment implements
 				String inputText = s.toString().trim().toLowerCase();
 				searchRehabs(inputText);
 				if (inputText.trim().length() == 0) {
-					IbtnCross.setVisibility(View.INVISIBLE);
+					textViewCross.setVisibility(View.INVISIBLE);
 					if (listWasInvisible) {
 						switchList();
 						listWasInvisible = false;
 					}
 				}else{
-					IbtnCross.setVisibility(View.VISIBLE);
+					textViewCross.setVisibility(View.VISIBLE);
 				}
 				
 				updateEmptyViewVisibility();
@@ -503,7 +503,7 @@ public class RehabsFragment extends Fragment implements
 					myLocation.getLongitude()));
 
 			break;
-			case R.id.IbtnCross:
+			case R.id.textViewCross:
 				etSearch.setText("");
 				UtilityClass.hideSoftKeyboard(getContext(), etSearch);
 				break;

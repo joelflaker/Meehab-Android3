@@ -22,6 +22,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.util.TypedValue;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -91,6 +92,7 @@ public class FriendsFragment extends Fragment implements
 	private View emptyList;
 
 	public static FriendFilterResultHolder fFilterResultHolder = new FriendFilterResultHolder();
+	private View textViewCross;
 
 	public FriendsFragment() {
 	}
@@ -115,6 +117,8 @@ public class FriendsFragment extends Fragment implements
 		btnGrid = (Button) v.findViewById(R.id.btnGrid);
 		btnList = (Button) v.findViewById(R.id.btnList);
 		emptyList = v.findViewById(R.id.emptyList);
+		textViewCross = v.findViewById(R.id.textViewCross);
+		textViewCross.setOnClickListener(this);
 
 		ivGridBar = (ImageView) v.findViewById(R.id.ivGridBar);
 		ivListBar = (ImageView) v.findViewById(R.id.ivListBar);
@@ -138,6 +142,11 @@ public class FriendsFragment extends Fragment implements
 			@Override
 			public void afterTextChanged(Editable s) {
 				String inputText = s.toString().trim().toLowerCase();
+				if (inputText.trim().length() == 0) {
+					textViewCross.setVisibility(View.INVISIBLE);
+				}else{
+					textViewCross.setVisibility(View.VISIBLE);
+				}
 				userAccounts.clear();
 				for (UserAccount account : userAccountsCache) {
 					String name = account.getUsername();
@@ -712,40 +721,43 @@ public class FriendsFragment extends Fragment implements
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
-		case R.id.topMenuBtn:
-			if (homeActivity.isDrawerOpen()) {
-				homeActivity.changeDrawerVisibility(false);
-			} else {
-				homeActivity.changeDrawerVisibility(true);
-			}
-			break;
-		case R.id.btnFilter:
-			Intent intent = new Intent(getActivity(),
-					FriendsFilterActivity.class);
+			case R.id.topMenuBtn:
+				if (homeActivity.isDrawerOpen()) {
+					homeActivity.changeDrawerVisibility(false);
+				} else {
+					homeActivity.changeDrawerVisibility(true);
+				}
+				break;
+			case R.id.btnFilter:
+				Intent intent = new Intent(getActivity(),
+						FriendsFilterActivity.class);
 
-			intent.putExtra(EXTRA_FILTER_RESULT, fFilterResultHolder);
+				intent.putExtra(EXTRA_FILTER_RESULT, fFilterResultHolder);
 
-			this.startActivityForResult(intent, Filter_request);
+				this.startActivityForResult(intent, Filter_request);
 
-			getActivity().overridePendingTransition(R.anim.activity_in,
-					R.anim.activity_out);
+				getActivity().overridePendingTransition(R.anim.activity_in,
+						R.anim.activity_out);
 
-			break;
-		case R.id.btnGrid:
-			if(friendsListAdapter.getCount() == 0){
-				return;
-			}
-			mPager.setCurrentItem(0);
-			break;
-		case R.id.btnList:
-			if(friendsListAdapter.getCount() == 0){
-				return;
-			}
-			mPager.setCurrentItem(1);
-			break;
-
-		default:
-			break;
+				break;
+			case R.id.btnGrid:
+				if(friendsListAdapter.getCount() == 0){
+					return;
+				}
+				mPager.setCurrentItem(0);
+				break;
+			case R.id.btnList:
+				if(friendsListAdapter.getCount() == 0){
+					return;
+				}
+				mPager.setCurrentItem(1);
+				break;
+			case R.id.textViewCross:
+				editTopCenter.setText("");
+				UtilityClass.hideSoftKeyboard(getContext(), editTopCenter);
+				break;
+			default:
+				break;
 		}
 	}
 

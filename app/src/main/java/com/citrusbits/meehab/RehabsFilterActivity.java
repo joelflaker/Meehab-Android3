@@ -3,33 +3,31 @@ package com.citrusbits.meehab;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
-import android.widget.NumberPicker;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.citrusbits.meehab.adapters.FilterExpandableRehabAdapter;
+import com.citrusbits.meehab.app.App;
+import com.citrusbits.meehab.constants.EventParams;
 import com.citrusbits.meehab.dialog.DistancePickerDialog;
 import com.citrusbits.meehab.dialog.DistancePickerDialog.DistancePickerDialogListener;
-import com.citrusbits.meehab.fragments.FilterResultHolder;
 import com.citrusbits.meehab.model.ExpCategory;
 import com.citrusbits.meehab.model.ExpChild;
-import com.citrusbits.meehab.model.FriendFilterResultHolder;
-import com.citrusbits.meehab.model.MeetingFilterModel;
 import com.citrusbits.meehab.model.RehaabFilterResultHolder;
+import com.citrusbits.meehab.services.OnSocketResponseListener;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 public class RehabsFilterActivity extends SocketActivity implements
-		OnClickListener {
+		OnClickListener, OnSocketResponseListener {
 
 	public static final String MEETING_FILTER = "meeting_filter";
 	public static final int CLEAR_FILTER = 2342;
@@ -83,17 +81,55 @@ public class RehabsFilterActivity extends SocketActivity implements
 		btnZipCode.setOnClickListener(this);
 		btnDistance.setOnClickListener(this);
 
-		categories = buildDummyData();
+		categories = buildDefaultFilter();
 		presetFilter();
-		
+	}
 
-		// Adding ArrayList data to ExpandableListView values
-		mAdapter = new FilterExpandableRehabAdapter(this, expListFilter,
-				categories,filterModel);
+	@Override
+	void onBackendConnected() {
+		socketService.listOfInsurances();
+	}
 
-		// Set Adapter to ExpandableList Adapter
-		expListFilter.setAdapter(mAdapter);
 
+	@Override
+	public void onSocketResponseSuccess(String event, Object obj) {
+		if(event.equals(EventParams.EVENT_INSURANCE_LIST)) {
+			//update insurance list
+			JSONObject data = (JSONObject)obj;
+			JSONArray insurances = data.optJSONArray("insurances");
+			if(insurances != null){
+				String[] insurancesString = new String[insurances.length()];
+				for (int i = 0; i < insurances.length(); i++) {
+					insurancesString[i] = insurances.optJSONObject(i).optString("name");
+				}
+				final ExpCategory parent2 = new ExpCategory();
+				parent2.setChildren(new ArrayList<ExpChild>());
+				parent2.setName("Insurance Accepted");
+				parent2.setValue("Any");
+
+				final ExpChild topItem1 = new ExpChild();
+				topItem1.setName("Select All");
+				parent2.addChild(topItem1);
+
+				for (String value : insurancesString) {
+					final ExpChild child = new ExpChild();
+					child.setName(value);
+					// parent2.getChildren().add(child);
+					parent2.addChild(child);
+
+				}
+				// Adding Parent class object to ArrayList
+				categories.set(1,parent2);
+				presetFilter();
+			}
+		}
+	}
+
+	@Override
+	public void onSocketResponseFailure(String event, String message) {
+		if(EventParams.EVENT_INSURANCE_LIST.equals(event)){
+			App.toast(""+message);
+		}
 	}
 
 	private void presetFilter() {
@@ -163,6 +199,13 @@ public class RehabsFilterActivity extends SocketActivity implements
 			String miles = filterModel.getDistance();
 			txtDistance.setText(miles == null ? "5 Miles": miles);
 		}
+
+		// Adding ArrayList data to ExpandableListView values
+		mAdapter = new FilterExpandableRehabAdapter(this, expListFilter,
+				categories,filterModel);
+
+		// Set Adapter to ExpandableList Adapter
+		expListFilter.setAdapter(mAdapter);
 	}
 
 	@Override
@@ -241,7 +284,7 @@ public class RehabsFilterActivity extends SocketActivity implements
 
 	}
 
-	private ArrayList<ExpCategory> buildDummyData() {
+	private ArrayList<ExpCategory> buildDefaultFilter() {
 
 		// Creating ArrayList of type parent class to store parent class objects
 		final ArrayList<ExpCategory> list = new ArrayList<ExpCategory>();
@@ -272,14 +315,14 @@ public class RehabsFilterActivity extends SocketActivity implements
 		parent2.setChildren(new ArrayList<ExpChild>());
 		parent2.setName("Insurance Accepted");
 		parent2.setValue("Any");
-		String[] timeRangeValues = getResources().getStringArray(
+		String[] insuranceValues = getResources().getStringArray(
 				R.array.insurance_arr);
 
 		final ExpChild topItem1 = new ExpChild();
 		topItem1.setName("Select All");
 		parent2.addChild(topItem1);
 		
-		for (String value : timeRangeValues) {
+		for (String value : insuranceValues) {
 			final ExpChild child = new ExpChild();
 			child.setName(value);
 			// parent2.getChildren().add(child);

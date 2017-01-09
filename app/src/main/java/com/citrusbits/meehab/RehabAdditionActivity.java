@@ -177,7 +177,7 @@ public class RehabAdditionActivity extends SocketActivity implements
 		String email = etEmail.getText().toString().trim();
 
 		String rehabName = etNameOfRehaab.getText().toString().trim();
-		String webiste = etWebsite.getText().toString().trim();
+		String website = etWebsite.getText().toString().trim();
 		String typeOfRehabFacility = tvTypeOfRehabFacility.getText().toString()
 				.trim();
 		if(typeOfRehabFacility.toLowerCase().equals("other")){
@@ -209,8 +209,8 @@ public class RehabAdditionActivity extends SocketActivity implements
 					Toast.LENGTH_SHORT).show();
 			return;
 		}
-		if (webiste.isEmpty() || !ValidationUtils.isValidUrl(webiste)) {
-			Toast.makeText(mContext, "Enter valid website url!",
+		if (website.isEmpty() || !ValidationUtils.isValidUrl(website)) {
+			Toast.makeText(mContext, "Enter valid website url! e.g. www.abc.com",
 					Toast.LENGTH_SHORT).show();
 			return;
 		}
@@ -241,7 +241,7 @@ public class RehabAdditionActivity extends SocketActivity implements
 			json.put("user_email", email);
 
 			json.put("name", rehabName);
-			json.put("website", webiste);
+			json.put("website", website);
 			json.put("relation", relationToRehab);
 			json.put("type", typeOfRehabFacility);
 //			json.put("codes", typeOfRehabFacilityId);

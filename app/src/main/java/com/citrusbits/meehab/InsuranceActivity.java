@@ -22,7 +22,7 @@ import android.widget.NumberPicker;
 import android.widget.Toast;
 
 public class InsuranceActivity extends SocketActivity implements
-		OnClickListener ,OnSocketResponseListener{
+		OnClickListener, OnSocketResponseListener{
 	NumberPicker npInsurance;
 	String[] values;
 
