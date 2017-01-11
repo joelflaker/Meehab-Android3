@@ -171,7 +171,7 @@ public class RehabListAdapter extends ArrayAdapter<RehabModel> {
 //		}
 		// resultHolder.setTypes(types);
 		List<String>  typesLocal = Arrays.asList(mContext.getResources().getStringArray(
-				R.array.rehab_type_arr));
+				R.array.rehab_facility_arr));
 		
 		int k = 0;
 		for (RehabModel wp : arrayList) {

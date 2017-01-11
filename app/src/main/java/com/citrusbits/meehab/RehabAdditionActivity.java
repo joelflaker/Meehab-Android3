@@ -214,14 +214,14 @@ public class RehabAdditionActivity extends SocketActivity implements
 					Toast.LENGTH_SHORT).show();
 			return;
 		}
-		if (typeOfRehabFacility.isEmpty() || ValidationUtils.isSpecialChar(typeOfRehabFacility)) {
+		if (typeOfRehabFacility.isEmpty()/* || ValidationUtils.isSpecialChar(typeOfRehabFacility)*/) {
 			Toast.makeText(mContext,
 					"Select valid Rehab Facility!",
 					Toast.LENGTH_SHORT).show();
 			return;
 		}
 		if (relationToRehab.isEmpty()  || ValidationUtils.isSpecialChar(relationToRehab)) {
-			Toast.makeText(mContext, "Enter valid value for relationship to rehab!",
+			Toast.makeText(mContext, "Enter valid relationship to rehab!",
 					Toast.LENGTH_SHORT).show();
 			return;
 		}

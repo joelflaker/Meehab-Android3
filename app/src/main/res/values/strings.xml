@@ -172,9 +172,10 @@
     <string name="thanks_for_reporting">Thank you for reporting this issue. Our moderators will investigate shortly.</string>
     <string name="insurance_accepted_and_payment">Insurance Accepted and Payment</string>
     <string name="empty_fav_meetings">All your favorite meetings will show up here.\nAdd a meeting to your favorites!</string>
-    <string name="empty_fav_friends">All your favorite friends will show up here.\nAdd a friends to your favorites!</string>
+    <string name="empty_fav_friends">All your favorite friends will show up here.\nAdd a friend to your favorites!</string>
     <string name="no_favorite_meetings_">No Favorite Meetings.</string>
     <string name="no_favorite_friends_">No Favorite Friends.</string>
+    <string name="no_friends_">No Friends.</string>
     <string name="meetings_filter_empty">No meetings match the current filters.\nPlease broaden your search and try again.</string>
     <string name="rehabs_filter_empty">No rehabs match the current filters.\nPlease broaden your search and try again.</string>
     <string name="friends_filter_empty">No friends match the current filters.\nPlease broaden your search and try again.</string>

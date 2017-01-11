@@ -289,31 +289,6 @@
         <item>Vista</item>
     </string-array>
 
-    <!-- RehabType -->
-    <string-array name="rehab_type_arr">
-        <item>Boarding House</item>
-        <item>Camp</item>
-        <item>Detox</item>
-        <item>Doctors Office</item>
-        <item>Government Organization</item>
-        <item>Half-way House</item>
-        <item>Hospital</item>
-        <item>Hypnotist</item>
-        <item>Inpatient</item>
-        <item>Mental Institution</item>
-        <item>Other</item>
-        <item>Outpatient</item>
-        <item>Place of Worship</item>
-        <item>Psychic</item>
-        <item>Residential</item>
-        <item>Resort</item>
-        <item>Seminar</item>
-        <item>Sober Coach</item>
-        <item>Sober Living</item>
-        <item>Spiritual Counselor</item>
-        <item>Therapist</item>
-        <item>Treatment Facility</item>
-    </string-array>
     <string-array name="rehab_facility_arr">
         <item>Boarding House</item>
         <item>Camp</item>

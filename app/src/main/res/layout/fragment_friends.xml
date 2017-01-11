@@ -195,7 +195,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="@string/no_favorite_friends_"
+            android:text="@string/no_friends_"
             android:textSize="@dimen/fs_rehab_name_normal"
             android:textStyle="bold" />
 

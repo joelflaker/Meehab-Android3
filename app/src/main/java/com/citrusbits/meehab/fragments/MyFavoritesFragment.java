@@ -346,6 +346,7 @@ public class MyFavoritesFragment extends Fragment implements
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if(requestCode == MeetingsFragment.REQUEST_MEETING_DETAILS && resultCode == Activity.RESULT_OK){
 			//remove un-fav
+			editTopCenter.setText("");
 			refreshMeetingList();
 		}
 		if(requestCode == FriendsFragment.DETAIL_REQUEST && resultCode == Activity.RESULT_OK){
@@ -975,9 +976,12 @@ public class MyFavoritesFragment extends Fragment implements
 			Collections.sort(meetings, new Comparator<MeetingModel>() {
 				public int compare(MeetingModel o1, MeetingModel o2) {
 
-					if (o1.getDateObj() == null || o2.getDateObj() == null)
-						return 0;
-					return o1.getDateObj().compareTo(o2.getDateObj());
+//					if (o1.getDateObj() == null || o2.getDateObj() == null)
+//						return 0;
+//					return o1.getDateObj().compareTo(o2.getDateObj());
+//					return (int)(o1.getDistanceInMiles() - o2.getDistanceInMiles());
+					if(o1.getDistanceInMiles() == o2.getDistanceInMiles()) return 0;
+					return o1.getDistanceInMiles() < o2.getDistanceInMiles() ? -1: 1;
 				}
 			});
 		}

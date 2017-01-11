@@ -188,6 +188,7 @@ public class InsuranceActivity extends SocketActivity implements
 			user.setInsurance(insurance);
 			uds.update(user);
 			Toast.makeText(InsuranceActivity.this, "Insurance added successfully!", Toast.LENGTH_SHORT).show();
+//			if(fromOptions){ finish(); return; }
 			Intent i = new Intent(InsuranceActivity.this, HomeActivity.class);
 			i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
 					| Intent.FLAG_ACTIVITY_NEW_TASK);

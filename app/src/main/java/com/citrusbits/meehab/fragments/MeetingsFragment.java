@@ -903,6 +903,7 @@ public class MeetingsFragment extends Fragment implements
 				Collections.sort(meetings, new Comparator<MeetingModel>() {
 					@Override
 					public int compare(MeetingModel lhs, MeetingModel rhs) {
+						if(lhs.getDistanceInMiles() == rhs.getDistanceInMiles()) return 0;
 						return lhs.getDistanceInMiles() < rhs.getDistanceInMiles() ? -1: 1;
 					}
 				});
