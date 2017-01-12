@@ -4,14 +4,21 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 import com.citrusbits.meehab.constants.Consts;
+import com.citrusbits.meehab.constants.EventParams;
 import com.citrusbits.meehab.images.PicassoCircularTransform;
+import com.citrusbits.meehab.model.GetFriendsResponse;
 import com.citrusbits.meehab.model.MeetingReviewModel;
 import com.citrusbits.meehab.model.MyReview;
+import com.citrusbits.meehab.model.UserAccount;
+import com.citrusbits.meehab.services.OnSocketResponseListener;
 import com.citrusbits.meehab.utils.DateTimeUtils;
 import com.citrusbits.meehab.utils.MeetingUtils;
+import com.citrusbits.meehab.utils.UtilityClass;
+import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -26,11 +33,14 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.AbsListView.LayoutParams;
 
-public class ActivityMoreReviews extends Activity implements OnClickListener {
+import org.json.JSONObject;
+
+public class ActivityMoreReviews extends SocketActivity implements OnSocketResponseListener, OnClickListener {
 	public static final String KEY_MORE_REVIEW = "more_reviews";
 	ArrayList<MeetingReviewModel> meetingReviewModels;
 
 	private long timeZoneOffset;
+	private Dialog pd;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +53,8 @@ public class ActivityMoreReviews extends Activity implements OnClickListener {
 		LinearLayout reviewsContainer = (LinearLayout) findViewById(R.id.reviewsContainer);
 		Collections.reverse(meetingReviewModels);
 		fillContainer(true, reviewsContainer, meetingReviewModels);
+
+		pd = UtilityClass.getProgressDialog(this);
 
 	}
 
@@ -106,16 +118,17 @@ public class ActivityMoreReviews extends Activity implements OnClickListener {
 			ivUserIcon.setOnClickListener(new OnClickListener() {
 				@Override
 				public void onClick(View v) {
-					MeetingReviewModel aMeeting = (MeetingReviewModel) v.getTag();
-					if(TextUtils.isEmpty(aMeeting.getImage())) return;
+					MeetingReviewModel review = (MeetingReviewModel) v.getTag();
+					if(TextUtils.isEmpty(review.getImage())) return;
 
-					String userImageUrl = Consts.SOCKET_URL + aMeeting.getImage();
+					String userImageUrl = Consts.SOCKET_URL + review.getImage();
 
-					Intent intent = new Intent(ActivityMoreReviews.this, MediaFullScreenActivity.class);
-					intent.putExtra(MediaFullScreenActivity.MEDIA_TYPE, MediaFullScreenActivity.TYPE_IMAGE);
-					intent.putExtra("link",  userImageUrl);
-					startActivity(intent);
-					overridePendingTransition(R.anim.bottom_in_instant,R.anim.abc_fade_out);
+//					Intent intent = new Intent(ActivityMoreReviews.this, MediaFullScreenActivity.class);
+//					intent.putExtra(MediaFullScreenActivity.MEDIA_TYPE, MediaFullScreenActivity.TYPE_IMAGE);
+//					intent.putExtra("link",  userImageUrl);
+//					startActivity(intent);
+//					overridePendingTransition(R.anim.bottom_in_instant,R.anim.abc_fade_out);
+					socketService.getUserById(review.getUserId());
 				}
 			});
 
@@ -150,4 +163,29 @@ public class ActivityMoreReviews extends Activity implements OnClickListener {
 		}
 	}
 
+	@Override
+	public void onSocketResponseSuccess(String event, Object obj) {
+		if(EventParams.METHOD_USER_BY_ID.equals(event)){
+			pd.dismiss();
+			JSONObject data = (JSONObject) obj;
+
+			UserAccount account = new Gson().fromJson(data.optJSONObject("user").toString(),
+					UserAccount.class); ;
+//
+			Intent intent = new Intent(this, UserProfileActivity.class);
+			intent.putExtra(UserProfileActivity.EXTRA_USER_ACCOUNT, account);
+
+			// put friend
+			startActivity(intent);
+			overridePendingTransition(R.anim.activity_in,
+					R.anim.activity_out);
+		}
+	}
+
+	@Override
+	public void onSocketResponseFailure(String event, String message) {
+		if(EventParams.METHOD_USER_BY_ID.equals(event)){
+			pd.dismiss();
+		}
+	}
 }

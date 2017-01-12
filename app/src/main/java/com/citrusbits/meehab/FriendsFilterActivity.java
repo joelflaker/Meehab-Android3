@@ -10,10 +10,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.CheckBox;
 import android.widget.ExpandableListView;
 import android.widget.NumberPicker;
-import android.widget.Toast;
 
 import com.citrusbits.meehab.adapters.FilterExpandableFriendAdapter;
 import com.citrusbits.meehab.fragments.FriendsFragment;
@@ -43,7 +41,7 @@ public class FriendsFilterActivity extends Activity implements OnClickListener {
 
 		expFriendsFilter = (ExpandableListView) findViewById(R.id.expFriendsFilter);
 		if (cacheCategories.isEmpty()) {
-			categories = buildDummyData();
+			categories = buildDefaultData();
 		} else {
 			categories.addAll(cacheCategories);
 		}
@@ -62,7 +60,7 @@ public class FriendsFilterActivity extends Activity implements OnClickListener {
 		
 	}
 
-	private ArrayList<ExpCategory> buildDummyData() {
+	private ArrayList<ExpCategory> buildDefaultData() {
 
 		// Creating ArrayList of type parent class to store parent class objects
 		final ArrayList<ExpCategory> list = new ArrayList<ExpCategory>();
@@ -121,7 +119,7 @@ public class FriendsFilterActivity extends Activity implements OnClickListener {
 
 		final ExpCategory parentEthenticity = new ExpCategory();
 		parentEthenticity.setChildren(new ArrayList<ExpChild>());
-		parentEthenticity.setName("Ethenicity");
+		parentEthenticity.setName("Ethnicity");
 		parentEthenticity.setValue("Any");
 		String[] athenticityValues = getResources().getStringArray(
 				R.array.Ethenticity_arr);

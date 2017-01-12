@@ -80,7 +80,6 @@ public class DayPickerDialog extends Dialog implements
 
 	@Override
 	public void onClick(View v) {
-		// TODO Auto-generated method stub
 		switch (v.getId()) {
 		case R.id.ibDone:
 			if (selectDayDialogListener != null) {
@@ -99,11 +98,10 @@ public class DayPickerDialog extends Dialog implements
 	}
 
 	public interface SelectDayDialogListener {
-
-		public void onDoneClick(DayPickerDialog dialog,
+		void onDoneClick(DayPickerDialog dialog,
 				String maritalStatusSelected);
 
-		public void onCancelClick(DayPickerDialog dialog);
+		void onCancelClick(DayPickerDialog dialog);
 	}
 
 }

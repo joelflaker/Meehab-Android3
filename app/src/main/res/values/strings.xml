@@ -123,7 +123,7 @@
     <string name="height">Height</string>
     <string name="weight">Weight</string>
     <string name="messages">Messages</string>
-    <string name="share_body_text">Hey! There\'s new app that I\'m using called Meehab and I love it! It is free and convenient way to find meetings, rehab, reviews and best of all, meet new friends! This app has everything you need and I highly recommend it! You should check it out!</string>
+    <string name="share_body_text">Hey! There\'s new app that I\'m using called Meehab and I love it! It is free and convenient way to find meetings, rehab, reviews and best of all, meet new friends! This app has everything you need and I highly recommend it! You should check it out!\n\nDownload link: </string>
     <string name="share_body_text_twitter">Check this App out!\nhttp://www.LinkToMeehabInAppleStorePlaceholder.com</string>
     <string name="insurance_dialog_text">We see that you are looking for rehab. If you could enter your insurance information we can help you find a center that takes your insurance.</string>
     <string name="plz_enter_insurance_txt">Please enter your insurance from the list provided.</string>

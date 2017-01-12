@@ -18,12 +18,15 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.citrusbits.meehab.MeetingDetailsActivity;
 import com.citrusbits.meehab.R;
 import com.citrusbits.meehab.adapters.ChatAdapter.ChatCheckedChangeListener;
+import com.citrusbits.meehab.app.App;
 import com.citrusbits.meehab.constants.Consts;
 import com.citrusbits.meehab.db.DatabaseHandler;
 import com.citrusbits.meehab.images.PicassoCircularTransform;
 import com.citrusbits.meehab.model.MessageModel;
+import com.citrusbits.meehab.utils.NetworkUtil;
 import com.squareup.picasso.Picasso;
 
 public class MessagesAdapter extends ArrayAdapter<MessageModel> {
@@ -42,8 +45,8 @@ public class MessagesAdapter extends ArrayAdapter<MessageModel> {
 	
 	int circleBlueBgRes;
 	int circleMaroonBgRes;
-	
-	
+	private OnClickListener onClickListener;
+
 
 	public MessagesAdapter(Context c, int resource, List<MessageModel> m) {
 		super(c, resource, m);
@@ -129,7 +132,13 @@ public class MessagesAdapter extends ArrayAdapter<MessageModel> {
 		holder.ivOnline
 				.setVisibility(message.getCheckInType().equals("online") ? View.VISIBLE
 						: View.GONE);
-
+		holder.ivFriend.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				v.setTag(message);
+				onClickListener.onClick(v);
+			}
+		});
 		String userImage = baseUrl + message.getImage();
 		Picasso.with(mContext).load(userImage)
 				.placeholder(R.drawable.profile_pic_border).resize(60, 60)
@@ -151,6 +160,10 @@ public class MessagesAdapter extends ArrayAdapter<MessageModel> {
 	private String getMessageTime(Date date){
 		SimpleDateFormat dateFormate=new SimpleDateFormat("hh:mm aa");
 		return dateFormate.format(date);
+	}
+
+	public void setOnViewClickListener(OnClickListener onClickListener) {
+		this.onClickListener = onClickListener;
 	}
 
 	public static class ViewHolder {

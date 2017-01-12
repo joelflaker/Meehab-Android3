@@ -15,21 +15,29 @@ import com.citrusbits.meehab.R;
 
 public class MeehabShare {
 
+	private static String getDownloadLink(Context context) {
+		final String appPackageName = context.getPackageName(); // getPackageName()
+		return "https://play.google.com/store/apps/details?id="
+				+ appPackageName;
+	}
+
 	public static void shareBySms(Context context) {
+		String url = getDownloadLink(context);
 		Intent sendIntent = new Intent(Intent.ACTION_VIEW);
 		sendIntent.setData(Uri.parse("sms:"));
 
 		sendIntent.putExtra("sms_body",
-				context.getString(R.string.share_body_text));
+				context.getString(R.string.share_body_text)+url);
 
 		context.startActivity(sendIntent);
 	}
 
 	public static void shareByEmail(Context context) {
+		String url = getDownloadLink(context);
 		Intent i = new Intent(Intent.ACTION_SENDTO, Uri.fromParts("mailto", "",
 				null));
 		i.putExtra(Intent.EXTRA_TEXT,
-				context.getString(R.string.share_body_text));
+				context.getString(R.string.share_body_text)+url);
 		try {
 			context.startActivity(Intent.createChooser(i, "Send mail..."));
 		} catch (android.content.ActivityNotFoundException ex) {
@@ -39,14 +47,14 @@ public class MeehabShare {
 	}
 	
 	public static void shareByFacebook(Context context) {
+		String url = getDownloadLink(context);
 		String type = "image/*";
 		try {
 			Uri mehabUri = getMeehabUri(context);
-			String instagramPackage = "com.facebook.katana";
-			createSocialIntent(context, type, mehabUri, instagramPackage);
-
+			String packageName = "com.facebook.katana";
+			Intent intent = createSocialIntent(context, type, mehabUri, packageName);
+			context.startActivity(Intent.createChooser(intent , "Share to"));
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			Toast.makeText(context, "Error!", Toast.LENGTH_SHORT).show();
 		}
@@ -55,6 +63,7 @@ public class MeehabShare {
 	
 	
 	public static void shareByTwitter(Context context) {
+		String url = getDownloadLink(context);
 		String type = "image/*";
 		try {
 //			Uri mehabUri = getMeehabUri(context);
@@ -68,7 +77,7 @@ public class MeehabShare {
 			// Uri uri = Uri.fromFile(media);
 			// Add the URI to the Intent.
 //			share.putExtra(Intent.EXTRA_STREAM, uri);
-			share.putExtra(Intent.EXTRA_TEXT, context.getString(R.string.share_body_text_twitter));
+			share.putExtra(Intent.EXTRA_TEXT, context.getString(R.string.share_body_text));
 			share.setPackage(socialPackage);
 			// Broadcast the Intent.
 			context.startActivity(Intent.createChooser(share, "Share to"));
@@ -105,15 +114,14 @@ public class MeehabShare {
 					context.getContentResolver(), bit, "title", null);
 			mehabUri = Uri.parse(path);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return mehabUri;
 
 	}
 
-	private static void createSocialIntent(Context context, String type,
-			Uri uri, String socialPackage) {
+	private static Intent createSocialIntent(Context context, String type,
+											 Uri uri, String socialPackage) {
 
 		// Create the new Intent using the 'Send' action.
 		Intent share = new Intent(Intent.ACTION_SEND);
@@ -128,6 +136,6 @@ public class MeehabShare {
 				context.getString(R.string.share_body_text));
 		share.setPackage(socialPackage);
 		// Broadcast the Intent.
-		context.startActivity(Intent.createChooser(share, "Share to"));
+		return share;
 	}
 }

@@ -58,6 +58,7 @@
 
     <!-- applyFilter Days -->
     <string-array name="days_arr">
+        <item>EVERY DAY</item>
         <item>Monday</item>
         <item>Tuesday</item>
         <item>Wednesday</item>
@@ -207,12 +208,14 @@
 
     <!-- Gender Type -->
     <string-array name="Ethenticity_arr">
-        <item>Select All</item>
-        <item>Hispanic</item>
-        <item>American Indian</item>
+        <item>African American</item>
+        <item>Caucasian</item>
+        <item>Native American</item>
+        <item>Latin/Hispanic</item>
+        <item>Pacific Islander</item>
         <item>Asian</item>
-        <item>Black</item>
         <item>White</item>
+        <item>Other</item>
     </string-array>
 
     <!-- Material Status -->

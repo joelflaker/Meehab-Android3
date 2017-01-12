@@ -59,9 +59,12 @@ import com.citrusbits.meehab.services.OnBackendConnectListener;
 import com.citrusbits.meehab.services.OnSocketResponseListener;
 import com.citrusbits.meehab.utils.AccountUtils;
 import com.citrusbits.meehab.utils.DeviceUtils;
+import com.citrusbits.meehab.utils.NetworkUtil;
 import com.citrusbits.meehab.utils.NetworkUtils;
 import com.citrusbits.meehab.utils.UtilityClass;
 import com.google.gson.Gson;
+
+import static android.R.id.message;
 
 public class MessagesFragment extends Fragment implements
 		OnSocketResponseListener,OnBackendConnectListener, ListView.OnItemClickListener,
@@ -136,6 +139,18 @@ public class MessagesFragment extends Fragment implements
 		adapter = new MessagesAdapter(getActivity(),
 				R.layout.list_item_messages, messages)
 				.setMessageCheckedChangeListener(messageCheckChangeListener);
+		adapter.setOnViewClickListener(new OnClickListener(){
+			@Override
+			public void onClick(View v) {
+				MessageModel messageModel = (MessageModel) v.getTag();
+				if(NetworkUtil.isConnected(getContext())){
+					pd.show();
+					homeActivity.socketService.getUserById(messageModel.getFromID());
+				}else {
+					App.toast(getResources().getString(R.string.no_internet_connection));
+				}
+			}
+		});
 		list.setAdapter(adapter);
 		list.setOnItemClickListener(this);
 
@@ -467,6 +482,22 @@ public class MessagesFragment extends Fragment implements
 	public void onSocketResponseSuccess(String event, Object obj) {
 		if (pd != null) {
 			pd.dismiss();
+		}
+
+		if(EventParams.METHOD_USER_BY_ID.equals(event)){
+			pd.dismiss();
+			JSONObject data = (JSONObject) obj;
+
+			UserAccount account = new Gson().fromJson(data.optJSONObject("user").toString(),
+					UserAccount.class); ;
+//
+			Intent intent = new Intent(getActivity(), UserProfileActivity.class);
+			intent.putExtra(UserProfileActivity.EXTRA_USER_ACCOUNT, account);
+
+			// put friend
+			startActivity(intent);
+			getActivity().overridePendingTransition(R.anim.activity_in,
+					R.anim.activity_out);
 		}
 
 		if (event.equals(EventParams.METHOD_GET_CHAT_FRIENDS)) {

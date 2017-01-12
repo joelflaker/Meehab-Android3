@@ -1872,6 +1872,36 @@ public class SocketService extends Service {
 		mSocket.on(EventParams.EVENT_MEETING_ADD_REVIEW, onAddReview);
 		return emit(EventParams.EVENT_MEETING_ADD_REVIEW, params, onAddReview);
 	}
+	public boolean getUserById(final int userId) {
+		JSONObject params = new JSONObject(new HashMap<String, Object>() {{
+			put("id",userId);
+		}});
+		Emitter.Listener onCheckUserInfo = new Emitter.Listener() {
+			@Override
+			public void call(final Object... args) {
+				try {
+
+					JSONObject data = (JSONObject) args[0];
+
+					Log.d(tag, data.toString());
+
+					if (data.getBoolean("type") == true) {
+						// userDatasource.update(response.getUser());
+						//
+						onSocketResponseSuccess(EventParams.METHOD_USER_BY_ID, data);
+						// App.getInstance().connectNodeJS();
+					} else {
+						onSocketResponseFailure(EventParams.METHOD_USER_BY_ID,data.getString("message"));
+					}
+				} catch (Exception e) {
+					onSocketResponseFailure(EventParams.METHOD_USER_BY_ID,getString(R.string.server_response_error));
+				}
+				mSocket.off(EventParams.METHOD_USER_BY_ID);
+			}
+		};
+		mSocket.on(EventParams.METHOD_USER_BY_ID, onCheckUserInfo);
+		return emit(EventParams.METHOD_USER_BY_ID, params, onCheckUserInfo);
+	}
 
 	public void sendChatState(int conversation) {
 		if (sendChatStates()) {

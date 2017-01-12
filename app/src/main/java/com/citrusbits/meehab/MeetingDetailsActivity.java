@@ -93,6 +93,7 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 
 public class MeetingDetailsActivity extends SocketActivity implements
@@ -280,18 +281,6 @@ public class MeetingDetailsActivity extends SocketActivity implements
 			ArrayAdapter<String> codesAdapter = new ArrayAdapter<>(this,R.layout.list_item_meeting_code,meetingCodes);
 			gridMeetingCode.setAdapter(codesAdapter);
 
-//			for (int i = 0; i < codes.length; i++) {
-//				if (i >= MeetingsListAdapter.MAX_CODE_SIZE) {
-//					break;
-//				}
-//
-//				tvCodes[i].setText(codes[i]);
-//				tvCodes[i].setTag(codes[i]);
-//				tvCodes[i].setVisibility(View.VISIBLE);
-//				tvCodes[i].setOnClickListener(codeClickListener);
-//
-//			}
-
 			ibRating.setImageResource(meeting.isFavourite() ? R.drawable.star_pink
 					: R.drawable.star_white);
 
@@ -323,7 +312,6 @@ public class MeetingDetailsActivity extends SocketActivity implements
 
 		}
 
-		// init meeting adapter
 	}
 
 	/**
@@ -1180,7 +1168,22 @@ public class MeetingDetailsActivity extends SocketActivity implements
 			TextView tvComment = (TextView) view.findViewById(R.id.tvComment);
 			ImageView ivUserIcon = (ImageView) view
 					.findViewById(R.id.ivUserIcon);
+			ivUserIcon.setTag(m);
+			ivUserIcon.setOnClickListener(new OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					MeetingReviewModel review = (MeetingReviewModel) v.getTag();
 
+					if(NetworkUtil.isConnected(MeetingDetailsActivity.this)){
+						pd.show();
+						socketService.getUserById(review.getUserId());
+					}else {
+						App.toast(getResources().getString(R.string.no_internet_connection));
+					}
+
+
+				}
+			});
 			String userImage = Consts.SOCKET_URL + m.getImage();
 
 			Log.e("User image is ", userImage);
@@ -1225,7 +1228,21 @@ public class MeetingDetailsActivity extends SocketActivity implements
 	@Override
 	public void onSocketResponseSuccess(String event, Object obj) {
 		pd.dismiss();
-		if (event.equals(EventParams.EVENT_MEETING_GET_REVIEWS)) {
+		if(EventParams.METHOD_USER_BY_ID.equals(event)){
+			pd.dismiss();
+			JSONObject data = (JSONObject) obj;
+
+			UserAccount account = new Gson().fromJson(data.optJSONObject("user").toString(),
+					UserAccount.class); ;
+//
+			Intent intent = new Intent(this, UserProfileActivity.class);
+			intent.putExtra(UserProfileActivity.EXTRA_USER_ACCOUNT, account);
+
+			// put friend
+			startActivity(intent);
+			overridePendingTransition(R.anim.activity_in,
+					R.anim.activity_out);
+		}else if (event.equals(EventParams.EVENT_MEETING_GET_REVIEWS)) {
 
 			meetingReviewModels = (ArrayList<MeetingReviewModel>) ((MeetingReviewsResponse) obj)
 					.getGetMeetingsReviews();
@@ -1235,8 +1252,6 @@ public class MeetingDetailsActivity extends SocketActivity implements
 			meeting.setFavourite(!meeting.isFavourite());
 			ibRating.setImageResource(meeting.isFavourite() ? R.drawable.star_pink
 					: R.drawable.star_white);
-
-			JSONObject data = ((JSONObject) obj);
 
 		} else if (event.equals(EventParams.METHOD_HOME_GROUP_USER)) {
 
