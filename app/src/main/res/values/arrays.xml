@@ -137,7 +137,6 @@
     </string-array>
 
     <!-- Ethnicities -->
-    Needs to have, "African American, Caucasian, Native American, Latin/Hispanic, Pacific Islander, Asian, White, Other"
     <string-array name="ethnicities">
         <item>African American</item>
         <item>Caucasian</item>
@@ -213,6 +212,7 @@
         <item>Native American</item>
         <item>Latin/Hispanic</item>
         <item>Pacific Islander</item>
+        <item>Black</item>
         <item>Asian</item>
         <item>White</item>
         <item>Other</item>
@@ -310,7 +310,7 @@
         <item>Resort</item>
         <item>Seminar</item>
         <item>Sober Coach</item>
-        <item>Sober Living</item>
+        <item>Sober Living </item>
         <item>Spiritual Counselor</item>
         <item>Therapist</item>
         <item>Treatment Facility</item>

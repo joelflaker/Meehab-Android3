@@ -1773,6 +1773,7 @@ public class SocketService extends Service {
 		return emit(EventParams.METHOD_REPORT_MEETING, params, onReportMeeting);
 	}
 
+
 	public boolean deleteChatMessages(final JSONObject params) {
 		return emit(EventParams.METHOD_DELETE_CHAT_MESSAGE, params,
 				onDeleteChatMessage);
@@ -1872,6 +1873,7 @@ public class SocketService extends Service {
 		mSocket.on(EventParams.EVENT_MEETING_ADD_REVIEW, onAddReview);
 		return emit(EventParams.EVENT_MEETING_ADD_REVIEW, params, onAddReview);
 	}
+
 	public boolean getUserById(final int userId) {
 		JSONObject params = new JSONObject(new HashMap<String, Object>() {{
 			put("id",userId);
@@ -1901,6 +1903,37 @@ public class SocketService extends Service {
 		};
 		mSocket.on(EventParams.METHOD_USER_BY_ID, onCheckUserInfo);
 		return emit(EventParams.METHOD_USER_BY_ID, params, onCheckUserInfo);
+	}
+
+	public boolean deleteAccount(final String password) {
+		JSONObject params = new JSONObject(new HashMap<String, Object>() {{
+			put("password",password);
+		}});
+		Emitter.Listener onCheckUserInfo = new Emitter.Listener() {
+			@Override
+			public void call(final Object... args) {
+				try {
+
+					JSONObject data = (JSONObject) args[0];
+
+					Log.d(tag, data.toString());
+
+					if (data.getBoolean("type") == true) {
+						// userDatasource.update(response.getUser());
+						//
+						onSocketResponseSuccess(EventParams.METHOD_USERS_DELETE, data);
+						// App.getInstance().connectNodeJS();
+					} else {
+						onSocketResponseFailure(EventParams.METHOD_USERS_DELETE,data.getString("message"));
+					}
+				} catch (Exception e) {
+					onSocketResponseFailure(EventParams.METHOD_USERS_DELETE,getString(R.string.server_response_error));
+				}
+				mSocket.off(EventParams.METHOD_USERS_DELETE);
+			}
+		};
+		mSocket.on(EventParams.METHOD_USERS_DELETE, onCheckUserInfo);
+		return emit(EventParams.METHOD_USERS_DELETE, params, onCheckUserInfo);
 	}
 
 	public void sendChatState(int conversation) {

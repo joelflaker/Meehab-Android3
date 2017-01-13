@@ -22,6 +22,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.citrusbits.meehab.R;
+import com.citrusbits.meehab.constants.Consts;
 import com.citrusbits.meehab.utils.UtilityClass;
 import com.squareup.picasso.Picasso;
 
@@ -70,7 +71,7 @@ public class PhotosAdapter extends RecyclerView.Adapter<PhotosAdapter.ImageViewH
 
 	@Override
 	public void onBindViewHolder(ImageViewHolder holder,final int pos) {
-		String url = urls.get(pos);
+		String url = Consts.SOCKET_URL + urls.get(pos);
 
 		if(isPhotoUrls){
 			//image

@@ -166,21 +166,21 @@ private static RehabResponseModel instance;
 	}
 
 	/**
-	 * @param packageName
+	 * @param name
 	 * @return
 	 */
-	public static int getMarkDrawableId(String packageName) {
-		int resourceId = R.drawable.star_silver;
+	public static int getMarkDrawableId(String name) {
+		int resourceId = R.drawable.star_bronze;
 		
-		if(TextUtils.isEmpty(packageName)){
-			resourceId = R.drawable.star_silver;
-		}else if (packageName.equalsIgnoreCase("platinum")){
+		if(TextUtils.isEmpty(name)){
+			return resourceId;
+		}else if (name.equalsIgnoreCase("platinum")){
 			resourceId = R.drawable.star_plat;
-		}else if (packageName.equalsIgnoreCase("gold")){
+		}else if (name.equalsIgnoreCase("gold")){
 			resourceId = R.drawable.star_gold;
-		}else if (packageName.equalsIgnoreCase("silver")){
+		}else if (name.equalsIgnoreCase("silver")){
 			resourceId = R.drawable.star_silver;
-		}else if (packageName.equalsIgnoreCase("bronze")){
+		}else if (name.equalsIgnoreCase("bronze")){
 			resourceId = R.drawable.star_bronze;
 		}
 		return resourceId;

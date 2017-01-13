@@ -45,6 +45,7 @@ import com.citrusbits.meehab.db.MeehabDBOpenHelper;
 import com.citrusbits.meehab.db.UserDatasource;
 import com.citrusbits.meehab.dialog.LogoutDialog;
 import com.citrusbits.meehab.dialog.LogoutDialog.LogoutDialogClickListener;
+import com.citrusbits.meehab.dialog.PasswordConfirmationDialog;
 import com.citrusbits.meehab.dialog.UnlinkFacebookDialog;
 import com.citrusbits.meehab.dialog.UnlinkFacebookDialog.UnlinkFacebookDialogListener;
 import com.citrusbits.meehab.fragments.MeetingsFragment.MeetingProcessingTask;
@@ -219,6 +220,7 @@ public class OptionsFragment extends Fragment implements OnSocketResponseListene
 		v.findViewById(R.id.btnPrivacy).setOnClickListener(this);
 		v.findViewById(R.id.btnChangePassword).setOnClickListener(this);
 		v.findViewById(R.id.btnChangeInsurance).setOnClickListener(this);
+		v.findViewById(R.id.btnDeleteAccount).setOnClickListener(this);
 		btnAppearTitle = (Button)v.findViewById(R.id.btnAppearTitle);
 
 		cbLinkFacebook = (CheckBox) v.findViewById(R.id.cbLinkFacebook);
@@ -491,6 +493,8 @@ public class OptionsFragment extends Fragment implements OnSocketResponseListene
 			resetNotificationBool();
 			prefs.saveBooleanPrefs(AppPrefs.KEY_APPEAR_OFFLINE, appearOnline);
 			prefs.saveBooleanPrefs(AppPrefs.KEY_MSG_NOTIFICATION, isNotify);
+		}else if (event.equals(EventParams.METHOD_USERS_DELETE)) {
+			attemptLogout();
 		}
 	}
 	@Override
@@ -630,6 +634,28 @@ public class OptionsFragment extends Fragment implements OnSocketResponseListene
 						}
 					}).show();
 			break;
+		case R.id.btnDeleteAccount:
+
+			new PasswordConfirmationDialog(getActivity()).setConfirmationListener(
+					new PasswordConfirmationDialog.PasswordConfirmationDialogClickListener() {
+
+						@Override
+						public void onDeleteClick(String password, PasswordConfirmationDialog dialog) {
+							dialog.dismiss();
+							if(NetworkUtil.isConnected(homeActivity)) {
+								pd.show();
+								homeActivity.socketService.deleteAccount(password);
+							}else {
+								App.toast(getResources().getString(R.string.no_internet_connection));
+							}
+						}
+
+						@Override
+						public void onCancelClick(PasswordConfirmationDialog dialog) {
+							dialog.dismiss();
+						}
+					}).show();
+			break;
 		default:
 			break;
 		}
@@ -664,7 +690,6 @@ public class OptionsFragment extends Fragment implements OnSocketResponseListene
 		getActivity().overridePendingTransition(R.anim.activity_in,
 				R.anim.activity_out);
 
-		HomeActivity homeActivity = (HomeActivity) getActivity();
 		if (homeActivity.socketService != null) {
 			//homeActivity.socketService.disconnectSocket();
 		}

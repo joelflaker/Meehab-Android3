@@ -11,8 +11,10 @@ import com.citrusbits.meehab.model.MeetingReviewModel;
 import com.citrusbits.meehab.model.MyReview;
 import com.citrusbits.meehab.model.UserAccount;
 import com.citrusbits.meehab.services.OnSocketResponseListener;
+import com.citrusbits.meehab.utils.AccountUtils;
 import com.citrusbits.meehab.utils.DateTimeUtils;
 import com.citrusbits.meehab.utils.MeetingUtils;
+import com.citrusbits.meehab.utils.UserAcountUtils;
 import com.citrusbits.meehab.utils.UtilityClass;
 import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
@@ -119,9 +121,8 @@ public class ActivityMoreReviews extends SocketActivity implements OnSocketRespo
 				@Override
 				public void onClick(View v) {
 					MeetingReviewModel review = (MeetingReviewModel) v.getTag();
-					if(TextUtils.isEmpty(review.getImage())) return;
 
-					String userImageUrl = Consts.SOCKET_URL + review.getImage();
+					if(AccountUtils.getUserId(ActivityMoreReviews.this) == review.getUserId()) return;
 
 //					Intent intent = new Intent(ActivityMoreReviews.this, MediaFullScreenActivity.class);
 //					intent.putExtra(MediaFullScreenActivity.MEDIA_TYPE, MediaFullScreenActivity.TYPE_IMAGE);

@@ -191,7 +191,7 @@ public class RehabListAdapter extends ArrayAdapter<RehabModel> {
 			//type
 			ArrayList<String> types = (ArrayList<String>) resultHolder.getRehabType();
 			
-			boolean isTypeMatch = true;
+			boolean isTypeMatch;
 			
 			//if then all others types of
 			if(types.contains("Other")){

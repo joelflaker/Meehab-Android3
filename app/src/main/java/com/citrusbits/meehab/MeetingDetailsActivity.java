@@ -1174,6 +1174,8 @@ public class MeetingDetailsActivity extends SocketActivity implements
 				public void onClick(View v) {
 					MeetingReviewModel review = (MeetingReviewModel) v.getTag();
 
+					if(AccountUtils.getUserId(MeetingDetailsActivity.this) == review.getUserId()) return;
+
 					if(NetworkUtil.isConnected(MeetingDetailsActivity.this)){
 						pd.show();
 						socketService.getUserById(review.getUserId());

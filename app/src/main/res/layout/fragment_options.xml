@@ -352,6 +352,16 @@
                 android:paddingLeft="@dimen/activity_horizontal_margin"
                 android:paddingRight="@dimen/activity_horizontal_margin"
                 android:text="@string/logout" />
+            <Button
+                android:id="@+id/btnDeleteAccount"
+                android:textColor="#888888"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/simple_button_selector"
+                android:gravity="left|center_vertical"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:paddingRight="@dimen/activity_horizontal_margin"
+                android:text="@string/delete_account" />
         </LinearLayout>
     </ScrollView>
 

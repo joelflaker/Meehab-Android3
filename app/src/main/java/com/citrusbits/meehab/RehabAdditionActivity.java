@@ -266,7 +266,7 @@ public class RehabAdditionActivity extends SocketActivity implements
 
 	@Override
 	void onBackendConnected() {
-		socketService.listOfRehabTypes();
+//		socketService.listOfRehabTypes();
 	}
 
 
@@ -275,22 +275,21 @@ public class RehabAdditionActivity extends SocketActivity implements
 		if (pd != null) {
 			pd.dismiss();
 		}
-		//{"type":true,"message":"Rehabs Types List","types":[{"id":1,"name":"Boarding House"},{"id":2,"name":"Camp"},{"id":3,"name":"Detox"},{"id":4,"name":"Doctors Office"},{"id":5,"name":"Government Organization"},{"id":6,"name":"Half-way House"},{"id":7,"name":"Hospital"},{"id":8,"name":"Hypnotist"},{"id":9,"name":"Inpatient"},{"id":10,"name":"Mental Institution"},{"id":11,"name":"Outpatient"},{"id":12,"name":"Place of Worship"},{"id":13,"name":"Psychic"},{"id":14,"name":"Residential"},{"id":15,"name":"Resort"},{"id":16,"name":"Seminar"},{"id":17,"name":"Sober Coach"},{"id":18,"name":"Sober Living "},{"id":19,"name":"Spiritual Counselor"},{"id":20,"name":"Therapist"},{"id":21,"name":"Treatment Facility"},{"id":22,"name":"Other"}]}
 
-		if (event.equals(EventParams.EVENT_REHAB_TYPES_LIST)) {
-			JSONObject data = (JSONObject)obj;
-			JSONArray rehabTypes = data.optJSONArray("types");
-			if(rehabTypes != null){
-				String[] rehabTypesString = new String[rehabTypes.length()];
-				int[] rehabTypesIds = new int[rehabTypes.length()];
-				for (int i = 0; i < rehabTypes.length(); i++) {
-					rehabTypesString[i] = rehabTypes.optJSONObject(i).optString("name");
-					rehabTypesIds[i] = rehabTypes.optJSONObject(i).optInt("id");
-				}
-				this.rehabTypesIds = rehabTypesIds;
-				this.rehabTypesStringArray = rehabTypesString;
-			}
-		}else
+//		if (event.equals(EventParams.EVENT_REHAB_TYPES_LIST)) {
+//			JSONObject data = (JSONObject)obj;
+//			JSONArray rehabTypes = data.optJSONArray("types");
+//			if(rehabTypes != null){
+//				String[] rehabTypesString = new String[rehabTypes.length()];
+//				int[] rehabTypesIds = new int[rehabTypes.length()];
+//				for (int i = 0; i < rehabTypes.length(); i++) {
+//					rehabTypesString[i] = rehabTypes.optJSONObject(i).optString("name");
+//					rehabTypesIds[i] = rehabTypes.optJSONObject(i).optInt("id");
+//				}
+//				this.rehabTypesIds = rehabTypesIds;
+//				this.rehabTypesStringArray = rehabTypesString;
+//			}
+//		}else
 		if (event.equals(EventParams.EVENT_ADD_REHAB)) {
 			new MessageDialog(this,R.string.thanks_on_rehab_addition)
 					.setDialogClickListener(new MessageDialog.MessageDialogClickListener() {

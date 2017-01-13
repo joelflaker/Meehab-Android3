@@ -40,6 +40,7 @@ public class EventParams {
 
 	public static final String METHOD_USER_LOGIN = "users:login";
 	public static final String METHOD_USER_BY_ID = "users:getUserById";
+	public static final String METHOD_USERS_DELETE = "users:deleteUser";
 
 	public static final String METHOD_CHAT_SEND_RECEIVE = "chat:sendReciveMessages";
 
