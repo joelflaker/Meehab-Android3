@@ -1,7 +1,6 @@
 package com.citrusbits.meehab.helpers;
 
-import com.citrusbits.meehab.HomeActivity;
-import com.citrusbits.meehab.LoginAndRegisterActivity;
+import com.citrusbits.meehab.ui.users.LoginAndRegisterActivity;
 import com.citrusbits.meehab.R;
 import com.citrusbits.meehab.app.App;
 import com.citrusbits.meehab.constants.Consts;

@@ -194,7 +194,7 @@
                                 android:textColor="#CCCCCC"
                                 android:textSize="12sp" />
 
-                            <com.citrusbits.meehab.customviews.MyGridView
+                            <com.citrusbits.meehab.ui.customviews.MyGridView
                                 android:id="@+id/gridMeetingCode"
                                 android:padding="4dp"
                                 android:stretchMode="columnWidth"

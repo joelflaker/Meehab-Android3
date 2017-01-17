@@ -1,6 +1,6 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.citrusbits.meehab.AddReviewOverMeetingActivity" >
+    tools:context="com.citrusbits.meehab.ui.meetings.AddReviewOverMeetingActivity" >
 
     <item
         android:id="@+id/action_settings"

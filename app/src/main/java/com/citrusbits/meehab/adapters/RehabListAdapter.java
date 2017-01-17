@@ -1,38 +1,22 @@
 package com.citrusbits.meehab.adapters;
 
-import java.lang.reflect.Array;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Calendar;
-import java.util.Comparator;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 import android.content.Context;
-import android.location.Location;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
-import android.widget.RatingBar;
 import android.widget.TextView;
-import android.widget.ToggleButton;
 
 import com.citrusbits.meehab.R;
-import com.citrusbits.meehab.constants.Consts;
-import com.citrusbits.meehab.fragments.FilterResultHolder;
-import com.citrusbits.meehab.fragments.FilterResultHolder.FilterTime;
-import com.citrusbits.meehab.model.MeetingModel;
 import com.citrusbits.meehab.model.RehaabFilterResultHolder;
 import com.citrusbits.meehab.model.RehabModel;
 import com.citrusbits.meehab.model.RehabResponseModel;
-import com.citrusbits.meehab.popup.CodePopup;
-import com.citrusbits.meehab.utils.MettingCodes;
 
 public class RehabListAdapter extends ArrayAdapter<RehabModel> {
 

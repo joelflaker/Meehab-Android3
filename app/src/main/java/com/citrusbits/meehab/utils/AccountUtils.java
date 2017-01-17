@@ -1,33 +1,8 @@
 package com.citrusbits.meehab.utils;
 
-import java.io.UnsupportedEncodingException;
-import java.math.BigInteger;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.text.DecimalFormatSymbols;
-import java.util.Formatter;
-import java.util.Random;
-
-import android.app.Activity;
-import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
-import android.content.pm.PackageManager;
-import android.location.Location;
-import android.text.TextUtils;
-import android.util.DisplayMetrics;
-import android.widget.Spinner;
 
-import com.citrusbits.meehab.HomeActivity;
-import com.citrusbits.meehab.LoginAndRegisterActivity;
-import com.citrusbits.meehab.app.App;
-import com.citrusbits.meehab.constants.Consts;
-import com.citrusbits.meehab.db.UserDatasource;
-import com.citrusbits.meehab.model.UserAccount;
 import com.citrusbits.meehab.prefrences.AppPrefs;
-import com.google.android.gms.maps.model.LatLng;
 
 public class AccountUtils {
 

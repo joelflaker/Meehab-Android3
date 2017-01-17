@@ -48,7 +48,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:paddingTop="@dimen/activity_vertical_margin"
-        tools:context="com.citrusbits.meehab.MeetingsFilterActivity" >
+        tools:context="com.citrusbits.meehab.ui.meetings.MeetingsFilterActivity" >
 
         <ExpandableListView
             android:id="@+id/expFriendsFilter"

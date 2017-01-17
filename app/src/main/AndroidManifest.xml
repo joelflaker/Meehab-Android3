@@ -81,7 +81,7 @@
         </receiver>
 
         <activity
-            android:name=".SplashActivity"
+            android:name=".ui.SplashActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden" >
@@ -93,157 +93,157 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".LoginAndRegisterActivity"
+            android:name=".ui.users.LoginAndRegisterActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".RsvpActivity"
+            android:name=".ui.RsvpActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".ReportFriendActivity"
+            android:name=".ui.users.ReportFriendActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysVisible" >
         </activity>
         <activity
-            android:name=".ChatActivity"
+            android:name=".ui.users.ChatActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden" >
         </activity>
         <activity
-            android:name=".LoginActivity"
+            android:name=".ui.users.LoginActivity"
             android:label="@string/app_name"
-            android:parentActivityName=".LoginAndRegisterActivity"
+            android:parentActivityName=".ui.users.LoginAndRegisterActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.citrusbits.meehab.LoginAndRegisterActivity" />
+                android:value="com.citrusbits.meehab.ui.users.LoginAndRegisterActivity" />
         </activity>
         <activity
-            android:name=".ForgetPasswordActivity"
+            android:name=".ui.users.ForgetPasswordActivity"
             android:label="@string/app_name"
-            android:parentActivityName=".LoginActivity"
+            android:parentActivityName=".ui.users.LoginActivity"
             android:screenOrientation="portrait" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.citrusbits.meehab.LoginActivity" />
+                android:value="com.citrusbits.meehab.ui.users.LoginActivity" />
         </activity>
         <activity
-            android:name=".SignupActivity"
+            android:name=".ui.users.SignupActivity"
             android:label="@string/app_name"
-            android:parentActivityName=".LoginAndRegisterActivity"
+            android:parentActivityName=".ui.users.LoginAndRegisterActivity"
             android:screenOrientation="portrait" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="LoginAndRegisterActivity" />
+                android:value=".ui.users.LoginAndRegisterActivity" />
         </activity>
         <activity
-            android:name=".ProfileSetupActivity"
+            android:name=".ui.users.ProfileSetupActivity"
             android:label="@string/app_name"
             android:configChanges="orientation|screenSize|keyboardHidden|keyboard"
-            android:parentActivityName=".SignupActivity"
+            android:parentActivityName=".ui.users.SignupActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden" >
         </activity>
         <activity
-            android:name=".TermsAndConditionsActivity"
+            android:name=".ui.users.TermsAndConditionsActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden" >
         </activity>
         <activity
-            android:name=".ProfileSetupMoreActivity"
+            android:name=".ui.users.ProfileSetupMoreActivity"
             android:label="@string/app_name"
-            android:parentActivityName=".ProfileSetupActivity"
+            android:parentActivityName=".ui.users.ProfileSetupActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="ProfileSetupActivity" />
+                android:value=".ui.users.ProfileSetupActivity" />
         </activity>
         <activity
-            android:name=".MeetingsFilterActivity"
+            android:name=".ui.meetings.MeetingsFilterActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden" >
         </activity>
         <activity
-            android:name=".UserFilterActivity"
+            android:name=".ui.users.UserFilterActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden" >
         </activity>
         <activity
-            android:name=".MeetingDetailsActivity"
+            android:name=".ui.meetings.MeetingDetailsActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden" >
         </activity>
         <activity
-            android:name=".RehabDetailsActivity"
+            android:name=".ui.rehabs.RehabDetailsActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden" >
         </activity>
         <activity
-            android:name=".HomeActivity"
+            android:name=".ui.HomeActivity"
             android:label="@string/app_name"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden" >
         </activity>
         <activity
-            android:name=".RehabsFilterActivity"
+            android:name=".ui.rehabs.RehabsFilterActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden" >
         </activity>
         <activity
-            android:name=".FriendsFilterActivity"
+            android:name=".ui.users.FriendsFilterActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden" >
         </activity>
         <activity
-            android:name=".UserProfileActivity"
+            android:name=".ui.users.UserProfileActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden" >
         </activity>
         <activity
-            android:name=".EditMyProfileActivity"
+            android:name=".ui.users.EditMyProfileActivity"
             android:configChanges="orientation|screenSize|keyboardHidden|keyboard"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden" >
         </activity>
         <activity
-            android:name=".MeetingAdditionActivity"
-            android:configChanges="orientation|screenSize|keyboardHidden|keyboard"
-            android:label="@string/app_name"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustResize|stateAlwaysVisible" >
-        </activity>
-        <activity
-            android:name=".RehabAdditionActivity"
+            android:name=".ui.meetings.MeetingAdditionActivity"
             android:configChanges="orientation|screenSize|keyboardHidden|keyboard"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize|stateAlwaysVisible" >
         </activity>
         <activity
-            android:name=".TwoOptionActivity"
+            android:name=".ui.rehabs.RehabAdditionActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden|keyboard"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize|stateAlwaysVisible" >
+        </activity>
+        <activity
+            android:name=".ui.TwoOptionActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden" >
         </activity>
         <activity
-            android:name=".CannotFindInsuranceActivity"
+            android:name=".ui.CannotFindInsuranceActivity"
             android:configChanges="orientation|screenSize|keyboardHidden|keyboard"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
@@ -334,70 +334,70 @@
             <!--android:value="false" />-->
 
         <activity
-            android:name=".ChangeEmailActivity"
+            android:name=".ui.users.ChangeEmailActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden" >
         </activity>
         <activity
-            android:name=".ChangePasswordActivity"
+            android:name=".ui.users.ChangePasswordActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden" >
         </activity>
         <activity
-            android:name=".BlockFriendsActivity"
+            android:name=".ui.users.BlockFriendsActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden" >
         </activity>
         <activity
-            android:name=".ProvideAppFeedBackActivity"
+            android:name=".ui.ProvideAppFeedBackActivity"
             android:configChanges="orientation|screenSize|keyboardHidden|keyboard"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden" >
         </activity>
         <activity
-            android:name=".FullScreenMapActivity"
+            android:name=".ui.FullScreenMapActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden" >
         </activity>
         <activity
-            android:name=".AddReviewOverMeetingActivity"
+            android:name=".ui.meetings.AddReviewOverMeetingActivity"
             android:configChanges="orientation|screenSize|keyboardHidden|keyboard"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysVisible" >
         </activity>
         <activity
-            android:name=".ReportInaccuracyActivity"
+            android:name=".ui.ReportInaccuracyActivity"
             android:configChanges="orientation|screenSize|keyboardHidden|keyboard"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden" >
         </activity>
         <activity
-            android:name=".VerificationActivity"
+            android:name=".ui.users.VerificationActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden" >
         </activity>
         <activity
-            android:name=".MyReviewDetailActivity"
+            android:name=".ui.MyReviewDetailActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden" >
         </activity>
         <activity
-            android:name=".InsuranceActivity"
+            android:name=".ui.InsuranceActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden" >
         </activity>
         <activity
-            android:name=".ActivityMoreReviews"
+            android:name=".ui.ActivityMoreReviews"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden" >
@@ -409,7 +409,7 @@
         </service>
 
         <activity
-            android:name=".MediaFullScreenActivity"
+            android:name=".ui.MediaFullScreenActivity"
             android:configChanges="orientation|screenSize|keyboardHidden|keyboard"
             android:label="@string/app_name"
             android:screenOrientation="portrait"

@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:weightSum="2"
-    tools:context="com.citrusbits.meehab.TwoOptionActivity" >
+    tools:context="com.citrusbits.meehab.ui.TwoOptionActivity" >
 
     <RelativeLayout
         android:layout_width="match_parent"

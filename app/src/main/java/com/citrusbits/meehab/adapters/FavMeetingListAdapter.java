@@ -17,15 +17,13 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
-import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.citrusbits.meehab.R;
-import com.citrusbits.meehab.fragments.FilterResultHolder.FilterTime;
+import com.citrusbits.meehab.ui.fragments.FilterResultHolder.FilterTime;
 import com.citrusbits.meehab.model.MeetingModel;
-import com.citrusbits.meehab.popup.CodePopup;
+import com.citrusbits.meehab.ui.popup.CodePopup;
 import com.citrusbits.meehab.utils.MettingCodes;
 
 public class FavMeetingListAdapter extends ArrayAdapter<MeetingModel> {

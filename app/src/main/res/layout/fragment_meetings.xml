@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="fragments.MeetingsFragment" >
+    tools:context=".ui.fragments.MeetingsFragment" >
 
     <RelativeLayout
         android:id="@+id/relativeTop"
@@ -124,7 +124,7 @@
                 android:id="@+id/map"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                class="com.citrusbits.meehab.customviews.CustomMapFragment" />
+                class="com.citrusbits.meehab.ui.customviews.CustomMapFragment" />
 
             <!-- class="com.google.android.gms.maps.SupportMapFragment" -->
 

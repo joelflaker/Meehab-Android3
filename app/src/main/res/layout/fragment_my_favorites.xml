@@ -154,7 +154,7 @@
         </LinearLayout>
     </RelativeLayout>
 
-    <com.citrusbits.meehab.customviews.StillViewPager
+    <com.citrusbits.meehab.ui.customviews.StillViewPager
         android:id="@+id/pager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

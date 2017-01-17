@@ -12,10 +12,6 @@ import java.util.List;
 import java.util.Locale;
 
 import android.content.Context;
-import android.graphics.PorterDuff;
-import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.LayerDrawable;
-import android.location.Location;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,10 +23,10 @@ import android.widget.TextView;
 import android.widget.ToggleButton;
 
 import com.citrusbits.meehab.R;
-import com.citrusbits.meehab.fragments.FilterResultHolder;
-import com.citrusbits.meehab.fragments.FilterResultHolder.FilterTime;
+import com.citrusbits.meehab.ui.fragments.FilterResultHolder;
+import com.citrusbits.meehab.ui.fragments.FilterResultHolder.FilterTime;
 import com.citrusbits.meehab.model.MeetingModel;
-import com.citrusbits.meehab.popup.CodePopup;
+import com.citrusbits.meehab.ui.popup.CodePopup;
 import com.citrusbits.meehab.utils.MettingCodes;
 
 /**

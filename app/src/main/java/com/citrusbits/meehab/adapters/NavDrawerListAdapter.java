@@ -2,7 +2,7 @@ package com.citrusbits.meehab.adapters;
 
 import java.util.ArrayList;
 
-import com.citrusbits.meehab.NavDrawerItem;
+import com.citrusbits.meehab.ui.NavDrawerItem;
 import com.citrusbits.meehab.R;
 import com.citrusbits.meehab.db.DatabaseHandler;
 
@@ -13,7 +13,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 @SuppressLint("InflateParams")

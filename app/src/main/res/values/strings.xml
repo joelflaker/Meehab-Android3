@@ -205,5 +205,5 @@
     <!--media controller-->
     <string name="description">Media Controls</string>
     <string name="more_than_50_miles">more than 50 Miles</string>
-    <string name="your_account_permanently_deleted">Your account will be permanently deleted.\nEnter current password</string>
+    <string name="your_account_permanently_deleted">Your account will be permanently deleted.\nEnter your current password.</string>
 </resources>

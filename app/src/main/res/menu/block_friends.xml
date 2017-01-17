@@ -1,6 +1,6 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.citrusbits.meehab.BlockFriendsActivity" >
+    tools:context="com.citrusbits.meehab.ui.users.BlockFriendsActivity" >
 
     <item
         android:id="@+id/action_settings"

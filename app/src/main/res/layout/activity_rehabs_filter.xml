@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:animateLayoutChanges="true"
     android:orientation="vertical"
-    tools:context=".RehabsFilterActivity" >
+    tools:context=".ui.rehabs.RehabsFilterActivity" >
 
     <RelativeLayout
         android:id="@+id/relativeTop"
@@ -78,7 +78,7 @@
         android:paddingLeft="@dimen/activity_horizontal_margin"
         android:paddingRight="@dimen/activity_horizontal_margin"
         android:paddingTop="@dimen/activity_vertical_margin"
-        tools:context="com.citrusbits.meehab.MeetingsFilterActivity" >
+        tools:context="com.citrusbits.meehab.ui.meetings.MeetingsFilterActivity" >
 
         <RelativeLayout
                 android:layout_width="match_parent"

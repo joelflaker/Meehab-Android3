@@ -20,7 +20,8 @@ public class Consts {
 	public static final String IS_CONTACT_SYNC = "is_contact_sync";
 
 	//production url
-	public static final String SOCKET_URL = "http://ec2-52-90-65-80.compute-1.amazonaws.com/";
+//	public static final String SOCKET_URL = "http://ec2-52-90-65-80.compute-1.amazonaws.com";
+	public static final String SOCKET_URL = "http://ec2-52-87-182-251.compute-1.amazonaws.com/";
 
 	//settings
 	public static final String IMAGE_NAME = "image_name";

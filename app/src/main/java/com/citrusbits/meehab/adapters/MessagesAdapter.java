@@ -15,18 +15,13 @@ import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.citrusbits.meehab.MeetingDetailsActivity;
 import com.citrusbits.meehab.R;
-import com.citrusbits.meehab.adapters.ChatAdapter.ChatCheckedChangeListener;
-import com.citrusbits.meehab.app.App;
 import com.citrusbits.meehab.constants.Consts;
 import com.citrusbits.meehab.db.DatabaseHandler;
 import com.citrusbits.meehab.images.PicassoCircularTransform;
 import com.citrusbits.meehab.model.MessageModel;
-import com.citrusbits.meehab.utils.NetworkUtil;
 import com.squareup.picasso.Picasso;
 
 public class MessagesAdapter extends ArrayAdapter<MessageModel> {

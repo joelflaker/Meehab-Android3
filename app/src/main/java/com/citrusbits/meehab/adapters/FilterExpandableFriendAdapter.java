@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.citrusbits.meehab.R;
-import com.citrusbits.meehab.fragments.FilterResultHolder;
 import com.citrusbits.meehab.model.ExpCategory;
 import com.citrusbits.meehab.model.ExpChild;
 import com.citrusbits.meehab.model.FriendFilterResultHolder;
@@ -20,13 +19,11 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
-import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ExpandableListView;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 /**
  * @author Qamar

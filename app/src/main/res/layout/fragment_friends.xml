@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="fragments.FriendsFragment">
+    tools:context=".ui.fragments.FriendsFragment">
 
     <RelativeLayout
         android:id="@+id/rlTopBar"
@@ -176,7 +176,7 @@
         android:layout_below="@id/rlTopBar"
         android:orientation="vertical" >
 
-        <com.citrusbits.meehab.customviews.StillViewPager
+        <com.citrusbits.meehab.ui.customviews.StillViewPager
             android:id="@+id/pager"
             android:layout_width="match_parent"
             android:layout_height="fill_parent" />

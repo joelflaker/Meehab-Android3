@@ -10,7 +10,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.AlarmManager;
-import android.app.Notification;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.BroadcastReceiver;
@@ -26,7 +25,6 @@ import android.provider.ContactsContract;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.citrusbits.meehab.LoginActivity;
 import com.citrusbits.meehab.constants.EventParams;
 import com.citrusbits.meehab.contacts.PhoneContacts;
 import com.citrusbits.meehab.db.DatabaseHandler;
