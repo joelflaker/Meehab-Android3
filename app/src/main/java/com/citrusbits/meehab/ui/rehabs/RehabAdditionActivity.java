@@ -31,7 +31,6 @@ import com.citrusbits.meehab.utils.NetworkUtils;
 import com.citrusbits.meehab.utils.UtilityClass;
 import com.citrusbits.meehab.utils.ValidationUtils;
 
-@SuppressLint("NewApi")
 public class RehabAdditionActivity extends SocketActivity implements
 		OnClickListener, OnSocketResponseListener {
 

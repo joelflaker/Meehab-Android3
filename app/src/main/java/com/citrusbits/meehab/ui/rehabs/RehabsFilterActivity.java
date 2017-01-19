@@ -33,8 +33,6 @@ public class RehabsFilterActivity extends SocketActivity implements
 
 	public static final String MEETING_FILTER = "meeting_filter";
 	public static final int CLEAR_FILTER = 2342;
-	private int ParentClickStatus = -1;
-	private int ChildClickStatus = -1;
 	private ExpandableListView expListFilter;
 	private ArrayList<ExpCategory> categories;
 	FilterExpandableRehabAdapter mAdapter;
@@ -45,10 +43,8 @@ public class RehabsFilterActivity extends SocketActivity implements
 	private TextView txtDistance;
 
 	public static RehaabFilterResultHolder filterModel = new RehaabFilterResultHolder();
-	private String[] distanceValues;
 	private CheckBox tglOpenNow;
 
-	// private ArrayList<Parent> parents;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);

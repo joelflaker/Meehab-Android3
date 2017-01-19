@@ -1183,13 +1183,16 @@ public class MeetingDetailsActivity extends SocketActivity implements
 			});
 			String userImage = m.getImage();
 
-			Log.e("User image is ", userImage);
-
-			Picasso.with(MeetingDetailsActivity.this).load(userImage)
-					.placeholder(R.drawable.profile_pic_border).resize(80, 80)
-					.error(R.drawable.profile_pic_border)
-					.transform(new PicassoCircularTransform()).into(ivUserIcon);
-
+			if(!TextUtils.isEmpty(userImage)) {
+				Picasso.with(MeetingDetailsActivity.this).load("" + userImage)
+						.placeholder(R.drawable.profile_pic_border).resize(80, 80)
+						.error(R.drawable.profile_pic_border)
+						.transform(new PicassoCircularTransform()).into(ivUserIcon);
+			}else {
+				Picasso.with(MeetingDetailsActivity.this).load(R.drawable.profile_pic_border)
+						.resize(80, 80)
+						.into(ivUserIcon);
+			}
 			tvReviewTitle.setText(m.getTitle());
 
 			rating.setRating(m.getStars());

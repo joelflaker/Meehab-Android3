@@ -24,6 +24,7 @@ import android.os.Bundle;
 import android.os.IBinder;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -317,15 +318,15 @@ public class RehabsFragment extends Fragment implements
 		map.clear();
 		spots.clear();
 		
-		BitmapDescriptor icon = BitmapDescriptorFactory
-				.fromResource(R.drawable.pin);
+//		BitmapDescriptor icon = BitmapDescriptorFactory
+//				.fromResource(R.drawable.pin);
 		// add marker
 		List<RehabModel> rehabs = rehabResponse.getRehabs();
 		for (int i = 0; i < rehabs.size(); i++) {
 			RehabModel rehab = rehabs.get(i);
 			// Creating an instance of MarkerOptions to set position
 			
-			int resourceId = RehabResponseModel.getMarkDrawableId(rehab.getPackageName());
+			int resourceId = RehabResponseModel.getMarkDrawableId(""+rehab.getPackageName());
 			/*
 			 * if (m.getMarkertypeColor() == MarkerColorType.GREEN) { resourceId
 			 * = R.drawable.pin_green; } else if (m.getMarkertypeColor() ==
@@ -924,8 +925,10 @@ public class RehabsFragment extends Fragment implements
 					if(rehabDay == null){
 						rehabModel.setHours(Consts.CLOSED_TODAY);
 					}else{
-						String openTime = amFormater.format(rehabDay.getOpenDate());
-						String closeTime = amFormater.format(rehabDay.getCloseDate());
+						Date openDate = rehabDay.getOpenDate();
+						String openTime = openDate == null ? "hh:mm": amFormater.format(openDate);
+						Date closeDate = rehabDay.getCloseDate();
+						String closeTime = closeDate == null ? "hh:mm":amFormater.format(closeDate);
 						rehabModel.setHours(openTime + " - " + closeTime);
 					}
 					
@@ -933,7 +936,6 @@ public class RehabsFragment extends Fragment implements
 
 				}
 
-				
 			} catch (JSONException e) {
 				e.printStackTrace();
 			}

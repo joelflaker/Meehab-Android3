@@ -16,12 +16,14 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.SystemClock;
+import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentActivity;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 
 import com.citrusbits.meehab.R;
 import com.citrusbits.meehab.constants.Consts;
@@ -167,6 +169,11 @@ public abstract class SocketActivity extends FragmentActivity {
 
 	protected SharedPreferences getPreferences() {
 		return getSharedPreferences(Consts.APP_PREFS_NAME, Context.MODE_PRIVATE);
+	}
+
+	public void showKeyboard(@NonNull EditText editText){
+		InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+		imm.showSoftInput(editText, InputMethodManager.SHOW_IMPLICIT);
 	}
 
 	public boolean useSubjectToIdentifyConference() {

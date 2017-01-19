@@ -176,28 +176,29 @@ public class HomeActivity extends SocketActivity implements
 		TextView tvUserName = (TextView) findViewById(R.id.tvUserName);
 
 		tvUserName.setText(user.getUsername());
-		if (userImage==null||userImage.isEmpty()) {
 
-			return;
+		if(!TextUtils.isEmpty(userImage)) {
+
+			Picasso.with(this)
+					.load(userImage)
+					.placeholder(R.drawable.profile_pic_border)
+					// .resize(300, 200)
+					.error(R.drawable.profile_pic_border)
+					.transform(new PicassoBlurTransform(HomeActivity.this, 20))
+					.into(ivPictureBig);
 		}
-
-		Picasso.with(this)
-				.load(userImage)
-				.placeholder(R.drawable.profile_pic_border)
-				// .resize(300, 200)
-				.error(R.drawable.profile_pic_border)
-				.transform(new PicassoBlurTransform(HomeActivity.this, 20))
-				.into(ivPictureBig);
 		ivUserIcon.setImageResource(R.drawable.profile_pic_border);
 		ivUserIcon.postDelayed(new Runnable() {
 
 			@Override
 			public void run() {
-				Picasso.with(HomeActivity.this).load(userImage)
-						.placeholder(R.drawable.profile_pic_border).resize(100, 100)
-						.error(R.drawable.profile_pic_border)
-						.transform(new PicassoCircularTransform())
-						.into(ivUserIcon);
+				if(!TextUtils.isEmpty(userImage)) {
+					Picasso.with(HomeActivity.this).load(userImage)
+							.placeholder(R.drawable.profile_pic_border).resize(100, 100)
+							.error(R.drawable.profile_pic_border)
+							.transform(new PicassoCircularTransform())
+							.into(ivUserIcon);
+				}
 			}
 		}, 1000);
 

@@ -171,16 +171,16 @@ private static RehabResponseModel instance;
 	 */
 	public static int getMarkDrawableId(String name) {
 		int resourceId = R.drawable.star_bronze;
-		
+		name = name.toLowerCase();
 		if(TextUtils.isEmpty(name)){
 			return resourceId;
-		}else if (name.equalsIgnoreCase("platinum")){
+		}else if (name.contains("platinium") || name.contains("platinum")){
 			resourceId = R.drawable.star_plat;
-		}else if (name.equalsIgnoreCase("gold")){
+		}else if (name.contains("gold")){
 			resourceId = R.drawable.star_gold;
-		}else if (name.equalsIgnoreCase("silver")){
+		}else if (name.contains("silver")){
 			resourceId = R.drawable.star_silver;
-		}else if (name.equalsIgnoreCase("bronze")){
+		}else if (name.contains("bronze")){
 			resourceId = R.drawable.star_bronze;
 		}
 		return resourceId;

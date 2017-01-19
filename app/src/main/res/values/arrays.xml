@@ -13,46 +13,45 @@
         <item>Sunday</item>
     </string-array>
     <string-array name="meeting_type_facility">
-        <item>Church</item>
-        <item>Park</item>
-        <item>Building</item>
-        <item>Center</item>
-        <item>Upstairs</item>
-        <item>Church library</item>
-        <item>Back entrance</item>
-        <item>House</item>
-        <item>Hospital</item>
-        <item>Hall</item>
-        <item>Restaurant</item>
-        <item>Coffee shop</item>
-        <item>Bowling alley</item>
-        <item>Hotel</item>
-        <item>School</item>
-        <item>On beach</item>
-        <item>Hostel</item>
-        <item>Cafe</item>
-        <item>Rec</item>
-        <item>Lodge</item>
-        <item>Trailer</item>
-        <item>Garden room</item>
         <item>Auditorium</item>
-        <item>Stadium</item>
-        <item>Mission</item>
-        <item>Main entrance</item>
-        <item>Jewish center</item>
-        <item>Theater</item>
-        <item>Lodge</item>
-        <item>Synagogue</item>
-        <item>Parish hall</item>
+        <item>Back entrance</item>
         <item>Back hall</item>
-        <item>Club</item>
-        <item>Pier</item>
-        <item>Craft room</item>
-        <item>Community room</item>
-        <item>Chapel</item>
-        <item>Rotary building</item>
-        <item>Meeting room</item>
         <item>Basement</item>
+        <item>Bowling alley</item>
+        <item>Building</item>
+        <item>Cafe</item>
+        <item>Center</item>
+        <item>Chapel</item>
+        <item>Church</item>
+        <item>Church library</item>
+        <item>Club</item>
+        <item>CoffeeShop</item>
+        <item>Community room</item>
+        <item>Craft room</item>
+        <item>Garden room</item>
+        <item>Hall</item>
+        <item>Hospital</item>
+        <item>Hostel</item>
+        <item>Hotel</item>
+        <item>House</item>
+        <item>Jewish center</item>
+        <item>Lodge</item>
+        <item>Main entrance</item>
+        <item>Meeting room</item>
+        <item>Mission</item>
+        <item>On beach</item>
+        <item>Parish hall</item>
+        <item>Park</item>
+        <item>Pier</item>
+        <item>Rec</item>
+        <item>Restaurant</item>
+        <item>Rotary building</item>
+        <item>School</item>
+        <item>Stadium</item>
+        <item>Synagogue</item>
+        <item>Theater</item>
+        <item>Trailer</item>
+        <item>Upstairs</item>
         <item>Other</item>
     </string-array>
 
@@ -100,7 +99,6 @@
         <item>11:00 PM</item>
         <!--<item>12:00 AM</item>-->
     </string-array>
-
 
     <!-- applyFilter Days -->
     <string-array name="meetingsTypesValues">
@@ -316,29 +314,5 @@
         <item>Treatment Facility</item>
         <item>Other</item>
     </string-array>
-<!--     <string-array name="rehab_facility_arr"> -->
-<!--         <item>Boarding House</item> -->
-<!--         <item>Camp</item> -->
-<!--         <item>Detox</item> -->
-<!--         <item>Doctors Office</item> -->
-<!--         <item>Government Organization</item> -->
-<!--         <item>Half-way House</item> -->
-<!--         <item>Hospital</item> -->
-<!--         <item>Hypnotist</item> -->
-<!--         <item>Inpatient</item> -->
-<!--         <item>Mental Institution</item> -->
-<!--         <item>Other</item> -->
-<!--         <item>Outpatient</item> -->
-<!--         <item>Place of Worship</item> -->
-<!--         <item>Psychic</item> -->
-<!--         <item>Residential</item> -->
-<!--         <item>Resort</item> -->
-<!--         <item>Seminar</item> -->
-<!--         <item>Sober Coach</item> -->
-<!--         <item>Sober Living</item> -->
-<!--         <item>Spiritual Counselor</item> -->
-<!--         <item>Therapist</item> -->
-<!--         <item>Treatment Facility</item> -->
-<!--     </string-array> -->
 
 </resources>

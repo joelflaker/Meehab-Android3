@@ -58,7 +58,6 @@ import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlacePicker;
 import com.google.android.gms.maps.model.LatLng;
 
-@SuppressLint("NewApi")
 public class MeetingAdditionActivity extends SocketActivity implements
 		OnClickListener, OnSocketResponseListener {
 
@@ -86,6 +85,8 @@ public class MeetingAdditionActivity extends SocketActivity implements
 	EditText etZipcode;
 	TextView tvTypeOfMeeting;
 	TextView tvTypeOfFacility;
+	private View rlOtherFacility;
+	private EditText etOtherFacilities;
 	EditText etYourRelationshipToMeeting;
 
 	private Context mContext;
@@ -93,8 +94,8 @@ public class MeetingAdditionActivity extends SocketActivity implements
 	private Dialog pd;
 
 	private String lat = "33.1667";
-
 	private String lng = "73.6667";
+	private View viewFocusHacker;
 
 
 	@Override
@@ -108,11 +109,15 @@ public class MeetingAdditionActivity extends SocketActivity implements
 		etPhoneNumber = (EditText) findViewById(R.id.etPhoneNumber);
 		etMeetingName = (EditText) findViewById(R.id.etMeetingName);
 		tvMeetingDay = (TextView) findViewById(R.id.tvMeetingDay);
+		viewFocusHacker = findViewById(R.id.viewFocusHacker);
 		tvMeetingTime = (TextView) findViewById(R.id.tvMeetingTime);
 		etAddress = (EditText) findViewById(R.id.etAddress);
 		etCity = (EditText) findViewById(R.id.etCity);
 		etZipcode = (EditText) findViewById(R.id.etZipcode);
+		etOtherFacilities = (EditText) findViewById(R.id.etOtherFacilities);
+		rlOtherFacility = findViewById(R.id.rlOtherFacility);
 		tvTypeOfMeeting = (TextView) findViewById(R.id.tvTypeOfMeeting);
+		findViewById(R.id.ivOtherCross).setOnClickListener(this);
 		tvTypeOfFacility = (TextView) findViewById(R.id.tvTypeOfFacility);
 		etYourRelationshipToMeeting = (EditText) findViewById(R.id.etYourRelationshipToMeeting);
 
@@ -160,6 +165,12 @@ public class MeetingAdditionActivity extends SocketActivity implements
 		});
 	}
 
+	@Override
+	protected void onStart() {
+		super.onStart();
+		etPhoneNumber.requestFocus();
+		showKeyboard(etPhoneNumber);
+	}
 
 	@Override
 	public void onBackPressed() {
@@ -177,6 +188,9 @@ public class MeetingAdditionActivity extends SocketActivity implements
 			case R.id.etAddress:
 				findPlace(v);
 				break;
+			case R.id.ivOtherCross:
+				etOtherFacilities.setText("");
+				break;
 			case R.id.tvMeetingDay:
 				// Toast.makeText(RequestMeetingAdditionActivity.this,
 				// "Meeting Day!", Toast.LENGTH_SHORT).show();
@@ -192,6 +206,7 @@ public class MeetingAdditionActivity extends SocketActivity implements
 													String daySelected) {
 								dialog.dismiss();
 								tvMeetingDay.setText(daySelected);
+								viewFocusHacker.requestFocus();
 							}
 
 							@Override
@@ -215,8 +230,7 @@ public class MeetingAdditionActivity extends SocketActivity implements
 													String dateSelected) {
 								dialog.dismiss();
 								tvMeetingTime.setText(dateSelected);
-//							etAddress.requestFocus();
-								hideKeyboard();
+								viewFocusHacker.requestFocus();
 							}
 
 							@Override
@@ -239,7 +253,7 @@ public class MeetingAdditionActivity extends SocketActivity implements
 													String meetingSelected) {
 								dialog.dismiss();
 								tvTypeOfMeeting.setText(meetingSelected);
-								hideKeyboard();
+								viewFocusHacker.requestFocus();
 							}
 
 							@Override
@@ -264,8 +278,15 @@ public class MeetingAdditionActivity extends SocketActivity implements
 											MeetingFacilityDialog dialog,
 											String meetingFacility) {
 										dialog.dismiss();
+
+										if(meetingFacility.toLowerCase().equals("other")){
+											rlOtherFacility.setVisibility(View.VISIBLE);
+											etOtherFacilities.requestFocus();
+										}else{
+											rlOtherFacility.setVisibility(View.GONE);
+											etYourRelationshipToMeeting.requestFocus();
+										}
 										tvTypeOfFacility.setText(meetingFacility);
-										etYourRelationshipToMeeting.requestFocus();
 									}
 
 									@Override
@@ -369,6 +390,9 @@ public class MeetingAdditionActivity extends SocketActivity implements
 		String zipCode = etZipcode.getText().toString().trim();
 		String typeOfMeeting = tvTypeOfMeeting.getText().toString().trim();
 		String typeOfFacility = tvTypeOfFacility.getText().toString().trim();
+
+		typeOfFacility = typeOfFacility.toLowerCase().equals("other") ? etOtherFacilities.getText().toString().trim() : typeOfFacility;
+
 		String yourRelationshipToMeeting = etYourRelationshipToMeeting
 				.getText().toString().trim();
 
@@ -423,6 +447,7 @@ public class MeetingAdditionActivity extends SocketActivity implements
 					Toast.LENGTH_LONG).show();
 			return;
 		}
+
 		if (yourRelationshipToMeeting.isEmpty() || ValidationUtils.isSpecialChar(yourRelationshipToMeeting)) {
 			Toast.makeText(mContext,
 					getString(R.string.enter_your_relationship_to_meeting),

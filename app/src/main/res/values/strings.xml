@@ -53,7 +53,7 @@
     <string name="simple_long_text">What is Lorem Ipsum?\nLorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</string>
     <string name="title_activity_my_review_detail">MyReviewDetailActivity</string>
     <string name="forget_password_screen_msg">Please enter the email associated with your account. We will send you login details.</string>
-    <string name="problems_logging_in">Problems Logging in</string>
+    <string name="problems_logging_in">Problems with Log in</string>
     <string name="email">Email</string>
     <string name="register">Register</string>
     <string name="username">Username</string>
@@ -100,7 +100,7 @@
     <string name="new_password">New Password</string>
     <string name="retype_new_password">Retype New Password</string>
     <string name="see_more_reveiw">SEE %1$d MORE REVIEWS</string>
-    <string name="login_problem">Problems logging in?</string>
+    <string name="login_problem">Problems with Log in?</string>
     <string name="no_internet_connection">No internet connection available!</string>
     <string name="login">Login</string>
     <string name="grid">GRID</string>
@@ -176,7 +176,7 @@
     <string name="empty_fav_friends">All your favorite friends will show up here.\nAdd a friend to your favorites!</string>
     <string name="no_favorite_meetings_">No Favorite Meetings.</string>
     <string name="no_favorite_friends_">No Favorite Friends.</string>
-    <string name="no_friends_">No Friends.</string>
+    <string name="no_friends_">Can\'t find friends.</string>
     <string name="meetings_filter_empty">No meetings match the current filters.\nPlease broaden your search and try again.</string>
     <string name="rehabs_filter_empty">No rehabs match the current filters.\nPlease broaden your search and try again.</string>
     <string name="friends_filter_empty">No friends match the current filters.\nPlease broaden your search and try again.</string>

@@ -6,6 +6,7 @@ import org.json.JSONObject;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
@@ -116,11 +117,16 @@ public class MyReviewDetailActivity extends SocketActivity implements
 
 			Log.e("User image is ",""+ userImage);
 
-			Picasso.with(MyReviewDetailActivity.this).load(userImage)
-					.placeholder(R.drawable.profile_pic_border).resize(80, 80)
-					.error(R.drawable.profile_pic_border)
-					.transform(new PicassoCircularTransform()).into(ivUserIcon);
-
+			if(!TextUtils.isEmpty(userImage)) {
+				Picasso.with(MyReviewDetailActivity.this).load(userImage)
+						.placeholder(R.drawable.profile_pic_border).resize(80, 80)
+						.error(R.drawable.profile_pic_border)
+						.transform(new PicassoCircularTransform()).into(ivUserIcon);
+			}else {
+				Picasso.with(MyReviewDetailActivity.this)
+						.load(R.drawable.profile_pic_border)
+						.resize(80, 80).into(ivUserIcon);
+			}
 			topRightBtn
 					.setVisibility(userId.equals(commentUserId) ? View.VISIBLE
 							: View.GONE);

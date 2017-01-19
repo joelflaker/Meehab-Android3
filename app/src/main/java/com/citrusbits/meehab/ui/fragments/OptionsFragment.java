@@ -489,6 +489,7 @@ public class OptionsFragment extends Fragment implements OnSocketResponseListene
 			attemptLogout();
 		}
 	}
+
 	@Override
 	public void onSocketResponseFailure(String event, String message) {
 		pd.dismiss();
@@ -503,6 +504,8 @@ public class OptionsFragment extends Fragment implements OnSocketResponseListene
 			}
 
 			waitingFor = ServiceCalls.NONE;
+		}else if (event.equals(EventParams.METHOD_USERS_DELETE)) {
+			App.toast(""+message);
 		}
 	}
 	@Override

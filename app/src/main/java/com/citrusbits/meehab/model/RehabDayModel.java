@@ -71,7 +71,6 @@ public class RehabDayModel implements Serializable{
             date = dateFormat.parse(endTime);
         }catch(Exception ex){
             ex.printStackTrace();
-			date = new Date();
         }
 	return date;
 	}

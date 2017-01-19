@@ -172,12 +172,12 @@ public class MyProfileFragment extends Fragment implements
 						.into(ivBlurBg);
 			}
 
-			usernameText.setText(user.getUsername());
+			usernameText.setText(""+user.getUsername());
 
-			tvAge.setText(AgeHelper.calculateAge(user.getDateOfBirth()) + "");
-			tvGender.setText(user.getGender());
-			tvOriendation.setText(user.getSexualOrientation());
-			tvMaritalStatus.setText(user.getMaritalStatus());
+			tvAge.setText(""+AgeHelper.calculateAge(user.getDateOfBirth()) + "");
+			tvGender.setText(""+user.getGender());
+			tvOriendation.setText(""+user.getSexualOrientation());
+			tvMaritalStatus.setText(""+user.getMaritalStatus());
 
 			if(user.getWillingSponsor().equalsIgnoreCase("yes")){
 				sponsorText.setText("Yes");
@@ -187,12 +187,12 @@ public class MyProfileFragment extends Fragment implements
 //				getView().findViewById(R.id.llNameContainer).setBackgroundResource(R.drawable.name_bg_gray);
 //				sponsorText.setText("");
 			}
-			heightText.setText(user.getHeight());
-			weightText.setText(user.getWeight());
-			ethnicityText.setText(user.getEthnicity());
-			occupationText.setText(user.getAccupation());
+			heightText.setText(""+user.getHeight());
+			weightText.setText(""+user.getWeight());
+			ethnicityText.setText(""+user.getEthnicity());
+			occupationText.setText(""+user.getAccupation());
 
-			SoberDateText.setText(RecoverClockDateUtils.getSoberDifference(
+			SoberDateText.setText(""+RecoverClockDateUtils.getSoberDifference(
 					user.getSoberSence(), true, getActivity()));
 
 			if (user.getIntrestedIn().isEmpty()){
@@ -200,7 +200,7 @@ public class MyProfileFragment extends Fragment implements
 			} else if ("both".toString().equalsIgnoreCase(user.getIntrestedIn())) {
 				interestedInText.setText(R.string.dating_and_fellowshiping);
 			}else{
-				interestedInText.setText(user.getIntrestedIn());
+				interestedInText.setText(""+user.getIntrestedIn());
 			}
 
 			if(user.getHaveKids().equalsIgnoreCase("yes")){
@@ -211,10 +211,10 @@ public class MyProfileFragment extends Fragment implements
 				kidsText.setText("No Answer");
 			}
 
-			homegroupText.setText(user.getMeetingHomeGroup());
+			homegroupText.setText(""+user.getMeetingHomeGroup());
 
 			String aaStoryTxt = user.getAboutStory();
-			if (TextUtils.isEmpty(aaStoryTxt) && aaStoryTxt.length() > 100) {
+			if (!TextUtils.isEmpty(aaStoryTxt) && aaStoryTxt.length() > 100) {
 				aaStoryText.setText(aaStoryTxt.substring(0, 100));
 				ibSeeMore.setVisibility(View.VISIBLE);
 			} else {
