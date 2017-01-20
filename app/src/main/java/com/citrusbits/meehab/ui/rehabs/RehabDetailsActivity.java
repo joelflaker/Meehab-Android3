@@ -7,6 +7,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Dialog;
+import android.content.ActivityNotFoundException;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -284,8 +285,6 @@ OnSocketResponseListener, OnClickListener, OnMapClickListener {
 			tvWebsite.setText(rehab.getWebsite());
 			tvAddress.setText(rehab.getAddress());
 			tvAbout.setText(rehab.getAbout());
-			
-			
 
 			photoUrls = rehab.getRehabPhotos();
 			
@@ -362,10 +361,18 @@ OnSocketResponseListener, OnClickListener, OnMapClickListener {
 					return;
 				}
 
-				Intent intent = new Intent(RehabDetailsActivity.this, MediaFullScreenActivity.class);
-				intent.putExtra(MediaFullScreenActivity.MEDIA_TYPE, MediaFullScreenActivity.TYPE_VIDEO);
-				intent.putExtra("link", url);
-				startActivity(intent);
+				Intent intent = new Intent();
+				intent.setAction(Intent.ACTION_VIEW);
+				intent.setDataAndType(Uri.parse(url), "video/mp4");
+
+				try {
+					startActivity(intent);
+				}catch (ActivityNotFoundException e){
+					intent = new Intent(RehabDetailsActivity.this, MediaFullScreenActivity.class);
+					intent.putExtra(MediaFullScreenActivity.MEDIA_TYPE, MediaFullScreenActivity.TYPE_VIDEO);
+					intent.putExtra("link", url);
+					startActivity(intent);
+				}
 				overridePendingTransition(R.anim.bottom_in_instant,R.anim.abc_fade_out);
 //				Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
 //				try{

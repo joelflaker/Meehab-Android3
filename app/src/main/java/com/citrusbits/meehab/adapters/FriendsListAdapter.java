@@ -7,6 +7,7 @@ import java.util.List;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,8 +35,6 @@ public class FriendsListAdapter extends ArrayAdapter<UserAccount> {
 	Context mContext;
 	LayoutInflater inflater;
 
-	String baseUrl;
-
 	int circleBlueBgRes;
 	int circleMaroonBgRes;
 	
@@ -47,8 +46,6 @@ public class FriendsListAdapter extends ArrayAdapter<UserAccount> {
 		meetings = m;
 		inflater = (LayoutInflater) mContext
 				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
-		baseUrl = Consts.SOCKET_URL;
 
 		circleBlueBgRes = R.drawable.circle_bg_blue;
 		circleMaroonBgRes = R.drawable.circle_bg_maroon;
@@ -90,8 +87,9 @@ public class FriendsListAdapter extends ArrayAdapter<UserAccount> {
 		holder.tvOrientation.setText(userAccount.getSexualOrientation());
 		holder.ivOnline.setVisibility(userAccount.getCheckinType().equals(
 				"online") ? View.VISIBLE : View.GONE);
-		String userImage = baseUrl + userAccount.getImage();
+		String userImage = userAccount.getImage();
 
+		if(!TextUtils.isEmpty(userImage))
 		Picasso.with(mContext).load(userImage)
 				.placeholder(R.drawable.profile_pic_border).resize(60, 60)
 				.error(R.drawable.profile_pic_border)

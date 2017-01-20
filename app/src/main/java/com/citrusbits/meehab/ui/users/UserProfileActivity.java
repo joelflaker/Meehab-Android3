@@ -160,7 +160,7 @@ public class UserProfileActivity extends SocketActivity implements
 				 * profileNetworkImageView.setImageUrl(getString(R.string.url) +
 				 * user.getImage(), App.getInstance().getImageLoader());
 				 */
-				String userImage = Consts.SOCKET_URL+ user.getImage();
+				String userImage = user.getImage();
 
 				Picasso.with(this).load(userImage)
 						.placeholder(R.drawable.profile_pic_border).resize(100, 100)

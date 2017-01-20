@@ -158,7 +158,6 @@ public class MyFavoritesFragment extends Fragment implements
 		Intent i = new Intent(mContext.getApplicationContext(), LocationService.class);
 		mContext.bindService(i, locServiceConnection, Context.BIND_AUTO_CREATE);
 		mContext.startService(i);
-
 	}
 
 	@Override

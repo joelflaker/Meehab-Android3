@@ -556,7 +556,6 @@ public class EditMyProfileActivity extends SocketActivity implements
 			Date date = dateFormater.parse(db);
 			cal.setTime(date);
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -567,7 +566,7 @@ public class EditMyProfileActivity extends SocketActivity implements
 		if (mUser != null) {
 
 			// UtilityClass.setDefaultIfNull(mUser);
-			if (mUser.getImage() != null) {
+			if (!TextUtils.isEmpty(mUser.getImage())) {
 
 				String userImage = mUser.getImage();
 				Picasso.with(EditMyProfileActivity.this).load(userImage)
@@ -597,7 +596,7 @@ public class EditMyProfileActivity extends SocketActivity implements
 			} else {
 				otherBtn.setChecked(true);
 				llOther.setVisibility(View.VISIBLE);
-				genderOtherEdit.setText(mUser.getGender());
+				genderOtherEdit.setText(""+mUser.getGender());
 			}
 			if (!TextUtils.isEmpty(mUser.getDateOfBirth())) {
 				dobBtn.setText(mUser.getDateOfBirth());
@@ -675,14 +674,9 @@ public class EditMyProfileActivity extends SocketActivity implements
 
 				String accupation = occupationEdit.getText().toString().trim();
 
-				if (accupation.isEmpty()) {
-					Toast.makeText(EditMyProfileActivity.this,
-							"Accupation is empty!", Toast.LENGTH_SHORT).show();
-					return;
+				if (!accupation.isEmpty()) {
+					params.put("accupation", accupation);
 				}
-
-				params.put("accupation", accupation);
-
 				// dob date
 				if (updateUser.getDateOfBirth() != null) {
 					params.put("date_of_birth", updateUser.getDateOfBirth());
@@ -700,13 +694,6 @@ public class EditMyProfileActivity extends SocketActivity implements
 				} else if (datingBtn.isChecked()) {
 					interestString = EventParams.UPDATE_INTRESTED_IN.Dating
 							.toString();
-				}
-
-				if (interestString == null) {
-					Toast.makeText(EditMyProfileActivity.this,
-							"Please select interested in!", Toast.LENGTH_SHORT)
-							.show();
-					return;
 				}
 
 				if (interestString != null) {
@@ -779,10 +766,10 @@ public class EditMyProfileActivity extends SocketActivity implements
 				}
 
 				if (hasKidsString.equals("Choose Not to Answer")) {
-					Toast.makeText(EditMyProfileActivity.this,
-							"Please select have kids?", Toast.LENGTH_SHORT)
-							.show();
-					return;
+//					Toast.makeText(EditMyProfileActivity.this,
+//							"Please select have kids?", Toast.LENGTH_SHORT)
+//							.show();
+//					return;
 				}
 
 				params.put("have_kids", hasKidsString);

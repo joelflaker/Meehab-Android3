@@ -467,18 +467,19 @@ public class MeetingAdditionActivity extends SocketActivity implements
 		try {
 			JSONArray meetingDays = new JSONArray();
 			if(meetingDay.equals("EVERY DAY")){
-				meetingDays.put("monday");
-				meetingDays.put("tuesday");
-				meetingDays.put("wednesday");
-				meetingDays.put("thursday");
-				meetingDays.put("friday");
-				meetingDays.put("saturday");
-				meetingDays.put("sunday");
+				meetingDays.put("Monday");
+				meetingDays.put("Tuesday");
+				meetingDays.put("Wednesday");
+				meetingDays.put("Thursday");
+				meetingDays.put("Friday");
+				meetingDays.put("Saturday");
+				meetingDays.put("Sunday");
 			}else {
 				meetingDays.put(meetingDay);
 			}
 			JSONArray meetingTimes = new JSONArray();
 			if(meetingDay.equals("EVERY DAY")){
+				meetingTimes.put(meetingTime);
 				meetingTimes.put(meetingTime);
 				meetingTimes.put(meetingTime);
 				meetingTimes.put(meetingTime);

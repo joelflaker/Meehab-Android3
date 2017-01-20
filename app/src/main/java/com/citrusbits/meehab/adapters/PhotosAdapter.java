@@ -33,7 +33,7 @@ import com.squareup.picasso.Picasso;
 public class PhotosAdapter extends RecyclerView.Adapter<PhotosAdapter.ImageViewHolder>{
 
 	public static class ImageViewHolder extends RecyclerView.ViewHolder {      
-		ImageView photo;
+			ImageView photo;
 
 		ImageViewHolder(View itemView) {
 			super(itemView);
@@ -71,7 +71,7 @@ public class PhotosAdapter extends RecyclerView.Adapter<PhotosAdapter.ImageViewH
 
 	@Override
 	public void onBindViewHolder(ImageViewHolder holder,final int pos) {
-		String url = Consts.SOCKET_URL + urls.get(pos);
+		String url = urls.get(pos);
 
 		if(isPhotoUrls){
 			//image
@@ -87,24 +87,24 @@ public class PhotosAdapter extends RecyclerView.Adapter<PhotosAdapter.ImageViewH
 			}
 
 		}else{
-//			AsyncTaskCompat.executeParallel(new AsyncTask<Object, Void, Bitmap>() {
-//				WeakReference<ImageView> image;
-//				@Override
-//				protected Bitmap doInBackground(Object... params) {
-//					image = new WeakReference<ImageView>((ImageView) params[0]);
-//					String url = (String) params[1];
-//					return UtilityClass.snapFromUrl(url);
-////					return ThumbnailUtils.createVideoThumbnail(url, MediaStore.Video.Thumbnails.MINI_KIND);
-//				}
-//
-//				@Override
-//				protected void onPostExecute(Bitmap result) {
-//					//				super.onPostExecute(result);
-//					if (image.get() != null && result != null){
-//						image.get().setImageBitmap(result);
-//					}
-//				}
-//			}, new Object[]{holder.photo, url});
+			AsyncTaskCompat.executeParallel(new AsyncTask<Object, Void, Bitmap>() {
+				WeakReference<ImageView> image;
+				@Override
+				protected Bitmap doInBackground(Object... params) {
+					image = new WeakReference<>((ImageView) params[0]);
+					String url = (String) params[1];
+					return UtilityClass.snapFromUrl(url);
+//					return ThumbnailUtils.createVideoThumbnail(url, MediaStore.Video.Thumbnails.MINI_KIND);
+				}
+
+				@Override
+				protected void onPostExecute(Bitmap result) {
+					//				super.onPostExecute(result);
+					if (image.get() != null && result != null){
+						image.get().setImageBitmap(result);
+					}
+				}
+			}, new Object[]{holder.photo, url});
 		}
 
 		holder.itemView.setOnClickListener(new View.OnClickListener() {

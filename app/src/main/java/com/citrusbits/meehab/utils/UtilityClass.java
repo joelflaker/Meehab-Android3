@@ -1,6 +1,7 @@
 package com.citrusbits.meehab.utils;
 
 import java.math.BigInteger;
+import java.net.URI;
 import java.security.MessageDigest;
 import java.text.DecimalFormatSymbols;
 import java.util.Formatter;
@@ -21,7 +22,10 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.location.Location;
 import android.media.MediaMetadataRetriever;
+import android.media.ThumbnailUtils;
+import android.net.Uri;
 import android.os.Build;
+import android.provider.MediaStore;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.Window;
@@ -367,7 +371,7 @@ public class UtilityClass {
 	}
 
 	/**
-	 * @param signupActivity
+	 * @param c
 	 * @return
 	 */
 	public static Dialog getProgressDialog(Context c) {
@@ -385,7 +389,7 @@ public class UtilityClass {
 	}
 	
 	/**
-	 * @param signupActivity
+	 * @param dist
 	 * @return
 	 */
 	public static String calculatDistance(LatLng dist) {
@@ -412,28 +416,22 @@ public class UtilityClass {
 	public static Bitmap snapFromUrl(String url) {
             Bitmap bitmap = null;
             MediaMetadataRetriever mediaMetadataRetriever = null;
-            try
-            {
+            try{
                 mediaMetadataRetriever = new MediaMetadataRetriever();
-                if (Build.VERSION.SDK_INT >= 14)
-                    mediaMetadataRetriever.setDataSource(url, new HashMap<String, String>());
-                    else
-                        mediaMetadataRetriever.setDataSource(url);
-             //   mediaMetadataRetriever.setDataSource(videoPath);
-                bitmap = mediaMetadataRetriever.getFrameAtTime();
-            }
-            catch (Exception e)
-            {
+                if (Build.VERSION.SDK_INT >= 14) {
+					mediaMetadataRetriever.setDataSource(url, new HashMap<String, String>());
+				}else {
+					mediaMetadataRetriever.setDataSource(url);
+				}
+//				bitmap = ThumbnailUtils.createVideoThumbnail(url, MediaStore.Video.Thumbnails.MICRO_KIND);
+//                bitmap = mediaMetadataRetriever.getFrameAtTime();
+				String duration= mediaMetadataRetriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION);
+				long time = Long.valueOf(duration)/2;
+				bitmap = mediaMetadataRetriever.getFrameAtTime(time,MediaMetadataRetriever.OPTION_NEXT_SYNC);
+			}catch (Exception e){
                 e.printStackTrace();
-//                throw new Throwable(
-//                        "Exception in retriveVideoFrameFromVideo(String videoPath)"
-//                                + e.getMessage());
-
-            }
-            finally
-            {
-                if (mediaMetadataRetriever != null)
-                {
+            }finally{
+                if (mediaMetadataRetriever != null){
                     mediaMetadataRetriever.release();
                 }
             }

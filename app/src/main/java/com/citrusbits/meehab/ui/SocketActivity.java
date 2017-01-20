@@ -43,11 +43,6 @@ public abstract class SocketActivity extends FragmentActivity {
 
 	protected boolean mUseSubject = true;
 
-	private DisplayMetrics metrics;
-	protected boolean mUsingEnterKey = false;
-
-
-
 	protected ServiceConnection mConnection = new ServiceConnection() {
 
 		@Override
