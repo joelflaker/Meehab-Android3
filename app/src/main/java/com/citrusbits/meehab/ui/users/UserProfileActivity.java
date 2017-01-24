@@ -11,6 +11,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -155,7 +156,7 @@ public class UserProfileActivity extends SocketActivity implements
 	private void resetUserInfo() {
 		if (user != null) {
 
-			if (user.getImage() != null) {
+			if (!TextUtils.isEmpty(user.getImage())) {
 				/*
 				 * profileNetworkImageView.setImageUrl(getString(R.string.url) +
 				 * user.getImage(), App.getInstance().getImageLoader());
@@ -173,6 +174,13 @@ public class UserProfileActivity extends SocketActivity implements
 						.placeholder(R.drawable.profile_pic_border)
 						// .resize(300, 200)
 						.error(R.drawable.profile_pic_border)
+						.transform(
+								new PicassoBlurTransform(
+										UserProfileActivity.this, 20))
+						.into(ivBlurBg);
+			}else {
+				Picasso.with(this)
+						.load(R.drawable.profile_pic_border)
 						.transform(
 								new PicassoBlurTransform(
 										UserProfileActivity.this, 20))

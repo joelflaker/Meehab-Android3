@@ -134,6 +134,14 @@ public class MessagesFragment extends Fragment implements
 			@Override
 			public void onClick(View v) {
 				MessageModel messageModel = (MessageModel) v.getTag();
+
+				if (adapter.isEdit()) {
+					messageModel.setChecked(!messageModel.isChecked());
+					adapter.notifyDataSetChanged();
+					messageCheckChangeListener.onMessageCheckedChange();
+					return;
+				}
+
 				if(NetworkUtil.isConnected(getContext())){
 					pd.show();
 					homeActivity.socketService.getUserById(messageModel.getFromID());

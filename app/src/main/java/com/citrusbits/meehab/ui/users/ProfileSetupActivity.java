@@ -394,6 +394,10 @@ public class ProfileSetupActivity extends SocketActivity implements
 
 				if (user.getImage() != null) {
 					params.put("image", user.getImage());
+				}else {
+					Toast.makeText(this,
+							"Please select profile image!", Toast.LENGTH_SHORT).show();
+					return;
 				}
 
 				// gender
@@ -408,19 +412,24 @@ public class ProfileSetupActivity extends SocketActivity implements
 					}
 				}
 
-				if (genderString == null) {
-					Toast.makeText(ProfileSetupActivity.this,
-							"Please select gender!", Toast.LENGTH_SHORT).show();
-					return;
+				if (genderString != null) {
+					params.put("gender", genderString);
 				}
-				params.put("gender", genderString);
 
 				if (user.getDateOfBirth() != null) {
 					params.put("date_of_birth", user.getDateOfBirth());
+				}else {
+					Toast.makeText(this,
+							"Please select date of birth!", Toast.LENGTH_SHORT).show();
+					return;
 				}
 
 				if (user.getMaritalStatus() != null) {
 					params.put("marital_status", user.getMaritalStatus());
+				}else {
+					Toast.makeText(this,
+							"Please select marital status!", Toast.LENGTH_SHORT).show();
+					return;
 				}
 
 				// interested in
@@ -436,12 +445,7 @@ public class ProfileSetupActivity extends SocketActivity implements
 					interestString = EventParams.UPDATE_INTRESTED_IN.Dating
 							.toString();
 				}
-				if (interestString == null) {
-					Toast.makeText(ProfileSetupActivity.this,
-							"Please select interested in!", Toast.LENGTH_SHORT)
-							.show();
-					return;
-				}else {
+				if (interestString != null) {
 					params.put("intrested_in", interestString);
 				}
 
@@ -450,6 +454,10 @@ public class ProfileSetupActivity extends SocketActivity implements
 				// about Story
 				if (aaStory.length() > 0) {
 					params.put("about_story", aaStory);
+				}else {
+					Toast.makeText(this,
+							"Please enter AA story!", Toast.LENGTH_SHORT).show();
+					return;
 				}
 
 				// willing_sponsor

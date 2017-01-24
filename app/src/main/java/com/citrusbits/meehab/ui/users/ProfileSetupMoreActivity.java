@@ -11,6 +11,7 @@ import org.json.JSONObject;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -298,11 +299,19 @@ public class ProfileSetupMoreActivity extends SocketActivity implements
 				// height
 				if (user.getHeight() != null) {
 					params.put("height", user.getHeight());
+				}else {
+					Toast.makeText(this,
+							"Please select height!", Toast.LENGTH_SHORT).show();
+					return;
 				}
 
 				// weight
 				if (user.getWeight() != null) {
 					params.put("weight", user.getWeight());
+				}else {
+					Toast.makeText(this,
+							"Please select weight!", Toast.LENGTH_SHORT).show();
+					return;
 				}
 
 
@@ -317,24 +326,40 @@ public class ProfileSetupMoreActivity extends SocketActivity implements
 					}
 					params.put("sexual_orientation",
 							user.getSexualOrientation());
+				}else {
+					Toast.makeText(this,
+							"Please select sexual orientation!", Toast.LENGTH_SHORT).show();
+					return;
 				}
 
 				String occupation = occupationEdit.getText().toString().trim();
 
 				// get Occupation
-
 				user.setAccupation(occupation);
 
-				params.put("accupation", occupation);
-
+				if(TextUtils.isEmpty(occupation)) {
+					params.put("accupation", occupation);
+				}else {
+					Toast.makeText(this,
+							"Please enter occupation!", Toast.LENGTH_SHORT).show();
+					return;
+				}
 				// getEthnicity
 				if (user.getEthnicity() != null) {
 					params.put("ethnicity", user.getEthnicity());
+				}else {
+					Toast.makeText(this,
+							"Please enter ethnicity!", Toast.LENGTH_SHORT).show();
+					return;
 				}
 
 				// sober date
 				if (user.getSoberSence() != null) {
 					params.put("sober_sence", user.getSoberSence());
+				}else {
+					Toast.makeText(this,
+							"Please select sober date!", Toast.LENGTH_SHORT).show();
+					return;
 				}
 
 				// have kids : default noans
@@ -347,12 +372,9 @@ public class ProfileSetupMoreActivity extends SocketActivity implements
 					hasKidsString = "";
 				}
 
-				if (hasKidsString == null) {
-					Toast.makeText(ProfileSetupMoreActivity.this,
-							"Please select if you have kids!", Toast.LENGTH_SHORT).show();
-					return;
+				if (hasKidsString != null) {
+					params.put("have_kids", hasKidsString);
 				}
-				params.put("have_kids", hasKidsString);
 
 			} catch (JSONException e) {
 				e.printStackTrace();

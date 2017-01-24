@@ -655,6 +655,14 @@ public class EditMyProfileActivity extends SocketActivity implements
 			JSONObject params = new JSONObject();
 			try {
 
+				if (updateUser.getImage() != null) {
+					params.put("image", updateUser.getImage());
+				}else {
+					Toast.makeText(this,
+							"Please select profile image!", Toast.LENGTH_SHORT).show();
+					return;
+				}
+
 				// gender
 				String genderString = null;
 				if (maleBtn.isChecked()) {
@@ -670,20 +678,42 @@ public class EditMyProfileActivity extends SocketActivity implements
 				}
 				if (genderString != null) {
 					params.put("gender", genderString);
-				}else {
+				}/*else {
 					Toast.makeText(this,
 							"Please select gender!", Toast.LENGTH_SHORT).show();
 					return;
+				}*/
+				// dob date
+				if (updateUser.getDateOfBirth() != null) {
+					params.put("date_of_birth", updateUser.getDateOfBirth());
+				}else {
+					Toast.makeText(this,
+							"Please select date of birth!", Toast.LENGTH_SHORT).show();
+					return;
+				}
+
+				if (updateUser.getMaritalStatus() != null) {
+					params.put("marital_status", updateUser.getMaritalStatus());
+				}else {
+					Toast.makeText(this,
+							"Please select marital status!", Toast.LENGTH_SHORT).show();
+					return;
+				}
+
+				// about Story
+				if (aaStoryEdit.getText().toString().trim().length() > 0) {
+					// updatedUser.setAboutStory(aaStoryEdit.getText().toString());
+					params.put("about_story", aaStoryEdit.getText().toString());
 				}
 
 				String accupation = occupationEdit.getText().toString().trim();
 
 				if (!accupation.isEmpty()) {
 					params.put("accupation", accupation);
-				}
-				// dob date
-				if (updateUser.getDateOfBirth() != null) {
-					params.put("date_of_birth", updateUser.getDateOfBirth());
+				}else {
+					Toast.makeText(this,
+							"Please select occupation!", Toast.LENGTH_SHORT).show();
+					return;
 				}
 
 				// interested in
@@ -708,12 +738,6 @@ public class EditMyProfileActivity extends SocketActivity implements
 					return;
 				}
 
-				// about Story
-				if (aaStoryEdit.getText().toString().trim().length() > 0) {
-					// updatedUser.setAboutStory(aaStoryEdit.getText().toString());
-					params.put("about_story", aaStoryEdit.getText().toString());
-				}
-
 				// willing_sponsor
 				// if (sponserToggle.isChecked()) {
 				// updatedUser.setAboutStory(aaStoryEdit.getText().toString());
@@ -723,28 +747,32 @@ public class EditMyProfileActivity extends SocketActivity implements
 
 				// Toast.makeText(this, itemName,
 				// Toast.LENGTH_SHORT).show();
-				if (updateUser.getImage() != null) {
-					params.put("image", updateUser.getImage());
-				}
-				if (updateUser.getMaritalStatus() != null) {
-					params.put("marital_status", updateUser.getMaritalStatus());
-				}
-				// jobj.put("phone", UtilityClass
-				// .phoneNumberNormal(strPhoneNumber));
 
 				// update fields
 				// height
 				if (updateUser.getHeight() != null) {
 					params.put("height", updateUser.getHeight());
+				}else {
+					Toast.makeText(this,
+							"Please select height!", Toast.LENGTH_SHORT).show();
+					return;
 				}
 				// weight
 				if (updateUser.getWeight() != null) {
 					params.put("weight", updateUser.getWeight());
+				}else {
+					Toast.makeText(this,
+							"Please select weight!", Toast.LENGTH_SHORT).show();
+					return;
 				}
 				// sexual_orientation
 				if (updateUser.getSexualOrientation() != null) {
 					params.put("sexual_orientation",
 							updateUser.getSexualOrientation());
+				}else {
+					Toast.makeText(this,
+							"Please select sexual orientation!", Toast.LENGTH_SHORT).show();
+					return;
 				}
 
 				// get Occupation
@@ -755,11 +783,19 @@ public class EditMyProfileActivity extends SocketActivity implements
 				// getEthnicity
 				if (updateUser.getEthnicity() != null) {
 					params.put("ethnicity", updateUser.getEthnicity());
+				}else {
+					Toast.makeText(this,
+							"Please enter ethnicity!", Toast.LENGTH_SHORT).show();
+					return;
 				}
 
 				// sober date
 				if (updateUser.getSoberSence() != null) {
 					params.put("sober_sence", updateUser.getSoberSence());
+				}else {
+					Toast.makeText(this,
+							"Please select sober date!", Toast.LENGTH_SHORT).show();
+					return;
 				}
 
 				// have kids : default noans
@@ -774,10 +810,6 @@ public class EditMyProfileActivity extends SocketActivity implements
 
 				if(hasKidsString != null){
 					params.put("have_kids", hasKidsString);
-				}else {
-					Toast.makeText(this,
-							"Please select if you have kids!", Toast.LENGTH_SHORT).show();
-					return;
 				}
 
 			} catch (JSONException e) {
