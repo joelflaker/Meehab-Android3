@@ -26,7 +26,6 @@ public class FavFriendsGridAdapter  extends ArrayAdapter<UserAccount> {
 	// context
 	Context mContext;
 	int grid_spacing;
-	String baseUrl;
 	int cellWidthHeight;
 
 	int rectBlueBgRes;
@@ -42,7 +41,6 @@ public class FavFriendsGridAdapter  extends ArrayAdapter<UserAccount> {
 		grid_spacing = (int) TypedValue.applyDimension(
 				TypedValue.COMPLEX_UNIT_DIP, 10, c.getResources()
 						.getDisplayMetrics())*4;
-		baseUrl = Consts.SOCKET_URL;
 		cellWidthHeight = (ScreenUtils.screenWidthHeigh(c)[0] - grid_spacing) / 3;
 		rectBlueBgRes = R.drawable.rectangle_bg_blue;
 		rectMaroonBgRes = R.drawable.rectangle_bg_maroon;
@@ -94,7 +92,7 @@ public class FavFriendsGridAdapter  extends ArrayAdapter<UserAccount> {
 		}
 
 		UserAccount account = useraccount.get(position);
-		String url = baseUrl + account.getImage();
+		String url = account.getImage();
 
 		Picasso.with(mContext).load(url).placeholder(R.drawable.profile_pic_border)
 				.resize(cellWidthHeight + 20, cellWidthHeight + 20)

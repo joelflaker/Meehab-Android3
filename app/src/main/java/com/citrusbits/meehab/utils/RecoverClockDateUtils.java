@@ -12,6 +12,9 @@ import com.citrusbits.meehab.R;
 import com.citrusbits.meehab.managers.RCChip;
 import com.citrusbits.meehab.managers.RCChip.RCChipType;
 
+import org.joda.time.Period;
+import org.joda.time.PeriodType;
+
 public class RecoverClockDateUtils {
 
 	private RecoverClockDateUtils() {
@@ -26,7 +29,6 @@ public class RecoverClockDateUtils {
 			cal.setTime(date);
 			return cal;
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return null;
 		}
@@ -40,7 +42,6 @@ public class RecoverClockDateUtils {
 			cal.setTime(date);
 			return cal;
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return null;
 		}
@@ -67,7 +68,6 @@ public class RecoverClockDateUtils {
 					- date.getTime();
 			return diff > 0;
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return false;
 		}
@@ -85,7 +85,6 @@ public class RecoverClockDateUtils {
 			return getDifference(date, Calendar.getInstance().getTime(),profile,
 					context);
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return "";
 		}
@@ -98,7 +97,6 @@ public class RecoverClockDateUtils {
 			Date date = dateFormate.parse(dateInserted);
 			return fomateRecoverClockDate(date);
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return "";
 		}
@@ -119,34 +117,87 @@ public class RecoverClockDateUtils {
 
 		long yearsInMilli = daysInMilli * 365;
 
-		long elapsedYears = different / yearsInMilli;
-		different = different % yearsInMilli;
+//		long elapsedYears = different / yearsInMilli;
+//		different = different % yearsInMilli;
 
-		/*
-		 * long elapsedMonths = different / monthInMilli; different = different
-		 * % monthInMilli;
-		 */
+//		Calendar startCalender = Calendar.getInstance();
+//		startCalender.setTime(startDate);
+//		Calendar endCalender = Calendar.getInstance();
+//		startCalender.setTime(endDate);
+//		startCalender.add(Calendar.MONTH,1);
 
-		long elapsedDays = different / daysInMilli;
-		different = different % daysInMilli;
 
-		long elapsedHours = different / hoursInMilli;
-		different = different % hoursInMilli;
-
-		long elapsedMinutes = different / minutesInMilli;
-		different = different % minutesInMilli;
-
-		long elapsedSeconds = different / secondsInMilli;
-
-		System.out.printf("%d days, %d hours, %d minutes, %d seconds%n",
-				elapsedDays, elapsedHours, elapsedMinutes, elapsedSeconds);
+//		int diffYear = endCalender.get(Calendar.YEAR) - startCalender.get(Calendar.YEAR);
+//		int elapsedMonths = diffYear * 12 + endCalender.get(Calendar.MONTH) - startCalender.get(Calendar.MONTH);
+//		/*
+//		 * long elapsedMonths = different / monthInMilli; different = different
+//		 * % monthInMilli;
+//		 */
+//
+//		long elapsedDays = different / daysInMilli;
+//		different = different % daysInMilli;
+//
+//		long elapsedHours = different / hoursInMilli;
+//		different = different % hoursInMilli;
+//
+//		long elapsedMinutes = different / minutesInMilli;
+//		different = different % minutesInMilli;
+//
+//		long elapsedSeconds = different / secondsInMilli;
+//
+//		System.out.printf("%d days, %d hours, %d minutes, %d seconds%n",
+//				elapsedDays, elapsedHours, elapsedMinutes, elapsedSeconds);
 		
-		String soberStr=profile?context.getString(R.string.sober_date_diff_formate_profile):context.getString(R.string.sober_date_diff_formate);
+//		String soberStr= profile ? context.getString(R.string.sober_date_diff_formate_profile):context.getString(R.string.sober_date_diff_formate);
 
-		return String.format(
-				soberStr,
-				elapsedYears, elapsedDays, elapsedHours, elapsedMinutes,
-				elapsedSeconds);
+//		String soberStr = "%1$d Y, %2$d M, %2$d D, %3$d H, %4$d M, %5$d S";
+
+		Period period = new Period(startDate.getTime(), endDate.getTime()/*, PeriodType.yearMonthDayTime()*/);
+		long elapsedYears = period.getYears();
+		long elapsedMonths = period.getMonths();
+		long elapsedDays = period.getDays();
+		long elapsedHours = period.getHours();
+		long elapsedMinutes = period.getMinutes();
+		long elapsedSeconds = period.getSeconds();
+
+		StringBuilder soberDateBuilder = new StringBuilder();
+
+		boolean commaNeeded = false;
+		if(elapsedYears != 0) {
+			commaNeeded = true;
+			soberDateBuilder.append(elapsedYears+" Year" + (elapsedYears > 1 ? "s" : ""));
+		}
+		if(elapsedMonths != 0){
+			soberDateBuilder
+					.append(commaNeeded? ", " : "")
+					.append(elapsedMonths+" Month" + (elapsedMonths > 1 ? "s" : ""));
+			commaNeeded = true;
+		}
+		if(elapsedDays != 0){
+			soberDateBuilder
+					.append(commaNeeded? ", " : "")
+					.append(elapsedDays+" Day" + (elapsedDays > 1 ? "s" : ""));
+			commaNeeded = true;
+		}
+
+		if(elapsedHours != 0){
+			soberDateBuilder
+					.append(commaNeeded? ", " : "")
+					.append(elapsedHours+" H");
+			commaNeeded = true;
+		}
+		if (elapsedMinutes != 0) {
+			soberDateBuilder
+					.append(commaNeeded? ", " : "")
+					.append(elapsedMinutes+" M");
+			commaNeeded = true;
+		}
+		if (elapsedSeconds != 0) {
+			soberDateBuilder
+					.append(commaNeeded? ", " : "")
+					.append(elapsedSeconds+" S");
+		}
+		return soberDateBuilder.toString();
 
 	}
 

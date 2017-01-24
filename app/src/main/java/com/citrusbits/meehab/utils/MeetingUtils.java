@@ -115,16 +115,16 @@ public class MeetingUtils {
 			Log.e("Meeting date time ", mDate);
 			Log.e("Nnow date time ", mNow);
 
-			if (days > 0) {
-				model.setMarkerTypeColor(MeetingModel.MarkerColorType.GREEN);
-				model.setStartInTime("AFTER " + days + " "
-						+ (days == 1 ? "DAY" : "DAYS"));
-			} else if (hours > 1 || hours == 1 && minutes > 0) {
+			if (hours > 1 || hours == 1 && minutes > 0) {
 				model.setMarkerTypeColor(MeetingModel.MarkerColorType.GREEN);
 				model.setStartInTime("AFTER " + hours + " "
 						+ (hours == 1 ? "HOUR" : "HOURS"));
 
 				//Qamar - change old if (hours == 0 && minutes > 0 || (hours == 0 && minutes == 0 && seconds > 1))
+			}else if (days > 0) {
+				model.setMarkerTypeColor(MeetingModel.MarkerColorType.GREEN);
+				model.setStartInTime("AFTER " + days + " "
+						+ (days == 1 ? "DAY" : "DAYS"));
 			} else if (hours == 0 && minutes > MINUTES_BEFORE) {
 				model.setMarkerTypeColor(MeetingModel.MarkerColorType.ORANGE);
 				model.setStartInTime("STARTS IN UNDER AN HOUR");

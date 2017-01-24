@@ -147,6 +147,7 @@
     <string name="no_favourite_attending">No favorite Attending!</string>
     <string name="rsvp_d">RSVP\'d</string>
     <string name="rsvp_title">RSVP\'d Friends</string>
+    <string name="no_rsvp_empty">No RSVP\'d Friends</string>
     <string name="add_meeting_to_calendar_confirmation_text">Would you like to add this meeting to your calendar?</string>
     <string name="remove_meeting_from_calendar_confirmation_text">Would you like to remove this meeting from your calendar?</string>
     <string name="check_meeting_confirmation_text">Would you like to check-in this meeting?</string>

@@ -65,14 +65,15 @@ public class RsvpActivity extends SocketActivity implements
 
 	private Dialog pd;
 
-	List<UserAccount> userAccounts = new ArrayList<UserAccount>();
+	List<UserAccount> userAccounts = new ArrayList<>();
 
-	List<UserAccount> userAccountsCache = new ArrayList<UserAccount>();
+	List<UserAccount> userAccountsCache = new ArrayList<>();
 
 	private int mAccountPosition = -1;
 
 	private int meetingId;
 	private boolean rsvpFriendsUpdated = false;
+	private View emptyList;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -84,6 +85,7 @@ public class RsvpActivity extends SocketActivity implements
 
 		mPager = (ViewPager) findViewById(R.id.pager);
 		btnGrid = (Button) findViewById(R.id.btnGrid);
+		emptyList = findViewById(R.id.emptyList);
 		btnList = (Button) findViewById(R.id.btnList);
 
 		ivGridBar = (ImageView) findViewById(R.id.ivGridBar);
@@ -173,7 +175,7 @@ public class RsvpActivity extends SocketActivity implements
 					userAccounts.addAll(userAccountsCache);
 					friendsGridAdapter.notifyDataSetChanged();
 					friendsListAdapter.notifyDataSetChanged();
-
+					updateEmptyView();
 				}
 			}
 		}
@@ -216,6 +218,13 @@ public class RsvpActivity extends SocketActivity implements
 		Calendar cal = Calendar.getInstance();
 		cal.setTime(date);
 		return cal;
+	}
+
+	@Override
+	protected void onDestroy() {
+		list = null;
+		grid = null;
+		super.onDestroy();
 	}
 
 	@Override
@@ -369,8 +378,19 @@ public class RsvpActivity extends SocketActivity implements
 			}
 			userAccounts.addAll(friends);
 			userAccountsCache.addAll(friends);
-			friendsGridAdapter.notifyDataSetChanged();
+			if(isFinishing()) return;
 
+			friendsGridAdapter.notifyDataSetChanged();
+			friendsListAdapter.notifyDataSetChanged();
+			updateEmptyView();
+		}
+	}
+
+	private void updateEmptyView() {
+		if(userAccounts.size() > 0) {
+			emptyList.setVisibility(View.GONE);
+		}else {
+			emptyList.setVisibility(View.VISIBLE);
 		}
 	}
 

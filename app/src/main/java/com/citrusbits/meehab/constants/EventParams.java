@@ -92,8 +92,8 @@ public class EventParams {
 	public static final String BASE64_IMAGE_PNG_STRING = "data:image/png;base64,";
 	public static final String SIGNUP_USERNAME = "username";
 	public static final String SIGNUP_EMAIL = "email";
-	public static final String SIGNUP_PASSWORD = "password";
 	public static final String USER_CURRENT_PASSWORD = "currentPassword";
+	public static final String SIGNUP_PASSWORD = "password";
 	public static final String SIGNUP_TYPE = "signup_type";
 	public static final String USER_KEY_FB_F = "facebook";
 	public static final String SIGNUP_SOCIAL_ID = "socail_id";

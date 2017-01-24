@@ -115,7 +115,7 @@
         </LinearLayout>
     </RelativeLayout>
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/rlTopBar"
@@ -125,6 +125,15 @@
             android:id="@+id/pager"
             android:layout_width="match_parent"
             android:layout_height="fill_parent" />
-    </LinearLayout>
+
+        <TextView
+            android:id="@+id/emptyList"
+            android:layout_width="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:text="@string/no_rsvp_empty"
+            android:layout_height="wrap_content" />
+
+    </RelativeLayout>
 
 </RelativeLayout>
