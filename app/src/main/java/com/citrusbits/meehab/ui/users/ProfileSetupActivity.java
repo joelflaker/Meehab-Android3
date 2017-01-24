@@ -136,7 +136,6 @@ public class ProfileSetupActivity extends SocketActivity implements
 
 			@Override
 			public void onFocusChange(View v, boolean hasFocus) {
-				// TODO Auto-generated method stub
 				if (!hasFocus) {
 					aaStoryEdit.setSelection(0);
 				}
@@ -147,7 +146,6 @@ public class ProfileSetupActivity extends SocketActivity implements
 
 			@Override
 			public boolean onTouch(View v, MotionEvent event) {
-				// TODO Auto-generated method stub
 
 				aaStoryEdit.getParent()
 						.requestDisallowInterceptTouchEvent(true);
@@ -261,7 +259,6 @@ public class ProfileSetupActivity extends SocketActivity implements
 			Date date = dateFormater.parse(db);
 			cal.setTime(date);
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -335,7 +332,6 @@ public class ProfileSetupActivity extends SocketActivity implements
 						@Override
 						public void onDoneClick(DobPickerDialog dialog,
 								String dateSelected) {
-							// TODO Auto-generated method stub
 							dialog.dismiss();
 							
 							Calendar dbCal=DateTimeUtils.dateToCalendar(dateSelected);
@@ -350,7 +346,6 @@ public class ProfileSetupActivity extends SocketActivity implements
 
 						@Override
 						public void onCancelClick(DobPickerDialog dialog) {
-							// TODO Auto-generated method stub
 							dialog.dismiss();
 
 						}
@@ -368,7 +363,6 @@ public class ProfileSetupActivity extends SocketActivity implements
 						public void onDoneClick(
 								MaritalStatusPickerDialog dialog,
 								String maritalStatusSelected) {
-							// TODO Auto-generated method stub
 							dialog.dismiss();
 							maritalStatusBtn.setText(maritalStatusSelected);
 							user.setMaritalStatus(maritalStatusSelected);
@@ -378,7 +372,6 @@ public class ProfileSetupActivity extends SocketActivity implements
 						@Override
 						public void onCancelClick(
 								MaritalStatusPickerDialog dialog) {
-							// TODO Auto-generated method stub
 							dialog.dismiss();
 
 						}
@@ -399,17 +392,8 @@ public class ProfileSetupActivity extends SocketActivity implements
 			JSONObject params = new JSONObject();
 			try {
 
-				if (user.getImage() == null) {
-					Toast.makeText(ProfileSetupActivity.this,
-							"Please pick user image!", Toast.LENGTH_SHORT)
-							.show();
-
-					return;
-				}
-
 				if (user.getImage() != null) {
 					params.put("image", user.getImage());
-					Log.d("Image", user.getImage());
 				}
 
 				// gender
@@ -429,30 +413,10 @@ public class ProfileSetupActivity extends SocketActivity implements
 							"Please select gender!", Toast.LENGTH_SHORT).show();
 					return;
 				}
-
-				if (genderString != null) {
-					params.put("gender", genderString);
-				}
-
-				// dob date
-
-				if (user.getDateOfBirth() == null) {
-					Toast.makeText(ProfileSetupActivity.this,
-							"Please enter a date of birth!", Toast.LENGTH_SHORT)
-							.show();
-					return;
-				}
+				params.put("gender", genderString);
 
 				if (user.getDateOfBirth() != null) {
 					params.put("date_of_birth", user.getDateOfBirth());
-				}
-
-				if (user.getMaritalStatus() == null) {
-					Toast.makeText(ProfileSetupActivity.this,
-							"Please select marital status", Toast.LENGTH_SHORT)
-							.show();
-
-					return;
 				}
 
 				if (user.getMaritalStatus() != null) {
@@ -472,31 +436,20 @@ public class ProfileSetupActivity extends SocketActivity implements
 					interestString = EventParams.UPDATE_INTRESTED_IN.Dating
 							.toString();
 				}
-				if (interestString != null) {
-					params.put("intrested_in", interestString);
-				}
-
 				if (interestString == null) {
 					Toast.makeText(ProfileSetupActivity.this,
-							"Please select interestedin!", Toast.LENGTH_SHORT)
+							"Please select interested in!", Toast.LENGTH_SHORT)
 							.show();
 					return;
+				}else {
+					params.put("intrested_in", interestString);
 				}
 
 				String aaStory = aaStoryEdit.getText().toString().trim();
 
-				if (aaStory.isEmpty()) {
-					Toast.makeText(ProfileSetupActivity.this,
-							"Please enter aa Story!", Toast.LENGTH_SHORT)
-							.show();
-
-					return;
-				}
-
 				// about Story
-				if (aaStoryEdit.getText().toString().trim().length() > 0) {
-					// updatedUser.setAboutStory(aaStoryEdit.getText().toString());
-					params.put("about_story", aaStoryEdit.getText().toString());
+				if (aaStory.length() > 0) {
+					params.put("about_story", aaStory);
 				}
 
 				// willing_sponsor
@@ -523,16 +476,9 @@ public class ProfileSetupActivity extends SocketActivity implements
 
 			} catch (JSONException e) {
 				e.printStackTrace();
-				params = null;
 			}
 
 		}
-		// intent = new Intent(this,ProfileSetupMoreActivity.class);
-		// startActivity(intent);
-		// overridePendingTransition(R.anim.activity_in, R.anim.activity_out);
-		// setResult(RESULT_OK);
-		// ProfileSetupActivity.this.finish();
-		return;
 	}
 
 	/**

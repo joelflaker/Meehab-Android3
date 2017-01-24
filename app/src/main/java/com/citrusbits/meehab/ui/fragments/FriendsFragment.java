@@ -236,7 +236,13 @@ public class FriendsFragment extends Fragment implements
 			emptyList.setVisibility(View.GONE);
 		}
 	}
-	
+
+	@Override
+	public void onDestroy() {
+		super.onDestroy();
+		homeActivity = null;
+	}
+
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);

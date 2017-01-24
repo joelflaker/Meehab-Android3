@@ -93,21 +93,19 @@ public class EventParams {
 	public static final String SIGNUP_USERNAME = "username";
 	public static final String SIGNUP_EMAIL = "email";
 	public static final String SIGNUP_PASSWORD = "password";
+	public static final String USER_CURRENT_PASSWORD = "currentPassword";
 	public static final String SIGNUP_TYPE = "signup_type";
 	public static final String USER_KEY_FB_F = "facebook";
 	public static final String SIGNUP_SOCIAL_ID = "socail_id";
 	public static final String USER_CHECKIN_TYPE = "checkin_type";
 	public static final String USER_NOTIFICATION = "notifications";
 
-	public static enum SIGNUP_TYPE_VALUE {
+	public enum SIGNUP_TYPE_VALUE {
 		account, facebook
 	};
 
-	public static enum UPDATE_INTRESTED_IN {
+	public enum UPDATE_INTRESTED_IN {
 		Dating, Fellowshipping, Both
 	};
-
-	public static final String UPDATE_XYZ = "xyz";
-	
 
 }

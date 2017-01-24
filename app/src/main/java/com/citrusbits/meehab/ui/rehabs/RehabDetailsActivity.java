@@ -194,7 +194,6 @@ OnSocketResponseListener, OnClickListener, OnMapClickListener {
 
 		tvRehabName = (TextView) findViewById(R.id.tvRehabName);
 
-		
 		findViewById(R.id.rlGetDirection).setOnClickListener(this);
 		
 		RecyclerView recyclerviewPhotos = (RecyclerView) findViewById(R.id.recyclerviewPhotos);
@@ -315,13 +314,7 @@ OnSocketResponseListener, OnClickListener, OnMapClickListener {
 				recyclerviewVideos.setVisibility(View.GONE);
 				findViewById(R.id.txtVideos).setVisibility(View.GONE);
 			}
-			
-//			addPhotos(rehab.getRehabPhotos());
-//			addVideos(rehab.getRehabVideos());
-
 		}
-
-		// init meeting adapter
 	}
 
 	private PhotoClickListener getPhotosClickListener() {

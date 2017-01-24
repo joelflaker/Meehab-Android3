@@ -99,6 +99,12 @@ public class MyProfileFragment extends Fragment implements
 	}
 
 	@Override
+	public void onDestroy() {
+		super.onDestroy();
+		homeActivity = null;
+	}
+
+	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		View v = inflater.inflate(R.layout.fragment_my_profile, container,
@@ -176,8 +182,8 @@ public class MyProfileFragment extends Fragment implements
 
 			tvAge.setText(""+AgeHelper.calculateAge(user.getDateOfBirth()) + "");
 			tvGender.setText(""+user.getGender());
-			tvOriendation.setText(""+user.getSexualOrientation());
-			tvMaritalStatus.setText(""+user.getMaritalStatus());
+			tvOriendation.setText(user.getSexualOrientation() == null? "" : user.getSexualOrientation());
+			tvMaritalStatus.setText(user.getMaritalStatus() == null? "" : user.getMaritalStatus());
 
 			if(user.getWillingSponsor().equalsIgnoreCase("yes")){
 				sponsorText.setText("Yes");
@@ -187,10 +193,10 @@ public class MyProfileFragment extends Fragment implements
 //				getView().findViewById(R.id.llNameContainer).setBackgroundResource(R.drawable.name_bg_gray);
 //				sponsorText.setText("");
 			}
-			heightText.setText(""+user.getHeight());
-			weightText.setText(""+user.getWeight());
-			ethnicityText.setText(""+user.getEthnicity());
-			occupationText.setText(""+user.getAccupation());
+			heightText.setText(user.getHeight() == null? "" : user.getHeight());
+			weightText.setText(user.getWeight() == null? "" : user.getWeight());
+			ethnicityText.setText(user.getEthnicity() == null? "" : user.getEthnicity());
+			occupationText.setText(user.getAccupation() == null? "" : user.getAccupation());
 
 			SoberDateText.setText(""+RecoverClockDateUtils.getSoberDifference(
 					user.getSoberSence(), true, getActivity()));
@@ -211,14 +217,14 @@ public class MyProfileFragment extends Fragment implements
 				kidsText.setText("No Answer");
 			}
 
-			homegroupText.setText(""+user.getMeetingHomeGroup());
+			homegroupText.setText(user.getMeetingHomeGroup() == null? "" : user.getMeetingHomeGroup());
 
 			String aaStoryTxt = user.getAboutStory();
 			if (!TextUtils.isEmpty(aaStoryTxt) && aaStoryTxt.length() > 100) {
 				aaStoryText.setText(aaStoryTxt.substring(0, 100));
 				ibSeeMore.setVisibility(View.VISIBLE);
 			} else {
-				aaStoryText.setText(""+aaStoryTxt);
+				aaStoryText.setText(aaStoryTxt == null? "" : aaStoryTxt);
 				ibSeeMore.setVisibility(View.GONE);
 			}
 

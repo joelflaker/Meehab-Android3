@@ -4,6 +4,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -167,17 +169,17 @@ public class RehabsFragment extends Fragment implements
 	@Override
 	public void onDestroy() {
 		super.onDestroy();
-		
 		if(locationService != null){
-		locationService.removeListener(locationListener);
-		getActivity().unbindService(locServiceConnection);
+			locationService.removeListener(locationListener);
+			getActivity().unbindService(locServiceConnection);
 		}
 		getActivity().stopService(new Intent(mContext, LocationService.class));
 		if (responseProcessinTask != null
 				&& responseProcessinTask.getStatus() == android.os.AsyncTask.Status.RUNNING) {
 			responseProcessinTask.cancel(true);
 		}
-
+		mContext = null;
+		homeActivity = null;
 	}
 
 	@Override
@@ -187,6 +189,7 @@ public class RehabsFragment extends Fragment implements
 
 		user = userDatasource.findUser(AccountUtils.getUserId(getActivity()));
 		mContext = getActivity();
+		rehabResponse.setUserInsurance(user.getInsurance());
 
 		spots = new HashMap<>();
 		prefs = AppPrefs.getAppPrefs(getActivity());
@@ -198,7 +201,8 @@ public class RehabsFragment extends Fragment implements
 	}
 
 	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container,
+	public View
+	onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		View v = inflater.inflate(R.layout.fragment_rehabs, container, false);
 
@@ -321,7 +325,7 @@ public class RehabsFragment extends Fragment implements
 //		BitmapDescriptor icon = BitmapDescriptorFactory
 //				.fromResource(R.drawable.pin);
 		// add marker
-		List<RehabModel> rehabs = rehabResponse.getRehabs();
+		List<RehabModel> rehabs = rehabResponse.getInsuranceRehabs();
 		for (int i = 0; i < rehabs.size(); i++) {
 			RehabModel rehab = rehabs.get(i);
 			// Creating an instance of MarkerOptions to set position
@@ -565,9 +569,6 @@ public class RehabsFragment extends Fragment implements
 				RehaabFilterResultHolder resultHolder = (RehaabFilterResultHolder) data
 						.getSerializableExtra(MeetingsFilterActivity.MEETING_FILTER);
 
-				App.toast("Filtering rehabs");
-
-
 //				if (myLocation == null) {
 //					AppPrefs prefs = AppPrefs.getAppPrefs(getActivity());
 //					double latitude = prefs.getDoubletPrefs(
@@ -720,10 +721,10 @@ public class RehabsFragment extends Fragment implements
 			if(RehabResponseModel.getTodayRehabTiming(m.getRehabDays()) == null){
 				tvStatus.setVisibility(View.GONE);
 			}else if(rehabResponse.isOpenNow(m.getRehabDays())){
-				tvStatus.setBackgroundDrawable(getResources().getDrawable(R.drawable.hours_bg_green));
+				tvStatus.setBackgroundResource(R.drawable.hours_bg_green);
 				tvStatus.setText(R.string.rehab_open_now_);
 			}else{
-				tvStatus.setBackgroundDrawable(getResources().getDrawable(R.drawable.yellow_round_corners));
+				tvStatus.setBackgroundResource(R.drawable.yellow_round_corners);
 				tvStatus.setText(R.string.rehab_close_now_);
 			}
 
@@ -883,8 +884,6 @@ public class RehabsFragment extends Fragment implements
 						rehab_insurancesList.add(insName);
 					}
 
-					
-					
 					RehabModel rehabModel = new RehabModel();
 					rehabModel.setId(id);
 					rehabModel.setAbout(about);
@@ -936,118 +935,13 @@ public class RehabsFragment extends Fragment implements
 
 				}
 
+				rehabResponse.sort();
+
 			} catch (JSONException e) {
 				e.printStackTrace();
 			}
 			
 			return null;
-		}
-
-		public void sortData() {
-//			Collections.sort(meetings, new Comparator<MeetingModel>() {
-//				public int compare(MeetingModel o1, MeetingModel o2) {
-//
-//					if (o1.getDateObj() == null || o2.getDateObj() == null)
-//						return 0;
-//					return o1.getDateObj().compareTo(o2.getDateObj());
-//				}
-//			});
-		}
-
-		String daysInWeek[] = { "monday", "tuesday", "wednesday", "thursday",
-				"friday", "saturday", "sunday" };
-
-		public NearesDateTime getOnDate(String days, String times, int position) {
-
-			List<NearesDateTime> nearestDateTimes = new ArrayList<>();
-
-			String dayArray[] = days.split(",");
-			String timeArray[] = times.split(",");
-			int nearPosition = 0;
-			int minDayDiffer = Integer.MAX_VALUE;
-			for (int j = 0; j < dayArray.length; j++) {
-				String onDay = dayArray[j];
-				String onTime = timeArray[j];
-
-				Calendar sCalendar = Calendar.getInstance();
-				String dayLongName = sCalendar.getDisplayName(
-						Calendar.DAY_OF_WEEK, Calendar.LONG,
-						Locale.getDefault());
-				int onDayPositon = -1;
-				int todayPosition = -1;
-
-				for (int i = 0; i < daysInWeek.length; i++) {
-					if (onDay.toLowerCase(Locale.US).equals(daysInWeek[i])) {
-						onDayPositon = i;
-					}
-
-					if (dayLongName.toLowerCase(Locale.US).equals(daysInWeek[i])) {
-						todayPosition = i;
-					}
-				}
-
-				if (onDayPositon > todayPosition) {
-					sCalendar.add(Calendar.DAY_OF_MONTH,
-							(onDayPositon - todayPosition));
-					int dayDiffer = onDayPositon - todayPosition;
-					if (minDayDiffer > dayDiffer) {
-						minDayDiffer = dayDiffer;
-						nearPosition = j;
-					}
-
-				} else if (onDayPositon < todayPosition) {
-					sCalendar.add(Calendar.DAY_OF_MONTH, ((daysInWeek.length)
-							- todayPosition + onDayPositon));
-					
-					int dayDiffer = ((daysInWeek.length) - todayPosition + onDayPositon);
-					if (minDayDiffer > dayDiffer) {
-						minDayDiffer = dayDiffer;
-						nearPosition = j;
-					}
-
-				} else if (onDayPositon == todayPosition) {
-					SimpleDateFormat _12HourSDF = new SimpleDateFormat(
-							"hh:mm a", Locale.US);
-					try {
-						final Date dateObj = _12HourSDF.parse(onTime);
-						sCalendar.set(Calendar.HOUR_OF_DAY,
-								dateObj.getHours() + 1);
-						sCalendar.set(Calendar.MINUTE, dateObj.getMinutes());
-						if (sCalendar.before(Calendar.getInstance())) {
-							sCalendar.add(Calendar.DAY_OF_MONTH,
-									(daysInWeek.length));
-
-							int dayDiffer = daysInWeek.length;
-							if (minDayDiffer > dayDiffer) {
-								minDayDiffer = dayDiffer;
-								nearPosition = j;
-							}
-
-						} else {
-//							meetings.get(position).setTodayMeeting(true);
-							int dayDiffer = 0;
-							if (minDayDiffer > dayDiffer) {
-								minDayDiffer = dayDiffer;
-								nearPosition = j;
-							}
-						}
-					} catch (ParseException e) {
-						e.printStackTrace();
-					}
-				}
-
-				SimpleDateFormat dateFormate = new SimpleDateFormat(
-						"dd/MM/yyyy");
-				String dateMade = dateFormate.format(sCalendar.getTime());
-
-				NearesDateTime nearDateTime = new NearesDateTime();
-				nearDateTime.setDate(dateMade);
-				nearDateTime.setTime(onTime);
-				nearestDateTimes.add(nearDateTime);
-			}
-
-			return nearestDateTimes.get(nearPosition);
-
 		}
 
 		@Override
@@ -1064,17 +958,6 @@ public class RehabsFragment extends Fragment implements
 			rehabAdapter.notifyDataSetChanged();
 
 			addMarkers();
-			
-//			meetingsAdapter = new MeetingsListAdapter(getActivity(),
-//					R.layout.list_item_meeting, meetings);
-//			list.setAdapter(meetingsAdapter);
-//			meetingsAdapter.notifyDataSetChanged();
-//			addMarkers();
-//			// refrshFavList();
-//
-//			meetingsAdapter.filter(resultHolder);
-
-			// refreshMap();
 		}
 
 	}

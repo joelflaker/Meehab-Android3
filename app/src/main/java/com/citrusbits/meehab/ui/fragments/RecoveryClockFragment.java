@@ -64,7 +64,6 @@ public class RecoveryClockFragment extends Fragment implements OnClickListener,
 		pd = UtilityClass.getProgressDialog(homeActivity);
 
 		userDatasource = new UserDatasource(getActivity());
-//		userDatasource.open();
 
 		user = userDatasource.findUser(AccountUtils.getUserId(getActivity()));
 	}
@@ -179,7 +178,6 @@ public class RecoveryClockFragment extends Fragment implements OnClickListener,
 								@Override
 								public void onCancelClick(
 										ResetRecoverClockDialog dialog) {
-									// TODO Auto-generated method stub
 									dialog.dismiss();
 
 								}
@@ -188,6 +186,13 @@ public class RecoveryClockFragment extends Fragment implements OnClickListener,
 					.show();
 			break;
 		}
+	}
+
+	@Override
+	public void onDestroy() {
+		super.onDestroy();
+		homeActivity = null;
+		pd = null;
 	}
 
 	public void setChip(RCChip chip) {

@@ -646,8 +646,8 @@ public class MessagesFragment extends Fragment implements
 	public void onDestroy() {
 		super.onDestroy();
 		getActivity().unregisterReceiver(refreshReceiver);
-
 		prefs.saveBooleanPrefs(AppPrefs.KEY_CONVERSATION_FRAG_OPEN, true);
+		homeActivity = null;
 	}
 
 	@Override

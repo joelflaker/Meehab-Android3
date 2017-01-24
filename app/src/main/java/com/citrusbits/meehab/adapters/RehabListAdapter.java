@@ -35,10 +35,10 @@ public class RehabListAdapter extends ArrayAdapter<RehabModel> {
 	private RehabResponseModel rehabResponse;
 
 	public RehabListAdapter(Context c, int resource, RehabResponseModel rrm) {
-		super(c, resource, rrm.getRehabs());
+		super(c, resource, rrm.getInsuranceRehabs());
 		mContext = c;
 		this.rehabResponse = rrm;
-		rehabs = rrm.getRehabs();
+		rehabs = rrm.getInsuranceRehabs();
 		arrayList.clear();
 		arrayList.addAll(rehabs);
 
@@ -46,17 +46,8 @@ public class RehabListAdapter extends ArrayAdapter<RehabModel> {
 				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 	}
 
-	public void setRehab(int position, RehabModel rehab) {
-		this.arrayList.set(position, rehab);
-		this.notifyDataSetChanged();
-	}
-
 	public List<RehabModel> getRehabs() {
 		return this.rehabs;
-	}
-
-	public List<RehabModel> getRehabCache() {
-		return this.arrayList;
 	}
 
 	@Override
@@ -188,7 +179,8 @@ public class RehabListAdapter extends ArrayAdapter<RehabModel> {
 			//insurances
 			boolean isInsuracesMatch = resultHolder.isanyInsuranceAccepted();
 			for(String insA: wp.getRehabInsurances()){
-				if(resultHolder.getInsuranceAccepted().contains(insA)){
+				if(resultHolder.getInsuranceAccepted().contains(insA)
+						|| wp.getPackageName().equalsIgnoreCase(RehabResponseModel.PLATINUM_PACKAGE)){
 					isInsuracesMatch = true;
 					break;
 				}

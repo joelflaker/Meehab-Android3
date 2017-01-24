@@ -190,7 +190,7 @@ public class OptionsFragment extends Fragment implements OnSocketResponseListene
 	@Override
 	public void onDestroy() {
 		super.onDestroy();
-
+		homeActivity = null;
 	}
 
 	@Override
@@ -631,7 +631,7 @@ public class OptionsFragment extends Fragment implements OnSocketResponseListene
 			break;
 		case R.id.btnDeleteAccount:
 
-			new PasswordConfirmationDialog(getActivity()).setConfirmationListener(
+			new PasswordConfirmationDialog(getActivity(),getString(R.string.your_account_permanently_deleted)).setConfirmationListener(
 					new PasswordConfirmationDialog.PasswordConfirmationDialogClickListener() {
 
 						@Override

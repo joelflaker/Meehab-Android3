@@ -670,6 +670,10 @@ public class EditMyProfileActivity extends SocketActivity implements
 				}
 				if (genderString != null) {
 					params.put("gender", genderString);
+				}else {
+					Toast.makeText(this,
+							"Please select gender!", Toast.LENGTH_SHORT).show();
+					return;
 				}
 
 				String accupation = occupationEdit.getText().toString().trim();
@@ -698,6 +702,10 @@ public class EditMyProfileActivity extends SocketActivity implements
 
 				if (interestString != null) {
 					params.put("intrested_in", interestString);
+				}else {
+					Toast.makeText(this,
+							"Please select interested in!", Toast.LENGTH_SHORT).show();
+					return;
 				}
 
 				// about Story
@@ -717,7 +725,6 @@ public class EditMyProfileActivity extends SocketActivity implements
 				// Toast.LENGTH_SHORT).show();
 				if (updateUser.getImage() != null) {
 					params.put("image", updateUser.getImage());
-					Log.d("Image", updateUser.getImage());
 				}
 				if (updateUser.getMaritalStatus() != null) {
 					params.put("marital_status", updateUser.getMaritalStatus());
@@ -756,7 +763,7 @@ public class EditMyProfileActivity extends SocketActivity implements
 				}
 
 				// have kids : default noans
-				String hasKidsString = "Choose Not to Answer";
+				String hasKidsString = null;
 				if (haveKidsYesBtn.isChecked()) {
 					hasKidsString = "YES";
 				} else if (haveKidsNoBtn.isChecked()) {
@@ -765,18 +772,17 @@ public class EditMyProfileActivity extends SocketActivity implements
 					hasKidsString = "";
 				}
 
-				if (hasKidsString.equals("Choose Not to Answer")) {
-//					Toast.makeText(EditMyProfileActivity.this,
-//							"Please select have kids?", Toast.LENGTH_SHORT)
-//							.show();
-//					return;
+				if(hasKidsString != null){
+					params.put("have_kids", hasKidsString);
+				}else {
+					Toast.makeText(this,
+							"Please select if you have kids!", Toast.LENGTH_SHORT).show();
+					return;
 				}
-
-				params.put("have_kids", hasKidsString);
 
 			} catch (JSONException e) {
 				e.printStackTrace();
-				params = null;
+				return;
 			}
 
 			if (params != null && params.length() > 0) {

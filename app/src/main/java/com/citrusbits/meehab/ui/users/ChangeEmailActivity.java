@@ -9,6 +9,7 @@ import com.citrusbits.meehab.constants.EventParams;
 import com.citrusbits.meehab.db.UserDatasource;
 import com.citrusbits.meehab.model.UserAccount;
 import com.citrusbits.meehab.services.OnSocketResponseListener;
+import com.citrusbits.meehab.ui.dialog.PasswordConfirmationDialog;
 import com.citrusbits.meehab.utils.AccountUtils;
 import com.citrusbits.meehab.utils.NetworkUtil;
 import com.citrusbits.meehab.utils.UtilityClass;
@@ -97,7 +98,24 @@ public class ChangeEmailActivity extends SocketActivity implements
 	public void onClick(View v) {
 
 		if (v.getId() == R.id.btnSave) {
-			attempChangeEmail();
+			new PasswordConfirmationDialog(this,getString(R.string.change_email_password_confirmation_)).setConfirmationListener(
+					new PasswordConfirmationDialog.PasswordConfirmationDialogClickListener() {
+
+						@Override
+						public void onDeleteClick(String password, PasswordConfirmationDialog dialog) {
+							dialog.dismiss();
+							if(NetworkUtil.isConnected(ChangeEmailActivity.this)) {
+								attempChangeEmail();
+							}else {
+								App.toast(getResources().getString(R.string.no_internet_connection));
+							}
+						}
+
+						@Override
+						public void onCancelClick(PasswordConfirmationDialog dialog) {
+							dialog.dismiss();
+						}
+					}).show();
 		}
 
 	}
@@ -129,6 +147,7 @@ public class ChangeEmailActivity extends SocketActivity implements
 			// Toast.makeText(this, itemName,
 			// Toast.LENGTH_SHORT).show();
 			params.put(EventParams.SIGNUP_EMAIL, emailString);
+			params.put(EventParams.USER_CURRENT_PASSWORD, AccountUtils.getPassword(this));
 			pd.show();
 			socketService.updateAccount(params);
 		} catch (Exception e) {
@@ -163,11 +182,11 @@ public class ChangeEmailActivity extends SocketActivity implements
 
 	@Override
 	public void onSocketResponseFailure(String event,String message) {
-		
+
 		if(event.equals(EventParams.EVENT_USER_UPDATE)){
 			pd.dismiss();
-		textResponse.setText(message);
-		textResponse.setTextColor(Color.RED);
+			textResponse.setText(message);
+			textResponse.setTextColor(Color.RED);
 		}
 
 	}

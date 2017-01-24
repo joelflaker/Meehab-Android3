@@ -193,7 +193,7 @@ public class MeetingsFragment extends Fragment implements
 				&& meetingProcessinTask.getStatus() == android.os.AsyncTask.Status.RUNNING) {
 			meetingProcessinTask.cancel(true);
 		}
-
+		homeActivity = null;
 	}
 
 	@Override

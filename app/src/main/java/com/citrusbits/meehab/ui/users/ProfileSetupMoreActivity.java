@@ -66,9 +66,6 @@ public class ProfileSetupMoreActivity extends SocketActivity implements
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_profile_setup_more);
 
-		// if(App.getInstance().socketIO == null){
-		// App.getInstance().initConnectNodeJS();
-		// }
 		userDatasource = new UserDatasource(this);
 
 		mUser = userDatasource.findUser(AccountUtils.getUserId(this));
@@ -299,23 +296,8 @@ public class ProfileSetupMoreActivity extends SocketActivity implements
 
 				// update fields
 				// height
-
-				if (user.getHeight() == null) {
-					Toast.makeText(ProfileSetupMoreActivity.this,
-							"Please set user height!", Toast.LENGTH_SHORT)
-							.show();
-					return;
-				}
-
 				if (user.getHeight() != null) {
 					params.put("height", user.getHeight());
-				}
-
-				if (user.getWeight() == null) {
-					Toast.makeText(ProfileSetupMoreActivity.this,
-							"Please set user weight!", Toast.LENGTH_SHORT)
-							.show();
-					return;
 				}
 
 				// weight
@@ -323,12 +305,6 @@ public class ProfileSetupMoreActivity extends SocketActivity implements
 					params.put("weight", user.getWeight());
 				}
 
-				if (user.getSexualOrientation() == null) {
-					Toast.makeText(ProfileSetupMoreActivity.this,
-							"Please set sexual orientation!",
-							Toast.LENGTH_SHORT).show();
-					return;
-				}
 
 				// sexual_orientation
 				if (user.getSexualOrientation() != null) {
@@ -343,33 +319,13 @@ public class ProfileSetupMoreActivity extends SocketActivity implements
 							user.getSexualOrientation());
 				}
 
-				if (user.getSexualOrientation() == null) {
-					Toast.makeText(ProfileSetupMoreActivity.this,
-							"Please set sexual orientation!",
-							Toast.LENGTH_SHORT).show();
-					return;
-				}
-
 				String occupation = occupationEdit.getText().toString().trim();
-				if (occupation.isEmpty()) {
-					Toast.makeText(ProfileSetupMoreActivity.this,
-							"Please enter user occupation!", Toast.LENGTH_SHORT)
-							.show();
-					return;
-				}
 
 				// get Occupation
 
 				user.setAccupation(occupation);
 
-				params.put("accupation", occupationEdit.getText().toString());
-
-				if (user.getEthnicity() == null) {
-					Toast.makeText(ProfileSetupMoreActivity.this,
-							"Please set user ethenticity!", Toast.LENGTH_SHORT)
-							.show();
-					return;
-				}
+				params.put("accupation", occupation);
 
 				// getEthnicity
 				if (user.getEthnicity() != null) {
@@ -377,19 +333,12 @@ public class ProfileSetupMoreActivity extends SocketActivity implements
 				}
 
 				// sober date
-
-				if (user.getSoberSence() == null) {
-					Toast.makeText(ProfileSetupMoreActivity.this,
-							"Please set Sober sence!", Toast.LENGTH_SHORT)
-							.show();
-					return;
-				}
 				if (user.getSoberSence() != null) {
 					params.put("sober_sence", user.getSoberSence());
 				}
 
 				// have kids : default noans
-				String hasKidsString = "trick";
+				String hasKidsString = null;
 				if (haveKidsYesBtn.isChecked()) {
 					hasKidsString = "yes";
 				} else if (haveKidsNoBtn.isChecked()) {
@@ -398,21 +347,16 @@ public class ProfileSetupMoreActivity extends SocketActivity implements
 					hasKidsString = "";
 				}
 
-				if (hasKidsString.equals("trick")) {
+				if (hasKidsString == null) {
 					Toast.makeText(ProfileSetupMoreActivity.this,
-							"Please set have kids", Toast.LENGTH_SHORT).show();
+							"Please select if you have kids!", Toast.LENGTH_SHORT).show();
 					return;
 				}
-
 				params.put("have_kids", hasKidsString);
-				// Toast.makeText(this, itemName,
-				// Toast.LENGTH_SHORT).show();
-				// jobj.put("phone", UtilityClass
-				// .phoneNumberNormal(strPhoneNumber));
 
 			} catch (JSONException e) {
 				e.printStackTrace();
-				params = null;
+				return;
 			}
 
 			if (params != null && params.length() > 0) {
@@ -421,12 +365,6 @@ public class ProfileSetupMoreActivity extends SocketActivity implements
 				socketService.updateAccount(params);
 			}
 		}
-
-		// intent = new Intent(this,ProfileSetupMoreActivity.class);
-		// startActivity(intent);
-		// overridePendingTransition(R.anim.activity_in, R.anim.activity_out);
-		// setResult(RESULT_OK);
-		// ProfileSetupActivity.this.finish();
 	}
 
 	@Override

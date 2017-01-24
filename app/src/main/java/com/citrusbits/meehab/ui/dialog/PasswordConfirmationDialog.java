@@ -7,14 +7,19 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.TextView;
 
 import com.citrusbits.meehab.R;
 import com.citrusbits.meehab.app.App;
+import com.citrusbits.meehab.utils.AccountUtils;
 
 public class PasswordConfirmationDialog extends Dialog implements
 		View.OnClickListener {
 
+	private final String message;
 	private Context context;
 
 
@@ -22,9 +27,10 @@ public class PasswordConfirmationDialog extends Dialog implements
 	private PasswordConfirmationDialogClickListener confirmDialogClickListener;
 	private EditText editPassword;
 
-	public PasswordConfirmationDialog(Context context) {
+	public PasswordConfirmationDialog(Context context,String message) {
 		super(context, android.R.style.Theme_Black_NoTitleBar);
 		this.context = context;
+		this.message = message;
 	}
 
 	public PasswordConfirmationDialog setConfirmationListener(
@@ -43,7 +49,11 @@ public class PasswordConfirmationDialog extends Dialog implements
 		setContentView(R.layout.dialog_password_confirmation);
 		editPassword = (EditText)findViewById(R.id.editPassword);
 		findViewById(R.id.ibCancel).setOnClickListener(this);
-		findViewById(R.id.ibDelete).setOnClickListener(this);
+		findViewById(R.id.btnOk).setOnClickListener(this);
+
+		TextView textView1 = (TextView) findViewById(R.id.txtMessage);
+		textView1.setText(message);
+
 	}
 
 	@Override
@@ -55,14 +65,19 @@ public class PasswordConfirmationDialog extends Dialog implements
 			}
 
 			break;
-		case R.id.ibDelete:
+		case R.id.btnOk:
 			if (confirmDialogClickListener != null) {
 				String password = editPassword.getText().toString().trim();
 				if(password.length() == 0) {
 					App.toast("Password is required!");
 					return;
 				}
-				confirmDialogClickListener.onDeleteClick(password,this);
+
+				if(AccountUtils.getPassword(context).equals(password)){
+					confirmDialogClickListener.onDeleteClick(password,this);
+				}else {
+					App.toast("Password is doesn't match!");
+				}
 			}
 			break;
 		}
@@ -71,9 +86,9 @@ public class PasswordConfirmationDialog extends Dialog implements
 
 	public interface PasswordConfirmationDialogClickListener {
 
-		public void onCancelClick(PasswordConfirmationDialog dialog);
+		void onCancelClick(PasswordConfirmationDialog dialog);
 
-		public void onDeleteClick(String password, PasswordConfirmationDialog dialog);
+		void onDeleteClick(String password, PasswordConfirmationDialog dialog);
 	}
 
 }

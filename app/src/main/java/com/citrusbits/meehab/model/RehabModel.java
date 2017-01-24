@@ -31,7 +31,6 @@ public class RehabModel implements Serializable{
 
 	private String address;
 	private String email;
-	private List<String> rehabPackagesList = new ArrayList<>();
 	private String userPhone;
 	private String typeName;
 	private List<RehabDayModel> rehabDaysList = new ArrayList<>();
@@ -236,14 +235,6 @@ public class RehabModel implements Serializable{
 		this.email = email;
 	}
 
-	public List<String> getRehabPackages() {
-		return rehabPackagesList;
-	}
-
-	public void setRehabPackages(List<String> rehabPackages) {
-		this.rehabPackagesList = rehabPackages;
-	}
-
 	public String getUserPhone() {
 		return userPhone;
 	}
@@ -307,17 +298,5 @@ public class RehabModel implements Serializable{
 	public String getPackageName() {
 		return this.rehabPackageName;
 	}
-
-
-//	public void setDays(String days) {
-//		this.days = days;
-//	}
-//
-//	public String getDays() {
-//		return this.days;
-//	}
-	
-
-	// private String List<> rehabDays=new ArrayLi
 
 }

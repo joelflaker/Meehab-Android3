@@ -7,6 +7,7 @@ import com.citrusbits.meehab.ui.SocketActivity;
 import com.citrusbits.meehab.app.App;
 import com.citrusbits.meehab.constants.EventParams;
 import com.citrusbits.meehab.services.OnSocketResponseListener;
+import com.citrusbits.meehab.utils.AccountUtils;
 import com.citrusbits.meehab.utils.NetworkUtil;
 import com.citrusbits.meehab.utils.UtilityClass;
 
@@ -28,6 +29,7 @@ public class ChangePasswordActivity extends SocketActivity implements OnSocketRe
 	private EditText editReNewPassword;
 	private Button btnSave;
 	private TextView textResponse;
+	private String newPassword;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -75,7 +77,8 @@ public class ChangePasswordActivity extends SocketActivity implements OnSocketRe
 			textResponse.setText("Enter password");
 			return;
 		}
-		
+
+
 		if(!newPassword.equals(reNewPassword)){
 			textResponse.setText("Password Does't match");
 			return;
@@ -87,10 +90,7 @@ public class ChangePasswordActivity extends SocketActivity implements OnSocketRe
 			textResponse.setText(pair.message);
 			return;
 		}
-		
-		
-		
-		
+
 		InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
 		inputMethodManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
 
@@ -98,12 +98,15 @@ public class ChangePasswordActivity extends SocketActivity implements OnSocketRe
 			App.toast("It's seems to be network problem");
 			return;
 		}
+
+		this.newPassword = newPassword;
 		
 		JSONObject params = new JSONObject();
 		try {
 			// Toast.makeText(this, itemName,
 			// Toast.LENGTH_SHORT).show();
 			params.put(EventParams.SIGNUP_PASSWORD, newPassword);
+			params.put(EventParams.USER_CURRENT_PASSWORD, AccountUtils.getPassword(this));
 			pd.show();
 			socketService.updateAccount(params);
 		}catch (Exception e){
@@ -115,24 +118,24 @@ public class ChangePasswordActivity extends SocketActivity implements OnSocketRe
 	public void onSocketResponseSuccess(String event, Object obj) {
 		pd.dismiss();
 		if(event.equals(EventParams.EVENT_USER_UPDATE)){
-			textResponse.setText("Successfuly updated!");
+			textResponse.setText("Successfully updated!");
 			textResponse.setTextColor(Color.GREEN);
+			AccountUtils.setPassword(this,newPassword);
 		}
 		
 	}
 
 	@Override
-	public void onSocketResponseFailure(String onEvent,String message) {
+	public void onSocketResponseFailure(String event,String message) {
 		pd.dismiss();
-		textResponse.setText(message);
-		textResponse.setTextColor(Color.RED);
-//		onBackPressed();
-		
+		if(event.equals(EventParams.EVENT_USER_UPDATE)) {
+			textResponse.setText(message);
+			textResponse.setTextColor(Color.RED);
+		}
 	}
 	
 	@Override
 	public void onBackPressed() {
-		// TODO Auto-generated method stub
 		super.onBackPressed();
 		this.overridePendingTransition(R.anim.activity_back_in, R.anim.activity_back_out);
 	}

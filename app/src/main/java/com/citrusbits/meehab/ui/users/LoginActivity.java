@@ -20,6 +20,7 @@ import com.citrusbits.meehab.pojo.AddUserResponse;
 import com.citrusbits.meehab.prefrences.AppPrefs;
 import com.citrusbits.meehab.services.DeviceContact;
 import com.citrusbits.meehab.services.OnSocketResponseListener;
+import com.citrusbits.meehab.utils.AccountUtils;
 import com.citrusbits.meehab.utils.DeviceUtils;
 import com.citrusbits.meehab.utils.NetworkUtil;
 import com.citrusbits.meehab.utils.UtilityClass;
@@ -158,6 +159,8 @@ public class LoginActivity extends SocketActivity implements
 
 				params.put("device_token",
 						GCMManager.getCMId(LoginActivity.this));
+
+				AccountUtils.setPassword(this,strPassword);
 
 				pd.show();
 				socketService.login(params);

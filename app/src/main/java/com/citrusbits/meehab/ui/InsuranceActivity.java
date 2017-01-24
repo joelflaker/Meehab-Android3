@@ -22,6 +22,8 @@ import android.view.View.OnClickListener;
 import android.widget.NumberPicker;
 import android.widget.Toast;
 
+import java.util.Arrays;
+
 public class InsuranceActivity extends SocketActivity implements
 		OnClickListener, OnSocketResponseListener{
 	NumberPicker npInsurance;
@@ -36,8 +38,9 @@ public class InsuranceActivity extends SocketActivity implements
 	
 	private Dialog pd;
 	private String insurance;
-	
-	
+	private String[] fullValues;
+
+
 	public enum InsuranceMode {
 		ADD, EDIT;
 	}
@@ -64,7 +67,7 @@ public class InsuranceActivity extends SocketActivity implements
 
 		values = getResources().getStringArray(R.array.insurance_arr);
 
-		updateInsurancesData();
+//		updateInsurancesData();
 		
 //		if(getIntent().hasExtra("fromOption")){
 //			findViewById(R.id.text).setVisibility(View.GONE);
@@ -92,6 +95,17 @@ public class InsuranceActivity extends SocketActivity implements
 	}
 
 	private void updateInsurancesData() {
+
+
+		fullValues = Arrays.copyOf(values,values.length);
+
+		for (int i = 0; i < values.length; i++) {
+			String value = values[i];
+			if(value.length() > 26){
+				values[i] = value.substring(0,22)+"...";
+			}
+		}
+
 		npInsurance.setDisplayedValues(null);
 		npInsurance
 				.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS);
@@ -123,7 +137,7 @@ public class InsuranceActivity extends SocketActivity implements
 			overridePendingTransition(R.anim.activity_in, R.anim.activity_out);
 			break;
 		case R.id.ibSubmit:
-			String insurance = values[npInsurance.getValue()];
+			String insurance = fullValues[npInsurance.getValue()];
 			
 			addInsurance(insurance);
 			break;

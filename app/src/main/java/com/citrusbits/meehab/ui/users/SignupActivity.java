@@ -30,6 +30,7 @@ import com.citrusbits.meehab.contacts.GetContactTask;
 import com.citrusbits.meehab.contacts.GetContactTask.ContactsListener;
 import com.citrusbits.meehab.model.SignupModel;
 import com.citrusbits.meehab.services.OnSocketResponseListener;
+import com.citrusbits.meehab.utils.AccountUtils;
 import com.citrusbits.meehab.utils.FacebookUtil;
 import com.citrusbits.meehab.utils.NetworkUtil;
 import com.citrusbits.meehab.utils.NetworkUtils;
@@ -194,33 +195,6 @@ public class SignupActivity extends SocketActivity implements
 					
 				}
 	    }).executeAsync();
-//			new GraphRequest(
-//				    AccessToken.getCurrentAccessToken(),
-//				    "/me/friendlists",
-//				    null,
-//				    HttpMethod.GET,
-//				    new GraphRequest.Callback() {
-//				        public void onCompleted(GraphResponse response) {
-//				            /* handle the result */
-//				        	if(response.getError() == null){
-//				        		Toast.makeText(getApplicationContext(), "Error:" + response.getError(), Toast.LENGTH_LONG).show();
-//				        		return;
-//				        	}
-//				        	
-//				        	JSONArray friends = response.getJSONArray();
-//				        	
-//				        	App.toast(friends.length() + " friends");
-//				        	Toast.makeText(getApplicationContext(), "" + friends, Toast.LENGTH_LONG).show();
-//				        	
-//				        	int i = 1;
-//				        	int id = i;
-//				        }
-//				    }
-//				).executeAsync();
-//			Bundle friendParams = new Bundle();
-//			friendParams.putString("fields", "id,name,email,gender, birthday");
-//			request.setParameters(friendParams);
-
 		}
 
 		etUserName.setOnFocusChangeListener(new View.OnFocusChangeListener() {
@@ -458,6 +432,8 @@ public class SignupActivity extends SocketActivity implements
 		}
 
 		// openActivity(phoneNumber, VerificationActivity.SMS,signup);
+
+		AccountUtils.setPassword(this,passwordString);
 
 		checkInfo(usernameString, emailString, phoneNumber);
 

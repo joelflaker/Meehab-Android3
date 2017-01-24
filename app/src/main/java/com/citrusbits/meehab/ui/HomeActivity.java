@@ -259,6 +259,12 @@ public class HomeActivity extends SocketActivity implements
 
 	public void displayFragment(final int position) {
 
+		if(user == null){
+			new LogoutHelper(HomeActivity.this)
+			.attemptLogout();
+			return;
+		}
+
 		if (!isDrawderSkipPosition(position)) {
 			changeDrawerVisibility(false);
 		}

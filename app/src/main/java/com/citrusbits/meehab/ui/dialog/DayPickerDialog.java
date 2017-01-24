@@ -69,7 +69,7 @@ public class DayPickerDialog extends Dialog implements
 		npSelectDay
 				.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS);
 		npSelectDay.setMinValue(0);
-		npSelectDay.setMaxValue(4);
+		npSelectDay.setMaxValue(dayStatus.length - 1);
 		npSelectDay.setValue(position);
 		npSelectDay.setDisplayedValues(dayStatus);
 		npSelectDay.setWrapSelectorWheel(false);

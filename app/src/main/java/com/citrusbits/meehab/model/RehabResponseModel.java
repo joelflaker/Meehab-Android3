@@ -1,12 +1,12 @@
 package com.citrusbits.meehab.model;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
-import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 
@@ -16,10 +16,12 @@ import com.citrusbits.meehab.utils.MeetingUtils;
 import android.text.TextUtils;
 
 public class RehabResponseModel {
-private static RehabResponseModel instance;
+	public final static String PLATINUM_PACKAGE = "platinium";
 //	HashMap<Integer, String> days = new HashMap<>();
 
 	List<RehabModel> rehabModels = new ArrayList<>();
+	List<RehabModel> rehabsFilteredByInsurance = new ArrayList<>();;
+	private String userInsurance;
 
 //	public void addDay(int dayId, String dayName) {
 //		days.put(dayId, dayName);
@@ -58,18 +60,40 @@ private static RehabResponseModel instance;
 
 	public RehabModel getRehabModel(int postion) {
 
-		if (postion >= rehabModels.size() || postion < 0) {
-			throw new IllegalArgumentException("Enter valid position");
+		if(TextUtils.isEmpty(userInsurance)){
+			if (postion >= rehabModels.size() || postion < 0) {
+				throw new IllegalArgumentException("Enter valid position");
+			}
+			return rehabModels.get(postion);
+		}else {
+			if (postion >= rehabsFilteredByInsurance.size() || postion < 0) {
+				throw new IllegalArgumentException("Enter valid position");
+			}
+			return rehabsFilteredByInsurance.get(postion);
 		}
-		return rehabModels.get(postion);
 	}
 
 	public List<RehabModel> getRehabs() {
 		return this.rehabModels;
 	}
+	public List<RehabModel> getInsuranceRehabs() {
+		if(TextUtils.isEmpty(userInsurance)) return rehabModels;
+
+		rehabsFilteredByInsurance.clear();
+		rehabsFilteredByInsurance.addAll(rehabModels);
+		Iterator<RehabModel> it = rehabsFilteredByInsurance.iterator();
+		while (it.hasNext()){
+			RehabModel rehabModel = it.next();
+			if(rehabModel.getPackageName().equalsIgnoreCase(PLATINUM_PACKAGE)) continue;
+			if(!rehabModel.getRehabInsurances().contains(userInsurance)) {
+				it.remove();
+			}
+		}
+		return this.rehabsFilteredByInsurance;
+	}
 
 	/**
-	 * @param daysList 
+	 * @param daysList
 	 * @return
 	 */
 	public static boolean isOpenNow(List<RehabDayModel> daysList) {
@@ -77,7 +101,7 @@ private static RehabResponseModel instance;
 		if (daysList == null || daysList.size() == 0){
 			return bool;
 		}
-		
+
 		//getting today timing or near future day of week
 
 
@@ -87,9 +111,9 @@ private static RehabResponseModel instance;
 		Calendar offCal = Calendar.getInstance();
 
 		RehabDayModel re = getTodayRehabTiming(daysList);
-		
+
 		//
-		if(re == null){ 
+		if(re == null){
 			return bool;
 		}
 
@@ -174,7 +198,7 @@ private static RehabResponseModel instance;
 		name = name.toLowerCase();
 		if(TextUtils.isEmpty(name)){
 			return resourceId;
-		}else if (name.contains("platinium") || name.contains("platinum")){
+		}else if (name.contains(PLATINUM_PACKAGE) || name.contains("platinum")){
 			resourceId = R.drawable.star_plat;
 		}else if (name.contains("gold")){
 			resourceId = R.drawable.star_gold;
@@ -186,6 +210,49 @@ private static RehabResponseModel instance;
 		return resourceId;
 	}
 
+	public void sort() {
+		Collections.sort(rehabModels, new Comparator<RehabModel>() {
+			public int compare(RehabModel o1, RehabModel o2) {
+
+				if(o1.getDistance() == o2.getDistance()) return 0;
+				return o1.getDistance() > o2.getDistance()? 1 : -1;
+			}
+		});
+		Collections.sort(rehabModels, new Comparator<RehabModel>() {
+			public int compare(RehabModel o1, RehabModel o2) {
+
+				if (o1.getPackageName() == null || o2.getPackageName() == null)
+					return 0;
+
+				if(o1.getDistance() > 50 && o1.getDistance() > o2.getDistance()){
+					return 10;
+				}else if(o2.getDistance() > 50 && o2.getDistance() > o1.getDistance()){
+					return 10;
+				}
+
+				return getPackagePriority(o1.getPackageName()) - getPackagePriority(o2.getPackageName());
+			}
+		});
+	}
+
+	private int getPackagePriority(String packageName) {
+		if (PLATINUM_PACKAGE.compareToIgnoreCase(packageName) == 0
+			|| "platinum".compareToIgnoreCase(packageName) == 0 ){
+			return 1;
+		}else if ("gold".compareToIgnoreCase(packageName) == 0){
+			return 2;
+		}else if ("silver".compareToIgnoreCase(packageName) == 0){
+			return 3;
+		}else if ("bronze".compareToIgnoreCase(packageName) == 0){
+			return 4;
+		}else{
+			return 0;
+		}
+	}
+
+	public void setUserInsurance(String insurance) {
+		this.userInsurance = insurance;
+	}
 //				for (int i = 0; i < daysInWeek.length; i++) {
 //					if (onDay.toLowerCase().equals(daysInWeek[i])) {
 //						onDayPositon = i;

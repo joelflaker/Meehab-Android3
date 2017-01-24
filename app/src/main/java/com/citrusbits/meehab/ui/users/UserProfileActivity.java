@@ -190,13 +190,13 @@ public class UserProfileActivity extends SocketActivity implements
 
 			tvAge.setText(String.valueOf(user.getAge()) + " YEAR"+(user.getAge() > 1 ? "S" :""));
 			tvGender.setText(user.getGender());
-			tvOriendation.setText(user.getSexualOrientation());
-			tvMaritalStatus.setText(user.getMaritalStatus());
+			tvOriendation.setText(user.getSexualOrientation() == null? "" : user.getSexualOrientation());
+			tvMaritalStatus.setText(user.getMaritalStatus() == null? "" : user.getMaritalStatus());
 
-			heightText.setText(user.getHeight());
-			weightText.setText(user.getWeight());
-			ethnicityText.setText(user.getEthnicity());
-			occupationText.setText(user.getAccupation());
+			heightText.setText(user.getHeight() == null? "" : user.getHeight());
+			weightText.setText(user.getWeight() == null? "" : user.getWeight());
+			ethnicityText.setText(user.getEthnicity() == null? "" : user.getEthnicity());
+			occupationText.setText(user.getAccupation() == null? "" : user.getAccupation());
 
 			if ("Choose Not to Answer".toLowerCase().toString()
 					.equals(user.getIntrestedIn().toLowerCase())) {
@@ -206,15 +206,15 @@ public class UserProfileActivity extends SocketActivity implements
 			}
 			kidsText.setText(user.getHaveKids());
 			// homegroupText.setText(user.getWillingSponsor())
-			homegroupText.setText(user.getMeetingHomeGroup());
-			aaStoryText.setText(user.getAboutStory());
+			homegroupText.setText(user.getMeetingHomeGroup() == null? "" : user.getMeetingHomeGroup());
+			aaStoryText.setText(user.getAboutStory() == null? "" : user.getAboutStory());
 
 			String aaStoryTxt = user.getAboutStory();
 			if (aaStoryTxt != null && aaStoryTxt.length() > 100) {
 				aaStoryText.setText(aaStoryTxt.substring(0, 100));
 				ibSeeMore.setVisibility(View.VISIBLE);
 			} else {
-				aaStoryText.setText(aaStoryTxt+"");
+				aaStoryText.setText(aaStoryTxt == null? "" : aaStoryTxt);
 				ibSeeMore.setVisibility(View.GONE);
 			}
 

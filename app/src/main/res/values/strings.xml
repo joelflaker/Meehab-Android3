@@ -73,7 +73,7 @@
     <string name="meetings">MEETINGS</string>
     <string name="friends">FRIENDS</string>
     <string name="logout">Logout</string>
-    <string name="delete_account">Delete Account Permanently</string>
+    <string name="delete_account">Permanently Delete Account</string>
     <string name="rate_us">Rate Us</string>
     <string name="provide_feedback">Provide Feedback</string>
     <string name="block_friends">Block Friends</string>
@@ -206,4 +206,5 @@
     <string name="description">Media Controls</string>
     <string name="more_than_50_miles">more than 50 Miles</string>
     <string name="your_account_permanently_deleted">Your account will be permanently deleted.\nEnter your current password.</string>
+    <string name="change_email_password_confirmation_">Confirm your password to change email.\nEnter your current password.</string>
 </resources>

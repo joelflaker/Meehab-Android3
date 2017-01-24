@@ -25,6 +25,7 @@ public class AppPrefs {
 	public static final String KEY_CONVERSATION_FRAG_OPEN = "converation_frag_open";
 
 	public static final String KEY_CHAT_FRIEND_ID = "chat_friend_id";
+	public static final String KEY_USER_PASS = "chat_friend_id";
 
 	public static final String KEY_GCM_REG_ID = "gcm_reg_id";
 

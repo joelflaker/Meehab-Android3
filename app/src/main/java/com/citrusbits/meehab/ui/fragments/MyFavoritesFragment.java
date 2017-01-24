@@ -161,6 +161,13 @@ public class MyFavoritesFragment extends Fragment implements
 	}
 
 	@Override
+	public void onDestroy() {
+		super.onDestroy();
+		homeActivity = null;
+		mContext = null;
+	}
+
+	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.fragment_my_favorites, container,
