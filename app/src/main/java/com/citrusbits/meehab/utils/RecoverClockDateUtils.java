@@ -152,13 +152,13 @@ public class RecoverClockDateUtils {
 
 //		String soberStr = "%1$d Y, %2$d M, %2$d D, %3$d H, %4$d M, %5$d S";
 
-		Period period = new Period(startDate.getTime(), endDate.getTime()/*, PeriodType.yearMonthDayTime()*/);
-		long elapsedYears = period.getYears();
-		long elapsedMonths = period.getMonths();
-		long elapsedDays = period.getDays();
-		long elapsedHours = period.getHours();
-		long elapsedMinutes = period.getMinutes();
-		long elapsedSeconds = period.getSeconds();
+		Period period = new Period(startDate.getTime(), endDate.getTime(), PeriodType.yearMonthDayTime());
+		int elapsedYears = period.getYears();
+		int elapsedMonths = period.getMonths();
+		int elapsedDays = period.getDays();
+		int elapsedHours = period.getHours();
+		int elapsedMinutes = period.getMinutes();
+		int elapsedSeconds = period.getSeconds();
 
 		StringBuilder soberDateBuilder = new StringBuilder();
 
