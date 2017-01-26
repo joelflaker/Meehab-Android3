@@ -530,8 +530,10 @@ public class ProfileSetupActivity extends SocketActivity implements
 	 */
 	private void presentDobPicker() {
 		final Calendar now = Calendar.getInstance();
-		new DatePickerDialog(this, mDateSetListener, now.get(Calendar.YEAR),
-				now.get(Calendar.MONTH), now.get(Calendar.DAY_OF_MONTH)).show();
+		DatePickerDialog datePickerDialog = new DatePickerDialog(this, mDateSetListener, now.get(Calendar.YEAR),
+				now.get(Calendar.MONTH), now.get(Calendar.DAY_OF_MONTH));
+		datePickerDialog.getDatePicker().setMaxDate(new Date().getTime());
+		datePickerDialog.show();
 
 	}
 

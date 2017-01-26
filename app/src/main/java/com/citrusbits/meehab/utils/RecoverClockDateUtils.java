@@ -76,7 +76,7 @@ public class RecoverClockDateUtils {
 	public static String getSoberDifference(String dateInserted,boolean profile, Context context) {
 		SimpleDateFormat dateFormate = new SimpleDateFormat("MM/dd/yyyy");
 		
-		if(dateInserted==null||dateInserted.isEmpty()){
+		if(dateInserted == null||dateInserted.isEmpty()){
 			return "";
 		}
 
@@ -162,18 +162,22 @@ public class RecoverClockDateUtils {
 
 		StringBuilder soberDateBuilder = new StringBuilder();
 
+		int count = 0;
 		boolean commaNeeded = false;
 		if(elapsedYears != 0) {
+			count++;
 			commaNeeded = true;
 			soberDateBuilder.append(elapsedYears+" Year" + (elapsedYears > 1 ? "s" : ""));
 		}
 		if(elapsedMonths != 0){
+			count++;
 			soberDateBuilder
 					.append(commaNeeded? ", " : "")
 					.append(elapsedMonths+" Month" + (elapsedMonths > 1 ? "s" : ""));
 			commaNeeded = true;
 		}
 		if(elapsedDays != 0){
+			count++;
 			soberDateBuilder
 					.append(commaNeeded? ", " : "")
 					.append(elapsedDays+" Day" + (elapsedDays > 1 ? "s" : ""));
@@ -183,6 +187,7 @@ public class RecoverClockDateUtils {
 		if(elapsedHours != 0){
 			soberDateBuilder
 					.append(commaNeeded? ", " : "")
+					.append(count > 2? "\n" : "")
 					.append(elapsedHours+" H");
 			commaNeeded = true;
 		}
@@ -201,7 +206,7 @@ public class RecoverClockDateUtils {
 
 	}
 
-	public static RCChip getRcpChip(String dateInserted) {
+	public static Period getRcpChip(String dateInserted) {
 		SimpleDateFormat dateFormate = new SimpleDateFormat("MM/dd/yyyy", Locale.US);
 
 		try {
@@ -210,66 +215,69 @@ public class RecoverClockDateUtils {
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
-		return new RCChip();
+		return null;
 	}
 
-	private static RCChip getRCChip(Date startDate, Date endDate) {
+	private static Period getRCChip(Date startDate, Date endDate) {
 
-		RCChip rcChip = new RCChip();
+		Period period = new Period(startDate.getTime(), endDate.getTime(), PeriodType.yearMonthDayTime());
 
-		// milliseconds
-		long different = endDate.getTime() - startDate.getTime();
-
-		long secondsInMilli = 1000;
-		long minutesInMilli = secondsInMilli * 60;
-		long hoursInMilli = minutesInMilli * 60;
-		long daysInMilli = hoursInMilli * 24;
-		long monthInMilli = daysInMilli * 30;
-		long yearsInMilli = monthInMilli * 12;
-
-		long elapsedYears = different / yearsInMilli;
-		different = different % yearsInMilli;
-
-		long elapsedDays = different / daysInMilli;
-		different = different % daysInMilli;
-
-		/*
-		 * long elapsedMonths = different / monthInMilli; different = different
-		 * % monthInMilli;
-		 */
-		if (elapsedYears > 0) {
-
-			rcChip.setRcChipType(RCChipType.YEARS);
-			rcChip.setNumbers((int) elapsedYears);
-			return rcChip;
-
-		} else if (elapsedDays <= 90) {
-
-			rcChip.setRcChipType(RCChipType.DAYS);
-			rcChip.setNumbers((int) elapsedDays);
-			return rcChip;
-
-		} else if (elapsedDays > 90) {
-
-			Calendar startCal = Calendar.getInstance();
-			startCal.setTime(startDate);
-			Calendar endCal = Calendar.getInstance();
-			endCal.setTime(endDate);
-
-			int monthPassed = 0;
-
-			while (startCal.compareTo(endCal) <= 0) {
-				startCal.add(Calendar.MONTH, 1);
-				monthPassed++;
-			}
-
-			rcChip.setRcChipType(RCChipType.MONTH);
-			rcChip.setNumbers((int) monthPassed);
-			return rcChip;
-
-		} else {
-			return rcChip;
-		}
+		return period;
+//		RCChip rcChip = new RCChip();
+//
+//		// milliseconds
+//		long different = endDate.getTime() - startDate.getTime();
+//
+//		long secondsInMilli = 1000;
+//		long minutesInMilli = secondsInMilli * 60;
+//		long hoursInMilli = minutesInMilli * 60;
+//		long daysInMilli = hoursInMilli * 24;
+//		long monthInMilli = daysInMilli * 30;
+//		long yearsInMilli = monthInMilli * 12;
+//
+//		long elapsedYears = different / yearsInMilli;
+//		different = different % yearsInMilli;
+//
+//		long elapsedDays = different / daysInMilli;
+//		different = different % daysInMilli;
+//
+//		/*
+//		 * long elapsedMonths = different / monthInMilli; different = different
+//		 * % monthInMilli;
+//		 */
+//		if (elapsedYears > 0) {
+//
+//			rcChip.setRcChipType(RCChipType.YEARS);
+//			rcChip.setNumbers((int) elapsedYears);
+//			return rcChip;
+//
+//		} else if (elapsedDays <= 90) {
+//
+//			rcChip.setRcChipType(RCChipType.DAYS);
+//			rcChip.setNumbers((int) elapsedDays);
+//			return rcChip;
+//
+//		} else if (elapsedDays > 90) {
+//
+//			Calendar startCal = Calendar.getInstance();
+//			startCal.setTime(startDate);
+//			Calendar endCal = Calendar.getInstance();
+//			endCal.setTime(endDate);
+//
+//			int monthPassed = 0;
+//
+//			while (startCal.compareTo(endCal) <= 0) {
+//				startCal.add(Calendar.MONTH, 1);
+//				monthPassed++;
+//			}
+//
+//			rcChip.setRcChipType(RCChipType.MONTH);
+//			rcChip.setNumbers((int) monthPassed);
+//			return rcChip;
+//
+//		} else {
+//			return rcChip;
+//		}
 
 	}
 }

@@ -37,7 +37,6 @@ public class ResetRecoverClockDialog extends Dialog implements
 
 		// super(context,R.style.PauseDialog);
 		super(context);
-		// TODO Auto-generated constructor stub
 		this.context = context;
 	}
 
@@ -45,7 +44,7 @@ public class ResetRecoverClockDialog extends Dialog implements
 			ResetRecoveryClockDialogListener listener, Calendar cal) {
 
 		this.recoveryClockDialogListener = listener;
-		this.calendar = cal;
+//		this.calendar = cal;
 
 		return this;
 	}
@@ -53,7 +52,6 @@ public class ResetRecoverClockDialog extends Dialog implements
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		this.getWindow().getAttributes().windowAnimations = R.style.PauseDialogAnimation;
@@ -66,9 +64,7 @@ public class ResetRecoverClockDialog extends Dialog implements
 			calendar = Calendar.getInstance();
 		}
 
-		
-
-		dateSelected =DateTimeUtils.calendarToDate(calendar);
+		dateSelected = DateTimeUtils.calendarToDate(calendar);
 
 		dpDB = (DatePicker) findViewById(R.id.dpDB);
 		dpDB.init(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH),

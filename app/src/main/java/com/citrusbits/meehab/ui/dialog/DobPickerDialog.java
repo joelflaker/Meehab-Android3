@@ -1,6 +1,7 @@
 package com.citrusbits.meehab.ui.dialog;
 
 import java.util.Calendar;
+import java.util.Date;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -36,7 +37,6 @@ public class DobPickerDialog extends Dialog implements
 
 		// super(context,R.style.PauseDialog);
 		super(context);
-		// TODO Auto-generated constructor stub
 		this.context = context;
 	}
 
@@ -59,7 +59,6 @@ public class DobPickerDialog extends Dialog implements
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		this.getWindow().getAttributes().windowAnimations = R.style.PauseDialogAnimation;
@@ -89,6 +88,7 @@ public class DobPickerDialog extends Dialog implements
 		dpDB.init(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH),
 				calendar.get(Calendar.DAY_OF_MONTH),
 				new MyOnDateChangedListener());
+		dpDB.setMaxDate(new Date().getTime());
 
 		findViewById(R.id.ibDone).setOnClickListener(this);
 		findViewById(R.id.ibCancel).setOnClickListener(this);

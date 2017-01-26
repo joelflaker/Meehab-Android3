@@ -337,7 +337,7 @@ public class ProfileSetupMoreActivity extends SocketActivity implements
 				// get Occupation
 				user.setAccupation(occupation);
 
-				if(TextUtils.isEmpty(occupation)) {
+				if(!TextUtils.isEmpty(occupation)) {
 					params.put("accupation", occupation);
 				}else {
 					Toast.makeText(this,

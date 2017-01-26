@@ -33,7 +33,6 @@ import com.citrusbits.meehab.ui.users.FriendsFilterActivity;
 import com.citrusbits.meehab.ui.meetings.MeetingsFilterActivity;
 import com.citrusbits.meehab.R;
 import com.citrusbits.meehab.adapters.NavDrawerListAdapter;
-import com.citrusbits.meehab.constants.Consts;
 import com.citrusbits.meehab.constants.EventParams;
 import com.citrusbits.meehab.db.UserDatasource;
 import com.citrusbits.meehab.ui.dialog.InsuranceDialog;
@@ -82,7 +81,7 @@ public class HomeActivity extends SocketActivity implements
 	private NavDrawerListAdapter adapter;
 	private Fragment mCurrentFragment;
 	private UserDatasource userDatasource;
-	private UserAccount user;
+	private UserAccount mUser;
 
 	ImageView ivUserIcon;
 	ImageView ivPictureBig;
@@ -96,7 +95,7 @@ public class HomeActivity extends SocketActivity implements
 		filter.addAction(ACTION_PROFILE_UPDATE);
 		this.registerReceiver(receiver, filter);
 		userDatasource = new UserDatasource(HomeActivity.this);
-		user = userDatasource.findUser(AccountUtils.getUserId(this));
+		mUser = userDatasource.findUser(AccountUtils.getUserId(this));
 
 		FacebookSdk.sdkInitialize(this.getApplicationContext());
 		setContentView(R.layout.activity_home);
@@ -165,17 +164,16 @@ public class HomeActivity extends SocketActivity implements
 
 	}
 
-	String userImage;
 
 	public void initUser() {
 		
-		if( user == null) return;
+		if(mUser == null) return;
 
-		userImage = user.getImage();
+		final String userImage = mUser.getImage();
 
 		TextView tvUserName = (TextView) findViewById(R.id.tvUserName);
 
-		tvUserName.setText(user.getUsername());
+		tvUserName.setText(mUser.getUsername());
 
 		if(!TextUtils.isEmpty(userImage)) {
 
@@ -229,6 +227,12 @@ public class HomeActivity extends SocketActivity implements
 			inputManager.hideSoftInputFromWindow(view.getWindowToken(),
 					InputMethodManager.HIDE_NOT_ALWAYS);
 		}
+
+		if(mUser == null) {
+			new LogoutHelper(HomeActivity.this)
+					.attemptLogout();
+			return;
+		}
 		isDrawerOpen = open;
 		if (open) {
 			drawer.openDrawer(rl);
@@ -258,12 +262,6 @@ public class HomeActivity extends SocketActivity implements
 	}
 
 	public void displayFragment(final int position) {
-
-		if(user == null){
-			new LogoutHelper(HomeActivity.this)
-			.attemptLogout();
-			return;
-		}
 
 		if (!isDrawderSkipPosition(position)) {
 			changeDrawerVisibility(false);
@@ -301,7 +299,7 @@ public class HomeActivity extends SocketActivity implements
 			// fragment = new RehabsFragment(this);
 			// setHomeTitle(position);
 			// editTopCenter.setHint(R.string.search_for_rehabs);
-			if(!TextUtils.isEmpty(user.getInsurance())){
+			if(!TextUtils.isEmpty(mUser.getInsurance())){
 				changeDrawerVisibility(false);
 				mCurrentFragment = new RehabsFragment();
 				fragmentManager
@@ -430,7 +428,7 @@ public class HomeActivity extends SocketActivity implements
 	}
 
 	/**
-	 * present user with sharing menu
+	 * present mUser with sharing menu
 	 */
 	private void presentShareList() {
 		final String[] options = { "By SMS", "By Email", "By Facebook",
@@ -586,7 +584,7 @@ public class HomeActivity extends SocketActivity implements
 					adapter.updateUnreadMessageCount();
 				}
 			} else if (intent.getAction().equals(ACTION_PROFILE_UPDATE)) {
-				user = userDatasource.findUser(AccountUtils
+				mUser = userDatasource.findUser(AccountUtils
 						.getUserId(HomeActivity.this));
 				initUser();
 			}

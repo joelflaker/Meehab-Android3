@@ -7,7 +7,6 @@ import com.google.gson.annotations.SerializedName;
 
 @SuppressWarnings("serial")
 public class UserAccount implements Serializable {
-
 	@SerializedName("about_story")
 	@Expose
 	private String aboutStory;

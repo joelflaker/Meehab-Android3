@@ -6,11 +6,13 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+import org.apache.http.client.utils.CloneUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -79,6 +81,7 @@ import com.citrusbits.meehab.utils.DeviceUtils;
 import com.citrusbits.meehab.utils.NetworkUtil;
 import com.citrusbits.meehab.utils.UploadImageUtility;
 import com.citrusbits.meehab.utils.UtilityClass;
+import com.google.gson.Gson;
 import com.soundcloud.android.crop.Crop;
 import com.squareup.picasso.Picasso;
 
@@ -139,8 +142,11 @@ public class EditMyProfileActivity extends SocketActivity implements
 		userDatasource = new UserDatasource(this);
 
 		mUser = userDatasource.findUser(AccountUtils.getUserId(this));
-		updateUser = new UserAccount();
-
+		if (mUser != null) {
+			Gson gson = new Gson();
+			updateUser = gson.fromJson(gson.toJson(mUser),UserAccount.class);
+			updateUser.setImage(null);
+		}
 		pd = UtilityClass.getProgressDialog(this);
 		// ui vars
 		findViewById(R.id.doneBtn).setOnClickListener(this);
@@ -317,8 +323,6 @@ public class EditMyProfileActivity extends SocketActivity implements
 
 						@Override
 						public void onCancelClick(WeightPickerDialog dialog) {
-							// TODO Auto-generated method stub
-
 							dialog.dismiss();
 
 						}
@@ -346,7 +350,6 @@ public class EditMyProfileActivity extends SocketActivity implements
 								@Override
 								public void onCancelClick(
 										SexualOrientationPickerDialog dialog) {
-									// TODO Auto-generated method stub
 									dialog.dismiss();
 								}
 							}, sexualOrientation).show();
@@ -585,8 +588,6 @@ public class EditMyProfileActivity extends SocketActivity implements
 										EditMyProfileActivity.this, 20))
 						.into(ivBlurBg);
 
-			} else {
-
 			}
 
 			if ("male".equals(mUser.getGender().toLowerCase())) {
@@ -652,12 +653,14 @@ public class EditMyProfileActivity extends SocketActivity implements
 			return;
 		} else {
 
+			if(mUser == null) return;
+
 			JSONObject params = new JSONObject();
 			try {
 
 				if (updateUser.getImage() != null) {
 					params.put("image", updateUser.getImage());
-				}else {
+				}else if (TextUtils.isEmpty(mUser.getImage())) {
 					Toast.makeText(this,
 							"Please select profile image!", Toast.LENGTH_SHORT).show();
 					return;
@@ -673,7 +676,7 @@ public class EditMyProfileActivity extends SocketActivity implements
 					if (genderOtherEdit.getText().toString().trim().length() > 0) {
 						genderString = genderOtherEdit.getText().toString();
 					} else {
-						genderString = "other";
+						genderString = "Other";
 					}
 				}
 				if (genderString != null) {
@@ -692,27 +695,11 @@ public class EditMyProfileActivity extends SocketActivity implements
 					return;
 				}
 
-				if (updateUser.getMaritalStatus() != null) {
+				if (!TextUtils.isEmpty(updateUser.getMaritalStatus())) {
 					params.put("marital_status", updateUser.getMaritalStatus());
 				}else {
 					Toast.makeText(this,
 							"Please select marital status!", Toast.LENGTH_SHORT).show();
-					return;
-				}
-
-				// about Story
-				if (aaStoryEdit.getText().toString().trim().length() > 0) {
-					// updatedUser.setAboutStory(aaStoryEdit.getText().toString());
-					params.put("about_story", aaStoryEdit.getText().toString());
-				}
-
-				String accupation = occupationEdit.getText().toString().trim();
-
-				if (!accupation.isEmpty()) {
-					params.put("accupation", accupation);
-				}else {
-					Toast.makeText(this,
-							"Please select occupation!", Toast.LENGTH_SHORT).show();
 					return;
 				}
 
@@ -730,7 +717,7 @@ public class EditMyProfileActivity extends SocketActivity implements
 							.toString();
 				}
 
-				if (interestString != null) {
+				if (!TextUtils.isEmpty(interestString)) {
 					params.put("intrested_in", interestString);
 				}else {
 					Toast.makeText(this,
@@ -738,15 +725,11 @@ public class EditMyProfileActivity extends SocketActivity implements
 					return;
 				}
 
-				// willing_sponsor
-				// if (sponserToggle.isChecked()) {
-				// updatedUser.setAboutStory(aaStoryEdit.getText().toString());
-				params.put("willing_sponsor", sponserToggle.isChecked() ? "Yes"
-						: "No");
-				// }
-
-				// Toast.makeText(this, itemName,
-				// Toast.LENGTH_SHORT).show();
+				// about Story
+				if (aaStoryEdit.getText().toString().trim().length() > 0) {
+					// updatedUser.setAboutStory(aaStoryEdit.getText().toString());
+					params.put("about_story", aaStoryEdit.getText().toString());
+				}
 
 				// update fields
 				// height
@@ -760,13 +743,31 @@ public class EditMyProfileActivity extends SocketActivity implements
 				// weight
 				if (updateUser.getWeight() != null) {
 					params.put("weight", updateUser.getWeight());
-				}else {
+				}else if (TextUtils.isEmpty(mUser.getWeight())){
 					Toast.makeText(this,
 							"Please select weight!", Toast.LENGTH_SHORT).show();
 					return;
 				}
+
+				String accupation = occupationEdit.getText().toString().trim();
+
+				if (!accupation.isEmpty()) {
+					params.put("accupation", accupation);
+				}else {
+					Toast.makeText(this,
+							"Please select occupation!", Toast.LENGTH_SHORT).show();
+					return;
+				}
+
+				// willing_sponsor
+				// if (sponserToggle.isChecked()) {
+				// updatedUser.setAboutStory(aaStoryEdit.getText().toString());
+				params.put("willing_sponsor", sponserToggle.isChecked() ? "Yes"
+						: "No");
+				// }
+
 				// sexual_orientation
-				if (updateUser.getSexualOrientation() != null) {
+				if (!TextUtils.isEmpty(updateUser.getSexualOrientation())) {
 					params.put("sexual_orientation",
 							updateUser.getSexualOrientation());
 				}else {
@@ -775,24 +776,19 @@ public class EditMyProfileActivity extends SocketActivity implements
 					return;
 				}
 
-				// get Occupation
-				if (updateUser.getWeight() != null) {
-					params.put("weight", updateUser.getWeight());
-				}
-
 				// getEthnicity
-				if (updateUser.getEthnicity() != null) {
+				if (!TextUtils.isEmpty(updateUser.getEthnicity())) {
 					params.put("ethnicity", updateUser.getEthnicity());
-				}else {
+				}else{
 					Toast.makeText(this,
 							"Please enter ethnicity!", Toast.LENGTH_SHORT).show();
 					return;
 				}
 
 				// sober date
-				if (updateUser.getSoberSence() != null) {
+				if (!TextUtils.isEmpty(updateUser.getSoberSence())) {
 					params.put("sober_sence", updateUser.getSoberSence());
-				}else {
+				}else{
 					Toast.makeText(this,
 							"Please select sober date!", Toast.LENGTH_SHORT).show();
 					return;
@@ -870,8 +866,10 @@ public class EditMyProfileActivity extends SocketActivity implements
 	 */
 	private void presentDobPicker() {
 		final Calendar now = Calendar.getInstance();
-		new DatePickerDialog(this, mDateSetListener, now.get(Calendar.YEAR),
-				now.get(Calendar.MONTH), now.get(Calendar.DAY_OF_MONTH)).show();
+		DatePickerDialog datePickerDialog = new DatePickerDialog(this, mDateSetListener, now.get(Calendar.YEAR),
+				now.get(Calendar.MONTH), now.get(Calendar.DAY_OF_MONTH));
+		datePickerDialog.getDatePicker().setMaxDate(new Date().getTime());
+		datePickerDialog.show();
 
 	}
 

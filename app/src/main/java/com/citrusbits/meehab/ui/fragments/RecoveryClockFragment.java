@@ -2,6 +2,7 @@ package com.citrusbits.meehab.ui.fragments;
 
 import java.util.Calendar;
 
+import org.joda.time.Period;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -96,7 +97,7 @@ public class RecoveryClockFragment extends Fragment implements OnClickListener,
 		mDateSelected = soberDate;
 		tvSoberDate.setText(RecoverClockDateUtils
 				.getDateWithMonthName(soberDate));
-		RCChip chip = RecoverClockDateUtils.getRcpChip(soberDate);
+		Period chip = RecoverClockDateUtils.getRcpChip(soberDate);
 
 		tvSoberDateList.setText(RecoverClockDateUtils.getSoberDifference(
 				soberDate, false, getActivity()));
@@ -167,7 +168,7 @@ public class RecoveryClockFragment extends Fragment implements OnClickListener,
 															false,
 															getActivity()));
 
-									RCChip chip = RecoverClockDateUtils
+									Period chip = RecoverClockDateUtils
 											.getRcpChip(dateSelected);
 
 									setChip(chip);
@@ -195,82 +196,50 @@ public class RecoveryClockFragment extends Fragment implements OnClickListener,
 		pd = null;
 	}
 
-	public void setChip(RCChip chip) {
-		int number = chip.getNumbers();
+	public void setChip(Period chip) {
+//		int number = chip.getNumbers();
 		tvChipCounter.setVisibility(View.GONE);
 
 		Log.e("Selected Date ", mDateSelected);
 		Calendar cal = RecoverClockDateUtils
 				.getCalendarFromDayMonthYear(mDateSelected);
-		
-		if(cal == null){ return; }
 
+		if(cal == null || chip == null){ return; }
 		Log.e("Calendar Date ", cal + " Cal");
 
-		switch (chip.getRcChipType()) {
-		case DAYS:
-
-			Log.e("Days ", chip.getNumbers() + "");
-
-			if (number >= 90) {
-				ivChip.setImageResource(R.drawable.sober_chips_90_days);
-
-				cal.add(Calendar.DAY_OF_MONTH, 180);
-				tvNextChipDate.setText(RecoverClockDateUtils
-						.getDateWithMonthNameNextChip(cal.getTime()));
-
-			} else if (number >= 60 && number <= 89) {
-				ivChip.setImageResource(R.drawable.sober_chips_60_days);
-				cal.add(Calendar.DAY_OF_MONTH, 90);
-				tvNextChipDate.setText(RecoverClockDateUtils
-						.getDateWithMonthNameNextChip(cal.getTime()));
-			} else if (number >= 30 && number <= 59) {
-				ivChip.setImageResource(R.drawable.sober_chips_30_days);
-				cal.add(Calendar.DAY_OF_MONTH, 60);
-				tvNextChipDate.setText(RecoverClockDateUtils
-						.getDateWithMonthNameNextChip(cal.getTime()));
-			} else {
-				ivChip.setImageResource(R.drawable.sober_chips_welcome);
-				cal.add(Calendar.DAY_OF_MONTH, 30);
-				tvNextChipDate.setText(RecoverClockDateUtils
-						.getDateWithMonthNameNextChip(cal.getTime()));
-			}
-			break;
-		case MONTH:
-			if (number >= 9) {
-				ivChip.setImageResource(R.drawable.sober_chips_9_months);
-
-				cal.add(Calendar.YEAR, 1);
-				tvNextChipDate.setText(RecoverClockDateUtils
-						.getDateWithMonthNameNextChip(cal.getTime()));
-
-			} else if (number >= 6 && number < 9) {
-				ivChip.setImageResource(R.drawable.sober_chips_6_months);
-
-				cal.add(Calendar.MONTH, 9);
-				tvNextChipDate.setText(RecoverClockDateUtils
-						.getDateWithMonthNameNextChip(cal.getTime()));
-
-			} else if (number >= 3 && number < 6) {
-				ivChip.setImageResource(R.drawable.sober_chips_90_days);
-				cal.add(Calendar.MONTH, 6);
-				tvNextChipDate.setText(RecoverClockDateUtils
-						.getDateWithMonthNameNextChip(cal.getTime()));
-			}
-			Log.e("Month ", chip.getNumbers() + "");
-			break;
-		case YEARS:
-
-			Log.e("Years ", chip.getNumbers() + "");
+		if(chip.getYears() > 0){
+			Log.e("Years ", chip.getYears() + "");
 			tvChipCounter.setVisibility(View.VISIBLE);
 			ivChip.setImageResource(R.drawable.sober_chips_53_years);
-			tvChipCounter.setText(String.valueOf(number));
+			tvChipCounter.setText(String.valueOf(chip.getYears()));
 
-			cal.add(Calendar.YEAR, 1 + number);
-			tvNextChipDate.setText(RecoverClockDateUtils
-					.getDateWithMonthNameNextChip(cal.getTime()));
+			cal.add(Calendar.YEAR, 1);
+		}else if(chip.getMonths() > 0) {
+			Log.e("Month ", chip.getMonths()+ "");
+			if (chip.getMonths() >= 9) {
+				ivChip.setImageResource(R.drawable.sober_chips_9_months);
+				cal.add(Calendar.YEAR, 3);
+			} else if (chip.getMonths() >= 6) {
+				ivChip.setImageResource(R.drawable.sober_chips_6_months);
+				cal.add(Calendar.MONTH, 3);
+			} else if (chip.getMonths() >= 3) {
+				ivChip.setImageResource(R.drawable.sober_chips_90_days);
+				cal.add(Calendar.MONTH, 3);
+			} else if (chip.getMonths() >= 2) {
+				ivChip.setImageResource(R.drawable.sober_chips_60_days);
+				cal.add(Calendar.MONTH, 1);
+			}else if (chip.getMonths() >= 1) {
+				ivChip.setImageResource(R.drawable.sober_chips_30_days);
+				cal.add(Calendar.MONTH, 1);
+			}
+		}else {
+			Log.e("Days ", chip.getDays() + "");
 
+			ivChip.setImageResource(R.drawable.sober_chips_welcome);
+			cal.add(Calendar.DAY_OF_MONTH, 30);
 		}
+		tvNextChipDate.setText(RecoverClockDateUtils
+				.getDateWithMonthNameNextChip(cal.getTime()));
 	}
 
 	public void updateProfile(String soberDate) {

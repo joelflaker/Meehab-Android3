@@ -44,6 +44,7 @@ public class ContactSyncService extends Service {
 
 	public static final int CONTACT_SERVICE_NOTIFICATION_ID = 42;
 	public static final long THREASHHOLD_TIME = 2000; // ms
+	private static final String TAG = "ContactSyncService";
 
 	MyObserver contactObserver;
 
@@ -134,8 +135,7 @@ public class ContactSyncService extends Service {
 			long currentTime = System.currentTimeMillis();
 			if ((currentTime - prevTime) > THREASHHOLD_TIME) {
 
-				Log.e("Threashhold time diff is ",
-						String.valueOf(currentTime - prevTime));
+				Log.e(TAG,"Threashhold time diff is "+String.valueOf(currentTime - prevTime));
 				prevTime = currentTime;
 
 				List<DeviceContact> storedContacts = dbHandler.getAllContacts();
@@ -143,8 +143,9 @@ public class ContactSyncService extends Service {
 						.getPhoneContacts();
 
 				if (deviceContacts.size() > storedContacts.size()) {
-					Toast.makeText(ContactSyncService.this,
-							"Contact is added!", Toast.LENGTH_SHORT).show();
+//					Toast.makeText(ContactSyncService.this,
+//							"Contact is added!", Toast.LENGTH_SHORT).show();
+					Log.e(TAG,"Device Contact added");
 					for (int i = 0; i < deviceContacts.size(); i++) {
 						DeviceContact deviceContact = deviceContacts.get(i);
 						boolean contactPresent = false;
