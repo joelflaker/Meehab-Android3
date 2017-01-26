@@ -213,30 +213,30 @@ public class RecoveryClockFragment extends Fragment implements OnClickListener,
 			ivChip.setImageResource(R.drawable.sober_chips_53_years);
 			tvChipCounter.setText(String.valueOf(chip.getYears()));
 
-			cal.add(Calendar.YEAR, 1);
+			cal.add(Calendar.YEAR, chip.getYears() + 1);
 		}else if(chip.getMonths() > 0) {
 			Log.e("Month ", chip.getMonths()+ "");
 			if (chip.getMonths() >= 9) {
 				ivChip.setImageResource(R.drawable.sober_chips_9_months);
-				cal.add(Calendar.YEAR, 3);
+				cal.add(Calendar.YEAR, chip.getMonths() + 3);
 			} else if (chip.getMonths() >= 6) {
 				ivChip.setImageResource(R.drawable.sober_chips_6_months);
-				cal.add(Calendar.MONTH, 3);
+				cal.add(Calendar.MONTH, chip.getMonths() + 3);
 			} else if (chip.getMonths() >= 3) {
 				ivChip.setImageResource(R.drawable.sober_chips_90_days);
-				cal.add(Calendar.MONTH, 3);
+				cal.add(Calendar.MONTH, chip.getMonths() + 3);
 			} else if (chip.getMonths() >= 2) {
 				ivChip.setImageResource(R.drawable.sober_chips_60_days);
-				cal.add(Calendar.MONTH, 1);
+				cal.add(Calendar.MONTH, chip.getMonths() + 1);
 			}else if (chip.getMonths() >= 1) {
 				ivChip.setImageResource(R.drawable.sober_chips_30_days);
-				cal.add(Calendar.MONTH, 1);
+				cal.add(Calendar.MONTH, chip.getMonths() + 1);
 			}
 		}else {
 			Log.e("Days ", chip.getDays() + "");
 
 			ivChip.setImageResource(R.drawable.sober_chips_welcome);
-			cal.add(Calendar.DAY_OF_MONTH, 30);
+			cal.add(Calendar.MONTH, 1);
 		}
 		tvNextChipDate.setText(RecoverClockDateUtils
 				.getDateWithMonthNameNextChip(cal.getTime()));

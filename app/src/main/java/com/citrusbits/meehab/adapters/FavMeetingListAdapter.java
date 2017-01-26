@@ -146,7 +146,7 @@ public class FavMeetingListAdapter extends ArrayAdapter<MeetingModel> {
 			public void onCheckedChanged(CompoundButton buttonView,
 					boolean isChecked) {
 				m.setChecked(isChecked);
-				arrayList.get(position).setChecked(isChecked);
+				allRehabs.get(position).setChecked(isChecked);
 			}
 		});*/
 

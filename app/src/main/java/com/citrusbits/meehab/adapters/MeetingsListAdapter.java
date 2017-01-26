@@ -173,7 +173,7 @@ public class MeetingsListAdapter extends ArrayAdapter<MeetingModel> {
 		meetings.clear();
 
 		/*
-		 * if (charText.length() == 0) { meetings.addAll(arrayList); //
+		 * if (charText.length() == 0) { meetings.addAll(allRehabs); //
 		 * Collections.sort(contactList, new ContactsComparator());
 		 * 
 		 * } else {

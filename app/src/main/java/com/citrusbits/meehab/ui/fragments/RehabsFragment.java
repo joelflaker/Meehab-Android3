@@ -325,7 +325,7 @@ public class RehabsFragment extends Fragment implements
 //		BitmapDescriptor icon = BitmapDescriptorFactory
 //				.fromResource(R.drawable.pin);
 		// add marker
-		List<RehabModel> rehabs = rehabResponse.getInsuranceRehabs();
+		List<RehabModel> rehabs = rehabAdapter.getRehabs();
 		for (int i = 0; i < rehabs.size(); i++) {
 			RehabModel rehab = rehabs.get(i);
 			// Creating an instance of MarkerOptions to set position

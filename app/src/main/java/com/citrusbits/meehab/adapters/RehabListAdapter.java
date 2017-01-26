@@ -25,7 +25,8 @@ public class RehabListAdapter extends ArrayAdapter<RehabModel> {
 	// arraylists
 	List<RehabModel> rehabs;
 
-	List<RehabModel> arrayList = new ArrayList<>();
+	List<RehabModel> allRehabs;
+	List<RehabModel> filteredRehabs = new ArrayList<>();
 
 	// context
 	Context mContext;
@@ -35,15 +36,21 @@ public class RehabListAdapter extends ArrayAdapter<RehabModel> {
 	private RehabResponseModel rehabResponse;
 
 	public RehabListAdapter(Context c, int resource, RehabResponseModel rrm) {
-		super(c, resource, rrm.getInsuranceRehabs());
+		super(c, resource);
 		mContext = c;
 		this.rehabResponse = rrm;
-		rehabs = rrm.getInsuranceRehabs();
-		arrayList.clear();
-		arrayList.addAll(rehabs);
+		rehabs = new ArrayList<>(rrm.getInsuranceRehabs());
+		filteredRehabs.clear();
+		filteredRehabs.addAll(rehabs);
+		allRehabs = rrm.getRehabs();
 
 		inflater = (LayoutInflater) mContext
 				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+	}
+
+	@Override
+	public int getCount() {
+		return rehabs.size();
 	}
 
 	public List<RehabModel> getRehabs() {
@@ -113,18 +120,18 @@ public class RehabListAdapter extends ArrayAdapter<RehabModel> {
 	public void filter(String charText) {
 		charText = charText.toLowerCase();
 		rehabs.clear();
-//		Log.e("ArrayList Size ","Size "+arrayList.size());
-		for (RehabModel wp : arrayList) {
+//		Log.e("ArrayList Size ","Size "+allRehabs.size());
+		for (RehabModel wp : filteredRehabs) {
 			Log.e("Name ", wp.getName());
-			
+
 			if (wp.getName().toLowerCase()
 					.contains(charText)) {
 				rehabs.add(wp);
 
 			}
 		}
-		
-		
+
+
 		// }
 		// Collections.sort(contactList, new MeetingComparator());
 		notifyDataSetChanged();
@@ -132,6 +139,7 @@ public class RehabListAdapter extends ArrayAdapter<RehabModel> {
 
 	public void filter(RehaabFilterResultHolder resultHolder) {
 		rehabs.clear();
+		filteredRehabs.clear();
 
 		//scanning for rehab type
 //		List<String> typesOrigion = resultHolder.getRehabType();
@@ -149,7 +157,7 @@ public class RehabListAdapter extends ArrayAdapter<RehabModel> {
 				R.array.rehab_facility_arr));
 
 		int k = 0;
-		for (RehabModel wp : arrayList) {
+		for (RehabModel wp : allRehabs) {
 
 			String zipCode = wp.getZipCode();
 			double miles = wp.getDistance();
@@ -205,6 +213,7 @@ public class RehabListAdapter extends ArrayAdapter<RehabModel> {
 
 			if (isStatuMatch && iszipCode && isDistance && isTypeMatch && isInsuracesMatch) {
 				rehabs.add(wp);
+				filteredRehabs.add(wp);
 			}
 
 			k++;
@@ -246,7 +255,9 @@ public class RehabListAdapter extends ArrayAdapter<RehabModel> {
 
 	public void clearFilters() {
 		rehabs.clear();
-		rehabs.addAll(arrayList);
+		rehabs.addAll(rehabResponse.getInsuranceRehabs());
+		filteredRehabs.clear();
+		filteredRehabs.addAll(rehabs);
 		notifyDataSetChanged();
 	}
 

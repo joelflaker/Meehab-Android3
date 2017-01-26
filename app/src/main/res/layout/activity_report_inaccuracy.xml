@@ -42,7 +42,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@null"
-            android:gravity="left|top"
+            android:gravity="center_horizontal"
             android:hint="@string/please_explain_the_inaccuracy"
             android:inputType="textCapSentences|textMultiLine"
             android:maxLength="250"

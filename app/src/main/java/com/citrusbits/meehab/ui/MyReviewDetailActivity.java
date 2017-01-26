@@ -99,6 +99,9 @@ public class MyReviewDetailActivity extends SocketActivity implements
 				@Override
 				public void onClick(View v) {
 					MeetingReviewModel review = (MeetingReviewModel) v.getTag();
+
+					if(AccountUtils.getUserId(MyReviewDetailActivity.this) == review.getUserId()) return;
+
 					pd.show();
 					socketService.getUserById(review.getUserId());
 				}
