@@ -251,73 +251,12 @@ public class FriendsFragment extends Fragment implements
 
 				FriendFilterResultHolder fFilterResultHolder = (FriendFilterResultHolder) data
 						.getSerializableExtra(EXTRA_FILTER_RESULT);
-				this.fFilterResultHolder = fFilterResultHolder;
-				boolean onlineNowFilter = fFilterResultHolder.isOnlineNow();
-				boolean willingToSponsorFilter = fFilterResultHolder
-						.isWillingToSponsor();
-				boolean hasKidsFilter = fFilterResultHolder.isHasKids();
-				userAccounts.clear();
-
-				for (UserAccount user : userAccountsCache) {
-
-					Log.e("willing to sponser", user.getWillingSponsor());
-					boolean userOnline = user.getCheckinType().equals("online");
-					boolean userWillingToSponser = !user.getWillingSponsor()
-							.toLowerCase().equals("no");
-					// boolean userHaskids =
-					// !user.getHaveKids().equals("no")||!user.getHaveKids().isEmpty();
-
-					boolean userHaskids = user.getHaveKids().toLowerCase()
-							.equals("yes");
-
-					boolean onlineSatisfy = satisfyFilter(onlineNowFilter,
-							userOnline);
-					boolean willingToSponserSatisfy = satisfyFilter(
-							willingToSponsorFilter, userWillingToSponser);
-
-					boolean hasKidsSatisfy = satisfyFilter(hasKidsFilter,
-							userHaskids);
-
-					boolean hasFavSatisfy = favoriteStatusfySatisfy(user,
-							fFilterResultHolder);
-
-					boolean isGenderSatisfy = genderSatisfy(user,
-							fFilterResultHolder);
-
-					boolean isSatisfyAge = satisfyAge(user, fFilterResultHolder);
-
-					boolean isEthenticity = ethenticitySatisfy(user,
-							fFilterResultHolder);
-
-					boolean isMaritalStatus = MaritalStatusSatisfy(user,
-							fFilterResultHolder);
-
-					boolean isInterestedIn = interestedInSatisfy(user,
-							fFilterResultHolder);
-
-					boolean isTimeToSobar = satisfyTimeSobar(user,
-							fFilterResultHolder);
-
-					boolean isHeight = satisfyHeight(user, fFilterResultHolder);
-
-					boolean isWeight = satisfyWeight(user, fFilterResultHolder);
-
-					if (onlineSatisfy && willingToSponserSatisfy
-							&& hasKidsSatisfy && isGenderSatisfy
-							&& isSatisfyAge && isEthenticity && isMaritalStatus
-							&& isInterestedIn && isTimeToSobar && isHeight
-							&& isWeight && hasFavSatisfy) {
-						userAccounts.add(user);
-					}
-
-				}
+				applyFilter(fFilterResultHolder);
 				
 				friendsGridAdapter.notifyDataSetChanged();
 				friendsListAdapter.notifyDataSetChanged();
 				
 				updateEmptyViewVisibility();
-
-				// boolean friendTypeon
 
 			} else if (requestCode == DETAIL_REQUEST) {
 				if (mAccountPosition != -1) {
@@ -330,9 +269,7 @@ public class FriendsFragment extends Fragment implements
 						userAccounts.addAll(userAccountsCache);
 						friendsGridAdapter.notifyDataSetChanged();
 						friendsListAdapter.notifyDataSetChanged();
-					}
-
-					else if (userAccount.isFavourite() != userAccountsCache
+					}else if (userAccount.isFavourite() != userAccountsCache
 							.get(mAccountPosition).isFavourite()) {
 						userAccountsCache.set(mAccountPosition, userAccount);
 						userAccounts.clear();
@@ -340,7 +277,7 @@ public class FriendsFragment extends Fragment implements
 						friendsGridAdapter.notifyDataSetChanged();
 						friendsListAdapter.notifyDataSetChanged();
 					}
-
+					applyFilter(fFilterResultHolder);
 				}
 			}
 		} else if (resultCode == FriendsFilterActivity.CLEAR_FRIEND_FILTER) {
@@ -374,16 +311,19 @@ public class FriendsFragment extends Fragment implements
 			boolean userHaskids = user.getHaveKids().toLowerCase()
 					.equals("yes");
 
-			boolean onlineSatisfy = satisfyFilter(onlineNowFilter, userOnline);
+			boolean onlineSatisfy = satisfyFilter(onlineNowFilter,
+					userOnline);
 			boolean willingToSponserSatisfy = satisfyFilter(
 					willingToSponsorFilter, userWillingToSponser);
 
-			boolean hasKidsSatisfy = satisfyFilter(hasKidsFilter, userHaskids);
+			boolean hasKidsSatisfy = satisfyFilter(hasKidsFilter,
+					userHaskids);
 
 			boolean hasFavSatisfy = favoriteStatusfySatisfy(user,
 					fFilterResultHolder);
 
-			boolean isGenderSatisfy = genderSatisfy(user, fFilterResultHolder);
+			boolean isGenderSatisfy = genderSatisfy(user,
+					fFilterResultHolder);
 
 			boolean isSatisfyAge = satisfyAge(user, fFilterResultHolder);
 
@@ -396,22 +336,22 @@ public class FriendsFragment extends Fragment implements
 			boolean isInterestedIn = interestedInSatisfy(user,
 					fFilterResultHolder);
 
-			boolean isTimeToSobar = satisfyTimeSobar(user, fFilterResultHolder);
+			boolean isTimeToSobar = satisfyTimeSobar(user,
+					fFilterResultHolder);
 
 			boolean isHeight = satisfyHeight(user, fFilterResultHolder);
 
 			boolean isWeight = satisfyWeight(user, fFilterResultHolder);
 
-			if (onlineSatisfy && willingToSponserSatisfy && hasKidsSatisfy
-					&& isGenderSatisfy && isSatisfyAge && isEthenticity
-					&& isMaritalStatus && isInterestedIn && isTimeToSobar
-					&& isHeight && isWeight && hasFavSatisfy) {
+			if (onlineSatisfy && willingToSponserSatisfy
+					&& hasKidsSatisfy && isGenderSatisfy
+					&& isSatisfyAge && isEthenticity && isMaritalStatus
+					&& isInterestedIn && isTimeToSobar && isHeight
+					&& isWeight && hasFavSatisfy) {
 				userAccounts.add(user);
 			}
 
 		}
-
-		// boolean friendTypeon
 
 	}
 

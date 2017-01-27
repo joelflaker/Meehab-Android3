@@ -307,15 +307,6 @@ public class RehabsFragment extends Fragment implements
 		rehabAdapter.filter(text);
 	}
 
-	protected void filterMeetings() {
-
-		// meetingsAdapter.filter(text);
-
-	}
-
-	/**
-* 
-*/
 	protected void addMarkers() {
 		if(map == null) return;
 		
@@ -439,13 +430,11 @@ public class RehabsFragment extends Fragment implements
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position,
 			long id) {
-		Intent intent = new Intent(getActivity(), RehabDetailsActivity.class);
-		Bundle bundle = new Bundle();
-		
 		mReqPosition = position;
 
-		bundle.putSerializable(RehabDetailsActivity.KEY_REHAB, rehabResponse.getRehabModel(position));
-		intent.putExtras(bundle);
+		RehabModel rehab = rehabAdapter.getItem(position);
+		Intent intent = new Intent(getActivity(), RehabDetailsActivity.class);
+		intent.putExtra(RehabDetailsActivity.KEY_REHAB, rehab);
 
 		startActivityForResult(intent, REQUEST_REHAB_DETAILS);
 		getActivity().overridePendingTransition(R.anim.activity_back_in,
@@ -591,19 +580,10 @@ public class RehabsFragment extends Fragment implements
 				if (mReqPosition != -1) {
 
 					if(data.hasExtra("isfav")){
-					boolean isFav =  data.getBooleanExtra("isfav",false);
-					
-						rehabResponse.getRehabModel(mReqPosition).setFavorite(isFav);
+						boolean isFav =  data.getBooleanExtra("isfav",false);
+						rehabAdapter.getItem(mReqPosition).setFavorite(isFav);
+//						rehabAdapter.notifyDataSetChanged();
 					}
-
-//					if (m.getCheckInMeeting() == 1) {
-//						unCheckAllMeetings();
-//					}
-//					meetingsAdapter.setMeeting(mReqPosition, m);
-//					// meetings.set(mReqPosition, m);
-//					setMeetingModel(m);
-					// makeListVisible();
-
 				}
 			}
 		}else if (resultCode == RehabsFilterActivity.CLEAR_FILTER) {

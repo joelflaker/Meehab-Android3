@@ -33,6 +33,7 @@ public class ChangeEmailActivity extends SocketActivity implements
 	private Button btnSave;
 	private EditText etEmail;
 	private TextView textResponse;
+	private String mPreviousEmail;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +56,7 @@ public class ChangeEmailActivity extends SocketActivity implements
 				.getUserId(this));
 
 		etEmail = (EditText) findViewById(R.id.etEmail);
+		mPreviousEmail = mUser.getEmail();
 		etEmail.setText(mUser.getEmail());
 
 		btnSave = (Button) findViewById(R.id.btnSave);
@@ -98,11 +100,19 @@ public class ChangeEmailActivity extends SocketActivity implements
 	public void onClick(View v) {
 
 		if (v.getId() == R.id.btnSave) {
+
+			//if no change in email
+			if(etEmail.getText().toString().equals(mPreviousEmail)) {
+				textResponse.setText("Same as current email!");
+				textResponse.setTextColor(Color.RED);
+				return;
+			}
+
 			new PasswordConfirmationDialog(this,getString(R.string.change_email_password_confirmation_)).setConfirmationListener(
 					new PasswordConfirmationDialog.PasswordConfirmationDialogClickListener() {
 
 						@Override
-						public void onDeleteClick(String password, PasswordConfirmationDialog dialog) {
+						public void onOkClick(String password, PasswordConfirmationDialog dialog) {
 							dialog.dismiss();
 							if(NetworkUtil.isConnected(ChangeEmailActivity.this)) {
 								attempChangeEmail();
@@ -141,7 +151,7 @@ public class ChangeEmailActivity extends SocketActivity implements
 			return;
 		}
 
-		String emailString = etEmail.getText().toString();
+		String emailString = etEmail.getText().toString().trim();
 		JSONObject params = new JSONObject();
 		try {
 			// Toast.makeText(this, itemName,
@@ -175,6 +185,7 @@ public class ChangeEmailActivity extends SocketActivity implements
 		if(event.equals(EventParams.EVENT_USER_UPDATE)){
 			textResponse.setText(R.string.email_has_been_changed);
 			textResponse.setTextColor(Color.GREEN);
+			mPreviousEmail = etEmail.getText().toString().trim();
 		}
 //		onBackPressed();
 

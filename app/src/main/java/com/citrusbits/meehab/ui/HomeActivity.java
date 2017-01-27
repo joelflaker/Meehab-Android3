@@ -299,6 +299,7 @@ public class HomeActivity extends SocketActivity implements
 			// fragment = new RehabsFragment(this);
 			// setHomeTitle(position);
 			// editTopCenter.setHint(R.string.search_for_rehabs);
+			mUser = userDatasource.findUser(AccountUtils.getUserId(this));
 			if(!TextUtils.isEmpty(mUser.getInsurance())){
 				changeDrawerVisibility(false);
 				mCurrentFragment = new RehabsFragment();

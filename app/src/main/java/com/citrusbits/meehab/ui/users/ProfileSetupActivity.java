@@ -168,13 +168,21 @@ public class ProfileSetupActivity extends SocketActivity implements
 		femaleBtn.setOnClickListener(onToggleClickListener);
 		otherBtn.setOnClickListener(onToggleClickListener);
 
-		if (App.getInstance().globleBitmap != null) {
-			profilePic.setImageBitmap(App.getInstance().globleBitmap);
+		if (newbitmap != null) {
 			ByteArrayOutputStream output = new ByteArrayOutputStream();
 			newbitmap.compress(CompressFormat.PNG, 100, output);
 			byte[] byteArray = output.toByteArray();
 			user.setImage(EventParams.BASE64_IMAGE_PNG_STRING
 					+ Base64.encodeToString(byteArray, Base64.NO_WRAP));
+
+			Bitmap circularBitamp = new PicassoCircularTransform()
+					.transform(newbitmap.copy(Bitmap.Config.ARGB_8888,false));
+
+			Bitmap blurBitmap = new PicassoBlurTransform(
+					ProfileSetupActivity.this, 20).transform(newbitmap);
+
+			ivBlurBg.setImageBitmap(blurBitmap);
+			profilePic.setImageBitmap(circularBitamp);
 		}
 
 		ivBlurBg = (ImageView) findViewById(R.id.ivBlurBg);
@@ -211,6 +219,12 @@ public class ProfileSetupActivity extends SocketActivity implements
 			topCenterText.setText(mUser.getUsername());
 		}
 
+	}
+
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		App.getInstance().globleBitmap = null;
 	}
 
 	OnClickListener onToggleClickListener = new OnClickListener() {
@@ -628,29 +642,25 @@ public class ProfileSetupActivity extends SocketActivity implements
 				newbitmap = fixRotation((Uri) data
 						.getParcelableExtra(MediaStore.EXTRA_OUTPUT));
 
-				Bitmap circularBitamp = new PicassoCircularTransform()
-						.transform(newbitmap.copy(Bitmap.Config.ARGB_8888,false));
-
-				Bitmap blurBitmap = new PicassoBlurTransform(
-						ProfileSetupActivity.this, 20).transform(newbitmap.copy(Bitmap.Config.ARGB_8888,false));
-
-				ivBlurBg.setImageBitmap(blurBitmap);
-				profilePic.setImageBitmap(circularBitamp);
-
 				file.delete();
 				try {
 					ByteArrayOutputStream output = new ByteArrayOutputStream();
 					newbitmap.compress(CompressFormat.PNG, 100, output);
-					newbitmap.recycle();
 					byte[] byteArray = output.toByteArray();
 					user.setImage(EventParams.BASE64_IMAGE_PNG_STRING
 							+ Base64.encodeToString(byteArray, Base64.NO_WRAP));
-					byteArray = null;
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
-				// image to Base64 string
 
+				Bitmap blurBitmap = new PicassoBlurTransform(
+						ProfileSetupActivity.this, 20).transform(newbitmap.copy(Bitmap.Config.ARGB_8888,false));
+
+				Bitmap circularBitamp = new PicassoCircularTransform()
+						.transform(newbitmap);
+
+				ivBlurBg.setImageBitmap(blurBitmap);
+				profilePic.setImageBitmap(circularBitamp);
 			}
 		}
 	}

@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import android.content.Context;
+import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -51,6 +52,12 @@ public class RehabListAdapter extends ArrayAdapter<RehabModel> {
 	@Override
 	public int getCount() {
 		return rehabs.size();
+	}
+
+	@Nullable
+	@Override
+	public RehabModel getItem(int position) {
+		return rehabs.get(position);
 	}
 
 	public List<RehabModel> getRehabs() {

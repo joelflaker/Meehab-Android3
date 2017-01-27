@@ -594,7 +594,7 @@ public class EditMyProfileActivity extends SocketActivity implements
 				maleBtn.setChecked(true);
 			} else if ("female".equals(mUser.getGender().toLowerCase())) {
 				femaleBtn.setChecked(true);
-			} else {
+			} else if (!TextUtils.isEmpty(mUser.getGender())) {
 				otherBtn.setChecked(true);
 				llOther.setVisibility(View.VISIBLE);
 				genderOtherEdit.setText(""+mUser.getGender());
@@ -667,17 +667,17 @@ public class EditMyProfileActivity extends SocketActivity implements
 				}
 
 				// gender
-				String genderString = null;
+				String genderString = "";
 				if (maleBtn.isChecked()) {
 					genderString = "Male";
 				} else if (femaleBtn.isChecked()) {
 					genderString = "Female";
 				} else if (otherBtn.isChecked()) {
-					if (genderOtherEdit.getText().toString().trim().length() > 0) {
+//					if (genderOtherEdit.getText().toString().trim().length() > 0) {
 						genderString = genderOtherEdit.getText().toString();
-					} else {
-						genderString = "Other";
-					}
+//					} else {
+//						genderString = "";
+//					}
 				}
 				if (genderString != null) {
 					params.put("gender", genderString);
@@ -719,11 +719,11 @@ public class EditMyProfileActivity extends SocketActivity implements
 
 				if (!TextUtils.isEmpty(interestString)) {
 					params.put("intrested_in", interestString);
-				}else {
+				}/*else {
 					Toast.makeText(this,
 							"Please select interested in!", Toast.LENGTH_SHORT).show();
 					return;
-				}
+				}*/
 
 				// about Story
 				if (aaStoryEdit.getText().toString().trim().length() > 0) {

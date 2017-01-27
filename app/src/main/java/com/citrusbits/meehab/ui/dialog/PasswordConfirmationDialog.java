@@ -7,9 +7,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.citrusbits.meehab.R;
@@ -74,7 +72,7 @@ public class PasswordConfirmationDialog extends Dialog implements
 				}
 
 				if(AccountUtils.getPassword(context).equals(password)){
-					confirmDialogClickListener.onDeleteClick(password,this);
+					confirmDialogClickListener.onOkClick(password,this);
 				}else {
 					App.toast("Password is doesn't match!");
 				}
@@ -88,7 +86,7 @@ public class PasswordConfirmationDialog extends Dialog implements
 
 		void onCancelClick(PasswordConfirmationDialog dialog);
 
-		void onDeleteClick(String password, PasswordConfirmationDialog dialog);
+		void onOkClick(String password, PasswordConfirmationDialog dialog);
 	}
 
 }

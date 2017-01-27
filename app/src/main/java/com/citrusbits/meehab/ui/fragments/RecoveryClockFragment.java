@@ -218,7 +218,7 @@ public class RecoveryClockFragment extends Fragment implements OnClickListener,
 			Log.e("Month ", chip.getMonths()+ "");
 			if (chip.getMonths() >= 9) {
 				ivChip.setImageResource(R.drawable.sober_chips_9_months);
-				cal.add(Calendar.YEAR, chip.getMonths() + 3);
+				cal.add(Calendar.MONTH, chip.getMonths() + 3);
 			} else if (chip.getMonths() >= 6) {
 				ivChip.setImageResource(R.drawable.sober_chips_6_months);
 				cal.add(Calendar.MONTH, chip.getMonths() + 3);

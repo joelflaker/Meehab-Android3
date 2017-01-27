@@ -62,12 +62,12 @@ public class RehabResponseModel {
 
 		if(TextUtils.isEmpty(userInsurance)){
 			if (postion >= rehabModels.size() || postion < 0) {
-				throw new IllegalArgumentException("Enter valid position");
+				throw new IllegalArgumentException("Size: "+rehabModels.size()+"-> Invalid position: "+postion);
 			}
 			return rehabModels.get(postion);
 		}else {
 			if (postion >= rehabsFilteredByInsurance.size() || postion < 0) {
-				throw new IllegalArgumentException("Enter valid position");
+				throw new IllegalArgumentException("Size: "+rehabsFilteredByInsurance.size()+"-> Invalid position: "+postion);
 			}
 			return rehabsFilteredByInsurance.get(postion);
 		}

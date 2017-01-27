@@ -635,7 +635,7 @@ public class OptionsFragment extends Fragment implements OnSocketResponseListene
 					new PasswordConfirmationDialog.PasswordConfirmationDialogClickListener() {
 
 						@Override
-						public void onDeleteClick(String password, PasswordConfirmationDialog dialog) {
+						public void onOkClick(String password, PasswordConfirmationDialog dialog) {
 							dialog.dismiss();
 							if(NetworkUtil.isConnected(homeActivity)) {
 								pd.show();
