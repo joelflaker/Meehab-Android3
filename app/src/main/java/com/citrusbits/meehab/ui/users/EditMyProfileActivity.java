@@ -212,9 +212,9 @@ public class EditMyProfileActivity extends SocketActivity implements
 		profilePic.setOnClickListener(this);
 		dobBtn.setOnClickListener(this);
 		maritalStatusBtn.setOnClickListener(this);
-		maleBtn.setOnClickListener(this);
-		femaleBtn.setOnClickListener(this);
-		otherBtn.setOnClickListener(this);
+		maleBtn.setOnClickListener(onToggleClickListener);
+		femaleBtn.setOnClickListener(onToggleClickListener);
+		otherBtn.setOnClickListener(onToggleClickListener);
 		heightBtn.setOnClickListener(this);
 		weightBtn.setOnClickListener(this);
 		sexualOrientBtn.setOnClickListener(this);
@@ -259,6 +259,41 @@ public class EditMyProfileActivity extends SocketActivity implements
 
 		resetUserInfo();
 	}
+
+	View.OnClickListener onToggleClickListener = new View.OnClickListener() {
+
+		@Override
+		public void onClick(View v) {
+			boolean isChecked = !((CheckBox) v).isChecked();
+			switch (v.getId()) {
+				case R.id.maleBtn:
+					llOther.setVisibility(View.GONE);
+					femaleBtn.setChecked(false);
+					otherBtn.setChecked(false);
+					break;
+				case R.id.femaleBtn:
+					llOther.setVisibility(View.GONE);
+					maleBtn.setChecked(false);
+					otherBtn.setChecked(false);
+
+					break;
+				case R.id.otherBtn:
+					maleBtn.setChecked(false);
+					femaleBtn.setChecked(false);
+					if (isChecked) {
+						llOther.setVisibility(View.GONE);
+						genderOtherEdit.setVisibility(View.GONE);
+					} else {
+						llOther.setVisibility(View.VISIBLE);
+						genderOtherEdit.setVisibility(View.VISIBLE);
+						genderOtherEdit.requestFocus();
+					}
+
+					break;
+
+			}
+		}
+	};
 
 	@Override
 	public void onClick(View v) {
@@ -477,25 +512,6 @@ public class EditMyProfileActivity extends SocketActivity implements
 						}
 					}).show();
 
-			break;
-		case R.id.maleBtn:
-			llOther.setVisibility(View.GONE);
-			maleBtn.setChecked(true);
-			femaleBtn.setChecked(false);
-			otherBtn.setChecked(false);
-			break;
-		case R.id.femaleBtn:
-			llOther.setVisibility(View.GONE);
-			femaleBtn.setChecked(true);
-			maleBtn.setChecked(false);
-			otherBtn.setChecked(false);
-			break;
-		case R.id.otherBtn:
-			llOther.setVisibility(View.VISIBLE);
-			genderOtherEdit.requestFocus();
-			otherBtn.setChecked(true);
-			maleBtn.setChecked(false);
-			femaleBtn.setChecked(false);
 			break;
 		case R.id.dobBtn:
 			// presentDobPicker();

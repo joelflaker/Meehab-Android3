@@ -94,25 +94,22 @@ public class ForgetPasswordActivity extends SocketActivity implements OnSocketRe
 			emailEdit.selectAll();
 			return;
 		}
-		InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
-		inputMethodManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
-		
+
+		hideKeyboard();
+
 		if(NetworkUtil.getConnectivityStatus(this) == 0){
 			App.toast(getString(R.string.network_problem));
-			return;
 		}else{
-
-		JSONObject params = new JSONObject();
-		try {
-			// Toast.makeText(this, itemName,
-			// Toast.LENGTH_SHORT).show();
-			params.put(EventParams.SIGNUP_EMAIL, emailString);
-			pd.show();
-			socketService.forgotPassword(params);
-		} catch (JSONException e) {
-			e.printStackTrace();
-			params = null;
-		}
+			JSONObject params = new JSONObject();
+			try {
+				// Toast.makeText(this, itemName,
+				// Toast.LENGTH_SHORT).show();
+				params.put(EventParams.SIGNUP_EMAIL, emailString);
+				pd.show();
+				socketService.forgotPassword(params);
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 

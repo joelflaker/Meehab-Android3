@@ -29,7 +29,6 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Base64;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -92,7 +91,7 @@ public class ProfileSetupActivity extends SocketActivity implements
 			fellowshippingBtn;
 	private ImageView profilePic;
 	private String fullPath;
-	private EditText otherEdit;
+	private EditText genderOtherEdit;
 
 	private UserDatasource userDatasource;
 	private UserAccount mUser;
@@ -126,7 +125,7 @@ public class ProfileSetupActivity extends SocketActivity implements
 		maleBtn = (CheckBox) findViewById(R.id.maleBtn);
 		femaleBtn = (CheckBox) findViewById(R.id.femaleBtn);
 		otherBtn = (CheckBox) findViewById(R.id.otherBtn);
-		otherEdit = (EditText) findViewById(R.id.otherEdit);
+		genderOtherEdit = (EditText) findViewById(R.id.otherEdit);
 		datingBtn = (CheckBox) findViewById(R.id.datingBtn);
 		fellowshippingBtn = (CheckBox) findViewById(R.id.fellowshippingBtn);
 		aaStoryEdit = (EditText) findViewById(R.id.aaStoryEdit);
@@ -193,7 +192,7 @@ public class ProfileSetupActivity extends SocketActivity implements
 		params.height = (int) (width * 0.82f);
 		ivBlurBg.setLayoutParams(params);
 
-		otherEdit.setOnTouchListener(new View.OnTouchListener() {
+		genderOtherEdit.setOnTouchListener(new View.OnTouchListener() {
 
 			@Override
 			public boolean onTouch(View v, MotionEvent event) {
@@ -203,11 +202,11 @@ public class ProfileSetupActivity extends SocketActivity implements
 				final int DRAWABLE_BOTTOM = 3;
 
 				if (event.getAction() == MotionEvent.ACTION_UP) {
-					if (event.getRawX() >= (otherEdit.getRight() - otherEdit
+					if (event.getRawX() >= (genderOtherEdit.getRight() - genderOtherEdit
 							.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds()
 							.width())) {
 						// your action here
-						otherEdit.setText("");
+						genderOtherEdit.setText("");
 						return true;
 					}
 				}
@@ -229,55 +228,37 @@ public class ProfileSetupActivity extends SocketActivity implements
 
 	OnClickListener onToggleClickListener = new OnClickListener() {
 
+
 		@Override
 		public void onClick(View v) {
-			boolean isChecked = ((CheckBox) v).isChecked();
+			boolean isChecked = !((CheckBox) v).isChecked();
 			switch (v.getId()) {
 			case R.id.maleBtn:
-				otherEdit.setVisibility(View.GONE);
-
-				if (isChecked) {
+				genderOtherEdit.setVisibility(View.GONE);
+				maleBtn.setChecked(!isChecked);
 					femaleBtn.setChecked(false);
 					otherBtn.setChecked(false);
-				}
-
 				break;
 			case R.id.femaleBtn:
-				otherEdit.setVisibility(View.GONE);
-				if (isChecked) {
+				genderOtherEdit.setVisibility(View.GONE);
 					maleBtn.setChecked(false);
 					otherBtn.setChecked(false);
-				}
 
 				break;
 			case R.id.otherBtn:
+				maleBtn.setChecked(false);
+				femaleBtn.setChecked(false);
 				if (isChecked) {
-					otherEdit.setVisibility(View.VISIBLE);
-					otherEdit.requestFocus();
-					maleBtn.setChecked(false);
-					femaleBtn.setChecked(false);
+					genderOtherEdit.setVisibility(View.GONE);
 				} else {
-					otherEdit.setVisibility(View.GONE);
+					genderOtherEdit.setVisibility(View.VISIBLE);
+					genderOtherEdit.requestFocus();
 				}
-
 				break;
 
 			}
 		}
 	};
-
-	private Calendar getCalendarFromDb(String db) {
-		SimpleDateFormat dateFormater = new SimpleDateFormat("dd/MM/yyyy");
-		Calendar cal = Calendar.getInstance();
-		try {
-			Date date = dateFormater.parse(db);
-			cal.setTime(date);
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
-
-		return cal;
-	}
 
 	@Override
 	public void onClick(View v) {
@@ -421,8 +402,8 @@ public class ProfileSetupActivity extends SocketActivity implements
 				} else if (femaleBtn.isChecked()) {
 					genderString = "Female";
 				} else if (otherBtn.isChecked()) {
-					if (otherEdit.getText().toString().trim().length() > 0) {
-						genderString = otherEdit.getText().toString();
+					if (genderOtherEdit.getText().toString().trim().length() > 0) {
+						genderString = genderOtherEdit.getText().toString();
 					}
 				}
 
