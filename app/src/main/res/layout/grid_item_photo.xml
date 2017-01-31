@@ -4,12 +4,10 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:background="@android:color/white"
-    android:padding="0dp"
+    android:padding="1dp"
+    android:clipToPadding="true"
+    android:clipChildren="true"
     android:descendantFocusability="blocksDescendants" >
-    
-<!--     android:background="@android:color/white" -->
-<!--     xmlns:app1="http://schemas.android.com/apk/res/com.citrusbits.meehab" -->
-
 
         <ImageView
             android:id="@+id/photo"

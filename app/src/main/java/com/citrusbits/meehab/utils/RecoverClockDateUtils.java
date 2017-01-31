@@ -12,6 +12,7 @@ import com.citrusbits.meehab.R;
 import com.citrusbits.meehab.managers.RCChip;
 import com.citrusbits.meehab.managers.RCChip.RCChipType;
 
+import org.joda.time.Duration;
 import org.joda.time.Period;
 import org.joda.time.PeriodType;
 
@@ -207,11 +208,22 @@ public class RecoverClockDateUtils {
 	}
 
 	public static Period getRcpChip(String dateInserted) {
-		SimpleDateFormat dateFormate = new SimpleDateFormat("MM/dd/yyyy", Locale.US);
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM/dd/yyyy", Locale.US);
 
 		try {
-			Date date = dateFormate.parse(dateInserted);
+			Date date = simpleDateFormat.parse(dateInserted);
 			return getRCChip(date, Calendar.getInstance().getTime());
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	public static Duration getRcpChipForDays(String dateInserted) {
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM/dd/yyyy", Locale.US);
+
+		try {
+			Date date = simpleDateFormat.parse(dateInserted);
+			return new Duration(date.getTime(), Calendar.getInstance().getTime().getTime());
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}

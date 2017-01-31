@@ -74,7 +74,7 @@ public class PasswordConfirmationDialog extends Dialog implements
 				if(AccountUtils.getPassword(context).equals(password)){
 					confirmDialogClickListener.onOkClick(password,this);
 				}else {
-					App.toast("Password is doesn't match!");
+					App.toast("Password doesn't match!");
 				}
 			}
 			break;

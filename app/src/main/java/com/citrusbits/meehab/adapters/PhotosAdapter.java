@@ -101,7 +101,7 @@ public class PhotosAdapter extends RecyclerView.Adapter<PhotosAdapter.ImageViewH
 				protected void onPostExecute(Bitmap result) {
 					//				super.onPostExecute(result);
 					if (image.get() != null && result != null){
-						image.get().setImageBitmap(result);
+						image.get().setImageBitmap(UtilityClass.resize(result,rowHeight,rowHeight));
 					}
 				}
 			}, new Object[]{holder.photo, url});

@@ -55,7 +55,6 @@ public class LoginAndRegisterActivity extends SocketActivity implements
 	private ImageButton ibLogin;
 	private ImageButton ibSignup;
 	private Dialog pd;
-	private boolean socketConnected;
 
 	private LoginAction loginAction;
 
@@ -208,10 +207,7 @@ public class LoginAndRegisterActivity extends SocketActivity implements
 
 	@Override
 	public void onClick(View v) {
-		Intent intent = null;
-		if (socketService != null && socketService.isConnected()) {
-			socketConnected = true;
-		}
+		boolean socketConnected = socketService != null && socketService.isConnected();
 
 		switch (v.getId()) {
 		case R.id.ibLoginWithFacebook:
@@ -297,7 +293,6 @@ public class LoginAndRegisterActivity extends SocketActivity implements
 	@Override
 	public void onSocketResponseSuccess(String event, Object obj) {
 		pd.dismiss();
-		socketConnected = true;
 		if (event.equals(EventParams.METHOD_USER_LOGIN)) {
 
 			Intent i = new Intent(LoginAndRegisterActivity.this,

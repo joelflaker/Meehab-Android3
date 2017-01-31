@@ -450,17 +450,17 @@ public class EditMyProfileActivity extends SocketActivity implements
 
 			break;
 		case R.id.hasKidsYesBtn:
-			haveKidsYesBtn.setChecked(true);
+//			haveKidsYesBtn.setChecked(true);
 			haveKidsNoBtn.setChecked(false);
 			haveKidsNoAnsBtn.setChecked(false);
 			break;
 		case R.id.hasKidsNoBtn:
-			haveKidsNoBtn.setChecked(true);
+//			haveKidsNoBtn.setChecked(true);
 			haveKidsYesBtn.setChecked(false);
 			haveKidsNoAnsBtn.setChecked(false);
 			break;
 		case R.id.hasKidsNoAnsBtn:
-			haveKidsNoAnsBtn.setChecked(true);
+//			haveKidsNoAnsBtn.setChecked(true);
 			haveKidsYesBtn.setChecked(false);
 			haveKidsNoBtn.setChecked(false);
 			break;

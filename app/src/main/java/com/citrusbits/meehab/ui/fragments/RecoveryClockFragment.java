@@ -10,6 +10,7 @@ import android.app.Dialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,7 +27,6 @@ import com.citrusbits.meehab.constants.EventParams;
 import com.citrusbits.meehab.db.UserDatasource;
 import com.citrusbits.meehab.ui.dialog.ResetRecoverClockDialog;
 import com.citrusbits.meehab.ui.dialog.ResetRecoverClockDialog.ResetRecoveryClockDialogListener;
-import com.citrusbits.meehab.managers.RCChip;
 import com.citrusbits.meehab.model.UserAccount;
 import com.citrusbits.meehab.services.OnSocketResponseListener;
 import com.citrusbits.meehab.utils.AccountUtils;
@@ -89,7 +89,7 @@ public class RecoveryClockFragment extends Fragment implements OnClickListener,
 				.fomateRecoverClockDate(Calendar.getInstance().getTime()));
 
 		String soberDate = user.getSoberSence();
-		Log.i("Sober date", soberDate);
+		Log.i("Sober date",""+ soberDate);
 		if(soberDate == null){
 			App.toast("User sober date= "+soberDate+ " to fix this situation!");
 			return v;
@@ -97,12 +97,11 @@ public class RecoveryClockFragment extends Fragment implements OnClickListener,
 		mDateSelected = soberDate;
 		tvSoberDate.setText(RecoverClockDateUtils
 				.getDateWithMonthName(soberDate));
-		Period chip = RecoverClockDateUtils.getRcpChip(soberDate);
 
 		tvSoberDateList.setText(RecoverClockDateUtils.getSoberDifference(
 				soberDate, false, getActivity()));
 
-		setChip(chip);
+//		setChip(mDateSelected);
 
 		return v;
 	}
@@ -115,6 +114,9 @@ public class RecoveryClockFragment extends Fragment implements OnClickListener,
 	@Override
 	public void onResume() {
 		super.onResume();
+		if(!TextUtils.isEmpty(mDateSelected)) {
+			setChip(mDateSelected);
+		}
 	}
 
 	@Override
@@ -168,10 +170,7 @@ public class RecoveryClockFragment extends Fragment implements OnClickListener,
 															false,
 															getActivity()));
 
-									Period chip = RecoverClockDateUtils
-											.getRcpChip(dateSelected);
-
-									setChip(chip);
+									setChip(dateSelected);
 									updateProfile(mDateSelected);
 
 								}
@@ -196,13 +195,27 @@ public class RecoveryClockFragment extends Fragment implements OnClickListener,
 		pd = null;
 	}
 
-	public void setChip(Period chip) {
+	public void setChip(String dateSelected) {
+
+		Period chip = RecoverClockDateUtils
+				.getRcpChip(dateSelected);
 //		int number = chip.getNumbers();
 		tvChipCounter.setVisibility(View.GONE);
 
 		Log.e("Selected Date ", mDateSelected);
 		Calendar cal = RecoverClockDateUtils
 				.getCalendarFromDayMonthYear(mDateSelected);
+
+		// milliseconds
+//		long different = chip.getTime() - startDate.getTime();
+//
+//		long secondsInMilli = 1000;
+//		long minutesInMilli = secondsInMilli * 60;
+//		long hoursInMilli = minutesInMilli * 60;
+//		long daysInMilli = hoursInMilli * 24;
+//
+//		Days.standardDaysIn(chip.withPeriodType())
+//		long days = chip.toStandardSeconds().getSeconds() / 60 / 24;
 
 		if(cal == null || chip == null){ return; }
 		Log.e("Calendar Date ", cal + " Cal");
@@ -214,7 +227,7 @@ public class RecoveryClockFragment extends Fragment implements OnClickListener,
 			tvChipCounter.setText(String.valueOf(chip.getYears()));
 
 			cal.add(Calendar.YEAR, chip.getYears() + 1);
-		}else if(chip.getMonths() > 0) {
+		}else if(chip.getMonths() >= 6) {
 			Log.e("Month ", chip.getMonths()+ "");
 			if (chip.getMonths() >= 9) {
 				ivChip.setImageResource(R.drawable.sober_chips_9_months);
@@ -222,24 +235,65 @@ public class RecoveryClockFragment extends Fragment implements OnClickListener,
 			} else if (chip.getMonths() >= 6) {
 				ivChip.setImageResource(R.drawable.sober_chips_6_months);
 				cal.add(Calendar.MONTH, chip.getMonths() + 3);
-			} else if (chip.getMonths() >= 3) {
-				ivChip.setImageResource(R.drawable.sober_chips_90_days);
-				cal.add(Calendar.MONTH, chip.getMonths() + 3);
-			} else if (chip.getMonths() >= 2) {
-				ivChip.setImageResource(R.drawable.sober_chips_60_days);
-				cal.add(Calendar.MONTH, chip.getMonths() + 1);
-			}else if (chip.getMonths() >= 1) {
-				ivChip.setImageResource(R.drawable.sober_chips_30_days);
-				cal.add(Calendar.MONTH, chip.getMonths() + 1);
 			}
 		}else {
-			Log.e("Days ", chip.getDays() + "");
 
-			ivChip.setImageResource(R.drawable.sober_chips_welcome);
-			cal.add(Calendar.MONTH, 1);
+			long days = RecoverClockDateUtils.getRcpChipForDays(dateSelected).getStandardDays();
+
+			if (days >= 90) {
+				ivChip.setImageResource(R.drawable.sober_chips_90_days);
+				cal.add(Calendar.MONTH, 6);
+			} else if (days >= 60) {
+				ivChip.setImageResource(R.drawable.sober_chips_60_days);
+//				cal.add(Calendar.MONTH, chip.getMonths() + 1);
+				cal.add(Calendar.DAY_OF_MONTH, 90);
+			}else if (days >= 30) {
+				ivChip.setImageResource(R.drawable.sober_chips_30_days);
+//				cal.add(Calendar.MONTH, chip.getMonths() + 1);
+				cal.add(Calendar.DAY_OF_MONTH, 60);
+			}else {
+				ivChip.setImageResource(R.drawable.sober_chips_welcome);
+				cal.add(Calendar.DAY_OF_MONTH, 30);
+//				cal.add(Calendar.MONTH, 1);
+			}
+			Log.e(getClass().getCanonicalName(),"Days : "+ days);
 		}
 		tvNextChipDate.setText(RecoverClockDateUtils
 				.getDateWithMonthNameNextChip(cal.getTime()));
+		//Care about month length
+//		if(chip.getYears() > 0){
+//			Log.e("Years ", chip.getYears() + "");
+//			tvChipCounter.setVisibility(View.VISIBLE);
+//			ivChip.setImageResource(R.drawable.sober_chips_53_years);
+//			tvChipCounter.setText(String.valueOf(chip.getYears()));
+//
+//			cal.add(Calendar.YEAR, chip.getYears() + 1);
+//		}else if(chip.getMonths() > 0) {
+//			Log.e("Month ", chip.getMonths()+ "");
+//			if (chip.getMonths() >= 9) {
+//				ivChip.setImageResource(R.drawable.sober_chips_9_months);
+//				cal.add(Calendar.MONTH, chip.getMonths() + 3);
+//			} else if (chip.getMonths() >= 6) {
+//				ivChip.setImageResource(R.drawable.sober_chips_6_months);
+//				cal.add(Calendar.MONTH, chip.getMonths() + 3);
+//			} else if (chip.getMonths() >= 3) {
+//				ivChip.setImageResource(R.drawable.sober_chips_90_days);
+//				cal.add(Calendar.MONTH, chip.getMonths() + 3);
+//			} else if (chip.getMonths() >= 2) {
+//				ivChip.setImageResource(R.drawable.sober_chips_60_days);
+//				cal.add(Calendar.MONTH, chip.getMonths() + 1);
+//			}else if (chip.getMonths() >= 1) {
+//				ivChip.setImageResource(R.drawable.sober_chips_30_days);
+//				cal.add(Calendar.MONTH, chip.getMonths() + 1);
+//			}
+//		}else {
+//			Log.e("Days ", chip.getDays() + "");
+//
+//			ivChip.setImageResource(R.drawable.sober_chips_welcome);
+//			cal.add(Calendar.MONTH, 1);
+//		}
+//		tvNextChipDate.setText(RecoverClockDateUtils
+//				.getDateWithMonthNameNextChip(cal.getTime()));
 	}
 
 	public void updateProfile(String soberDate) {
@@ -267,6 +321,7 @@ public class RecoveryClockFragment extends Fragment implements OnClickListener,
 		if (event.equals(EventParams.EVENT_USER_UPDATE)) {
 			Toast.makeText(getActivity(), "Sober has been updated",
 					Toast.LENGTH_SHORT).show();
+//			user = userDatasource.findUser(AccountUtils.getUserId(getActivity()));
 		}
 
 	}

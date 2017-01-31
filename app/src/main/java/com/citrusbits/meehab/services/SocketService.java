@@ -332,7 +332,9 @@ public class SocketService extends Service {
 	}
 
 	public boolean isConnected() {
-		return mSocket != null && mSocket.connected();
+		boolean b = mSocket != null && mSocket.connected();
+		if(!b) connectSocket();
+		return b;
 	}
 
 	private Emitter.Listener onMeeting = new Emitter.Listener() {
