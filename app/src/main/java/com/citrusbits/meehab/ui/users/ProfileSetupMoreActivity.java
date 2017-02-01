@@ -299,20 +299,20 @@ public class ProfileSetupMoreActivity extends SocketActivity implements
 				// height
 				if (user.getHeight() != null) {
 					params.put("height", user.getHeight());
-				}else {
+				}/*else {
 					Toast.makeText(this,
 							"Please select height!", Toast.LENGTH_SHORT).show();
 					return;
-				}
+				}*/
 
 				// weight
 				if (user.getWeight() != null) {
 					params.put("weight", user.getWeight());
-				}else {
+				}/*else {
 					Toast.makeText(this,
 							"Please select weight!", Toast.LENGTH_SHORT).show();
 					return;
-				}
+				}*/
 
 
 				// sexual_orientation
@@ -326,11 +326,11 @@ public class ProfileSetupMoreActivity extends SocketActivity implements
 					}
 					params.put("sexual_orientation",
 							user.getSexualOrientation());
-				}else {
+				}/*else {
 					Toast.makeText(this,
 							"Please select sexual orientation!", Toast.LENGTH_SHORT).show();
 					return;
-				}
+				}*/
 
 				String occupation = occupationEdit.getText().toString().trim();
 
@@ -339,19 +339,19 @@ public class ProfileSetupMoreActivity extends SocketActivity implements
 
 				if(!TextUtils.isEmpty(occupation)) {
 					params.put("accupation", occupation);
-				}else {
+				}/*else {
 					Toast.makeText(this,
 							"Please enter occupation!", Toast.LENGTH_SHORT).show();
 					return;
-				}
+				}*/
 				// getEthnicity
 				if (user.getEthnicity() != null) {
 					params.put("ethnicity", user.getEthnicity());
-				}else {
+				}/*else {
 					Toast.makeText(this,
 							"Please enter ethnicity!", Toast.LENGTH_SHORT).show();
 					return;
-				}
+				}*/
 
 				// sober date
 				if (user.getSoberSence() != null) {
@@ -369,11 +369,15 @@ public class ProfileSetupMoreActivity extends SocketActivity implements
 				} else if (haveKidsNoBtn.isChecked()) {
 					hasKidsString = "no";
 				} else if (haveKidsNoAnsBtn.isChecked()) {
-					hasKidsString = "";
+					hasKidsString = "No Answer";
 				}
 
 				if (hasKidsString != null) {
 					params.put("have_kids", hasKidsString);
+				}else{
+					Toast.makeText(this,
+							"Please select have kids!", Toast.LENGTH_SHORT).show();
+					return;
 				}
 
 			} catch (JSONException e) {

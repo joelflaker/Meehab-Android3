@@ -389,11 +389,11 @@ public class ProfileSetupActivity extends SocketActivity implements
 
 				if (user.getImage() != null) {
 					params.put("image", user.getImage());
-				}else {
+				}/*else {
 					Toast.makeText(this,
 							"Please select profile image!", Toast.LENGTH_SHORT).show();
 					return;
-				}
+				}*/
 
 				// gender
 				String genderString = null;
@@ -409,23 +409,27 @@ public class ProfileSetupActivity extends SocketActivity implements
 
 				if (genderString != null) {
 					params.put("gender", genderString);
+				}else {
+					Toast.makeText(this,
+							"Please select gender!", Toast.LENGTH_SHORT).show();
+					return;
 				}
 
 				if (user.getDateOfBirth() != null) {
 					params.put("date_of_birth", user.getDateOfBirth());
-				}else {
+				}/*else {
 					Toast.makeText(this,
 							"Please select date of birth!", Toast.LENGTH_SHORT).show();
 					return;
-				}
+				}*/
 
 				if (user.getMaritalStatus() != null) {
 					params.put("marital_status", user.getMaritalStatus());
-				}else {
+				}/*else {
 					Toast.makeText(this,
 							"Please select marital status!", Toast.LENGTH_SHORT).show();
 					return;
-				}
+				}*/
 
 				// interested in
 				String interestString = null;
@@ -442,6 +446,10 @@ public class ProfileSetupActivity extends SocketActivity implements
 				}
 				if (interestString != null) {
 					params.put("intrested_in", interestString);
+				}else {
+					Toast.makeText(this,
+							"Please select interested in!", Toast.LENGTH_SHORT).show();
+					return;
 				}
 
 				String aaStory = aaStoryEdit.getText().toString().trim();
@@ -449,11 +457,11 @@ public class ProfileSetupActivity extends SocketActivity implements
 				// about Story
 				if (aaStory.length() > 0) {
 					params.put("about_story", aaStory);
-				}else {
+				}/*else {
 					Toast.makeText(this,
 							"Please enter AA story!", Toast.LENGTH_SHORT).show();
 					return;
-				}
+				}*/
 
 				// willing_sponsor
 				// if (sponserToggle.isChecked()) {

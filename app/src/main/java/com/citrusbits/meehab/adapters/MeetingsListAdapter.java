@@ -359,13 +359,17 @@ public class MeetingsListAdapter extends ArrayAdapter<MeetingModel> {
 
 	}
 
-	public boolean isStar(String star, float revAvg) {
-		star = star.replace(">", "").toLowerCase().replace("stars", "")
+	public boolean isStar(String starString, float revAvg) {
+		starString = starString.replace(">", "").toLowerCase().replace("stars", "")
 				.replace("<", "").replace("star", "").trim();
-		Log.e("SSStar", star);
+		Log.e("SSStar", starString);
 		try {
-			int sstar = Integer.parseInt(star);
-			return revAvg <= sstar;
+			int rating = Integer.parseInt(starString);
+			if(rating == 5){
+				return revAvg <= rating;
+			}else {
+				return revAvg < rating;
+			}
 		} catch (Exception e) {
 			return false;
 		}

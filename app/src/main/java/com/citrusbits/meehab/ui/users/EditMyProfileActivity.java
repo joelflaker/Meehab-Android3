@@ -676,11 +676,11 @@ public class EditMyProfileActivity extends SocketActivity implements
 
 				if (updateUser.getImage() != null) {
 					params.put("image", updateUser.getImage());
-				}else if (TextUtils.isEmpty(mUser.getImage())) {
+				}/*else if (TextUtils.isEmpty(mUser.getImage())) {
 					Toast.makeText(this,
 							"Please select profile image!", Toast.LENGTH_SHORT).show();
 					return;
-				}
+				}*/
 
 				// gender
 				String genderString = "";
@@ -697,27 +697,27 @@ public class EditMyProfileActivity extends SocketActivity implements
 				}
 				if (genderString != null) {
 					params.put("gender", genderString);
-				}/*else {
+				}else {
 					Toast.makeText(this,
 							"Please select gender!", Toast.LENGTH_SHORT).show();
 					return;
-				}*/
+				}
 				// dob date
 				if (updateUser.getDateOfBirth() != null) {
 					params.put("date_of_birth", updateUser.getDateOfBirth());
-				}else {
+				}/*else {
 					Toast.makeText(this,
 							"Please select date of birth!", Toast.LENGTH_SHORT).show();
 					return;
-				}
+				}*/
 
 				if (!TextUtils.isEmpty(updateUser.getMaritalStatus())) {
 					params.put("marital_status", updateUser.getMaritalStatus());
-				}else {
+				}/*else {
 					Toast.makeText(this,
 							"Please select marital status!", Toast.LENGTH_SHORT).show();
 					return;
-				}
+				}*/
 
 				// interested in
 				String interestString = null;
@@ -735,11 +735,11 @@ public class EditMyProfileActivity extends SocketActivity implements
 
 				if (!TextUtils.isEmpty(interestString)) {
 					params.put("intrested_in", interestString);
-				}/*else {
+				}else {
 					Toast.makeText(this,
 							"Please select interested in!", Toast.LENGTH_SHORT).show();
 					return;
-				}*/
+				}
 
 				// about Story
 				if (aaStoryEdit.getText().toString().trim().length() > 0) {
@@ -751,29 +751,29 @@ public class EditMyProfileActivity extends SocketActivity implements
 				// height
 				if (updateUser.getHeight() != null) {
 					params.put("height", updateUser.getHeight());
-				}else {
+				}/*else {
 					Toast.makeText(this,
 							"Please select height!", Toast.LENGTH_SHORT).show();
 					return;
-				}
+				}*/
 				// weight
 				if (updateUser.getWeight() != null) {
 					params.put("weight", updateUser.getWeight());
-				}else if (TextUtils.isEmpty(mUser.getWeight())){
+				}/*else if (TextUtils.isEmpty(mUser.getWeight())){
 					Toast.makeText(this,
 							"Please select weight!", Toast.LENGTH_SHORT).show();
 					return;
-				}
+				}*/
 
 				String accupation = occupationEdit.getText().toString().trim();
 
 				if (!accupation.isEmpty()) {
 					params.put("accupation", accupation);
-				}else {
+				}/*else {
 					Toast.makeText(this,
 							"Please select occupation!", Toast.LENGTH_SHORT).show();
 					return;
-				}
+				}*/
 
 				// willing_sponsor
 				// if (sponserToggle.isChecked()) {
@@ -786,20 +786,20 @@ public class EditMyProfileActivity extends SocketActivity implements
 				if (!TextUtils.isEmpty(updateUser.getSexualOrientation())) {
 					params.put("sexual_orientation",
 							updateUser.getSexualOrientation());
-				}else {
+				}/*else {
 					Toast.makeText(this,
 							"Please select sexual orientation!", Toast.LENGTH_SHORT).show();
 					return;
-				}
+				}*/
 
 				// getEthnicity
 				if (!TextUtils.isEmpty(updateUser.getEthnicity())) {
 					params.put("ethnicity", updateUser.getEthnicity());
-				}else{
+				}/*else{
 					Toast.makeText(this,
 							"Please enter ethnicity!", Toast.LENGTH_SHORT).show();
 					return;
-				}
+				}*/
 
 				// sober date
 				if (!TextUtils.isEmpty(updateUser.getSoberSence())) {
@@ -817,11 +817,15 @@ public class EditMyProfileActivity extends SocketActivity implements
 				} else if (haveKidsNoBtn.isChecked()) {
 					hasKidsString = "No";
 				} else if (haveKidsNoAnsBtn.isChecked()) {
-					hasKidsString = "";
+					hasKidsString = "No Answer";
 				}
 
 				if(hasKidsString != null){
 					params.put("have_kids", hasKidsString);
+				}else{
+					Toast.makeText(this,
+							"Please select have kids!", Toast.LENGTH_SHORT).show();
+					return;
 				}
 
 			} catch (JSONException e) {
