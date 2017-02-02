@@ -739,10 +739,9 @@ public class MeetingsFragment extends Fragment implements
 				meetingsAdapter.filter(resultHolder);
 
 				makeListVisible();
-				
-				updateEmptyViewVisibility();
+				addMarkers();
 
-				// refreshMap();
+				updateEmptyViewVisibility();
 
 			} else if (requestCode == REQUEST_MEETING_DETAILS) {
 
@@ -765,18 +764,9 @@ public class MeetingsFragment extends Fragment implements
 			resultHolder = new FilterResultHolder();
 			meetingsAdapter.filter("");
 			meetingsAdapter.notifyDataSetChanged();
-			// makeListVisible();
-			// refreshMap();
-			
+			addMarkers();
 			updateEmptyViewVisibility();
 		}
-	}
-
-	public void refreshMap() {
-		// meetings.clear();
-		// meetings.addAll(meetingsAdapter.getMeetings());
-		addMarkers();
-
 	}
 
 	private void moveMapCamera(LatLng p) {
@@ -1017,10 +1007,9 @@ public class MeetingsFragment extends Fragment implements
 			if(!isAdded()) return;
 			list.setAdapter(meetingsAdapter);
 			meetingsAdapter.notifyDataSetChanged();
-			addMarkers();
-			// refrshFavList();
-
 			meetingsAdapter.filter(resultHolder);
+
+			addMarkers();
 			updateEmptyViewVisibility();
 			// refreshMap();
 		}

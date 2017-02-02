@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.citrusbits.meehab.R;
@@ -38,8 +39,8 @@ public class MeetingsFilterActivity extends SocketActivity implements
 	private EditText editZipCode;
 	private Button btnDistance;
 	private TextView txtDistance;
-	private TextView txtRating;
-	private Button btnRating;
+//	private TextView txtRating;
+//	private Button btnRating;
 
 	private static MeetingFilterModel filterModel = new MeetingFilterModel();
 	private String[] distanceValues;
@@ -47,7 +48,8 @@ public class MeetingsFilterActivity extends SocketActivity implements
 	private static boolean mFavorite;
 	private static String mZipcode = "";
 	private static String mDistance = "";
-	private static String mRating = "";
+	private static int mRating = 0;
+	private RatingBar rating;
 
 	// private ArrayList<Parent> parents;
 
@@ -80,14 +82,15 @@ public class MeetingsFilterActivity extends SocketActivity implements
 		editZipCode = (EditText) findViewById(R.id.editZipCode);
 		btnDistance = (Button) findViewById(R.id.btnDistance);
 		txtDistance = (TextView) findViewById(R.id.txtDistance);
-		btnRating = (Button) findViewById(R.id.btnRating);
-		txtRating = (TextView) findViewById(R.id.txtRating);
+//		btnRating = (Button) findViewById(R.id.btnRating);
+//		txtRating = (TextView) findViewById(R.id.txtRating);
+		rating = (RatingBar) findViewById(R.id.rating);
 		expListFilter = (ExpandableListView) findViewById(R.id.expListFilter);
 
 		btnMyFavorite.setOnClickListener(this);
 		btnZipCode.setOnClickListener(this);
 		btnDistance.setOnClickListener(this);
-		btnRating.setOnClickListener(this);
+//		btnRating.setOnClickListener(this);
 
 		if (cacheCategories.isEmpty()) {
 			categories = buildDummyData();
@@ -97,7 +100,7 @@ public class MeetingsFilterActivity extends SocketActivity implements
 
 		if (!mDistance.isEmpty()) {
 			txtDistance.setText(mDistance);
-			txtRating.setText(mRating);
+			rating.setRating(mRating);
 			editZipCode.setText(mZipcode);
 			tglMyFavorite.setChecked(mFavorite);
 		}
@@ -115,7 +118,7 @@ public class MeetingsFilterActivity extends SocketActivity implements
 	public static void applyClear() {
 		cacheCategories.clear();
 		mDistance = "";
-		mRating = "";
+		mRating = 0;
 		mZipcode = "";
 		mFavorite = false;
 	}
@@ -163,25 +166,25 @@ public class MeetingsFilterActivity extends SocketActivity implements
 						}
 					}, distance).show();
 			break;
-		case R.id.btnRating:
-			// presentRatingPicker();
-			String rating = txtRating.getText().toString().trim();
-			new RatingPickerDialog(this).setRatingPickerListener(
-					new RatingPickerDialogListener() {
-
-						@Override
-						public void onDoneClick(RatingPickerDialog dialog,
-								String distanceSelected) {
-							dialog.dismiss();
-							txtRating.setText(distanceSelected);
-						}
-
-						@Override
-						public void onCancelClick(RatingPickerDialog dialog) {
-							dialog.dismiss();
-						}
-					}, rating).show();
-			break;
+//		case R.id.btnRating:
+//			// presentRatingPicker();
+//			String rating = txtRating.getText().toString().trim();
+//			new RatingPickerDialog(this).setRatingPickerListener(
+//					new RatingPickerDialogListener() {
+//
+//						@Override
+//						public void onDoneClick(RatingPickerDialog dialog,
+//								String distanceSelected) {
+//							dialog.dismiss();
+//							txtRating.setText(distanceSelected);
+//						}
+//
+//						@Override
+//						public void onCancelClick(RatingPickerDialog dialog) {
+//							dialog.dismiss();
+//						}
+//					}, rating).show();
+//			break;
 
 		default:
 			break;
@@ -200,14 +203,16 @@ public class MeetingsFilterActivity extends SocketActivity implements
 
 		filter.setDistance(distanceString);
 
-		String ratingString = txtRating.getText().toString().trim();
+//		String ratingString = txtRating.getText().toString().trim();
+		int ratingInt = (int) rating.getRating();
 
-		filter.setAnyStar(ratingString.trim().equalsIgnoreCase("5 Stars") ? true : false);
+//		filter.setAnyStar(ratingString.trim().equalsIgnoreCase("5 Stars") ? true : false);
+		filter.setAnyStar(ratingInt != 0 ? true : false);
 
-		filter.setRating(ratingString);
+		filter.setRating(ratingInt);
 
 		mDistance = distanceString;
-		mRating = ratingString;
+		mRating = ratingInt;
 		mZipcode = zipcode;
 		mFavorite = tglMyFavorite.isChecked();
 

@@ -57,7 +57,6 @@
 
     <!-- applyFilter Days -->
     <string-array name="days_arr">
-        <item>EVERY DAY</item>
         <item>Monday</item>
         <item>Tuesday</item>
         <item>Wednesday</item>

@@ -319,6 +319,7 @@ public class RehabsFragment extends Fragment implements
 		List<RehabModel> rehabs = rehabAdapter.getRehabs();
 		for (int i = 0; i < rehabs.size(); i++) {
 			RehabModel rehab = rehabs.get(i);
+
 			// Creating an instance of MarkerOptions to set position
 			
 			int resourceId = RehabResponseModel.getMarkDrawableId(""+rehab.getPackageName());

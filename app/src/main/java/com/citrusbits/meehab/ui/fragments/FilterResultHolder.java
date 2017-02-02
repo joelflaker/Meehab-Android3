@@ -24,7 +24,7 @@ public class FilterResultHolder implements Serializable {
 
 	private String distance;
 
-	private String rating;
+	private int rating;
 
 	public void setAnyDay(boolean anyDay) {
 		this.anyDays = anyDay;
@@ -158,11 +158,11 @@ public class FilterResultHolder implements Serializable {
 
 	}
 
-	public void setRating(String rating) {
+	public void setRating(int rating) {
 		this.rating = rating;
 	}
 
-	public String getRating() {
+	public int getRating() {
 		return this.rating;
 	}
 

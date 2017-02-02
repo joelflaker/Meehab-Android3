@@ -978,7 +978,6 @@ public class MeetingDetailsActivity extends SocketActivity implements
 								@Override
 								public void onCancelClick(
 										ReportAnInAccuracyDialog dialog) {
-									// TODO Auto-generated method stub
 									dialog.dismiss();
 								}
 							}).show();

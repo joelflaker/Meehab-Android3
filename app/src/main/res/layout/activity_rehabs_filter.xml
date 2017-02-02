@@ -185,7 +185,7 @@
          android:layout_height="wrap_content"
          android:background="@null"
          android:layout_alignParentBottom="true"
-         android:scaleType="fitXY"
+         android:scaleType="centerCrop"
          android:src="@drawable/apply_btn_big"
          android:textColor="#000" />
  </RelativeLayout>

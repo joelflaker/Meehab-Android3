@@ -9,8 +9,10 @@ import java.net.URLEncoder;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -18,8 +20,10 @@ import org.json.JSONObject;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.telephony.PhoneNumberFormattingTextWatcher;
@@ -96,6 +100,7 @@ public class MeetingAdditionActivity extends SocketActivity implements
 	private String lat = "33.1667";
 	private String lng = "73.6667";
 	private View viewFocusHacker;
+	private List<String> selectedDays = new ArrayList<>();
 
 
 	@Override
@@ -196,7 +201,52 @@ public class MeetingAdditionActivity extends SocketActivity implements
 				// "Meeting Day!", Toast.LENGTH_SHORT).show();
 
 				hideKeyboard();
-				String day = tvMeetingDay.getText().toString().trim();
+				final String day = tvMeetingDay.getText().toString().trim();
+
+				final String[] daysArray = getResources().getStringArray(
+						R.array.days_arr);
+				final List<String> daysList = Arrays.asList(daysArray);
+
+				final boolean[] checkedDays = new boolean[daysArray.length];
+
+
+				for (String selectedDay : selectedDays) {
+					checkedDays[daysList.indexOf(selectedDay)] = true;
+				}
+
+
+
+				new AlertDialog.Builder(this)
+						.setTitle("Select Days")
+						.setNegativeButton("Cancel",null)
+						.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+							@Override
+							public void onClick(DialogInterface dialog, int which) {
+								dialog.dismiss();
+								StringBuilder stringBuilder = new StringBuilder();
+								boolean commaNeeded = false;
+								for (String selectedDay : selectedDays) {
+									stringBuilder
+											.append(commaNeeded? ", " : "")
+											.append(selectedDay);
+									commaNeeded = true;
+								}
+								tvMeetingDay.setText(stringBuilder.toString());
+							}
+						})
+						.setMultiChoiceItems(daysArray, checkedDays, new DialogInterface.OnMultiChoiceClickListener() {
+							@Override
+							public void onClick(DialogInterface dialog, int which, boolean isChecked) {
+
+								if(isChecked){
+									selectedDays.add(daysArray[which]);
+								}else {
+									selectedDays.remove(daysArray[which]);
+								}
+							}
+						}).show();
+
+				if(true) return;
 
 				new DayPickerDialog(MeetingAdditionActivity.this)
 						.setDayDialogListener(new SelectDayDialogListener() {
@@ -214,6 +264,8 @@ public class MeetingAdditionActivity extends SocketActivity implements
 								dialog.dismiss();
 							}
 						}, day).show();
+
+
 
 				break;
 			case R.id.tvMeetingTime:
@@ -465,28 +517,20 @@ public class MeetingAdditionActivity extends SocketActivity implements
 
 		JSONObject json = new JSONObject();
 		try {
-			JSONArray meetingDays = new JSONArray();
-			if(meetingDay.equals("EVERY DAY")){
-				meetingDays.put("Monday");
-				meetingDays.put("Tuesday");
-				meetingDays.put("Wednesday");
-				meetingDays.put("Thursday");
-				meetingDays.put("Friday");
-				meetingDays.put("Saturday");
-				meetingDays.put("Sunday");
-			}else {
-				meetingDays.put(meetingDay);
-			}
+			JSONArray meetingDays = new JSONArray(selectedDays);
+//			if(meetingDay.equals("EVERY DAY")){
+//				meetingDays.put("Monday");
+//				meetingDays.put("Tuesday");
+//				meetingDays.put("Wednesday");
+//				meetingDays.put("Thursday");
+//				meetingDays.put("Friday");
+//				meetingDays.put("Saturday");
+//				meetingDays.put("Sunday");
+//			}else {
+//				meetingDays.put(meetingDay);
+//			}
 			JSONArray meetingTimes = new JSONArray();
-			if(meetingDay.equals("EVERY DAY")){
-				meetingTimes.put(meetingTime);
-				meetingTimes.put(meetingTime);
-				meetingTimes.put(meetingTime);
-				meetingTimes.put(meetingTime);
-				meetingTimes.put(meetingTime);
-				meetingTimes.put(meetingTime);
-				meetingTimes.put(meetingTime);
-			}else {
+			for (int i =0;i<selectedDays.size();i++) {
 				meetingTimes.put(meetingTime);
 			}
 

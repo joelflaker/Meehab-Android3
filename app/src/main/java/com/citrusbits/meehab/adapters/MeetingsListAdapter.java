@@ -280,8 +280,7 @@ public class MeetingsListAdapter extends ArrayAdapter<MeetingModel> {
 					.equals(resultHolder.getZipCode());
 			boolean isDistance = resultHolder.getAnyDistance() ? true
 					: isMiles(resultHolder.getDistance(), wp);
-			boolean isStar = resultHolder.getAnyStar() ? true : isStar(
-					resultHolder.getRating(), revAvg);
+			boolean isStar = resultHolder.getAnyStar() ? (revAvg >= resultHolder.getRating()) : true;
 
 			boolean isFavSatisfy = !resultHolder.isFavourites() ? true
 					: resultHolder.isFavourites() == wp.isFavourite();
@@ -356,23 +355,6 @@ public class MeetingsListAdapter extends ArrayAdapter<MeetingModel> {
 		}
 
 		return false;
-
-	}
-
-	public boolean isStar(String starString, float revAvg) {
-		starString = starString.replace(">", "").toLowerCase().replace("stars", "")
-				.replace("<", "").replace("star", "").trim();
-		Log.e("SSStar", starString);
-		try {
-			int rating = Integer.parseInt(starString);
-			if(rating == 5){
-				return revAvg <= rating;
-			}else {
-				return revAvg < rating;
-			}
-		} catch (Exception e) {
-			return false;
-		}
 
 	}
 

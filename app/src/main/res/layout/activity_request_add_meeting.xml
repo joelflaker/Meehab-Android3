@@ -102,9 +102,11 @@
                 android:layout_marginTop="10dp"
                 android:background="@android:color/transparent"
                 android:drawableRight="@drawable/right_arrow"
+                android:drawablePadding="6dp"
                 android:gravity="center"
                 android:hint="@string/meeting_day"
-                android:inputType="phone"
+                android:ellipsize="end"
+                android:lines="1"
                 android:textSize="16sp" />
 
             <ImageView
@@ -141,7 +143,7 @@
                 android:gravity="center"
                 android:hint="@string/address"
                 android:inputType="text"
-                android:maxLength="60"
+                android:ellipsize="end"
                 android:lines="1"/>
             
 <!--             <fragment -->
