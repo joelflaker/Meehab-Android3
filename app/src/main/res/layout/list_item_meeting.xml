@@ -131,8 +131,7 @@
                     android:indeterminateDrawable="@drawable/map_list_rating_bar"
                     android:isIndicator="true"
                     android:numStars="5"
-                    android:rating="4"
-                    android:stepSize="1" />
+                    android:rating="4" />
 
                 <LinearLayout
                     android:layout_width="fill_parent"

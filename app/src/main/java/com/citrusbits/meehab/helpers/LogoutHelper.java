@@ -26,9 +26,7 @@ public class LogoutHelper {
 
 		Intent i = new Intent(mContext, SocketService.class);
 
-		if (mContext instanceof Activity) {
-			((Activity) mContext).stopService(i);
-		}
+		mContext.stopService(i);
 
 		clearLoginCredentails();
 
@@ -42,6 +40,8 @@ public class LogoutHelper {
 			activity.overridePendingTransition(R.anim.activity_in,
 					R.anim.activity_out);
 			activity.finish();
+		}else {
+			mContext.startActivity(intent);
 		}
 
 	}

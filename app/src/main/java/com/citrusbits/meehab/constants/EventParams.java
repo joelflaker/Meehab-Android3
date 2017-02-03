@@ -9,6 +9,14 @@ package com.citrusbits.meehab.constants;
  */
 public class EventParams {
 
+	public static final String METHOD_ACCESS_TOKEN = "users:accessToken";
+	public static final String METHOD_DISCONNECT_SOCKET = "disconnect";
+	public static final String METHOD_CONNECT_SOCKET = "connect";
+	public static final String METHOD_ERROR_SOCKET = "error";
+	public static final String METHOD_RE_CONNECT_SOCKET = "reconnect";
+	public static final String METHOD_RECONNECT_ATTEMPT_SOCKET = "reconnectAttempt";
+
+
 	public static final String EVENT_USER_SIGNUP = "users:signup";
 	public static final String EVENT_USER_LOGOUT = "users:logout";
 	public static final String EVENT_USER_FORGOT_PASSWORD = "users:forgotPassword";
@@ -48,14 +56,6 @@ public class EventParams {
 	
 	public static final String METHOD_BLOCK_USER_NOTIFY = "users:userblocked";
 	
-	public static final String METHOD_DISCONNECT_SOCKET = "disconnect";
-	public static final String METHOD_CONNECT_SOCKET = "connect";
-	
-	
-	public static final String METHOD_ERROR_SOCKET = "error";
-	public static final String METHOD_RE_CONNECT_SOCKET = "reconnect";
-	public static final String METHOD_RECONNECT_ATTEMPT_SOCKET = "reconnectAttempt";
-	
 	public static final String METHOD_CHECK_IN_USER = "users:friendcheckin";
 	
 
@@ -81,7 +81,6 @@ public class EventParams {
 	public static final String METHOD_REPORT_MEETING = "meetings:reportMeeting";
 	public static final String METHOD_BIG_BOOK = "other:get:bigbook";
 	public static final String METHOD_FAVOURITE_USER = "users:favoriteUser";
-	public static final String METHOD_ACCESS_TOKEN = "users:accessToken";
 
 	public static final String METHOD_CHECK_INFO = "users:checkInfo";  
 	public static final String METHOD_GET_ALL_FRIENDS = "users:getAllFriends";

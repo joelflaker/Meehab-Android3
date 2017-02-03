@@ -32,18 +32,19 @@ import com.squareup.picasso.Picasso;
  */
 public class PhotosAdapter extends RecyclerView.Adapter<PhotosAdapter.ImageViewHolder>{
 
-	public static class ImageViewHolder extends RecyclerView.ViewHolder {      
-			ImageView photo;
+	public static class ImageViewHolder extends RecyclerView.ViewHolder {
+		protected final ImageView play;
+		protected ImageView photo;
 
 		ImageViewHolder(View itemView) {
 			super(itemView);
 			photo = (ImageView)itemView.findViewById(R.id.photo);
+			play = (ImageView)itemView.findViewById(R.id.play);
 		}
 	}
 
 	private ArrayList<String> urls = new ArrayList<String>();
 	private Context context;
-	private int rowHeight;
 	private PhotoClickListener clickListener;
 	private boolean isPhotoUrls;
 
@@ -52,11 +53,6 @@ public class PhotosAdapter extends RecyclerView.Adapter<PhotosAdapter.ImageViewH
 		this.context = c;
 		this.urls = (ArrayList<String>) urls;
 		this.isPhotoUrls = videoUrls;
-
-		BitmapFactory.Options op = new BitmapFactory.Options();
-		op.inJustDecodeBounds = true;
-		BitmapFactory.decodeResource(c.getResources(),R.drawable.loading_img, op);
-		rowHeight = op.outHeight;
 	}
 
 	@Override
@@ -76,35 +72,41 @@ public class PhotosAdapter extends RecyclerView.Adapter<PhotosAdapter.ImageViewH
 		if(isPhotoUrls){
 			//image
 			if(!TextUtils.isEmpty(url)) {
-				Picasso.with(context).load(url).centerCrop()
-						.placeholder(R.drawable.loading_img).resize(rowHeight, rowHeight)
+				Picasso.with(context).load(url)
+						.placeholder(R.drawable.loading_img)
 						.error(R.drawable.loading_img)
+						.fit()
 						.into(holder.photo);
 			}else {
 				Picasso.with(context).load(R.drawable.loading_img)
-						.resize(rowHeight, rowHeight)
 						.into(holder.photo);
 			}
 
 		}else{
-			AsyncTaskCompat.executeParallel(new AsyncTask<Object, Void, Bitmap>() {
-				WeakReference<ImageView> image;
-				@Override
-				protected Bitmap doInBackground(Object... params) {
-					image = new WeakReference<>((ImageView) params[0]);
-					String url = (String) params[1];
-					return UtilityClass.snapFromUrl(url);
-//					return ThumbnailUtils.createVideoThumbnail(url, MediaStore.Video.Thumbnails.MINI_KIND);
-				}
+			if(!TextUtils.isEmpty(url)){
+				AsyncTaskCompat.executeParallel(new AsyncTask<Object, Void, Bitmap>() {
+					WeakReference<ImageView> image;
 
-				@Override
-				protected void onPostExecute(Bitmap result) {
-					//				super.onPostExecute(result);
-					if (image.get() != null && result != null){
-						image.get().setImageBitmap(UtilityClass.resize(result,rowHeight,rowHeight));
+					@Override
+					protected Bitmap doInBackground(Object... params) {
+						image = new WeakReference<>((ImageView) params[0]);
+						String url = (String) params[1];
+						return UtilityClass.snapFromUrl(url);
+//					return ThumbnailUtils.createVideoThumbnail(url, MediaStore.Video.Thumbnails.MINI_KIND);
 					}
-				}
-			}, new Object[]{holder.photo, url});
+
+					@Override
+					protected void onPostExecute(Bitmap result) {
+						//				super.onPostExecute(result);
+						if (image.get() != null && result != null) {
+							image.get().setImageBitmap(result);//UtilityClass.resize(result,rowHeight,rowHeight));
+						}
+					}
+				}, new Object[]{holder.photo, url});
+			}else {
+				Picasso.with(context).load(R.drawable.loading_img)
+						.into(holder.photo);
+			}
 		}
 
 		holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -122,8 +124,11 @@ public class PhotosAdapter extends RecyclerView.Adapter<PhotosAdapter.ImageViewH
 	@Override
 	public ImageViewHolder onCreateViewHolder(ViewGroup viewGroup, int arg1) {
 		View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.grid_item_photo, viewGroup, false);
-		ImageViewHolder pvh = new ImageViewHolder(v);
-		return pvh;
+		ImageViewHolder holder = new ImageViewHolder(v);
+		if(!isPhotoUrls){
+			holder.play.setVisibility(View.VISIBLE);
+		}
+		return holder;
 	}
 
 	public static interface PhotoClickListener {

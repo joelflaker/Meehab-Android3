@@ -214,6 +214,7 @@ public class MeetingAdditionActivity extends SocketActivity implements
 					checkedDays[daysList.indexOf(selectedDay)] = true;
 				}
 
+				final List<String> tempSelectedDays = new ArrayList<>(selectedDays);
 
 
 				new AlertDialog.Builder(this)
@@ -223,6 +224,9 @@ public class MeetingAdditionActivity extends SocketActivity implements
 							@Override
 							public void onClick(DialogInterface dialog, int which) {
 								dialog.dismiss();
+								selectedDays.clear();
+								selectedDays.addAll(tempSelectedDays);
+
 								StringBuilder stringBuilder = new StringBuilder();
 								boolean commaNeeded = false;
 								for (String selectedDay : selectedDays) {
@@ -239,9 +243,9 @@ public class MeetingAdditionActivity extends SocketActivity implements
 							public void onClick(DialogInterface dialog, int which, boolean isChecked) {
 
 								if(isChecked){
-									selectedDays.add(daysArray[which]);
+									tempSelectedDays.add(daysArray[which]);
 								}else {
-									selectedDays.remove(daysArray[which]);
+									tempSelectedDays.remove(daysArray[which]);
 								}
 							}
 						}).show();
@@ -530,7 +534,7 @@ public class MeetingAdditionActivity extends SocketActivity implements
 //				meetingDays.put(meetingDay);
 //			}
 			JSONArray meetingTimes = new JSONArray();
-			for (int i =0;i<selectedDays.size();i++) {
+			for (int i = 0; i < selectedDays.size();i++) {
 				meetingTimes.put(meetingTime);
 			}
 

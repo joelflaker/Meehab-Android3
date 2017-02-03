@@ -1030,7 +1030,7 @@ public class MeetingsFragment extends Fragment implements
 			if (NetworkUtils.isNetworkAvailable(getActivity())) {
 				try {
 					refreshMeetingList();
-				} catch (Exception e) {
+				} finally {
 				}
 
 			} else {

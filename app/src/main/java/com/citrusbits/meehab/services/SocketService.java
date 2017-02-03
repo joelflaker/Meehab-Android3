@@ -256,73 +256,47 @@ public class SocketService extends Service {
 			}
 
 			mSocket = IO.socket(Consts.SOCKET_URL, opts);
+			//connection management
 			mSocket.on(Socket.EVENT_CONNECT_ERROR, onConnectError);
 			mSocket.on(Socket.EVENT_CONNECT_TIMEOUT, onConnectError);
-			
-			mSocket.on(EventParams.EVENT_USER_UPDATE, onUpdate);
-			mSocket.on(EventParams.EVENT_MEETING_GET_ALL, onMeeting);
-			
-			mSocket.on(EventParams.EVENT_GET_ALL_REHABS, onAllRehab);
-			
-			
-			
-//			mSocket.on(EventParams.EVENT_ADD_INSURANCE, onAddInsurance);
-			
-			mSocket.on(EventParams.EVENT_MEETING_GET_REVIEWS, onMeetingReviews);
-			
-
-			mSocket.on(EventParams.EVENT_GET_USER_REVIEWS, onGetUserReviews);
-			mSocket.on(EventParams.METHOD_CHAT_SEND_RECEIVE,
-					onSendReceiveChatMessage);
-
-			mSocket.on(EventParams.METHOD_DELETE_CHAT_MESSAGE,
-					onDeleteChatMessage);
-
-			mSocket.on(EventParams.METHOD_HOME_GROUP_USER, onHomeGroupUser);
-			mSocket.on(EventParams.METHOD_RSVP, onRsvp);
-
-			mSocket.on(EventParams.METHOD_GET_CHAT_FRIENDS, onGetChatFriends);
-
-			mSocket.on(EventParams.METHOD_DELETE_CONVERSATION,
-					onDeleteConversation);
-
 			mSocket.on(EventParams.METHOD_ACCESS_TOKEN, onAccessToken);
-
-			mSocket.on(EventParams.METHOD_REPORT_USER, onReportUser);
-
-			mSocket.on(EventParams.METHOD_BLOCK_USER_NOTIFY,
-					onBlockedUserNotify);
-
-			mSocket.on(EventParams.METHOD_SYNC_PHONE, onSyncUserNotify);
-
 			mSocket.on(EventParams.METHOD_DISCONNECT_SOCKET,
 					onDisconnectListener);
-
 			mSocket.on(EventParams.METHOD_CONNECT_SOCKET, onConnectListener);
-
 			mSocket.on(EventParams.METHOD_ERROR_SOCKET, onErrorListner);
 			mSocket.on(EventParams.METHOD_RE_CONNECT_SOCKET,
 					onReconnectListener);
 			mSocket.on(EventParams.METHOD_RECONNECT_ATTEMPT_SOCKET,
 					onReconnecAttempt);
 
+			//app service events
+			mSocket.on(EventParams.EVENT_USER_UPDATE, onUpdate);
+			mSocket.on(EventParams.EVENT_MEETING_GET_ALL, onMeeting);
+			mSocket.on(EventParams.EVENT_GET_ALL_REHABS, onAllRehab);
+			mSocket.on(EventParams.EVENT_MEETING_GET_REVIEWS, onMeetingReviews);
+			mSocket.on(EventParams.EVENT_GET_USER_REVIEWS, onGetUserReviews);
+			mSocket.on(EventParams.METHOD_CHAT_SEND_RECEIVE,
+					onSendReceiveChatMessage);
+			mSocket.on(EventParams.METHOD_DELETE_CHAT_MESSAGE,
+					onDeleteChatMessage);
+			mSocket.on(EventParams.METHOD_HOME_GROUP_USER, onHomeGroupUser);
+			mSocket.on(EventParams.METHOD_RSVP, onRsvp);
+			mSocket.on(EventParams.METHOD_GET_CHAT_FRIENDS, onGetChatFriends);
+			mSocket.on(EventParams.METHOD_DELETE_CONVERSATION,
+					onDeleteConversation);
+			mSocket.on(EventParams.METHOD_REPORT_USER, onReportUser);
+			mSocket.on(EventParams.METHOD_BLOCK_USER_NOTIFY,
+					onBlockedUserNotify);
+			mSocket.on(EventParams.METHOD_SYNC_PHONE, onSyncUserNotify);
 			mSocket.on(EventParams.METHOD_CHECK_IN_USER, onCheckInUser);
-
 			mSocket.on(EventParams.METHOD_BLOCK_USER, onBlockUser);
 			mSocket.on(EventParams.METHOD_FAVOURITE_USER, onFavouriteUser);
-
 			mSocket.on(EventParams.EVENT_DELETE_USER_REVIEW,
 					onDeleteUserReviews);
-
-
 			mSocket.on(EventParams.METHOD_GET_ALL_FRIENDS, onGetAllFriends);
-
 			mSocket.on(EventParams.METHOD_RSVP_USERS, onGetAllRsvpFriends);
-
 			mSocket.on(EventParams.METHOD_CHECK_IN_MEETING, onCheckInMeeting);
-
 			mSocket.on(EventParams.METHOD_CHAT_PAGINATION, onChatPagination);
-
 			mSocket.connect();
 
 		} catch (URISyntaxException e) {
@@ -665,15 +639,14 @@ public class SocketService extends Service {
 
 				Log.d(tag, data.toString());
 
-				if (data.getBoolean("type") == false) {
+				if (data.getBoolean("type")) {
 
 					LogoutHelper logoutHelper = new LogoutHelper(
 							SocketService.this);
 					logoutHelper.clearLoginCredentails();
-
+//					logoutHelper.attemptLogout();
 					SocketService.this.sendBroadcast(new Intent(
 							HomeActivity.ACTION_LOGOUT));
-
 				}
 			} catch (Exception e) {
 				onSocketResponseFailure("",getString(R.string.server_response_error));
