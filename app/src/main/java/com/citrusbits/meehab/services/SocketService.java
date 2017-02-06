@@ -639,7 +639,7 @@ public class SocketService extends Service {
 
 				Log.d(tag, data.toString());
 
-				if (data.getBoolean("type")) {
+				if (!data.getBoolean("type")) {
 
 					LogoutHelper logoutHelper = new LogoutHelper(
 							SocketService.this);
@@ -1415,9 +1415,7 @@ public class SocketService extends Service {
 
 						saveUserInformation(response);
 						
-
 						onSocketResponseSuccess(EventParams.METHOD_USER_LOGIN, "");
-
 					} else {
 						onSocketResponseFailure(EventParams.METHOD_USER_LOGIN,response.getMessage());
 					}
@@ -2147,31 +2145,11 @@ public class SocketService extends Service {
 	public void disconnectSocket() {
 		try {
 			mSocket.disconnect();
-			// mSocket.off(Socket.EVENT_CONNECT_ERROR, onConnectError);
-			// mSocket.off(Socket.EVENT_CONNECT_TIMEOUT, onConnectError);
-			// mSocket.off(EventParams.EVENT_USER_SIGNUP, onRegister);
-			// mSocket.off(EventParams.EVENT_USER_FACEBOOK, onFacebookLogin);
-			// mSocket.off(EventParams.METHOD_USER_LOGIN, onLogin);
-			// mSocket.off(EventParams.EVENT_USER_FORGOT_PASSWORD,
-			// onForgotPassword);
-			// mSocket.off(EventParams.EVENT_USER_UPDATE, onUpdate);
-			// mSocket.off(EventParams.EVENT_MEETING_GET_ALL, onMeeting);
 			mSocket.off();
 		} catch (Exception e) {
 		}
 
 	}
-
-//	public void toastOnUiThread(final String message) {
-//		mHandler.post(new Runnable() {
-//
-//			@Override
-//			public void run() {
-//				Toast.makeText(SocketService.this, message, Toast.LENGTH_SHORT)
-//						.show();
-//			}
-//		});
-//	}
 
 	/**
 	 * @param params key "feedback"

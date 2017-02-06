@@ -22,7 +22,7 @@
             android:layout_height="match_parent"
             android:clickable="false"
             android:scaleType="centerCrop"
-            android:src="@drawable/tmp_user_pic" />
+            android:src="@drawable/profile_pic_border" />
 
         <ImageView
             android:id="@+id/ivOnline"

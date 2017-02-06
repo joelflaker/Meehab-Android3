@@ -197,12 +197,7 @@ public class MeetingAdditionActivity extends SocketActivity implements
 				etOtherFacilities.setText("");
 				break;
 			case R.id.tvMeetingDay:
-				// Toast.makeText(RequestMeetingAdditionActivity.this,
-				// "Meeting Day!", Toast.LENGTH_SHORT).show();
-
 				hideKeyboard();
-				final String day = tvMeetingDay.getText().toString().trim();
-
 				final String[] daysArray = getResources().getStringArray(
 						R.array.days_arr);
 				final List<String> daysList = Arrays.asList(daysArray);
@@ -215,7 +210,6 @@ public class MeetingAdditionActivity extends SocketActivity implements
 				}
 
 				final List<String> tempSelectedDays = new ArrayList<>(selectedDays);
-
 
 				new AlertDialog.Builder(this)
 						.setTitle("Select Days")
@@ -249,27 +243,6 @@ public class MeetingAdditionActivity extends SocketActivity implements
 								}
 							}
 						}).show();
-
-				if(true) return;
-
-				new DayPickerDialog(MeetingAdditionActivity.this)
-						.setDayDialogListener(new SelectDayDialogListener() {
-
-							@Override
-							public void onDoneClick(DayPickerDialog dialog,
-													String daySelected) {
-								dialog.dismiss();
-								tvMeetingDay.setText(daySelected);
-								viewFocusHacker.requestFocus();
-							}
-
-							@Override
-							public void onCancelClick(DayPickerDialog dialog) {
-								dialog.dismiss();
-							}
-						}, day).show();
-
-
 
 				break;
 			case R.id.tvMeetingTime:

@@ -380,13 +380,12 @@ public class SignupActivity extends SocketActivity implements
 	}
 
 	private void attemptSignup() {
-		// All fields Contain values
-		String usernameString = etUserName.getText().toString();
-		String emailString = etEmail.getText().toString();
-		String passwordString = etPassword.getText().toString();
+		final String usernameString = etUserName.getText().toString();
+		final String emailString = etEmail.getText().toString();
+		final String passwordString = etPassword.getText().toString();
 		String phoneNumber = etPhoneNumber.getText().toString().trim();
-		phoneNumber =  "+1" + phoneNumber;
-//		phoneNumber = "+92" + phoneNumber;
+//		phoneNumber =  "+1" + phoneNumber;
+		phoneNumber = "+92" + phoneNumber;
 
 		if (!validatePhoneNumber(phoneNumber)) {
 			etPhoneNumber.setError(getString(R.string.phone_number_is_invalid));
@@ -422,32 +421,26 @@ public class SignupActivity extends SocketActivity implements
 		signup.setPhoneNumber(phoneNumber);
 		signup.setContact(contactsArray.toString());
 
-		InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
-		inputMethodManager.hideSoftInputFromWindow(getCurrentFocus()
-				.getWindowToken(), 0);
+		hideKeyboard();
 
 		if (NetworkUtil.getConnectivityStatus(this) == 0) {
 			App.toast(getString(R.string.no_internet_connection));
 			return;
 		}
 
-		// openActivity(phoneNumber, VerificationActivity.SMS,signup);
-
 		AccountUtils.setPassword(this,passwordString);
 
 		checkInfo(usernameString, emailString, phoneNumber);
-
-		// Signup code go here
 	}
 
-	public void checkInfo(String usernameString, String emailString,
-			String phone) {
+	public void checkInfo(final String usernameString,final String emailString,
+						  final String phone) {
 		
 		if (!NetworkUtils.isNetworkAvailable(this)) {
 			App.toast(getString(R.string.no_internet_connection));
 			return;
 		}
-		JSONObject checkInfoParams = new JSONObject();
+		final JSONObject checkInfoParams = new JSONObject();
 		try {
 			// Toast.makeText(this, itemName,
 			// Toast.LENGTH_SHORT).show();
@@ -460,7 +453,6 @@ public class SignupActivity extends SocketActivity implements
 		} catch (JSONException e) {
 			pd.dismiss();
 			e.printStackTrace();
-			checkInfoParams = null;
 		}
 
 	}

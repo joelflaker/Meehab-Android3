@@ -216,8 +216,10 @@ public class LoginActivity extends SocketActivity implements
 	}
 
 	@Override
-	public void onSocketResponseFailure(String onEvent, String message) {
-		pd.dismiss();
-		App.toast(message);
+	public void onSocketResponseFailure(String event, String message) {
+		if (event.equals(EventParams.METHOD_USER_LOGIN)) {
+			pd.dismiss();
+			App.toast(message);
+		}
 	}
 }

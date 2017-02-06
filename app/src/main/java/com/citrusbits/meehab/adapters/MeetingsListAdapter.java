@@ -72,7 +72,7 @@ public class MeetingsListAdapter extends ArrayAdapter<MeetingModel> {
 	@Override
 	public View getView(final int position, View convertView, ViewGroup parent) {
 
-		LayoutInflater inflater = (LayoutInflater) mContext
+		final LayoutInflater inflater = (LayoutInflater) mContext
 				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		View v = convertView;
 		if (v == null) {
@@ -80,9 +80,9 @@ public class MeetingsListAdapter extends ArrayAdapter<MeetingModel> {
 		}
 		final MeetingModel m = meetings.get(position);
 
-		TextView txtDayDate = (TextView) v.findViewById(R.id.txtDayDate);
+		final TextView txtDayDate = (TextView) v.findViewById(R.id.txtDayDate);
 
-		TextView tvDateHeading = (TextView) v.findViewById(R.id.tvDateHeading);
+		final TextView tvDateHeading = (TextView) v.findViewById(R.id.tvDateHeading);
 		tvCodes[0] = (TextView) v.findViewById(R.id.tvCode1);
 		tvCodes[1] = (TextView) v.findViewById(R.id.tvCode2);
 		tvCodes[2] = (TextView) v.findViewById(R.id.tvCode3);
@@ -92,11 +92,11 @@ public class MeetingsListAdapter extends ArrayAdapter<MeetingModel> {
 		tvCodes[6] = (TextView) v.findViewById(R.id.tvCode7);
 		tvCodes[7] = (TextView) v.findViewById(R.id.tvCode8);
 
-		TextView txtName = (TextView) v.findViewById(R.id.txtName);
-		TextView txtTime = (TextView) v.findViewById(R.id.txtTime);
-		TextView txtNumOfReviews = (TextView) v
+		final TextView txtName = (TextView) v.findViewById(R.id.txtName);
+		final TextView txtTime = (TextView) v.findViewById(R.id.txtTime);
+		final TextView txtNumOfReviews = (TextView) v
 				.findViewById(R.id.txtNumOfReviews);
-		RatingBar rating = (RatingBar) v.findViewById(R.id.rating);
+		final RatingBar rating = (RatingBar) v.findViewById(R.id.rating);
 
 		// LayerDrawable stars = (LayerDrawable) rating.getProgressDrawable();
 		// stars.getDrawable(0).setColorFilter(0xFFFF0000,
@@ -109,10 +109,10 @@ public class MeetingsListAdapter extends ArrayAdapter<MeetingModel> {
 		// stars.getDrawable(2).setColorFilter(0xFF00FF00,
 		// PorterDuff.Mode.SRC_ATOP);
 
-		TextView txtLocationName = (TextView) v
+		final TextView txtLocationName = (TextView) v
 				.findViewById(R.id.txtLocationName);
-		TextView txtAddress = (TextView) v.findViewById(R.id.txtAddress);
-		TextView txtDistance = (TextView) v.findViewById(R.id.txtDistance);
+		final TextView txtAddress = (TextView) v.findViewById(R.id.txtAddress);
+		final TextView txtDistance = (TextView) v.findViewById(R.id.txtDistance);
 
 		txtDayDate.setText(formateDate(m.getOnDateOrigion()));
 		tvDateHeading.setText(m.getOnDate() + " ");
@@ -154,7 +154,7 @@ public class MeetingsListAdapter extends ArrayAdapter<MeetingModel> {
 		 * tag.setImageResource(R.drawable.gray_circle);
 		 * tagsContainer.addView(tag); }
 		 */
-		ToggleButton checkBox = (ToggleButton) v.findViewById(R.id.checkBox);
+		final ToggleButton checkBox = (ToggleButton) v.findViewById(R.id.checkBox);
 
 		if (m.isCheckBoxVisible()) {
 			checkBox.setVisibility(View.VISIBLE);
@@ -204,8 +204,8 @@ public class MeetingsListAdapter extends ArrayAdapter<MeetingModel> {
 	}
 
 	public String formateDate(String date) {
-		SimpleDateFormat prevFormate = new SimpleDateFormat("dd/MM/yyyy");
-		SimpleDateFormat newFormate = new SimpleDateFormat("MMM dd yyyy");
+		final SimpleDateFormat prevFormate = new SimpleDateFormat("dd/MM/yyyy");
+		final SimpleDateFormat newFormate = new SimpleDateFormat("MMM dd yyyy");
 		try {
 			Date date2 = prevFormate.parse(date);
 			return newFormate.format(date2);
@@ -226,11 +226,11 @@ public class MeetingsListAdapter extends ArrayAdapter<MeetingModel> {
 	public void filter(FilterResultHolder resultHolder) {
 
 		meetings.clear();
-		List<String> days = resultHolder.getDays();
-		List<FilterTime> timeMapping = resultHolder.applyMapping();
+		final List<String> days = resultHolder.getDays();
+		final List<FilterTime> timeMapping = resultHolder.applyMapping();
 
-		List<String> typesOrigion = resultHolder.getTypes();
-		List<String> types = new ArrayList<String>();
+		final List<String> typesOrigion = resultHolder.getTypes();
+		final List<String> types = new ArrayList<String>();
 		for (int i = 0; i < typesOrigion.size(); i++) {
 			String type = typesOrigion.get(i);
 			String typeArray[] = type.split("-");
@@ -288,13 +288,14 @@ public class MeetingsListAdapter extends ArrayAdapter<MeetingModel> {
 			boolean isCode = resultHolder.getAnyType() ? true : satisfyCode(
 					types, wp);
 
-			Log.i("Is Day " + k, String.valueOf(isDay));
-			Log.i("Is Time " + k, String.valueOf(isTime));
-			Log.i("Is Zipcode " + k, String.valueOf(iszipCode));
-			Log.i("Is Distance " + k, String.valueOf(isDistance));
-			Log.i("Is Star " + k, String.valueOf(isStar));
-			Log.i("Is Fave " + k, String.valueOf(isFavSatisfy));
-			Log.i("Is Code " + k, String.valueOf(isCode));
+			String log = "->Is Day:" + String.valueOf(isDay)
+			+ "\nIs Time " + String.valueOf(isTime)
+			+ "\nIs Zipcode " + String.valueOf(iszipCode)
+					+ "\nIs Distance " + String.valueOf(isDistance)
+					+ "\nIs Star " + String.valueOf(isStar)
+					+ "\nIs Fave " + String.valueOf(isFavSatisfy)
+					+ "\nIs Code " + String.valueOf(isCode);
+			Log.i("MeetingFilter","Meeting name:" + String.valueOf(wp.getName()) + log);
 
 			if (isDay && isTime && iszipCode && isDistance && isStar
 					&& isFavSatisfy && isCode) {
@@ -329,7 +330,7 @@ public class MeetingsListAdapter extends ArrayAdapter<MeetingModel> {
 
 	public boolean satisfyCode(List<String> types, MeetingModel wp) {
 
-		String codes = wp.getCodes();
+		final String codes = wp.getCodes();
 		Log.e("Types ", types.toString());
 		Log.e("code", codes);
 		String codeArray[] = codes.split(",");
@@ -390,7 +391,7 @@ public class MeetingsListAdapter extends ArrayAdapter<MeetingModel> {
 
 	public boolean filterTime(List<FilterTime> filters, String times) {
 
-		String timeArray[] = times.split(",");
+		final String timeArray[] = times.split(",");
 
 		for (int k = 0; k < timeArray.length; k++) {
 			String time = timeArray[k];
@@ -400,10 +401,11 @@ public class MeetingsListAdapter extends ArrayAdapter<MeetingModel> {
 						"yyy-MMM-dd hh:mm a");
 				final Date dateObj = _12HourSDF.parse(time);
 				Calendar calendar = Calendar.getInstance();
-
-				calendar.set(Calendar.HOUR_OF_DAY, dateObj.getHours());
-				calendar.set(Calendar.MINUTE, dateObj.getMinutes());
+				calendar.setTime(dateObj);
+//				calendar.set(Calendar.HOUR_OF_DAY, dateObj.getHours());
+//				calendar.set(Calendar.MINUTE, dateObj.getMinutes());
 				calendar.set(Calendar.SECOND, 0);
+				calendar.set(Calendar.MILLISECOND, 0);
 
 				Log.i("Origional Calendar",
 						dateHourFormate.format(calendar.getTime()));
@@ -415,6 +417,8 @@ public class MeetingsListAdapter extends ArrayAdapter<MeetingModel> {
 
 					start.set(Calendar.SECOND, 0);
 					end.set(Calendar.SECOND, 0);
+					start.set(Calendar.MILLISECOND, 0);
+					end.set(Calendar.MILLISECOND, 0);
 
 					Log.i("Start Calendar",
 							dateHourFormate.format(start.getTime()));
@@ -455,8 +459,7 @@ public class MeetingsListAdapter extends ArrayAdapter<MeetingModel> {
 
 		@Override
 		public void onClick(View v) {
-			// TODO Auto-generated method stub
-			String code = (String) v.getTag();
+			final String code = (String) v.getTag();
 			new CodePopup(mContext, MettingCodes.meetingValuesFromCode(code))
 					.show(v);
 		}
