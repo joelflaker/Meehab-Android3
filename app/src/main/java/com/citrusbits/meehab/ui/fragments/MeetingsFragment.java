@@ -13,6 +13,7 @@ import java.util.Locale;
 
 import org.json.JSONObject;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.ComponentName;
 import android.content.Context;
@@ -82,9 +83,6 @@ public class MeetingsFragment extends Fragment implements
 
 	public static final int REQUEST_MEETING_DETAILS = 2;
 
-	/**
-	 * 
-	 */
 	public static final int Filter_request = 200;
 	// Google Map
 	// SupportMapFragment mapFrag;

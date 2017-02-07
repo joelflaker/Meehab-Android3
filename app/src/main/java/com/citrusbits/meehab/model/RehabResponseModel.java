@@ -127,7 +127,6 @@ public class RehabResponseModel {
 
 			now.setTime(onDate);
 			now.clear(Calendar.ZONE_OFFSET);
-			now.clear(Calendar.ZONE_OFFSET);
 
 			now.set(Calendar.HOUR_OF_DAY, Calendar.getInstance().get(Calendar.HOUR_OF_DAY));
 			now.set(Calendar.MINUTE, Calendar.getInstance().get(Calendar.MINUTE));
@@ -136,18 +135,24 @@ public class RehabResponseModel {
 
 			onCal.setTime(onDate);
 			onCal.clear(Calendar.ZONE_OFFSET);
-			//				offCal.setTime(offDate);
-			//				add(Calendar.DAY_OF_WEEK, daysInWeek.indexOf(onDay.toLowerCase(Locale.US)) + 1)
+			onCal.set(Calendar.HOUR_OF_DAY, onDate.getHours());
+			onCal.set(Calendar.MINUTE, onDate.getMinutes());
+
+			if(offDate == null) return nowDate.after(onCal.getTime());
 
 			offCal.setTime(offDate);
 			offCal.clear(Calendar.ZONE_OFFSET);
+			offCal.set(Calendar.HOUR_OF_DAY, offDate.getHours());
+			offCal.set(Calendar.MINUTE, offDate.getMinutes());
 
 			return nowDate.after(onCal.getTime()) && nowDate.before(offCal.getTime());
 
 		}catch(Exception e){
 			e.printStackTrace();
 		}
-
+//		nowDate = {Date@7219} "Thu Jan 01 18:00:41 GMT+05:00 1970"
+//		onCal.getTime() = {Date@7409} "Thu Jan 01 09:00:00 GMT+05:00 1970"
+//		offCal.getTime() = {Date@7415} "Thu Jan 01 19:00:00 GMT+05:00 1970"
 		return bool;
 	}
 //				ymFormat.parse(on.get(Calendar.DAY_OF_WEEK) + "/" + on.get(Calendar.))
@@ -173,17 +178,16 @@ public class RehabResponseModel {
 		
 		RehabDayModel re = null;
 		Calendar now = Calendar.getInstance();
+		int weekDay = now.get(Calendar.DAY_OF_WEEK);
 		for (int i = 0; i < daysList.size(); i++) {
 			re = daysList.get(i);
 
 			String dayName = re.getDayName();
-			int weekDay = now.get(Calendar.DAY_OF_WEEK);
 			int weekDayInt = (daysInWeek.indexOf(dayName.toLowerCase(Locale.US)) + 1);
 			if(weekDay == weekDayInt && re.getOnThisDay().equalsIgnoreCase("on")){
 				break;
 			}
 			re = null;
-			
 		}
 		
 		return re;

@@ -305,6 +305,7 @@ public class RehabsFragment extends Fragment implements
 		}
 
 		rehabAdapter.filter(text);
+		updateEmptyViewVisibility();
 	}
 
 	protected void addMarkers() {
@@ -908,7 +909,7 @@ public class RehabsFragment extends Fragment implements
 						Date openDate = rehabDay.getOpenDate();
 						String openTime = openDate == null ? "hh:mm": amFormater.format(openDate);
 						Date closeDate = rehabDay.getCloseDate();
-						String closeTime = closeDate == null ? "hh:mm":amFormater.format(closeDate);
+						String closeTime = closeDate == null ? "hh:mm": amFormater.format(closeDate);
 						rehabModel.setHours(openTime + " - " + closeTime);
 					}
 					
@@ -937,8 +938,8 @@ public class RehabsFragment extends Fragment implements
 				rehabAdapter.filter(RehabsFilterActivity.filterModel);				
 			}
 			rehabAdapter.notifyDataSetChanged();
-
 			addMarkers();
+			updateEmptyViewVisibility();
 		}
 
 	}

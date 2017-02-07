@@ -100,7 +100,10 @@ public class MyReviewDetailActivity extends SocketActivity implements
 				public void onClick(View v) {
 					MeetingReviewModel review = (MeetingReviewModel) v.getTag();
 
-					if(AccountUtils.getUserId(MyReviewDetailActivity.this) == review.getUserId()) return;
+					if(AccountUtils.getUserId(MyReviewDetailActivity.this) == review.getUserId()) {
+						App.toast(getString(R.string.message_your_profile));
+						return;
+					}
 
 					pd.show();
 					socketService.getUserById(review.getUserId());

@@ -360,7 +360,7 @@ public class MeetingsListAdapter extends ArrayAdapter<MeetingModel> {
 	}
 
 	public boolean isMiles(String mile, MeetingModel meeting) {
-		mile = mile.replace("miles", "").replace("mile", "").trim();
+		mile = mile.replace("miles", "").replace("more than","").replace("mile", "").trim();
 		/*
 		 * Log.e("My Location",
 		 * myLocation.getLatitude()+","+myLocation.getLongitude());
@@ -385,6 +385,7 @@ public class MeetingsListAdapter extends ArrayAdapter<MeetingModel> {
 		 * 
 		 * Log.e("Distance in Miles is ", distance+"");
 		 */
+		if(mil == 50) return true;
 
 		return distance <= mil;
 	}
@@ -401,9 +402,8 @@ public class MeetingsListAdapter extends ArrayAdapter<MeetingModel> {
 						"yyy-MMM-dd hh:mm a");
 				final Date dateObj = _12HourSDF.parse(time);
 				Calendar calendar = Calendar.getInstance();
-				calendar.setTime(dateObj);
-//				calendar.set(Calendar.HOUR_OF_DAY, dateObj.getHours());
-//				calendar.set(Calendar.MINUTE, dateObj.getMinutes());
+				calendar.set(Calendar.HOUR_OF_DAY, dateObj.getHours());
+				calendar.set(Calendar.MINUTE, dateObj.getMinutes());
 				calendar.set(Calendar.SECOND, 0);
 				calendar.set(Calendar.MILLISECOND, 0);
 

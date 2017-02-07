@@ -198,9 +198,8 @@ public class MeetingsFilterActivity extends SocketActivity implements
 		filter.setAnyCode(zipcode.isEmpty() ? true : false);
 		filter.setZipCode(zipcode);
 		String distanceString = txtDistance.getText().toString().trim();
-		filter.setAnyDistance(distanceString.equalsIgnoreCase(getString(R.string.more_than_50_miles)) ? true
-				: false);
-
+		filter.setAnyDistance(distanceString.equalsIgnoreCase("any"));
+		distanceString = distanceString.replace("Any","");
 		filter.setDistance(distanceString);
 
 //		String ratingString = txtRating.getText().toString().trim();

@@ -208,4 +208,5 @@
     <string name="more_than_50_miles">more than 50 Miles</string>
     <string name="your_account_permanently_deleted">Your account will be permanently deleted.\nEnter your current password.</string>
     <string name="change_email_password_confirmation_">Confirm your password to change email.\nEnter your current password.</string>
+    <string name="message_your_profile">Your profile!</string>
 </resources>

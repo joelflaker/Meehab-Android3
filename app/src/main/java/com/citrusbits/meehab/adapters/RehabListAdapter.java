@@ -101,11 +101,11 @@ public class RehabListAdapter extends ArrayAdapter<RehabModel> {
 			holder.tvStatus.setVisibility(View.GONE);
 		}else if(rehabResponse.isOpenNow(rehab.getRehabDays())){
 			holder.tvStatus.setVisibility(View.VISIBLE);
-			holder.tvStatus.setBackgroundDrawable(mContext.getResources().getDrawable(R.drawable.hours_bg_green));
+			holder.tvStatus.setBackgroundResource(R.drawable.hours_bg_green);
 			holder.tvStatus.setText(R.string.rehab_open_now_);
 		}else{
 			holder.tvStatus.setVisibility(View.VISIBLE);
-			holder.tvStatus.setBackgroundDrawable(mContext.getResources().getDrawable(R.drawable.yellow_round_corners));
+			holder.tvStatus.setBackgroundResource(R.drawable.yellow_round_corners);
 			holder.tvStatus.setText(R.string.rehab_close_now_);
 		}
 		
@@ -176,7 +176,8 @@ public class RehabListAdapter extends ArrayAdapter<RehabModel> {
 			 */
 			
 			//open now?
-			boolean isStatuMatch = RehabResponseModel.isOpenNow(wp.getRehabDays()) == resultHolder.isOpenNow();
+			boolean isStatuMatch = resultHolder.isOpenNow() ? RehabResponseModel.isOpenNow(wp.getRehabDays()) == resultHolder.isOpenNow()
+					: true;
 
 			//type
 			ArrayList<String> types = (ArrayList<String>) resultHolder.getRehabType();
@@ -206,8 +207,8 @@ public class RehabListAdapter extends ArrayAdapter<RehabModel> {
 					.equals(resultHolder.getZipCode());
 			
 			//distance
-			boolean isDistance =  true;
-			if(resultHolder.is50Distance()){
+			boolean isDistance;
+			if(resultHolder.isAnyDistance()){
 				isDistance = true;//miles > 50;
 			}else{
 				isDistance = isMiles(resultHolder.getDistance(), miles);
@@ -239,7 +240,10 @@ public class RehabListAdapter extends ArrayAdapter<RehabModel> {
 		 * meeting.getLatitude()+","+meeting.getLongitude());
 		 */
 
+
 		long mil = Long.parseLong(mile);
+
+		if(mil == 50) return true;
 
 		/*
 		 * Location pinLocation = new Location("B");

@@ -1150,17 +1150,17 @@ public class MeetingDetailsActivity extends SocketActivity implements
 							R.anim.activity_out);
 				}
 			});
-			MeetingReviewModel m = list.get(i);
+			final MeetingReviewModel m = list.get(i);
 
 			// init
-			TextView tvReviewTitle = (TextView) view
+			final TextView tvReviewTitle = (TextView) view
 					.findViewById(R.id.tvReviewTitle);
-			RatingBar rating = (RatingBar) view.findViewById(R.id.rating);
-			TextView tvMeetingName = (TextView) view
-					.findViewById(R.id.tvMeetingName);
-			TextView tvDateTime = (TextView) view.findViewById(R.id.tvDateTime);
-			TextView tvComment = (TextView) view.findViewById(R.id.tvComment);
-			ImageView ivUserIcon = (ImageView) view
+			final RatingBar rating = (RatingBar) view.findViewById(R.id.rating);
+			final TextView tvMeetingName = (TextView) view
+			 		.findViewById(R.id.tvMeetingName);
+			final TextView tvDateTime = (TextView) view.findViewById(R.id.tvDateTime);
+			final TextView tvComment = (TextView) view.findViewById(R.id.tvComment);
+			final ImageView ivUserIcon = (ImageView) view
 					.findViewById(R.id.ivUserIcon);
 			ivUserIcon.setTag(m);
 			ivUserIcon.setOnClickListener(new OnClickListener() {
@@ -1168,7 +1168,10 @@ public class MeetingDetailsActivity extends SocketActivity implements
 				public void onClick(View v) {
 					MeetingReviewModel review = (MeetingReviewModel) v.getTag();
 
-					if(AccountUtils.getUserId(MeetingDetailsActivity.this) == review.getUserId()) return;
+					if(AccountUtils.getUserId(MeetingDetailsActivity.this) == review.getUserId()) {
+						App.toast(getString(R.string.message_your_profile));
+						return;
+					}
 
 					if(NetworkUtil.isConnected(MeetingDetailsActivity.this)){
 						pd.show();
@@ -1198,7 +1201,7 @@ public class MeetingDetailsActivity extends SocketActivity implements
 
 			tvMeetingName.setText(m.getUsername());
 
-			String datetimeAdded = DateTimeUtils.getDatetimeAdded(
+			final String datetimeAdded = DateTimeUtils.getDatetimeAdded(
 					m.getDatetimeAdded(), timeZone);
 
 			tvDateTime.setText(datetimeAdded);
@@ -1206,7 +1209,7 @@ public class MeetingDetailsActivity extends SocketActivity implements
 			tvComment.setText(m.getComments());
 
 			linear.addView(view);
-			View divider = new View(linear.getContext());
+			final View divider = new View(linear.getContext());
 			divider.setLayoutParams(new LinearLayout.LayoutParams(
 					LayoutParams.MATCH_PARENT, 5));
 			linear.addView(divider);

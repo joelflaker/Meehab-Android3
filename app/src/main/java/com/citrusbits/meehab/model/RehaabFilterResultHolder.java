@@ -107,11 +107,11 @@ public class RehaabFilterResultHolder implements Serializable {
 		this.anyZipCode = anyZipCode;
 	}
 
-	public boolean is50Distance() {
+	public boolean isAnyDistance() {
 		return anyDistance;
 	}
 
-	public void setanyDistance(boolean anyDistance) {
+	public void setAnyDistance(boolean anyDistance) {
 		this.anyDistance = anyDistance;
 	}
 

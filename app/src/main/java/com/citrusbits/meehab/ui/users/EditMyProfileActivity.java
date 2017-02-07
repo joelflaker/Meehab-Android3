@@ -683,17 +683,13 @@ public class EditMyProfileActivity extends SocketActivity implements
 				}*/
 
 				// gender
-				String genderString = "";
+				String genderString = null;
 				if (maleBtn.isChecked()) {
 					genderString = "Male";
 				} else if (femaleBtn.isChecked()) {
 					genderString = "Female";
 				} else if (otherBtn.isChecked()) {
-//					if (genderOtherEdit.getText().toString().trim().length() > 0) {
 						genderString = genderOtherEdit.getText().toString();
-//					} else {
-//						genderString = "";
-//					}
 				}
 				if (genderString != null) {
 					params.put("gender", genderString);

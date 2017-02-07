@@ -322,7 +322,7 @@ public class SocketService extends Service {
 
 				// toastOnUiThread("Message is "+data.getBoolean("type"));
 
-				if (data.getBoolean("type") == true) {
+				if (data.getBoolean("type") ) {
 					// userDatasource.update(response.getUser());
 					//
 					// cacheResponses.put(EventParams.EVENT_MEETING_GET_ALL,
@@ -352,7 +352,7 @@ public class SocketService extends Service {
 
 				// toastOnUiThread("Message is "+data.getBoolean("type"));
 
-				if (data.getBoolean("type") == true) {
+				if (data.getBoolean("type") ) {
 					// userDatasource.update(response.getUser());
 					//
 					// cacheResponses.put(EventParams.EVENT_MEETING_GET_ALL,
@@ -380,7 +380,7 @@ public class SocketService extends Service {
 //
 //				Log.d(tag, data.toString());
 //
-//				if (data.getBoolean("type") == true) {
+//				if (data.getBoolean("type") ) {
 //					// userDatasource.update(response.getUser());
 //					//
 //					onSocketResponseSuccess(
@@ -406,7 +406,7 @@ public class SocketService extends Service {
 
 				Log.d(tag, data.toString());
 
-				if (data.getBoolean("type") == true) {
+				if (data.getBoolean("type") ) {
 					// userDatasource.update(response.getUser());
 					onSocketResponseSuccess(EventParams.METHOD_CHAT_PAGINATION,
 							data);
@@ -488,7 +488,7 @@ public class SocketService extends Service {
 
 				Log.d(tag, data.toString());
 
-				if (data.getBoolean("type") == true) {
+				if (data.getBoolean("type") ) {
 					// userDatasource.update(response.getUser());
 					onSocketResponseSuccess(EventParams.METHOD_SYNC_PHONE, data);
 					Intent i = new Intent(
@@ -517,7 +517,7 @@ public class SocketService extends Service {
 
 				Log.d(tag, data.toString());
 
-				if (data.getBoolean("type") == true) {
+				if (data.getBoolean("type") ) {
 					// userDatasource.update(response.getUser());
 					onSocketResponseSuccess(
 							EventParams.METHOD_BLOCK_USER_NOTIFY, data);
@@ -541,7 +541,7 @@ public class SocketService extends Service {
 
 				Log.d(tag, data.toString());
 
-				if (data.getBoolean("type") == true) {
+				if (data.getBoolean("type") ) {
 					// userDatasource.update(response.getUser());
 					onSocketResponseSuccess(EventParams.METHOD_CHECK_IN_USER,
 							data);
@@ -566,7 +566,7 @@ public class SocketService extends Service {
 
 				Log.d(tag, data.toString());
 
-				if (data.getBoolean("type") == true) {
+				if (data.getBoolean("type") ) {
 					// userDatasource.update(response.getUser());
 					//
 					onSocketResponseSuccess(EventParams.METHOD_REPORT_USER,
@@ -591,7 +591,7 @@ public class SocketService extends Service {
 
 				Log.d(tag, data.toString());
 
-				if (data.getBoolean("type") == true) {
+				if (data.getBoolean("type") ) {
 					// userDatasource.update(response.getUser());
 					//
 					onSocketResponseSuccess(EventParams.METHOD_BLOCK_USER, data);
@@ -615,11 +615,9 @@ public class SocketService extends Service {
 
 				Log.d(tag, data.toString());
 
-				if (data.getBoolean("type") == true) {
+				if (data.getBoolean("type")) {
 					// userDatasource.update(response.getUser());
-					//
-					onSocketResponseSuccess(EventParams.METHOD_FAVOURITE_USER,
-							data);
+					onSocketResponseSuccess(EventParams.METHOD_FAVOURITE_USER,data);
 					// App.getInstance().connectNodeJS();
 				} else {
 					onSocketResponseFailure(EventParams.METHOD_FAVOURITE_USER,data.getString("message"));
@@ -663,7 +661,7 @@ public class SocketService extends Service {
 
 				Log.d(tag, data.toString());
 
-				if (data.getBoolean("type") == true) {
+				if (data.getBoolean("type")) {
 					// userDatasource.update(response.getUser());
 					//
 					onSocketResponseSuccess(
@@ -687,7 +685,7 @@ public class SocketService extends Service {
 
 				Log.d(tag, data.toString());
 
-				if (data.getBoolean("type") == true) {
+				if (data.getBoolean("type")) {
 					// userDatasource.update(response.getUser());
 					//
 					onSocketResponseSuccess(
@@ -711,7 +709,7 @@ public class SocketService extends Service {
 
 				Log.d(tag, data.toString());
 
-				if (data.getBoolean("type") == true) {
+				if (data.getBoolean("type")) {
 					// userDatasource.update(response.getUser());
 					//
 					onSocketResponseSuccess(
@@ -735,7 +733,7 @@ public class SocketService extends Service {
 
 				Log.d(tag, data.toString());
 
-				if (data.getBoolean("type") == true) {
+				if (data.getBoolean("type") ) {
 					// userDatasource.update(response.getUser());
 					//
 					boolean chatActivityEnable = prefs.getBooleanPrefs(
@@ -921,7 +919,7 @@ public class SocketService extends Service {
 
 				Log.d(tag, data.toString());
 
-				if (data.getBoolean("type") == true) {
+				if (data.getBoolean("type") ) {
 					// userDatasource.update(response.getUser());
 					//
 					onSocketResponseSuccess(EventParams.EVENT_GET_USER_REVIEWS,
@@ -945,7 +943,7 @@ public class SocketService extends Service {
 
 				Log.d(tag, data.toString());
 
-				if (data.getBoolean("type") == true) {
+				if (data.getBoolean("type") ) {
 					// userDatasource.update(response.getUser());
 					//
 					onSocketResponseSuccess(EventParams.METHOD_RSVP, data);
@@ -969,7 +967,7 @@ public class SocketService extends Service {
 
 				Log.d(tag, data.toString());
 
-				if (data.getBoolean("type") == true) {
+				if (data.getBoolean("type") ) {
 					// userDatasource.update(response.getUser());
 					//
 					onSocketResponseSuccess(EventParams.METHOD_HOME_GROUP_USER,
@@ -993,7 +991,7 @@ public class SocketService extends Service {
 
 				Log.d(tag, data.toString());
 
-				if (data.getBoolean("type") == true) {
+				if (data.getBoolean("type") ) {
 					// userDatasource.update(response.getUser());
 					//
 					onSocketResponseSuccess(
@@ -1018,7 +1016,7 @@ public class SocketService extends Service {
 
 				Log.d(tag, data.toString());
 
-				if (data.getBoolean("type") == true) {
+				if (data.getBoolean("type") ) {
 					// userDatasource.update(response.getUser());
 					//
 					onSocketResponseSuccess(
@@ -1042,7 +1040,7 @@ public class SocketService extends Service {
 
 				Log.d(tag, data.toString());
 
-				if (data.getBoolean("type") == true) {
+				if (data.getBoolean("type") ) {
 					// userDatasource.update(response.getUser());
 					//
 					onSocketResponseSuccess(EventParams.METHOD_RSVP_USERS, data);
@@ -1065,7 +1063,7 @@ public class SocketService extends Service {
 
 				Log.d(tag, data.toString());
 
-				if (data.getBoolean("type") == true) {
+				if (data.getBoolean("type") ) {
 					// userDatasource.update(response.getUser());
 					//
 					onSocketResponseSuccess(EventParams.METHOD_GET_ALL_FRIENDS,
@@ -1482,7 +1480,7 @@ public class SocketService extends Service {
 
 					Log.d(tag, data.toString());
 
-					if (data.getBoolean("type") == true) {
+					if (data.getBoolean("type") ) {
 						// userDatasource.update(response.getUser());
 						//
 						onSocketResponseSuccess(EventParams.EVENT_FAVOURITE_LIST,
@@ -1511,7 +1509,7 @@ public class SocketService extends Service {
 
 					Log.d(tag, data.toString());
 
-					if (data.getBoolean("type") == true) {
+					if (data.getBoolean("type") ) {
 						// userDatasource.update(response.getUser());
 						//
 						onSocketResponseSuccess(
@@ -1543,7 +1541,7 @@ public class SocketService extends Service {
 
 					Log.d(tag, data.toString());
 
-					if (data.getBoolean("type") == true) {
+					if (data.getBoolean("type") ) {
 						// userDatasource.update(response.getUser());
 						//
 						onSocketResponseSuccess(
@@ -1573,7 +1571,7 @@ public class SocketService extends Service {
 
 					Log.d(tag, data.toString());
 
-					if (data.getBoolean("type") == true) {
+					if (data.getBoolean("type") ) {
 						// userDatasource.update(response.getUser());
 						//
 						onSocketResponseSuccess(
@@ -1600,7 +1598,7 @@ public class SocketService extends Service {
 
 					JSONObject data = (JSONObject) args[0];
 
-					if (data.getBoolean("type") == true) {
+					if (data.getBoolean("type") ) {
 						onSocketResponseSuccess(
 								EventParams.EVENT_REHAB_TYPES_LIST, data);
 					} else {
@@ -1625,7 +1623,7 @@ public class SocketService extends Service {
 
 					JSONObject data = (JSONObject) args[0];
 
-					if (data.getBoolean("type") == true) {
+					if (data.getBoolean("type") ) {
 						onSocketResponseSuccess(
 								EventParams.EVENT_INSURANCE_LIST, data);
 					} else {
@@ -1651,7 +1649,7 @@ public class SocketService extends Service {
 
 					JSONObject data = (JSONObject) args[0];
 
-					if (data.getBoolean("type") == true) {
+					if (data.getBoolean("type") ) {
 						onSocketResponseSuccess(
 								EventParams.EVENT_ADD_INSURANCE, data);
 					} else {
@@ -1686,7 +1684,7 @@ public class SocketService extends Service {
 
 					Log.d(tag, data.toString());
 
-					if (data.getBoolean("type") == true) {
+					if (data.getBoolean("type") ) {
 						// userDatasource.update(response.getUser());
 						//
 						onSocketResponseSuccess(EventParams.METHOD_BIG_BOOK,
@@ -1722,7 +1720,7 @@ public class SocketService extends Service {
 
 					Log.d(tag, data.toString());
 
-					if (data.getBoolean("type") == true) {
+					if (data.getBoolean("type") ) {
 						// userDatasource.update(response.getUser());
 						//
 						onSocketResponseSuccess(EventParams.METHOD_REPORT_MEETING,
@@ -1802,7 +1800,7 @@ public class SocketService extends Service {
 
 					Log.d(tag, data.toString());
 
-					if (data.getBoolean("type") == true) {
+					if (data.getBoolean("type") ) {
 						// userDatasource.update(response.getUser());
 						//
 						onSocketResponseSuccess(EventParams.METHOD_CHECK_INFO, data);
@@ -1856,7 +1854,7 @@ public class SocketService extends Service {
 
 					Log.d(tag, data.toString());
 
-					if (data.getBoolean("type") == true) {
+					if (data.getBoolean("type") ) {
 						// userDatasource.update(response.getUser());
 						//
 						onSocketResponseSuccess(EventParams.METHOD_USER_BY_ID, data);
@@ -1887,7 +1885,7 @@ public class SocketService extends Service {
 
 					Log.d(tag, data.toString());
 
-					if (data.getBoolean("type") == true) {
+					if (data.getBoolean("type") ) {
 						// userDatasource.update(response.getUser());
 						//
 						onSocketResponseSuccess(EventParams.METHOD_USERS_DELETE, data);
@@ -2171,7 +2169,7 @@ public class SocketService extends Service {
 
 					Log.d(tag, data.toString());
 
-					if (data.getBoolean("type") == true) {
+					if (data.getBoolean("type") ) {
 						// userDatasource.update(response.getUser());
 						//
 						onSocketResponseSuccess(EventParams.EVENT_REHAB_FAVOURITE,
@@ -2202,7 +2200,7 @@ public class SocketService extends Service {
 
 					Log.d(tag, data.toString());
 
-					if (data.getBoolean("type") == true) {
+					if (data.getBoolean("type") ) {
 						// userDatasource.update(response.getUser());
 						//
 						onSocketResponseSuccess(EventParams.EVENT_REHAB_REPORT,

@@ -190,11 +190,15 @@ public class RehabsFilterActivity extends SocketActivity implements
 		editZipCode.setText(filterModel.getZipCode());
 		
 		//distance
-		if(filterModel.is50Distance()){
-			txtDistance.setText(R.string.more_than_50_miles);
-		}else{
+		if(filterModel.isAnyDistance()){
+			txtDistance.setText("Any");
+		}else {
 			String miles = filterModel.getDistance();
-			txtDistance.setText(miles == null ? "5 Miles": miles);
+			if(miles != null && miles.contains("50")){
+				txtDistance.setText("more than 50 Miles");
+			}else {
+				txtDistance.setText(miles == null ? "Any" : miles);
+			}
 		}
 
 		// Adding ArrayList data to ExpandableListView values
@@ -226,12 +230,12 @@ public class RehabsFilterActivity extends SocketActivity implements
 				filterModel.setZipCode(zipCode);
 			}
 
-			String distance = txtDistance.getText().toString().trim();
-			if (distance.equalsIgnoreCase(getString(R.string.more_than_50_miles))) {
-				filterModel.setanyDistance(true);
+			String distance = txtDistance.getText().toString().replace("more than","").trim();
+			if (distance.equalsIgnoreCase("any") || distance.equalsIgnoreCase(getString(R.string.more_than_50_miles))) {
+				filterModel.setAnyDistance(true);
 			} else {
-				filterModel.setanyDistance(false);
-				filterModel.setDistance(distance);
+				filterModel.setAnyDistance(false);
+				filterModel.setDistance(distance.replace("more than","").trim());
 			}
 
 //			Toast.makeText(RehabsFilterActivity.this, "Apply!",
