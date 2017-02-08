@@ -83,7 +83,7 @@ public class RehaabFilterResultHolder implements Serializable {
 		insuranceAccepted.clear();
 	}
 
-	public boolean isanyType() {
+	public boolean isAnyType() {
 		return anyType;
 	}
 
@@ -99,11 +99,11 @@ public class RehaabFilterResultHolder implements Serializable {
 		this.anyInsuranceAccepted = anyInsuranceAccepted;
 	}
 
-	public boolean isanyZipCode() {
+	public boolean isAnyZipCode() {
 		return anyZipCode;
 	}
 
-	public void setanyZipCode(boolean anyZipCode) {
+	public void setAnyZipCode(boolean anyZipCode) {
 		this.anyZipCode = anyZipCode;
 	}
 

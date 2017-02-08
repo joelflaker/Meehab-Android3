@@ -57,7 +57,7 @@ public class FilterResultHolder implements Serializable {
 		this.anyDistance = anyDistance;
 	}
 
-	public boolean getAnyDistance() {
+	public boolean isAnyDistance() {
 		return this.anyDistance;
 	}
 

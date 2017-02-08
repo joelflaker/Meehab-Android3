@@ -10,26 +10,17 @@
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="249e763b-9471-407f-986e-4918a109a8df" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
+    <list default="true" id="249e763b-9471-407f-986e-4918a109a8df" name="Default" comment="fixes open now issue, any distance filter, own profile message">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build.gradle" afterPath="$PROJECT_DIR$/app/build.gradle" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/adapters/MeetingsListAdapter.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/adapters/MeetingsListAdapter.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/adapters/RehabListAdapter.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/adapters/RehabListAdapter.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/model/RehaabFilterResultHolder.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/model/RehaabFilterResultHolder.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/model/RehabResponseModel.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/model/RehabResponseModel.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/services/SocketService.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/services/SocketService.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/ui/MyReviewDetailActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/ui/MyReviewDetailActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/ui/fragments/MeetingsFragment.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/ui/fragments/MeetingsFragment.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/ui/fragments/RehabsFragment.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/ui/fragments/RehabsFragment.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/ui/meetings/MeetingDetailsActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/ui/meetings/MeetingDetailsActivity.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/ui/fragments/FilterResultHolder.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/ui/fragments/FilterResultHolder.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/ui/meetings/MeetingsFilterActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/ui/meetings/MeetingsFilterActivity.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/ui/rehabs/RehabsFilterActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/ui/rehabs/RehabsFilterActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/ui/users/EditMyProfileActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/ui/users/EditMyProfileActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/ui/users/VerificationActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/ui/users/VerificationActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_meeting_filter.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_meeting_filter.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_rehabs_filter.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_rehabs_filter.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" afterPath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/ui/users/SignupActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/ui/users/SignupActivity.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_edit_my_profile.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_edit_my_profile.xml" />
     </list>
     <ignored path="Meehab-Android.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -62,11 +53,21 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="MeetingsFragment.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/ui/fragments/MeetingsFragment.java">
+      <file leaf-file-name="VerificationActivity.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/ui/users/VerificationActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="311">
-              <caret line="736" column="35" selection-start-line="736" selection-start-column="35" selection-end-line="736" selection-end-column="35" />
+            <state relative-caret-position="544">
+              <caret line="397" column="14" selection-start-line="397" selection-start-column="14" selection-end-line="397" selection-end-column="14" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="App.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/app/App.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="323">
+              <caret line="87" column="25" selection-start-line="87" selection-start-column="25" selection-end-line="87" selection-end-column="25" />
               <folding />
             </state>
           </provider>
@@ -75,38 +76,8 @@
       <file leaf-file-name="SignupActivity.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/ui/users/SignupActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="170">
-              <caret line="388" column="0" selection-start-line="388" selection-start-column="0" selection-end-line="388" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="MeetingsListAdapter.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/adapters/MeetingsListAdapter.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="379">
-              <caret line="387" column="34" selection-start-line="387" selection-start-column="34" selection-end-line="387" selection-end-column="34" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="RehabsFragment.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/ui/fragments/RehabsFragment.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-246">
-              <caret line="255" column="34" selection-start-line="255" selection-start-column="34" selection-end-line="255" selection-end-column="34" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="MeetingsFilterActivity.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/ui/meetings/MeetingsFilterActivity.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="315">
-              <caret line="201" column="51" selection-start-line="201" selection-start-column="51" selection-end-line="201" selection-end-column="51" />
+            <state relative-caret-position="136">
+              <caret line="386" column="42" selection-start-line="386" selection-start-column="42" selection-end-line="386" selection-end-column="42" />
               <folding />
             </state>
           </provider>
@@ -2412,7 +2383,7 @@
     <option name="modificationStamps">
       <map>
         <entry key="D:\AndroidProjects\Meehab-Android" value="7368998874253" />
-        <entry key="D:\Company\Meehab\Meehab-Android" value="5928880408664" />
+        <entry key="D:\Company\Meehab\Meehab-Android" value="5928958710909" />
       </map>
     </option>
     <option name="projectBuildClasspath">
@@ -2918,7 +2889,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/ui/dialog/DobPickerDialog.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_profile_setup.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/model/UserAccount.java" />
@@ -2956,18 +2926,19 @@
         <option value="$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/ui/MyReviewDetailActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/ui/meetings/MeetingDetailsActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/ui/fragments/MeetingsFragment.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/ui/users/VerificationActivity.java" />
-        <option value="$PROJECT_DIR$/app/build.gradle" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/ui/users/EditMyProfileActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/ui/fragments/RehabsFragment.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_rehabs_filter.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/model/RehaabFilterResultHolder.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/adapters/RehabListAdapter.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/ui/rehabs/RehabsFilterActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/model/RehabResponseModel.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_meeting_filter.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/ui/rehabs/RehabsFilterActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_edit_my_profile.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/adapters/RehabListAdapter.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/ui/meetings/MeetingsFilterActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/adapters/MeetingsListAdapter.java" />
+        <option value="$PROJECT_DIR$/app/build.gradle" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/ui/users/VerificationActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/ui/users/SignupActivity.java" />
       </list>
     </option>
@@ -3003,6 +2974,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -3013,7 +2985,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
       <pane id="Scratches" />
       <pane id="AndroidView">
         <subPane>
@@ -3035,7 +3006,7 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -3048,7 +3019,7 @@
     <property name="DEBUGGABLE_PROCESS" value="com.citrusbits.meehab" />
     <property name="SHOW_ALL_PROCESSES" value="false" />
     <property name="DEBUGGER_ID" value="Auto" />
-    <property name="SearchEverywhereHistoryKey" value="Sign&#9;FILE&#9;file://D:/Company/Meehab/Meehab-Android/app/src/main/java/com/citrusbits/meehab/ui/users/SignupActivity.java&#10;Rehab&#9;FILE&#9;file://D:/Company/Meehab/Meehab-Android/app/src/main/java/com/citrusbits/meehab/ui/rehabs/RehabsFilterActivity.java&#10;MeetF&#9;FILE&#9;file://D:/Company/Meehab/Meehab-Android/app/src/main/java/com/citrusbits/meehab/ui/meetings/MeetingsFilterActivity.java&#10;Ver&#9;FILE&#9;file://D:/Company/Meehab/Meehab-Android/app/src/main/java/com/citrusbits/meehab/ui/users/VerificationActivity.java&#10;MeetingFil&#9;FILE&#9;file://D:/Company/Meehab/Meehab-Android/app/src/main/java/com/citrusbits/meehab/ui/meetings/MeetingsFilterActivity.java&#10;RehabFil&#9;FILE&#9;file://D:/Company/Meehab/Meehab-Android/app/src/main/java/com/citrusbits/meehab/ui/rehabs/RehabsFilterActivity.java&#10;Meeting&#9;FILE&#9;file://D:/Company/Meehab/Meehab-Android/app/src/main/java/com/citrusbits/meehab/ui/fragments/MeetingsFragment.java&#10;RehabF&#9;FILE&#9;file://D:/Company/Meehab/Meehab-Android/app/src/main/java/com/citrusbits/meehab/ui/rehabs/RehabsFilterActivity.java&#10;Set&#9;FILE&#9;file://D:/Company/Meehab/Meehab-Android/app/src/main/java/com/citrusbits/meehab/ui/users/ProfileSetupMoreActivity.java&#10;Edit&#9;FILE&#9;file://D:/Company/Meehab/Meehab-Android/app/src/main/java/com/citrusbits/meehab/ui/users/EditMyProfileActivity.java&#10;App&#9;FILE&#9;file://D:/Company/Meehab/Meehab-Android/app/src/main/java/com/citrusbits/meehab/app/App.java&#10;Veri&#9;FILE&#9;file://D:/Company/Meehab/Meehab-Android/app/src/main/java/com/citrusbits/meehab/ui/users/VerificationActivity.java&#10;ReviewD&#9;PSI&#9;JAVA://com.citrusbits.meehab.ui.MyReviewDetailActivity&#10;MeetingDe&#9;FILE&#9;file://D:/Company/Meehab/Meehab-Android/app/src/main/java/com/citrusbits/meehab/ui/meetings/MeetingDetailsActivity.java&#10;User&#9;PSI&#9;JAVA://com.citrusbits.meehab.ui.users.UserProfileActivity&#10;Grid&#9;PSI&#9;JAVA://com.citrusbits.meehab.adapters.FriendsGridAdapter&#10;Frie&#9;PSI&#9;JAVA://com.citrusbits.meehab.adapters.FriendAdapterList&#10;Sock&#9;FILE&#9;file://D:/Company/Meehab/Meehab-Android/app/src/main/java/com/citrusbits/meehab/services/SocketService.java&#10;Login&#9;FILE&#9;file://D:/Company/Meehab/Meehab-Android/app/src/main/java/com/citrusbits/meehab/ui/users/LoginActivity.java&#10;So&#9;FILE&#9;file://D:/Company/Meehab/Meehab-Android/app/src/main/java/com/citrusbits/meehab/services/SocketService.java&#10;Signup&#9;FILE&#9;file://D:/Company/Meehab/Meehab-Android/app/src/main/java/com/citrusbits/meehab/ui/users/SignupActivity.java&#10;Socket&#9;FILE&#9;file://D:/Company/Meehab/Meehab-Android/app/src/main/java/com/citrusbits/meehab/services/SocketService.java&#10;Meead&#9;FILE&#9;file://D:/Company/Meehab/Meehab-Android/app/src/main/java/com/citrusbits/meehab/ui/meetings/MeetingAdditionActivity.java&#10;MeeA&#9;FILE&#9;file://D:/Company/Meehab/Meehab-Android/app/src/main/java/com/citrusbits/meehab/ui/meetings/MeetingsFilterActivity.java&#10;Photo&#9;FILE&#9;file://D:/Company/Meehab/Meehab-Android/app/src/main/java/com/citrusbits/meehab/adapters/PhotosAdapter.java&#10;Verif&#9;FILE&#9;file://D:/Company/Meehab/Meehab-Android/app/src/main/java/com/citrusbits/meehab/ui/users/VerificationActivity.java&#10;RehabFr&#9;FILE&#9;file://D:/Company/Meehab/Meehab-Android/app/src/main/java/com/citrusbits/meehab/ui/fragments/RehabsFragment.java&#10;FrieFi&#9;PSI&#9;JAVA://com.citrusbits.meehab.ui.users.FriendsFilterActivity&#10;F&#9;FILE&#9;file://D:/Company/Meehab/Meehab-Android/app/src/main/AndroidManifest.xml&#10;MeetingFr&#9;FILE&#9;file://D:/Company/Meehab/Meehab-Android/app/src/main/java/com/citrusbits/meehab/ui/fragments/MeetingsFragment.java&#10;MeetingAd&#9;PSI&#9;JAVA://com.citrusbits.meehab.ui.meetings.MeetingAdditionActivity&#10;MeetingA&#9;FILE&#9;file://D:/Company/Meehab/Meehab-Android/app/src/main/java/com/citrusbits/meehab/adapters/MeetingsListAdapter.java&#10;Meet&#9;FILE&#9;file://D:/Company/Meehab/Meehab-Android/app/src/main/java/com/citrusbits/meehab/adapters/MeetingsListAdapter.java&#10;MeetDe&#9;PSI&#9;JAVA://com.citrusbits.meehab.ui.meetings.MeetingDetailsActivity&#10;SetupM&#9;FILE&#9;file://D:/Company/Meehab/Meehab-Android/app/src/main/java/com/citrusbits/meehab/ui/users/ProfileSetupMoreActivity.java&#10;RehaFil&#9;PSI&#9;JAVA://com.citrusbits.meehab.ui.rehabs.RehabsFilterActivity&#10;Reco&#9;FILE&#9;file://D:/Company/Meehab/Meehab-Android/app/src/main/java/com/citrusbits/meehab/ui/fragments/RecoveryClockFragment.java&#10;Setup&#9;FILE&#9;file://D:/Company/Meehab/Meehab-Android/app/src/main/java/com/citrusbits/meehab/ui/users/ProfileSetupActivity.java&#10;S&#9;FILE&#9;file://D:/Company/Meehab/Meehab-Android/app/src/main/java/com/citrusbits/meehab/ui/users/SignupActivity.java&#10;Ve&#9;FILE&#9;file://D:/Company/Meehab/Meehab-Android/app/src/main/java/com/citrusbits/meehab/ui/users/VerificationActivity.java&#10;Recover&#9;FILE&#9;file://D:/Company/Meehab/Meehab-Android/app/src/main/java/com/citrusbits/meehab/ui/fragments/RecoveryClockFragment.java&#10;Ch&#9;FILE&#9;file://D:/Company/Meehab/Meehab-Android/app/src/main/java/com/citrusbits/meehab/ui/users/ChangeEmailActivity.java&#10;Edi&#9;FILE&#9;file://D:/Company/Meehab/Meehab-Android/app/src/main/java/com/citrusbits/meehab/ui/users/EditMyProfileActivity.java&#10;For&#9;FILE&#9;file://D:/Company/Meehab/Meehab-Android/app/src/main/java/com/citrusbits/meehab/ui/users/ForgetPasswordActivity.java&#10;FOrg&#9;PSI&#9;JAVA://com.citrusbits.meehab.ui.users.ForgetPasswordActivity&#10;Hom&#9;FILE&#9;file://D:/Company/Meehab/Meehab-Android/app/src/main/java/com/citrusbits/meehab/ui/HomeActivity.java&#10;Setu&#9;FILE&#9;file://D:/Company/Meehab/Meehab-Android/app/src/main/java/com/citrusbits/meehab/ui/users/ProfileSetupActivity.java&#10;Fr&#9;FILE&#9;file://D:/Company/Meehab/Meehab-Android/app/src/main/java/com/citrusbits/meehab/ui/fragments/FriendsFragment.java&#10;ChangeE&#9;PSI&#9;JAVA://com.citrusbits.meehab.ui.users.ChangeEmailActivity&#10;Reh&#9;FILE&#9;file://D:/Company/Meehab/Meehab-Android/app/src/main/java/com/citrusbits/meehab/ui/fragments/RehabsFragment.java" />
+    <property name="SearchEverywhereHistoryKey" value="Sign&#9;FILE&#9;file://D:/Company/Meehab/Meehab-Android/app/src/main/java/com/citrusbits/meehab/ui/users/SignupActivity.java&#10;App&#9;FILE&#9;file://D:/Company/Meehab/Meehab-Android/app/src/main/java/com/citrusbits/meehab/app/App.java&#10;Meet&#9;FILE&#9;file://D:/Company/Meehab/Meehab-Android/app/src/main/java/com/citrusbits/meehab/adapters/MeetingsListAdapter.java&#10;MeetingFi&#9;FILE&#9;file://D:/Company/Meehab/Meehab-Android/app/src/main/java/com/citrusbits/meehab/ui/meetings/MeetingsFilterActivity.java&#10;Meeting&#9;FILE&#9;file://D:/Company/Meehab/Meehab-Android/app/src/main/java/com/citrusbits/meehab/adapters/MeetingsListAdapter.java&#10;ChangeP&#9;PSI&#9;JAVA://com.citrusbits.meehab.ui.users.ChangePasswordActivity&#10;Change&#9;PSI&#9;JAVA://com.citrusbits.meehab.ui.users.ChangeEmailActivity&#10;Edit&#9;FILE&#9;file://D:/Company/Meehab/Meehab-Android/app/src/main/java/com/citrusbits/meehab/ui/users/EditMyProfileActivity.java&#10;Veri&#9;FILE&#9;file://D:/Company/Meehab/Meehab-Android/app/src/main/java/com/citrusbits/meehab/ui/users/VerificationActivity.java&#10;Rehab&#9;FILE&#9;file://D:/Company/Meehab/Meehab-Android/app/src/main/java/com/citrusbits/meehab/ui/rehabs/RehabsFilterActivity.java&#10;MeetF&#9;FILE&#9;file://D:/Company/Meehab/Meehab-Android/app/src/main/java/com/citrusbits/meehab/ui/meetings/MeetingsFilterActivity.java&#10;Ver&#9;FILE&#9;file://D:/Company/Meehab/Meehab-Android/app/src/main/java/com/citrusbits/meehab/ui/users/VerificationActivity.java&#10;MeetingFil&#9;FILE&#9;file://D:/Company/Meehab/Meehab-Android/app/src/main/java/com/citrusbits/meehab/ui/meetings/MeetingsFilterActivity.java&#10;RehabFil&#9;FILE&#9;file://D:/Company/Meehab/Meehab-Android/app/src/main/java/com/citrusbits/meehab/ui/rehabs/RehabsFilterActivity.java&#10;RehabF&#9;FILE&#9;file://D:/Company/Meehab/Meehab-Android/app/src/main/java/com/citrusbits/meehab/ui/rehabs/RehabsFilterActivity.java&#10;Set&#9;FILE&#9;file://D:/Company/Meehab/Meehab-Android/app/src/main/java/com/citrusbits/meehab/ui/users/ProfileSetupMoreActivity.java&#10;ReviewD&#9;PSI&#9;JAVA://com.citrusbits.meehab.ui.MyReviewDetailActivity&#10;MeetingDe&#9;FILE&#9;file://D:/Company/Meehab/Meehab-Android/app/src/main/java/com/citrusbits/meehab/ui/meetings/MeetingDetailsActivity.java&#10;User&#9;PSI&#9;JAVA://com.citrusbits.meehab.ui.users.UserProfileActivity&#10;Grid&#9;PSI&#9;JAVA://com.citrusbits.meehab.adapters.FriendsGridAdapter&#10;Frie&#9;PSI&#9;JAVA://com.citrusbits.meehab.adapters.FriendAdapterList&#10;Sock&#9;FILE&#9;file://D:/Company/Meehab/Meehab-Android/app/src/main/java/com/citrusbits/meehab/services/SocketService.java&#10;Login&#9;FILE&#9;file://D:/Company/Meehab/Meehab-Android/app/src/main/java/com/citrusbits/meehab/ui/users/LoginActivity.java&#10;So&#9;FILE&#9;file://D:/Company/Meehab/Meehab-Android/app/src/main/java/com/citrusbits/meehab/services/SocketService.java&#10;Signup&#9;FILE&#9;file://D:/Company/Meehab/Meehab-Android/app/src/main/java/com/citrusbits/meehab/ui/users/SignupActivity.java&#10;Socket&#9;FILE&#9;file://D:/Company/Meehab/Meehab-Android/app/src/main/java/com/citrusbits/meehab/services/SocketService.java&#10;Meead&#9;FILE&#9;file://D:/Company/Meehab/Meehab-Android/app/src/main/java/com/citrusbits/meehab/ui/meetings/MeetingAdditionActivity.java&#10;MeeA&#9;FILE&#9;file://D:/Company/Meehab/Meehab-Android/app/src/main/java/com/citrusbits/meehab/ui/meetings/MeetingsFilterActivity.java&#10;Photo&#9;FILE&#9;file://D:/Company/Meehab/Meehab-Android/app/src/main/java/com/citrusbits/meehab/adapters/PhotosAdapter.java&#10;Verif&#9;FILE&#9;file://D:/Company/Meehab/Meehab-Android/app/src/main/java/com/citrusbits/meehab/ui/users/VerificationActivity.java&#10;RehabFr&#9;FILE&#9;file://D:/Company/Meehab/Meehab-Android/app/src/main/java/com/citrusbits/meehab/ui/fragments/RehabsFragment.java&#10;FrieFi&#9;PSI&#9;JAVA://com.citrusbits.meehab.ui.users.FriendsFilterActivity&#10;F&#9;FILE&#9;file://D:/Company/Meehab/Meehab-Android/app/src/main/AndroidManifest.xml&#10;MeetingFr&#9;FILE&#9;file://D:/Company/Meehab/Meehab-Android/app/src/main/java/com/citrusbits/meehab/ui/fragments/MeetingsFragment.java&#10;MeetingAd&#9;PSI&#9;JAVA://com.citrusbits.meehab.ui.meetings.MeetingAdditionActivity&#10;MeetingA&#9;FILE&#9;file://D:/Company/Meehab/Meehab-Android/app/src/main/java/com/citrusbits/meehab/adapters/MeetingsListAdapter.java&#10;MeetDe&#9;PSI&#9;JAVA://com.citrusbits.meehab.ui.meetings.MeetingDetailsActivity&#10;SetupM&#9;FILE&#9;file://D:/Company/Meehab/Meehab-Android/app/src/main/java/com/citrusbits/meehab/ui/users/ProfileSetupMoreActivity.java&#10;RehaFil&#9;PSI&#9;JAVA://com.citrusbits.meehab.ui.rehabs.RehabsFilterActivity&#10;Reco&#9;FILE&#9;file://D:/Company/Meehab/Meehab-Android/app/src/main/java/com/citrusbits/meehab/ui/fragments/RecoveryClockFragment.java&#10;Setup&#9;FILE&#9;file://D:/Company/Meehab/Meehab-Android/app/src/main/java/com/citrusbits/meehab/ui/users/ProfileSetupActivity.java&#10;S&#9;FILE&#9;file://D:/Company/Meehab/Meehab-Android/app/src/main/java/com/citrusbits/meehab/ui/users/SignupActivity.java&#10;Ve&#9;FILE&#9;file://D:/Company/Meehab/Meehab-Android/app/src/main/java/com/citrusbits/meehab/ui/users/VerificationActivity.java&#10;Recover&#9;FILE&#9;file://D:/Company/Meehab/Meehab-Android/app/src/main/java/com/citrusbits/meehab/ui/fragments/RecoveryClockFragment.java&#10;Ch&#9;FILE&#9;file://D:/Company/Meehab/Meehab-Android/app/src/main/java/com/citrusbits/meehab/ui/users/ChangeEmailActivity.java&#10;Edi&#9;FILE&#9;file://D:/Company/Meehab/Meehab-Android/app/src/main/java/com/citrusbits/meehab/ui/users/EditMyProfileActivity.java&#10;For&#9;FILE&#9;file://D:/Company/Meehab/Meehab-Android/app/src/main/java/com/citrusbits/meehab/ui/users/ForgetPasswordActivity.java&#10;FOrg&#9;PSI&#9;JAVA://com.citrusbits.meehab.ui.users.ForgetPasswordActivity&#10;Hom&#9;FILE&#9;file://D:/Company/Meehab/Meehab-Android/app/src/main/java/com/citrusbits/meehab/ui/HomeActivity.java&#10;Setu&#9;FILE&#9;file://D:/Company/Meehab/Meehab-Android/app/src/main/java/com/citrusbits/meehab/ui/users/ProfileSetupActivity.java" />
     <property name="extract.method.default.visibility" value="private" />
   </component>
   <component name="RecentsManager">
@@ -3599,45 +3570,52 @@
       <option name="project" value="LOCAL" />
       <updated>1486394464269</updated>
     </task>
-    <option name="localTasksCounter" value="33" />
+    <task id="LOCAL-00033" summary="fixes open now issue, any distance filter, own profile message">
+      <created>1486474913521</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1486474913522</updated>
+    </task>
+    <option name="localTasksCounter" value="34" />
     <servers />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1616" height="916" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info id="Nl-Palette" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.17544988" sideWeight="0.5362319" order="3" side_tool="true" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.40974966" sideWeight="0.50771207" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Android Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.40974966" sideWeight="0.4922879" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Properties" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Dynamic Properties" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Android Model" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3992095" sideWeight="0.4922879" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Nl-Palette" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33069828" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.17544988" sideWeight="0.5362319" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33161953" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32806325" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.40974966" sideWeight="0.50771207" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Android Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.40974966" sideWeight="0.4922879" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32806325" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.66139656" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Properties" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32806325" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17544988" sideWeight="0.46376812" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Android Model" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3992095" sideWeight="0.4922879" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Dynamic Properties" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33161953" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32806325" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
@@ -3655,7 +3633,6 @@
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value="fixes image issue in marshmallow, update crop library, rehab crash, friends crash" />
     <MESSAGE value="fixes reopening friends &amp; fav crash, terms &amp; conditions fix and addition" />
     <MESSAGE value="fixes crash in change insurance" />
     <MESSAGE value="Fixes take image and Terms &amp; cond" />
@@ -3680,7 +3657,8 @@
     <MESSAGE value="change filter rating logic and design, meeting request" />
     <MESSAGE value="v1 build 16, fixes photo and video issue, fixes cancel days selection issue" />
     <MESSAGE value="fixes filter by time range, friends grid picture" />
-    <option name="LAST_COMMIT_MESSAGE" value="fixes filter by time range, friends grid picture" />
+    <MESSAGE value="fixes open now issue, any distance filter, own profile message" />
+    <option name="LAST_COMMIT_MESSAGE" value="fixes open now issue, any distance filter, own profile message" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -3709,7 +3687,7 @@
       <breakpoints-dialog>
         <breakpoints-dialog />
       </breakpoints-dialog>
-      <option name="time" value="196" />
+      <option name="time" value="197" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="Remote">
@@ -3721,37 +3699,6 @@
     </watches-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/values-v21/styles.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" column="17" selection-start-line="2" selection-start-column="17" selection-end-line="2" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/ui/users/ProfileSetupActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="6477">
-          <caret line="450" column="42" selection-start-line="450" selection-start-column="42" selection-end-line="450" selection-end-column="42" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_add_review_over_meeting.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="74" column="35" selection-start-line="67" selection-start-column="7" selection-end-line="74" selection-end-column="35" />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/ui/meetings/AddReviewOverMeetingActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="281">
-          <caret line="67" column="24" selection-start-line="67" selection-start-column="24" selection-end-line="67" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/ui/dialog/DayPickerDialog.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="17">
@@ -3849,7 +3796,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="160">
           <caret line="48" column="31" selection-start-line="48" selection-start-column="31" selection-end-line="48" selection-end-column="31" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -3865,7 +3811,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="17">
           <caret line="14" column="0" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -3873,7 +3818,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="243">
           <caret line="667" column="22" selection-start-line="667" selection-start-column="22" selection-end-line="667" selection-end-column="22" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -3881,7 +3825,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="243">
           <caret line="149" column="45" selection-start-line="149" selection-start-column="45" selection-end-line="149" selection-end-column="45" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -3889,7 +3832,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="3230">
           <caret line="222" column="0" selection-start-line="222" selection-start-column="0" selection-end-line="222" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -3897,9 +3839,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1445">
           <caret line="122" column="0" selection-start-line="122" selection-start-column="0" selection-end-line="122" selection-end-column="0" />
-          <folding>
-            <element signature="e#2114#2115#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -3926,7 +3865,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="527">
           <caret line="166" column="66" selection-start-line="166" selection-start-column="48" selection-end-line="166" selection-end-column="66" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -3962,102 +3900,102 @@
         <state relative-caret-position="315">
           <caret line="326" column="22" selection-start-line="326" selection-start-column="22" selection-end-line="326" selection-end-column="22" />
           <folding>
-            <element signature="e#10745#11526#0" expanded="true" />
-            <element signature="e#11525#11526#0" expanded="true" />
-            <element signature="e#11571#12349#0" expanded="true" />
-            <element signature="e#12348#12349#0" expanded="true" />
-            <element signature="e#13130#13765#0" expanded="true" />
-            <element signature="e#13764#13765#0" expanded="true" />
-            <element signature="e#13817#14004#0" expanded="true" />
-            <element signature="e#14003#14004#0" expanded="true" />
-            <element signature="e#14647#14834#0" expanded="true" />
-            <element signature="e#14833#14834#0" expanded="true" />
-            <element signature="e#14880#15045#0" expanded="true" />
-            <element signature="e#15044#15045#0" expanded="true" />
-            <element signature="e#15096#15266#0" expanded="true" />
-            <element signature="e#15265#15266#0" expanded="true" />
-            <element signature="e#15315#15469#0" expanded="true" />
-            <element signature="e#15468#15469#0" expanded="true" />
-            <element signature="e#15517#16402#0" expanded="true" />
-            <element signature="e#16401#16402#0" expanded="true" />
-            <element signature="e#16453#17095#0" expanded="true" />
-            <element signature="e#17094#17095#0" expanded="true" />
-            <element signature="e#17140#17769#0" expanded="true" />
-            <element signature="e#17768#17769#0" expanded="true" />
-            <element signature="e#17813#18444#0" expanded="true" />
-            <element signature="e#18443#18444#0" expanded="true" />
-            <element signature="e#18487#19108#0" expanded="true" />
-            <element signature="e#19107#19108#0" expanded="true" />
-            <element signature="e#19155#19778#0" expanded="true" />
-            <element signature="e#19777#19778#0" expanded="true" />
-            <element signature="e#19824#20395#0" expanded="true" />
-            <element signature="e#20394#20395#0" expanded="true" />
-            <element signature="e#20447#21101#0" expanded="true" />
-            <element signature="e#21100#21101#0" expanded="true" />
-            <element signature="e#21149#21794#0" expanded="true" />
-            <element signature="e#21793#21794#0" expanded="true" />
-            <element signature="e#21845#22499#0" expanded="true" />
-            <element signature="e#22498#22499#0" expanded="true" />
-            <element signature="e#22555#25507#0" expanded="true" />
-            <element signature="e#25506#25507#0" expanded="true" />
-            <element signature="e#29170#29812#0" expanded="true" />
-            <element signature="e#29811#29812#0" expanded="true" />
-            <element signature="e#29850#30459#0" expanded="true" />
-            <element signature="e#30458#30459#0" expanded="true" />
-            <element signature="e#30506#31148#0" expanded="true" />
-            <element signature="e#31147#31148#0" expanded="true" />
-            <element signature="e#31199#31848#0" expanded="true" />
-            <element signature="e#31847#31848#0" expanded="true" />
-            <element signature="e#31896#32510#0" expanded="true" />
-            <element signature="e#32509#32510#0" expanded="true" />
-            <element signature="e#32561#33181#0" expanded="true" />
-            <element signature="e#33180#33181#0" expanded="true" />
-            <element signature="e#33228#33870#0" expanded="true" />
-            <element signature="e#33869#33870#0" expanded="true" />
-            <element signature="e#33910#34988#0" expanded="true" />
-            <element signature="e#34987#34988#0" expanded="true" />
-            <element signature="e#35036#35803#0" expanded="true" />
-            <element signature="e#35802#35803#0" expanded="true" />
-            <element signature="e#35846#36654#0" expanded="true" />
-            <element signature="e#36653#36654#0" expanded="true" />
-            <element signature="e#36699#37496#0" expanded="true" />
-            <element signature="e#37495#37496#0" expanded="true" />
-            <element signature="e#41138#42041#0" expanded="true" />
-            <element signature="e#42040#42041#0" expanded="true" />
-            <element signature="e#43016#43826#0" expanded="true" />
-            <element signature="e#43825#43826#0" expanded="true" />
-            <element signature="e#44050#44766#0" expanded="true" />
-            <element signature="e#44765#44766#0" expanded="true" />
-            <element signature="e#44985#45707#0" expanded="true" />
-            <element signature="e#45706#45707#0" expanded="true" />
-            <element signature="e#46368#47074#0" expanded="true" />
-            <element signature="e#47073#47074#0" expanded="true" />
-            <element signature="e#47307#48035#0" expanded="true" />
-            <element signature="e#48034#48035#0" expanded="true" />
-            <element signature="e#48289#48984#0" expanded="true" />
-            <element signature="e#48983#48984#0" expanded="true" />
-            <element signature="e#49205#49892#0" expanded="true" />
-            <element signature="e#49891#49892#0" expanded="true" />
-            <element signature="e#50086#50661#0" expanded="true" />
-            <element signature="e#50660#50661#0" expanded="true" />
-            <element signature="e#50874#51441#0" expanded="true" />
-            <element signature="e#51440#51441#0" expanded="true" />
-            <element signature="e#51658#52221#0" expanded="true" />
-            <element signature="e#52220#52221#0" expanded="true" />
-            <element signature="e#52647#53334#0" expanded="true" />
-            <element signature="e#53333#53334#0" expanded="true" />
-            <element signature="e#53722#54433#0" expanded="true" />
-            <element signature="e#54432#54433#0" expanded="true" />
-            <element signature="e#56192#56878#0" expanded="true" />
-            <element signature="e#56877#56878#0" expanded="true" />
-            <element signature="e#57958#58644#0" expanded="true" />
-            <element signature="e#58643#58644#0" expanded="true" />
-            <element signature="e#58981#59675#0" expanded="true" />
-            <element signature="e#59674#59675#0" expanded="true" />
-            <element signature="e#65871#66587#0" expanded="true" />
-            <element signature="e#66586#66587#0" expanded="true" />
-            <element signature="e#66796#67500#0" expanded="true" />
-            <element signature="e#67499#67500#0" expanded="true" />
+            <element signature="e#10745#11526#0" expanded="false" />
+            <element signature="e#11525#11526#0" expanded="false" />
+            <element signature="e#11571#12349#0" expanded="false" />
+            <element signature="e#12348#12349#0" expanded="false" />
+            <element signature="e#13130#13765#0" expanded="false" />
+            <element signature="e#13764#13765#0" expanded="false" />
+            <element signature="e#13817#14004#0" expanded="false" />
+            <element signature="e#14003#14004#0" expanded="false" />
+            <element signature="e#14647#14834#0" expanded="false" />
+            <element signature="e#14833#14834#0" expanded="false" />
+            <element signature="e#14880#15045#0" expanded="false" />
+            <element signature="e#15044#15045#0" expanded="false" />
+            <element signature="e#15096#15266#0" expanded="false" />
+            <element signature="e#15265#15266#0" expanded="false" />
+            <element signature="e#15315#15469#0" expanded="false" />
+            <element signature="e#15468#15469#0" expanded="false" />
+            <element signature="e#15517#16402#0" expanded="false" />
+            <element signature="e#16401#16402#0" expanded="false" />
+            <element signature="e#16453#17095#0" expanded="false" />
+            <element signature="e#17094#17095#0" expanded="false" />
+            <element signature="e#17140#17769#0" expanded="false" />
+            <element signature="e#17768#17769#0" expanded="false" />
+            <element signature="e#17813#18444#0" expanded="false" />
+            <element signature="e#18443#18444#0" expanded="false" />
+            <element signature="e#18487#19108#0" expanded="false" />
+            <element signature="e#19107#19108#0" expanded="false" />
+            <element signature="e#19155#19778#0" expanded="false" />
+            <element signature="e#19777#19778#0" expanded="false" />
+            <element signature="e#19824#20395#0" expanded="false" />
+            <element signature="e#20394#20395#0" expanded="false" />
+            <element signature="e#20447#21101#0" expanded="false" />
+            <element signature="e#21100#21101#0" expanded="false" />
+            <element signature="e#21149#21794#0" expanded="false" />
+            <element signature="e#21793#21794#0" expanded="false" />
+            <element signature="e#21845#22499#0" expanded="false" />
+            <element signature="e#22498#22499#0" expanded="false" />
+            <element signature="e#22555#25507#0" expanded="false" />
+            <element signature="e#25506#25507#0" expanded="false" />
+            <element signature="e#29170#29812#0" expanded="false" />
+            <element signature="e#29811#29812#0" expanded="false" />
+            <element signature="e#29850#30459#0" expanded="false" />
+            <element signature="e#30458#30459#0" expanded="false" />
+            <element signature="e#30506#31148#0" expanded="false" />
+            <element signature="e#31147#31148#0" expanded="false" />
+            <element signature="e#31199#31848#0" expanded="false" />
+            <element signature="e#31847#31848#0" expanded="false" />
+            <element signature="e#31896#32510#0" expanded="false" />
+            <element signature="e#32509#32510#0" expanded="false" />
+            <element signature="e#32561#33181#0" expanded="false" />
+            <element signature="e#33180#33181#0" expanded="false" />
+            <element signature="e#33228#33870#0" expanded="false" />
+            <element signature="e#33869#33870#0" expanded="false" />
+            <element signature="e#33910#34988#0" expanded="false" />
+            <element signature="e#34987#34988#0" expanded="false" />
+            <element signature="e#35036#35803#0" expanded="false" />
+            <element signature="e#35802#35803#0" expanded="false" />
+            <element signature="e#35846#36654#0" expanded="false" />
+            <element signature="e#36653#36654#0" expanded="false" />
+            <element signature="e#36699#37496#0" expanded="false" />
+            <element signature="e#37495#37496#0" expanded="false" />
+            <element signature="e#41138#42041#0" expanded="false" />
+            <element signature="e#42040#42041#0" expanded="false" />
+            <element signature="e#43016#43826#0" expanded="false" />
+            <element signature="e#43825#43826#0" expanded="false" />
+            <element signature="e#44050#44766#0" expanded="false" />
+            <element signature="e#44765#44766#0" expanded="false" />
+            <element signature="e#44985#45707#0" expanded="false" />
+            <element signature="e#45706#45707#0" expanded="false" />
+            <element signature="e#46368#47074#0" expanded="false" />
+            <element signature="e#47073#47074#0" expanded="false" />
+            <element signature="e#47307#48035#0" expanded="false" />
+            <element signature="e#48034#48035#0" expanded="false" />
+            <element signature="e#48289#48984#0" expanded="false" />
+            <element signature="e#48983#48984#0" expanded="false" />
+            <element signature="e#49205#49892#0" expanded="false" />
+            <element signature="e#49891#49892#0" expanded="false" />
+            <element signature="e#50086#50661#0" expanded="false" />
+            <element signature="e#50660#50661#0" expanded="false" />
+            <element signature="e#50874#51441#0" expanded="false" />
+            <element signature="e#51440#51441#0" expanded="false" />
+            <element signature="e#51658#52221#0" expanded="false" />
+            <element signature="e#52220#52221#0" expanded="false" />
+            <element signature="e#52647#53334#0" expanded="false" />
+            <element signature="e#53333#53334#0" expanded="false" />
+            <element signature="e#53722#54433#0" expanded="false" />
+            <element signature="e#54432#54433#0" expanded="false" />
+            <element signature="e#56192#56878#0" expanded="false" />
+            <element signature="e#56877#56878#0" expanded="false" />
+            <element signature="e#57958#58644#0" expanded="false" />
+            <element signature="e#58643#58644#0" expanded="false" />
+            <element signature="e#58981#59675#0" expanded="false" />
+            <element signature="e#59674#59675#0" expanded="false" />
+            <element signature="e#65871#66587#0" expanded="false" />
+            <element signature="e#66586#66587#0" expanded="false" />
+            <element signature="e#66796#67500#0" expanded="false" />
+            <element signature="e#67499#67500#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -4066,9 +4004,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="408">
           <caret line="103" column="74" selection-start-line="103" selection-start-column="74" selection-end-line="103" selection-end-column="74" />
-          <folding>
-            <element signature="e#3745#3785#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -4077,24 +4012,8 @@
         <state relative-caret-position="272">
           <caret line="1223" column="39" selection-start-line="1223" selection-start-column="39" selection-end-line="1223" selection-end-column="39" />
           <folding>
-            <element signature="e#35107#35147#0" expanded="true" />
+            <element signature="e#35107#35147#0" expanded="false" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/build.gradle">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="250">
-          <caret line="15" column="16" selection-start-line="15" selection-start-column="16" selection-end-line="15" selection-end-column="16" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/app/App.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="87" column="25" selection-start-line="87" selection-start-column="25" selection-end-line="87" selection-end-column="25" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -4102,15 +4021,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="332">
           <caret line="369" column="41" selection-start-line="369" selection-start-column="41" selection-end-line="369" selection-end-column="41" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/ui/users/EditMyProfileActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="329">
-          <caret line="701" column="58" selection-start-line="701" selection-start-column="58" selection-end-line="701" selection-end-column="58" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -4118,7 +4028,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="416">
           <caret line="169" column="44" selection-start-line="169" selection-start-column="33" selection-end-line="169" selection-end-column="44" />
-          <folding />
         </state>
       </provider>
       <provider editor-type-id="android-designer2">
@@ -4129,10 +4038,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="306">
           <caret line="109" column="24" selection-start-line="109" selection-start-column="24" selection-end-line="109" selection-end-column="24" />
-          <folding>
-            <element signature="e#2250#2251#0" expanded="true" />
-            <element signature="e#2275#2276#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -4148,7 +4053,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="425">
           <caret line="65" column="16" selection-start-line="65" selection-start-column="16" selection-end-line="65" selection-end-column="16" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -4156,9 +4060,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="142">
           <caret line="254" column="0" selection-start-line="254" selection-start-column="0" selection-end-line="254" selection-end-column="0" />
-          <folding>
-            <element signature="e#4648#4649#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -4166,15 +4067,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="231">
           <caret line="144" column="65" selection-start-line="144" selection-start-column="65" selection-end-line="144" selection-end-column="65" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/ui/users/VerificationActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="901">
-          <caret line="379" column="33" selection-start-line="379" selection-start-column="33" selection-end-line="379" selection-end-column="33" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -4182,6 +4074,47 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="183">
           <caret line="160" column="48" selection-start-line="160" selection-start-column="37" selection-end-line="160" selection-end-column="48" />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/ui/fragments/MeetingsFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="379">
+          <caret line="740" column="0" selection-start-line="740" selection-start-column="0" selection-end-line="740" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/ui/fragments/RehabsFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3077">
+          <caret line="255" column="34" selection-start-line="255" selection-start-column="34" selection-end-line="255" selection-end-column="34" />
+          <folding>
+            <element signature="imports" expanded="false" />
+            <element signature="e#10924#10925#0" expanded="false" />
+            <element signature="e#10946#10947#0" expanded="false" />
+            <element signature="e#20084#20085#0" expanded="false" />
+            <element signature="e#20104#20105#0" expanded="false" />
+            <element signature="e#20254#20255#0" expanded="false" />
+            <element signature="e#20278#20279#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/ui/rehabs/RehabsFilterActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2771">
+          <caret line="193" column="39" selection-start-line="193" selection-start-column="39" selection-end-line="193" selection-end-column="39" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_edit_my_profile.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1118">
+          <caret line="424" column="36" selection-start-line="424" selection-start-column="36" selection-end-line="424" selection-end-column="36" />
           <folding />
         </state>
       </provider>
@@ -4189,58 +4122,88 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/adapters/RehabListAdapter.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/ui/users/EditMyProfileActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="378">
-          <caret line="101" column="0" selection-start-line="101" selection-start-column="0" selection-end-line="101" selection-end-column="0" />
-          <folding />
+        <state relative-caret-position="277">
+          <caret line="127" column="48" selection-start-line="127" selection-start-column="48" selection-end-line="127" selection-end-column="48" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/ui/fragments/RehabsFragment.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/ui/users/ChangePasswordActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-246">
-          <caret line="255" column="34" selection-start-line="255" selection-start-column="34" selection-end-line="255" selection-end-column="34" />
-          <folding />
+        <state relative-caret-position="68">
+          <caret line="23" column="13" selection-start-line="23" selection-start-column="13" selection-end-line="23" selection-end-column="13" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/ui/rehabs/RehabsFilterActivity.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/ui/users/ChangeEmailActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="349">
-          <caret line="236" column="50" selection-start-line="236" selection-start-column="50" selection-end-line="236" selection-end-column="50" />
+        <state relative-caret-position="340">
+          <caret line="49" column="19" selection-start-line="49" selection-start-column="19" selection-end-line="49" selection-end-column="19" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/ui/meetings/MeetingsFilterActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="201" column="51" selection-start-line="201" selection-start-column="51" selection-end-line="201" selection-end-column="51" />
+        <state relative-caret-position="289">
+          <caret line="91" column="45" selection-start-line="91" selection-start-column="45" selection-end-line="91" selection-end-column="45" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/ui/fragments/MeetingsFragment.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/adapters/RehabListAdapter.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="311">
-          <caret line="736" column="35" selection-start-line="736" selection-start-column="35" selection-end-line="736" selection-end-column="35" />
+        <state relative-caret-position="123">
+          <caret line="212" column="18" selection-start-line="210" selection-start-column="12" selection-end-line="212" selection-end-column="18" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/adapters/MeetingsListAdapter.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="379">
-          <caret line="387" column="34" selection-start-line="387" selection-start-column="34" selection-end-line="387" selection-end-column="34" />
+        <state relative-caret-position="174">
+          <caret line="282" column="34" selection-start-line="282" selection-start-column="34" selection-end-line="282" selection-end-column="34" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/crop/build.gradle">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/build.gradle">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="301">
+          <caret line="18" column="26" selection-start-line="18" selection-start-column="26" selection-end-line="18" selection-end-column="26" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/ui/users/VerificationActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="544">
+          <caret line="397" column="14" selection-start-line="397" selection-start-column="14" selection-end-line="397" selection-end-column="14" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/app/App.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="87" column="25" selection-start-line="87" selection-start-column="25" selection-end-line="87" selection-end-column="25" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/ui/users/SignupActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="388" column="0" selection-start-line="388" selection-start-column="0" selection-end-line="388" selection-end-column="0" />
+        <state relative-caret-position="136">
+          <caret line="386" column="42" selection-start-line="386" selection-start-column="42" selection-end-line="386" selection-end-column="42" />
           <folding />
         </state>
       </provider>

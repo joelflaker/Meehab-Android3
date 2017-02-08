@@ -190,15 +190,10 @@ public class RehabsFilterActivity extends SocketActivity implements
 		editZipCode.setText(filterModel.getZipCode());
 		
 		//distance
-		if(filterModel.isAnyDistance()){
+		if(filterModel.isAnyDistance() || filterModel.getDistance() == null){
 			txtDistance.setText("Any");
 		}else {
-			String miles = filterModel.getDistance();
-			if(miles != null && miles.contains("50")){
-				txtDistance.setText("more than 50 Miles");
-			}else {
-				txtDistance.setText(miles == null ? "Any" : miles);
-			}
+			txtDistance.setText(filterModel.getDistance());
 		}
 
 		// Adding ArrayList data to ExpandableListView values
@@ -224,9 +219,9 @@ public class RehabsFilterActivity extends SocketActivity implements
 			filterModel.setOpenNow(tglOpenNow.isChecked());
 			String zipCode = editZipCode.getText().toString().trim();
 			if (zipCode.isEmpty()) {
-				filterModel.setanyZipCode(true);
+				filterModel.setAnyZipCode(true);
 			} else {
-				filterModel.setanyZipCode(false);
+				filterModel.setAnyZipCode(false);
 				filterModel.setZipCode(zipCode);
 			}
 
@@ -235,11 +230,8 @@ public class RehabsFilterActivity extends SocketActivity implements
 				filterModel.setAnyDistance(true);
 			} else {
 				filterModel.setAnyDistance(false);
-				filterModel.setDistance(distance.replace("more than","").trim());
+				filterModel.setDistance(distance);
 			}
-
-//			Toast.makeText(RehabsFilterActivity.this, "Apply!",
-//					Toast.LENGTH_SHORT).show();
 
 			getIntent().putExtra(MEETING_FILTER, filterModel);
 			setResult(RESULT_OK, getIntent());

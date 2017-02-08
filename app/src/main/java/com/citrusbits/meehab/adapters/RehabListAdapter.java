@@ -176,8 +176,7 @@ public class RehabListAdapter extends ArrayAdapter<RehabModel> {
 			 */
 			
 			//open now?
-			boolean isStatuMatch = resultHolder.isOpenNow() ? RehabResponseModel.isOpenNow(wp.getRehabDays()) == resultHolder.isOpenNow()
-					: true;
+			boolean isStatusMatch = !resultHolder.isOpenNow() || RehabResponseModel.isOpenNow(wp.getRehabDays());
 
 			//type
 			ArrayList<String> types = (ArrayList<String>) resultHolder.getRehabType();
@@ -188,9 +187,8 @@ public class RehabListAdapter extends ArrayAdapter<RehabModel> {
 			if(types.contains("Other")){
 				isTypeMatch = types.contains(wp.getTypeName()) || TextUtils.isEmpty(wp.getTypeName()) && !typesLocal.contains(wp.getTypeName());
 			}else{
-				isTypeMatch = resultHolder.isanyType() ? true : types.contains(wp.getTypeName());
+				isTypeMatch = resultHolder.isAnyType() || types.contains(wp.getTypeName());
 			}
-			
 			
 			//insurances
 			boolean isInsuracesMatch = resultHolder.isanyInsuranceAccepted();
@@ -203,9 +201,11 @@ public class RehabListAdapter extends ArrayAdapter<RehabModel> {
 			}
 			
 			//ZIP-code
-			boolean iszipCode = resultHolder.isanyZipCode() ? true : zipCode
+			boolean isZipCodeMatch = resultHolder.isAnyZipCode() || zipCode
 					.equals(resultHolder.getZipCode());
-			
+//			boolean isZipCodeMatch = resultHolder.isAnyZipCode() ? true : zipCode
+//					.equals(resultHolder.getZipCode());
+
 			//distance
 			boolean isDistance;
 			if(resultHolder.isAnyDistance()){
@@ -216,10 +216,10 @@ public class RehabListAdapter extends ArrayAdapter<RehabModel> {
 			
 			
 			
-			Log.i("Is Zipcode " + k, String.valueOf(iszipCode));
+			Log.i("Is Zipcode " + k, String.valueOf(isZipCodeMatch));
 			Log.i("Is Distance " + k, String.valueOf(isDistance));
 
-			if (isStatuMatch && iszipCode && isDistance && isTypeMatch && isInsuracesMatch) {
+			if (isStatusMatch && isZipCodeMatch && isDistance && isTypeMatch && isInsuracesMatch) {
 				rehabs.add(wp);
 				filteredRehabs.add(wp);
 			}
@@ -231,7 +231,7 @@ public class RehabListAdapter extends ArrayAdapter<RehabModel> {
 		notifyDataSetChanged();
 	}
 	public boolean isMiles(String mile, double rehabDistance) {
-		mile = mile.toLowerCase().replace("miles", "").replace("mile", "").trim();
+		mile = mile.toLowerCase().replace("miles", "").replace("more than","").replace("mile", "").trim();
 		/*
 		 * Log.e("My Location",
 		 * myLocation.getLatitude()+","+myLocation.getLongitude());

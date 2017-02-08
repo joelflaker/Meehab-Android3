@@ -271,33 +271,36 @@ public class MeetingsListAdapter extends ArrayAdapter<MeetingModel> {
 				Log.e("ddd", ddd);
 			}
 
-			boolean isDay = resultHolder.getAnyDay() ? true : satisfyDays(days,
+			boolean isDay = resultHolder.getAnyDay()|| satisfyDays(days,
 					wp);
-			boolean isTime = resultHolder.getAnyTime() ? true : filterTime(
+			boolean isTime = resultHolder.getAnyTime() || filterTime(
 					timeMapping, time);
 
-			boolean iszipCode = resultHolder.getAnyCode() ? true : zipCode
+			boolean isZipCode = resultHolder.getAnyCode() || zipCode
 					.equals(resultHolder.getZipCode());
-			boolean isDistance = resultHolder.getAnyDistance() ? true
-					: isMiles(resultHolder.getDistance(), wp);
-			boolean isStar = resultHolder.getAnyStar() ? (revAvg >= resultHolder.getRating()) : true;
+			boolean isDistance;
+			if(resultHolder.isAnyDistance()){
+				isDistance = true;
+			}else{
+				isDistance = isMiles(resultHolder.getDistance(), wp);
+			}
+			boolean isStar = !resultHolder.getAnyStar() || (revAvg >= resultHolder.getRating());
 
-			boolean isFavSatisfy = !resultHolder.isFavourites() ? true
-					: resultHolder.isFavourites() == wp.isFavourite();
+			boolean isFavSatisfy = !resultHolder.isFavourites() || resultHolder.isFavourites() == wp.isFavourite();
 
-			boolean isCode = resultHolder.getAnyType() ? true : satisfyCode(
+			boolean isCode = resultHolder.getAnyType() || satisfyCode(
 					types, wp);
 
 			String log = "->Is Day:" + String.valueOf(isDay)
 			+ "\nIs Time " + String.valueOf(isTime)
-			+ "\nIs Zipcode " + String.valueOf(iszipCode)
+			+ "\nIs Zipcode " + String.valueOf(isZipCode)
 					+ "\nIs Distance " + String.valueOf(isDistance)
 					+ "\nIs Star " + String.valueOf(isStar)
 					+ "\nIs Fave " + String.valueOf(isFavSatisfy)
 					+ "\nIs Code " + String.valueOf(isCode);
 			Log.i("MeetingFilter","Meeting name:" + String.valueOf(wp.getName()) + log);
 
-			if (isDay && isTime && iszipCode && isDistance && isStar
+			if (isDay && isTime && isZipCode && isDistance && isStar
 					&& isFavSatisfy && isCode) {
 
 				Log.e("Contain Days ", "Yes");
@@ -360,7 +363,11 @@ public class MeetingsListAdapter extends ArrayAdapter<MeetingModel> {
 	}
 
 	public boolean isMiles(String mile, MeetingModel meeting) {
-		mile = mile.replace("miles", "").replace("more than","").replace("mile", "").trim();
+		mile = mile.toLowerCase().replace("miles", "")
+				.replace("more than","")
+				.replace("Any","")
+				.replace("mile", "")
+				.trim();
 		/*
 		 * Log.e("My Location",
 		 * myLocation.getLatitude()+","+myLocation.getLongitude());
@@ -369,12 +376,7 @@ public class MeetingsListAdapter extends ArrayAdapter<MeetingModel> {
 		 * meeting.getLatitude()+","+meeting.getLongitude());
 		 */
 
-		long mil = 50;
-		try {
-			mil = Long.parseLong(mile);
-		}catch (Exception e){
-			e.printStackTrace();
-		}
+		long mil = Long.parseLong(mile);
 		double distance = meeting.getDistanceInMiles();
 
 		/*

@@ -100,10 +100,10 @@ public class MeetingsFilterActivity extends SocketActivity implements
 
 		if (!mDistance.isEmpty()) {
 			txtDistance.setText(mDistance);
-			rating.setRating(mRating);
-			editZipCode.setText(mZipcode);
-			tglMyFavorite.setChecked(mFavorite);
 		}
+		rating.setRating(mRating);
+		editZipCode.setText(mZipcode);
+		tglMyFavorite.setChecked(mFavorite);
 
 		// Adding ArrayList data to ExpandableListView values
 		mAdapter = new FilterExpondableAdapter(this, expListFilter, categories);
