@@ -5,6 +5,7 @@ package com.citrusbits.meehab.adapters;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Comparator;
 import java.util.Date;
@@ -226,8 +227,8 @@ public class MeetingsListAdapter extends ArrayAdapter<MeetingModel> {
 	public void filter(FilterResultHolder resultHolder) {
 
 		meetings.clear();
-		final List<String> days = resultHolder.getDays();
-		final List<FilterTime> timeMapping = resultHolder.applyMapping();
+		final List<String> filterDays = resultHolder.getDays();
+//		final List<FilterTime> filterTimings = resultHolder.applyMapping();
 
 		final List<String> typesOrigion = resultHolder.getTypes();
 		final List<String> types = new ArrayList<String>();
@@ -241,22 +242,16 @@ public class MeetingsListAdapter extends ArrayAdapter<MeetingModel> {
 		}
 		// resultHolder.setTypes(types);
 		int k = 0;
-		for (MeetingModel wp : arrayList) {
+		for (MeetingModel meeting : arrayList) {
 
-			String day = "";
-			String daysStr[] = wp.getOnDate().split(" ");
-			if (daysStr.length > 1) {
-				day = daysStr[0];
-			}
-
-			Log.e("Day Made ", day);
+			String daysStr[] = meeting.getOnDay().split(",");
 
 			// String day = wp.getOnDay();
 			// String day = wp.getOnDay();
-			String time = wp.getOnTime();
-			String zipCode = wp.getZipCode();
-			double miles = wp.getDistanceInMiles();
-			float revAvg = wp.getReviewsAvg();
+//			String time = meeting.getOnTime();
+			String zipCode = meeting.getZipCode();
+			double miles = meeting.getDistanceInMiles();
+			float revAvg = meeting.getReviewsAvg();
 
 			/*
 			 * String splitSpace[] = time.split(" "); String splitColon[] =
@@ -264,17 +259,14 @@ public class MeetingsListAdapter extends ArrayAdapter<MeetingModel> {
 			 * splitSpace[1];
 			 */
 
-			Log.e("Day On", day);
-
-			for (int i = 0; i < days.size(); i++) {
-				String ddd = days.get(i);
+			for (int i = 0; i < filterDays.size(); i++) {
+				String ddd = filterDays.get(i);
 				Log.e("ddd", ddd);
 			}
 
-			boolean isDay = resultHolder.getAnyDay()|| satisfyDays(days,
-					wp);
-			boolean isTime = resultHolder.getAnyTime() || filterTime(
-					timeMapping, time);
+			boolean isDay = resultHolder.getAnyDay()|| satisfyDays(filterDays,
+					daysStr);
+			boolean isTime = resultHolder.getAnyTime() || filterDayTime(resultHolder,meeting);
 
 			boolean isZipCode = resultHolder.getAnyCode() || zipCode
 					.equals(resultHolder.getZipCode());
@@ -282,14 +274,14 @@ public class MeetingsListAdapter extends ArrayAdapter<MeetingModel> {
 			if(resultHolder.isAnyDistance()){
 				isDistance = true;
 			}else{
-				isDistance = isMiles(resultHolder.getDistance(), wp);
+				isDistance = isMiles(resultHolder.getDistance(), meeting);
 			}
 			boolean isStar = !resultHolder.getAnyStar() || (revAvg >= resultHolder.getRating());
 
-			boolean isFavSatisfy = !resultHolder.isFavourites() || resultHolder.isFavourites() == wp.isFavourite();
+			boolean isFavSatisfy = !resultHolder.isFavourites() || resultHolder.isFavourites() == meeting.isFavourite();
 
 			boolean isCode = resultHolder.getAnyType() || satisfyCode(
-					types, wp);
+					types, meeting);
 
 			String log = "->Is Day:" + String.valueOf(isDay)
 			+ "\nIs Time " + String.valueOf(isTime)
@@ -298,13 +290,13 @@ public class MeetingsListAdapter extends ArrayAdapter<MeetingModel> {
 					+ "\nIs Star " + String.valueOf(isStar)
 					+ "\nIs Fave " + String.valueOf(isFavSatisfy)
 					+ "\nIs Code " + String.valueOf(isCode);
-			Log.i("MeetingFilter","Meeting name:" + String.valueOf(wp.getName()) + log);
+			Log.i("MeetingFilter","Meeting name:" + String.valueOf(meeting.getName()) + log);
 
 			if (isDay && isTime && isZipCode && isDistance && isStar
 					&& isFavSatisfy && isCode) {
 
 				Log.e("Contain Days ", "Yes");
-				meetings.add(wp);
+				meetings.add(meeting);
 
 			} else {
 				Log.e("Contain Days ", "No");
@@ -347,11 +339,8 @@ public class MeetingsListAdapter extends ArrayAdapter<MeetingModel> {
 
 	}
 
-	public boolean satisfyDays(List<String> daysList, MeetingModel wp) {
+	public boolean satisfyDays(List<String> daysList, String[] dayArray) {
 
-		String days = wp.getOnDay();
-
-		String dayArray[] = days.split(",");
 		for (String day : dayArray) {
 			if (daysList.contains(day)) {
 				return true;
@@ -392,9 +381,83 @@ public class MeetingsListAdapter extends ArrayAdapter<MeetingModel> {
 		return distance <= mil;
 	}
 
-	public boolean filterTime(List<FilterTime> filters, String times) {
+//	public boolean filterTime(List<FilterTime> filters, String times) {
+//
+//		final String timeArray[] = times.split(",");
+//
+//		for (int k = 0; k < timeArray.length; k++) {
+//			String time = timeArray[k];
+//			try {
+//				SimpleDateFormat _12HourSDF = new SimpleDateFormat("hh:mm a");
+//				SimpleDateFormat dateHourFormate = new SimpleDateFormat(
+//						"yyy-MMM-dd hh:mm a");
+//				final Date dateObj = _12HourSDF.parse(time);
+//				Calendar calendar = Calendar.getInstance();
+//				calendar.set(Calendar.HOUR_OF_DAY, dateObj.getHours());
+//				calendar.set(Calendar.MINUTE, dateObj.getMinutes());
+//				calendar.set(Calendar.SECOND, 0);
+//				calendar.set(Calendar.MILLISECOND, 0);
+//
+//				Log.i("Origional Calendar",
+//						dateHourFormate.format(calendar.getTime()));
+//
+//				for (FilterTime filter : filters) {
+//					Calendar start = filter.getStartTime();
+//
+//					Calendar end = filter.getEndTime();
+//
+//					start.set(Calendar.SECOND, 0);
+//					end.set(Calendar.SECOND, 0);
+//					start.set(Calendar.MILLISECOND, 0);
+//					end.set(Calendar.MILLISECOND, 0);
+//
+//					Log.i("Start Calendar",
+//							dateHourFormate.format(start.getTime()));
+//					Log.i("End Calendar", dateHourFormate.format(end.getTime()));
+//
+//					if (calendar.compareTo(start) == 0
+//							|| calendar.compareTo(end) == 0) {
+//						return true;
+//					}
+//
+//					if (calendar.after(start) && calendar.before(end)) {
+//						return true;
+//					}
+//
+//				}
+//
+//			} catch (final Exception e) {
+//				e.printStackTrace();
+//			}
+//		}
+//
+//		return false;
+//	}
+	public boolean filterDayTime(FilterResultHolder filter, MeetingModel meeting) {
 
-		final String timeArray[] = times.split(",");
+		final List<String> inDays =  filter.getAnyDay() ? null : filter.getDays();
+
+		List<FilterTime> filters = filter.applyMapping();
+		String allTimeArray[] = meeting.getOnTime().split(",");
+		final String daysStr[] = meeting.getOnDay().split(",");
+
+		String[] timeArray;
+		if(inDays != null && daysStr.length > 0){
+			//only selected days timings
+			final List<Integer> meetingDaysIndexes = new ArrayList<>();
+			for (int i = 0; i < daysStr.length; i++) {
+				if(inDays.contains(daysStr[i])){
+					meetingDaysIndexes.add(i);
+				}
+			}
+			timeArray = new String[meetingDaysIndexes.size()];
+			for (int i = 0; i < timeArray.length; i++) {
+				timeArray[i] = allTimeArray[meetingDaysIndexes.get(i)];
+			}
+		}else {
+			timeArray = allTimeArray;
+		}
+
 
 		for (int k = 0; k < timeArray.length; k++) {
 			String time = timeArray[k];
@@ -404,6 +467,7 @@ public class MeetingsListAdapter extends ArrayAdapter<MeetingModel> {
 						"yyy-MMM-dd hh:mm a");
 				final Date dateObj = _12HourSDF.parse(time);
 				Calendar calendar = Calendar.getInstance();
+//				calendar.set(Calendar.DAY_OF_WEEK,inDays)
 				calendar.set(Calendar.HOUR_OF_DAY, dateObj.getHours());
 				calendar.set(Calendar.MINUTE, dateObj.getMinutes());
 				calendar.set(Calendar.SECOND, 0);
@@ -412,10 +476,10 @@ public class MeetingsListAdapter extends ArrayAdapter<MeetingModel> {
 				Log.i("Origional Calendar",
 						dateHourFormate.format(calendar.getTime()));
 
-				for (FilterTime filter : filters) {
-					Calendar start = filter.getStartTime();
+				for (FilterTime filterTime : filters) {
+					Calendar start = filterTime.getStartTime();
 
-					Calendar end = filter.getEndTime();
+					Calendar end = filterTime.getEndTime();
 
 					start.set(Calendar.SECOND, 0);
 					end.set(Calendar.SECOND, 0);

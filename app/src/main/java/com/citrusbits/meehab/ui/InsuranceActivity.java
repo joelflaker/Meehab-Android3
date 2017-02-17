@@ -23,6 +23,7 @@ import android.widget.NumberPicker;
 import android.widget.Toast;
 
 import java.util.Arrays;
+import java.util.Collections;
 
 public class InsuranceActivity extends SocketActivity implements
 		OnClickListener, OnSocketResponseListener{
@@ -66,6 +67,7 @@ public class InsuranceActivity extends SocketActivity implements
 		npInsurance = (NumberPicker) findViewById(R.id.insurancePicker);
 
 		values = getResources().getStringArray(R.array.insurance_arr);
+		Arrays.sort(values);
 
 //		updateInsurancesData();
 		
@@ -115,7 +117,6 @@ public class InsuranceActivity extends SocketActivity implements
 		npInsurance.setWrapSelectorWheel(false);
 		String insurance = user.getEthnicity();
 	}
-
 
 	@Override
 	public void onBackendConnected() {
@@ -193,10 +194,17 @@ public class InsuranceActivity extends SocketActivity implements
 				for (int i = 0; i < insurances.length(); i++) {
 					insurancesString[i] = insurances.optJSONObject(i).optString("name");
 				}
-				values = insurancesString;
+				Arrays.sort(insurancesString);
+				values = new String[insurancesString.length + 1];
+				values[values.length - 1] = "No Insurance";
 				updateInsurancesData();
+				npInsurance.postDelayed(new Runnable() {
+					@Override
+					public void run() {
+						updateInsurancesData();
+					}
+				},10);
 			}
-//			{"type":true,"message":"Insurance List","insurances":[{"id":3,"name":"Anthem"},{"id":4,"name":"APS Healthcare"},{"id":5,"name":"Assurant"},{"id":6,"name":"BJC Behavioral"},{"id":7,"name":"BlueCross BlueShield"},{"id":8,"name":"Cigna"},{"id":9,"name":"ComPsych"},{"id":10,"name":"Consociate-Dansig"},{"id":11,"name":"Core Source"},{"id":12,"name":"Geha Health Plans"},{"id":13,"name":"Greatwest"},{"id":14,"name":"HealthLink"},{"id":15,"name":"Health Alliance"},{"id":17,"name":"Humana\/LifeSync"},{"id":18,"name":"Kaiser"},{"id":19,"name":"Medicaid"},{"id":20,"name":"Medical Mutual"},{"id":21,"name":"MHN Managed Health Network"},{"id":22,"name":"MH Net\/Group Health Plan (GHP)"},{"id":23,"name":"MVP HealthCare"},{"id":24,"name":"Obamacare"},{"id":25,"name":"Oxfort"},{"id":26,"name":"Perspectives"},{"id":27,"name":"PHCS"},{"id":28,"name":"Primary Physicians Care"},{"id":29,"name":"St. John's Mercy Health Plan"},{"id":31,"name":"Unite Behavioral Healthcare"},{"id":32,"name":"ValueOptions"},{"id":33,"name":"Vista"},{"id":47,"name":"asdasdas"},{"id":49,"name":"test insurance"}]}
 		}else if(event.equals(EventParams.EVENT_USER_UPDATE)){
 			UserDatasource uds = new UserDatasource(this);
 			UserAccount user = uds.findUser(AccountUtils.getUserId(this));

@@ -15,6 +15,7 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.StringRes;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.EditText;
@@ -100,12 +101,20 @@ public class CannotFindInsuranceActivity extends SocketActivity implements OnSoc
 		}
 
 		if(event.equals(EventParams.EVENT_ADD_INSURANCE)) {
-			Toast.makeText(CannotFindInsuranceActivity.this, "Insurance added successfully!", Toast.LENGTH_SHORT).show();
-			Intent i = new Intent(CannotFindInsuranceActivity.this, HomeActivity.class);
-			i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
-					| Intent.FLAG_ACTIVITY_NEW_TASK);
-			startActivity(i);
-			overridePendingTransition(R.anim.activity_in, R.anim.activity_out);
+//			Toast.makeText(CannotFindInsuranceActivity.this, "Insurance added successfully!", Toast.LENGTH_SHORT).show();
+				new AlertDialog.Builder(this)
+						.setMessage(R.string.msg_thanks_for_add_insurance)
+						.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+							@Override
+							public void onClick(DialogInterface dialog, int which) {
+								Intent i = new Intent(CannotFindInsuranceActivity.this, HomeActivity.class);
+								i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
+										| Intent.FLAG_ACTIVITY_NEW_TASK);
+								startActivity(i);
+								overridePendingTransition(R.anim.activity_in, R.anim.activity_out);
+							}
+						})
+						.show();
 
 		}else if (event.equals(EventParams.EVENT_USER_UPDATE)){
 			UserDatasource uds = new UserDatasource(this);

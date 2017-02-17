@@ -77,7 +77,7 @@ public class MeehabShare {
 			// Uri uri = Uri.fromFile(media);
 			// Add the URI to the Intent.
 //			share.putExtra(Intent.EXTRA_STREAM, uri);
-			share.putExtra(Intent.EXTRA_TEXT, context.getString(R.string.share_body_text));
+			share.putExtra(Intent.EXTRA_TEXT, context.getString(R.string.share_twitter_body_text));
 			share.setPackage(socialPackage);
 			// Broadcast the Intent.
 			context.startActivity(Intent.createChooser(share, "Share to"));

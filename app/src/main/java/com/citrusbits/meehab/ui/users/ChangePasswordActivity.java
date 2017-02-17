@@ -11,9 +11,11 @@ import com.citrusbits.meehab.utils.AccountUtils;
 import com.citrusbits.meehab.utils.NetworkUtil;
 import com.citrusbits.meehab.utils.UtilityClass;
 
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.annotation.StringRes;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -120,9 +122,17 @@ public class ChangePasswordActivity extends SocketActivity implements OnSocketRe
 		if(event.equals(EventParams.EVENT_USER_UPDATE)){
 			textResponse.setText("Successfully updated!");
 			textResponse.setTextColor(Color.GREEN);
+			showDialogWithMessage(R.string.msg_password_change);
 			AccountUtils.setPassword(this,newPassword);
 		}
 		
+	}
+
+	private void showDialogWithMessage(@StringRes int msgId) {
+		new AlertDialog.Builder(this)
+				.setMessage(msgId)
+				.setPositiveButton("Ok",null)
+				.show();
 	}
 
 	@Override

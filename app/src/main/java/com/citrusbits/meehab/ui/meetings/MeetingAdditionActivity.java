@@ -402,6 +402,8 @@ public class MeetingAdditionActivity extends SocketActivity implements
 
 //	        mViewName.setText(name);
 			etAddress.setText(address);
+//			etCity.setText();
+//			etZipcode.setText();
 //	        mViewAttributions.setText(Html.fromHtml(attributions));
 
 		} else {

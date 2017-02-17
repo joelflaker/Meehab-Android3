@@ -17,8 +17,6 @@ import com.citrusbits.meehab.R;
 import com.citrusbits.meehab.adapters.FilterExpondableAdapter;
 import com.citrusbits.meehab.ui.dialog.DistancePickerDialog;
 import com.citrusbits.meehab.ui.dialog.DistancePickerDialog.DistancePickerDialogListener;
-import com.citrusbits.meehab.ui.dialog.RatingPickerDialog;
-import com.citrusbits.meehab.ui.dialog.RatingPickerDialog.RatingPickerDialogListener;
 import com.citrusbits.meehab.ui.fragments.FilterResultHolder;
 import com.citrusbits.meehab.model.ExpCategory;
 import com.citrusbits.meehab.model.ExpChild;
@@ -29,6 +27,7 @@ public class MeetingsFilterActivity extends SocketActivity implements
 		OnClickListener {
 	public static final int CLEAR_FILTER = 11;
 	public static final String MEETING_FILTER = "meeting_filter";
+	private boolean isFilterCleared;
 	private ExpandableListView expListFilter;
 	private static ArrayList<ExpCategory> cacheCategories = new ArrayList<>();
 	private ArrayList<ExpCategory> categories = new ArrayList<>();
@@ -93,11 +92,16 @@ public class MeetingsFilterActivity extends SocketActivity implements
 //		btnRating.setOnClickListener(this);
 
 		if (cacheCategories.isEmpty()) {
-			categories = buildDummyData();
+			categories = buildDefaultFilter();
 		} else {
 			categories.addAll(cacheCategories);
 		}
 
+		updateUI();
+
+	}
+
+	private void updateUI() {
 		if (!mDistance.isEmpty()) {
 			txtDistance.setText(mDistance);
 		}
@@ -112,7 +116,6 @@ public class MeetingsFilterActivity extends SocketActivity implements
 
 		// Set Adapter to ExpandableList Adapter
 		expListFilter.setAdapter(mAdapter);
-
 	}
 
 	public static void applyClear() {
@@ -137,9 +140,11 @@ public class MeetingsFilterActivity extends SocketActivity implements
 			finish();
 			break;
 		case R.id.ibClear:
-			setResult(CLEAR_FILTER, new Intent());
 			applyClear();
-			finish();
+			filterModel = new MeetingFilterModel();
+			categories = buildDefaultFilter();
+			isFilterCleared = true;
+			updateUI();
 			break;
 		case R.id.btnMyFavorite:
 			tglMyFavorite.setChecked(!tglMyFavorite.isChecked());
@@ -191,6 +196,16 @@ public class MeetingsFilterActivity extends SocketActivity implements
 		}
 	}
 
+	@Override
+	public void onBackPressed() {
+		if (isFilterCleared) {
+			setResult(CLEAR_FILTER, new Intent());
+			finish();
+		}else {
+			super.onBackPressed();
+		}
+	}
+
 	public FilterResultHolder appendFilter(FilterResultHolder filter) {
 
 		filter.setFavourite(tglMyFavorite.isChecked());
@@ -219,7 +234,7 @@ public class MeetingsFilterActivity extends SocketActivity implements
 
 	}
 
-	private ArrayList<ExpCategory> buildDummyData() {
+	private ArrayList<ExpCategory> buildDefaultFilter() {
 
 		// Creating ArrayList of type parent class to store parent class objects
 		final ArrayList<ExpCategory> list = new ArrayList<ExpCategory>();

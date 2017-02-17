@@ -1,6 +1,7 @@
 package com.citrusbits.meehab.ui.rehabs;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import android.content.Intent;
@@ -44,6 +45,7 @@ public class RehabsFilterActivity extends SocketActivity implements
 
 	public static RehaabFilterResultHolder filterModel = new RehaabFilterResultHolder();
 	private CheckBox tglOpenNow;
+	private boolean isFilterCleared;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -99,6 +101,7 @@ public class RehabsFilterActivity extends SocketActivity implements
 				for (int i = 0; i < insurances.length(); i++) {
 					insurancesString[i] = insurances.optJSONObject(i).optString("name");
 				}
+				Arrays.sort(insurancesString);
 				final ExpCategory parent2 = new ExpCategory();
 				parent2.setChildren(new ArrayList<ExpChild>());
 				parent2.setName("Insurance Accepted");
@@ -238,10 +241,8 @@ public class RehabsFilterActivity extends SocketActivity implements
 			finish();
 			break;
 		case R.id.ibClear:
-			filterModel.apply(false);
-			setResult(CLEAR_FILTER, new Intent());
 			filterModel = new RehaabFilterResultHolder();
-			finish();
+			presetFilter();
 			break;
 		case R.id.btnZipCode:
 			editZipCode.requestFocus();
@@ -255,6 +256,15 @@ public class RehabsFilterActivity extends SocketActivity implements
 		}
 	}
 
+	@Override
+	public void onBackPressed() {
+		if (isFilterCleared) {
+			setResult(CLEAR_FILTER, new Intent());
+			finish();
+		}else {
+			super.onBackPressed();
+		}
+	}
 
 	private void presentDistancePicker() {
 		// presentDistancePicker();

@@ -14,9 +14,11 @@ import com.citrusbits.meehab.utils.AccountUtils;
 import com.citrusbits.meehab.utils.NetworkUtil;
 import com.citrusbits.meehab.utils.UtilityClass;
 
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.annotation.StringRes;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
@@ -186,9 +188,18 @@ public class ChangeEmailActivity extends SocketActivity implements
 			textResponse.setText(R.string.email_has_been_changed);
 			textResponse.setTextColor(Color.GREEN);
 			mPreviousEmail = etEmail.getText().toString().trim();
+			showDialogWithMessage(R.string.email_has_been_changed);
+
 		}
 //		onBackPressed();
 
+	}
+
+	private void showDialogWithMessage(@StringRes int msgId) {
+		new AlertDialog.Builder(this)
+				.setMessage(msgId)
+				.setPositiveButton("Ok",null)
+				.show();
 	}
 
 	@Override

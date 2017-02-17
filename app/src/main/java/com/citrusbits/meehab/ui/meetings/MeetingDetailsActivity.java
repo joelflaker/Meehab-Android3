@@ -1201,7 +1201,7 @@ public class MeetingDetailsActivity extends SocketActivity implements
 
 			tvMeetingName.setText(m.getUsername());
 
-			final String datetimeAdded = DateTimeUtils.getDatetimeAdded(
+			final String datetimeAdded = DateTimeUtils.getDatetimeReview(
 					m.getDatetimeAdded(), timeZone);
 
 			tvDateTime.setText(datetimeAdded);

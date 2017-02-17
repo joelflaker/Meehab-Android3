@@ -29,6 +29,7 @@ public class FriendsFilterActivity extends Activity implements OnClickListener {
 
 	private static ArrayList<ExpCategory> cacheCategories = new ArrayList<>();
 	private ArrayList<ExpCategory> categories = new ArrayList<ExpCategory>();
+	private boolean isFilterCleared;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +42,10 @@ public class FriendsFilterActivity extends Activity implements OnClickListener {
 		findViewById(R.id.ibApply).setOnClickListener(this);
 
 		expFriendsFilter = (ExpandableListView) findViewById(R.id.expFriendsFilter);
+		updateUi();
+	}
+
+	private void updateUi() {
 		if (cacheCategories.isEmpty()) {
 			categories = buildDefaultData();
 		} else {
@@ -55,7 +60,7 @@ public class FriendsFilterActivity extends Activity implements OnClickListener {
 		// Set Adapter to ExpandableList Adapter
 		expFriendsFilter.setAdapter(mAdapter);
 	}
-	
+
 	public static void applyClear() {
 		cacheCategories.clear();
 		
@@ -215,7 +220,6 @@ public class FriendsFilterActivity extends Activity implements OnClickListener {
 
 	@Override
 	public void onClick(View v) {
-		// TODO Auto-generated method stub
 		switch (v.getId()) {
 		case R.id.ibCancel:
 			onBackPressed();
@@ -245,8 +249,8 @@ public class FriendsFilterActivity extends Activity implements OnClickListener {
 			break;
 		case R.id.ibClear:
 			cacheCategories.clear();
-			setResult(CLEAR_FRIEND_FILTER, new Intent());
-			finish();
+			//update ui
+			updateUi();
 			break;
 
 		}
@@ -327,9 +331,14 @@ public class FriendsFilterActivity extends Activity implements OnClickListener {
 
 	@Override
 	public void onBackPressed() {
-		super.onBackPressed();
-		overridePendingTransition(R.anim.activity_back_in,
-				R.anim.activity_back_out);
+		if (isFilterCleared) {
+			setResult(CLEAR_FRIEND_FILTER, new Intent());
+			finish();
+		}else {
+			super.onBackPressed();
+		}
+//		overridePendingTransition(R.anim.activity_back_in,
+//				R.anim.activity_back_out);
 	}
 
 }

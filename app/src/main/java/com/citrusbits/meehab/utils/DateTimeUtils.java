@@ -427,7 +427,31 @@ public class DateTimeUtils {
 			}
 
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return dateTimeAdded;
+		}
+
+	}
+	public static String getDatetimeReview(String dateTimeAdded, long timeZone) {
+
+		// dateTimeAdded=dateTimeAdded.replace("T", " ");
+		// String date111[]=dateTimeAdded.split("\\.");
+		// dateTimeAdded=dateTimeAdded.replace("Z", "");
+		SimpleDateFormat dateFormate = new SimpleDateFormat(
+				"yyyy-MM-dd HH:mm:ss");
+		SimpleDateFormat newDatetime = new SimpleDateFormat(
+				"MM-dd-yyyy @ hh:mm a");
+
+		try {
+			if (dateTimeAdded.length() > 0) {
+				Date date = dateFormate.parse(dateTimeAdded);
+				date.setHours(date.getHours() + (int) timeZone);
+				return newDatetime.format(date);
+			} else {
+				return dateTimeAdded;
+			}
+
+		} catch (ParseException e) {
 			e.printStackTrace();
 			return dateTimeAdded;
 		}

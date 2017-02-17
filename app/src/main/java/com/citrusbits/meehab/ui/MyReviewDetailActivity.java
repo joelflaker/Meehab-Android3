@@ -78,7 +78,7 @@ public class MyReviewDetailActivity extends SocketActivity implements
 			rating.setRating(myReview.getRating());
 
 			tvMeetingName.setText(myReview.getMeetingName());
-			tvDateTime.setText(DateTimeUtils.getDatetimeAdded(myReview
+			tvDateTime.setText(DateTimeUtils.getDatetimeReview(myReview
 					.getDateTimeAdded(),timeZoneOffset));
 			tvComment.setText(myReview.getComment());
 			String commentUserId = myReview.getUserId() + "";
@@ -113,7 +113,7 @@ public class MyReviewDetailActivity extends SocketActivity implements
 			rating.setRating(reviewModel.getStars());
 
 			tvMeetingName.setText(reviewModel.getUsername());
-			tvDateTime.setText(DateTimeUtils.getDatetimeAdded(reviewModel
+			tvDateTime.setText(DateTimeUtils.getDatetimeReview(reviewModel
 					.getDatetimeAdded(),timeZoneOffset));
 
 			tvComment.setText(reviewModel.getComments());
