@@ -18,6 +18,7 @@ import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -196,16 +197,16 @@ OnSocketResponseListener, OnClickListener, OnMapClickListener {
 
 		findViewById(R.id.rlGetDirection).setOnClickListener(this);
 		
-		RecyclerView recyclerviewPhotos = (RecyclerView) findViewById(R.id.recyclerviewPhotos);
-		RecyclerView recyclerviewVideos = (RecyclerView) findViewById(R.id.recyclerviewVideos);
+		final RecyclerView recyclerViewPhotos = (RecyclerView) findViewById(R.id.recyclerviewPhotos);
+		final RecyclerView recyclerViewVideos = (RecyclerView) findViewById(R.id.recyclerviewVideos);
 		
 //		LinearLayoutManager layoutManager
 //	    = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
 //		recyclerviewPhotos.setLayoutManager(layoutManager);
 		GridLayoutManager layoutManager
 	    = new GridLayoutManager(this, 1, GridLayoutManager.HORIZONTAL,false);
-		recyclerviewPhotos.setLayoutManager(layoutManager);
-		recyclerviewPhotos.setHasFixedSize(true);
+		recyclerViewPhotos.setLayoutManager(layoutManager);
+		recyclerViewPhotos.setHasFixedSize(true);
 
 		tvLocationName = (TextView) findViewById(R.id.tvLocationName);
 		tvAbout = (TextView) findViewById(R.id.tvAbout);
@@ -245,7 +246,7 @@ OnSocketResponseListener, OnClickListener, OnMapClickListener {
 			}
 		}
 
-		Bundle extra = getIntent().getExtras();
+		final Bundle extra = getIntent().getExtras();
 		//		boolean flag = false;
 		if (extra != null ) {
 			rehab = (RehabModel) extra.getSerializable(KEY_REHAB);
@@ -289,13 +290,13 @@ OnSocketResponseListener, OnClickListener, OnMapClickListener {
 			
 			if(photoUrls != null && photoUrls.size() != 0){
 				PhotosAdapter adapter = new PhotosAdapter(this,photoUrls,getPhotosClickListener(),true);
-				recyclerviewPhotos.setAdapter(adapter);
-				recyclerviewPhotos.setHasFixedSize(true);
-				recyclerviewPhotos.addItemDecoration(
+				recyclerViewPhotos.setAdapter(adapter);
+				recyclerViewPhotos.setHasFixedSize(true);
+				recyclerViewPhotos.addItemDecoration(
 						new EqualSpaceItemDecoration(getResources()
 								.getDimensionPixelSize(R.dimen.activity_horizontal_margin)));
 			}else{
-				recyclerviewPhotos.setVisibility(View.GONE);
+				recyclerViewPhotos.setVisibility(View.GONE);
 				findViewById(R.id.txtPhotos).setVisibility(View.GONE);
 			}
 			
@@ -304,20 +305,20 @@ OnSocketResponseListener, OnClickListener, OnMapClickListener {
 			if(videoUrls != null && videoUrls.size() != 0){
 				GridLayoutManager gm
 			    = new GridLayoutManager(this, 1, GridLayoutManager.HORIZONTAL,false);
-				recyclerviewVideos.setLayoutManager(gm);
-				recyclerviewVideos.addItemDecoration(
+				recyclerViewVideos.setLayoutManager(gm);
+				recyclerViewVideos.addItemDecoration(
 						new EqualSpaceItemDecoration(getResources()
 								.getDimensionPixelSize(R.dimen.activity_horizontal_margin)));
-				recyclerviewVideos.setHasFixedSize(true);
-				recyclerviewVideos.setAdapter(new PhotosAdapter(this,videoUrls,getVideosClickListener(),false));
+				recyclerViewVideos.setHasFixedSize(true);
+				recyclerViewVideos.setAdapter(new PhotosAdapter(this,videoUrls,getVideosClickListener(),false));
 			}else{
-				recyclerviewVideos.setVisibility(View.GONE);
+				recyclerViewVideos.setVisibility(View.GONE);
 				findViewById(R.id.txtVideos).setVisibility(View.GONE);
 			}
 		}
 	}
 
-	private PhotoClickListener getPhotosClickListener() {
+	final private PhotoClickListener getPhotosClickListener() {
 		PhotoClickListener listener = new PhotosAdapter.PhotoClickListener() {
 			
 			@Override
@@ -412,9 +413,9 @@ OnSocketResponseListener, OnClickListener, OnMapClickListener {
 		if(osArr.length > 0 && visible) {
 			llOtherServices.setVisibility(View.VISIBLE);
 			dividerView.setVisibility(View.VISIBLE);
-			tvOtherServices.setCompoundDrawablesWithIntrinsicBounds(null, null, getResources().getDrawable(R.drawable.up_arrow), null);
+			tvOtherServices.setCompoundDrawablesWithIntrinsicBounds(null, null, ContextCompat.getDrawable(this,R.drawable.up_arrow), null);
 		}else{
-			tvOtherServices.setCompoundDrawablesWithIntrinsicBounds(null, null, getResources().getDrawable(R.drawable.down_arrow), null);
+			tvOtherServices.setCompoundDrawablesWithIntrinsicBounds(null, null, ContextCompat.getDrawable(this,R.drawable.down_arrow), null);
 			llOtherServices.setVisibility(View.GONE);
 			dividerView.setVisibility(View.GONE);
 		}
@@ -459,9 +460,9 @@ OnSocketResponseListener, OnClickListener, OnMapClickListener {
 		if(insuraces.size() > 0 && visible){
 			tvPayments.setVisibility(View.VISIBLE);
 			dividerView.setVisibility(View.VISIBLE);
-			tvInsuranceAccepted.setCompoundDrawablesWithIntrinsicBounds(null, null, getResources().getDrawable(R.drawable.up_arrow), null);
+			tvInsuranceAccepted.setCompoundDrawablesWithIntrinsicBounds(null, null, ContextCompat.getDrawable(this,R.drawable.up_arrow), null);
 		}else{
-			tvInsuranceAccepted.setCompoundDrawablesWithIntrinsicBounds(null, null, getResources().getDrawable(R.drawable.down_arrow), null);
+			tvInsuranceAccepted.setCompoundDrawablesWithIntrinsicBounds(null, null, ContextCompat.getDrawable(this,R.drawable.down_arrow), null);
 			tvPayments.setVisibility(View.GONE);
 			dividerView.setVisibility(View.GONE);
 			return;
@@ -496,7 +497,7 @@ OnSocketResponseListener, OnClickListener, OnMapClickListener {
 			textPayments.append(", ");
 		}
 		
-		if(payments.size() > 0){
+		if(payments.size() == 5){
 			textPayments.append(" and all major credit cards.");
 		}
 		

@@ -26,6 +26,7 @@ public class AppPrefs {
 
 	public static final String KEY_CHAT_FRIEND_ID = "chat_friend_id";
 	public static final String KEY_USER_PASS = "key_user_pass";
+	public static final String KEY_USER_INS_TIME = "key_user_insurance_time";
 
 	public static final String KEY_GCM_REG_ID = "gcm_reg_id";
 
@@ -88,6 +89,15 @@ public class AppPrefs {
 
 	public void saveDoublePrefs(String key, double value) {
 		editor.putLong(key, Double.doubleToLongBits(value));
+		editor.commit();
+	}
+
+	public long getLongPrefs(String key, long defValue) {
+		return prefs.getLong(key, 0);
+
+	}
+	public void saveLongPrefs(String key, long value) {
+		editor.putLong(key, value);
 		editor.commit();
 	}
 

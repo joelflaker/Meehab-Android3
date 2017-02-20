@@ -329,6 +329,7 @@ public class MyProfileFragment extends Fragment implements
 					String onTime = ""+reviewObject.optString("on_time");
 
 					String meetingName = reviewObject.getString("meeting_name");
+					String meetingId = reviewObject.getString("meetingID");
 					int rating = reviewObject.getInt("stars");
 					int reviewId = reviewObject.getInt("id");
 					String reviewTitle = reviewObject.getString("title");
@@ -341,6 +342,7 @@ public class MyProfileFragment extends Fragment implements
 					myReview.setComment(comment);
 					myReview.setOnDate(onDate);
 					myReview.setOnTime(onTime);
+					myReview.setMeetingId(meetingId);
 					myReview.setMeetingName(meetingName);
 					myReview.setRating(rating);
 					myReview.setReviewId(reviewId);
@@ -348,11 +350,11 @@ public class MyProfileFragment extends Fragment implements
 					reviews.add(myReview);
 				}
 
+				reviewsContainer.removeAllViews();
+				fillContainer(reviewsContainer, reviews);
 			} catch (JSONException e) {
 				e.printStackTrace();
 			}
-			reviewsContainer.removeAllViews();
-			fillContainer(reviewsContainer, reviews);
 
 		}
 
@@ -407,7 +409,25 @@ public class MyProfileFragment extends Fragment implements
 
 			tvMeetingName.setText(myReview.getMeetingName());
 
-			tvDateTime.setText(DateTimeUtils.getDatetimeAdded(myReview
+			tvMeetingName.setTag(i);
+			tvMeetingName.setOnClickListener(new View.OnClickListener() {
+
+				@Override
+				public void onClick(View v) {
+					int id = (int) v.getTag();
+					MyReview rev = reviews.get(id);
+
+					App.toast("Meeting Name! working on it");
+
+//					rev.setUserId(user.getId() + "");
+//					Intent intent = new Intent(getActivity(),
+//							MyReviewDetailActivity.class);
+//					intent.putExtra(MyReview.EXTRA_REVIEW, rev);
+//					startActivity(intent);
+				}
+			});
+
+			tvDateTime.setText(DateTimeUtils.getDatetimeReview(myReview
 					.getDateTimeAdded(),timeZone));
 
 			tvComment.setText(myReview.getComment());

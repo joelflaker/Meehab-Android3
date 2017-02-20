@@ -1,6 +1,7 @@
 package com.citrusbits.meehab.ui;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
@@ -298,45 +299,58 @@ public class HomeActivity extends SocketActivity implements
 			// setHomeTitle(position);
 			// editTopCenter.setHint(R.string.search_for_rehabs);
 			mUser = userDatasource.findUser(AccountUtils.getUserId(this));
-			if(!TextUtils.isEmpty(mUser.getInsurance())){
-				changeDrawerVisibility(false);
-				mCurrentFragment = new RehabsFragment();
-				fragmentManager
-						.beginTransaction()
-						.replace(R.id.container, mCurrentFragment)
-						.commit();
-				
-			}else{
-			new InsuranceDialog(HomeActivity.this).setInsuranceDialogListener(
-					new InsuranceDialogClickListener() {
 
-						@Override
-						public void onSkipClick(InsuranceDialog dialog) {
-							changeDrawerVisibility(false);
-							setHomeTitle(position);
-							mCurrentFragment = new RehabsFragment();
-							fragmentManager
-									.beginTransaction()
-									.replace(R.id.container, mCurrentFragment)
-									.commit();
-							dialog.dismiss();
-						}
 
-						@Override
-						public void onInsuranceClick(InsuranceDialog dialog) {
-							dialog.dismiss();
+			if(TextUtils.isEmpty(mUser.getInsurance()) /*|| "No Insurance".equals(mUser.getInsurance())*/){
+				long oldCheck = AccountUtils.getTime(this);
+				boolean isNoInsuranceSelected = oldCheck != 0;
+				long diff = Calendar.getInstance().getTimeInMillis() - oldCheck;
 
-							HomeActivity.this
-									.startActivity(new Intent(
-											HomeActivity.this,
-											InsuranceActivity.class));
-							overridePendingTransition(R.anim.activity_in,
-									R.anim.activity_out);
-							changeDrawerVisibility(false);
-						}
-					}).show();
+				boolean shouldShowAlert = true;
+				if(isNoInsuranceSelected && diff >= 1.21e+9){
+					//reset time
+					AccountUtils.setTime(this,Calendar.getInstance().getTimeInMillis());
+				}else if(isNoInsuranceSelected){
+					shouldShowAlert = false;
+				}
+				if(shouldShowAlert) {
+					new InsuranceDialog(HomeActivity.this).setInsuranceDialogListener(
+							new InsuranceDialogClickListener() {
+
+								@Override
+								public void onSkipClick(InsuranceDialog dialog) {
+									changeDrawerVisibility(false);
+									setHomeTitle(position);
+									mCurrentFragment = new RehabsFragment();
+									fragmentManager
+											.beginTransaction()
+											.replace(R.id.container, mCurrentFragment)
+											.commit();
+									dialog.dismiss();
+								}
+
+								@Override
+								public void onInsuranceClick(InsuranceDialog dialog) {
+									dialog.dismiss();
+
+									HomeActivity.this
+											.startActivity(new Intent(
+													HomeActivity.this,
+													InsuranceActivity.class));
+									overridePendingTransition(R.anim.activity_in,
+											R.anim.activity_out);
+									changeDrawerVisibility(false);
+								}
+							}).show();
+					return;
+				}
 			}
-
+			changeDrawerVisibility(false);
+			mCurrentFragment = new RehabsFragment();
+			fragmentManager
+					.beginTransaction()
+					.replace(R.id.container, mCurrentFragment)
+					.commit();
 			return;
 		case 6:
 			fragment = new RecoveryClockFragment();

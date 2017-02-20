@@ -22,8 +22,11 @@ import android.view.View.OnClickListener;
 import android.widget.NumberPicker;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Collections;
+import java.util.Comparator;
 
 public class InsuranceActivity extends SocketActivity implements
 		OnClickListener, OnSocketResponseListener{
@@ -139,6 +142,16 @@ public class InsuranceActivity extends SocketActivity implements
 			break;
 		case R.id.ibSubmit:
 			String insurance = fullValues[npInsurance.getValue()];
+
+			if("No Insurance".equals(insurance)){
+				AccountUtils.setTime(this, Calendar.getInstance().getTimeInMillis());
+				i = new Intent(InsuranceActivity.this, HomeActivity.class);
+				i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
+						| Intent.FLAG_ACTIVITY_NEW_TASK);
+				startActivity(i);
+				overridePendingTransition(R.anim.activity_in, R.anim.activity_out);
+				return;
+			}
 			
 			addInsurance(insurance);
 			break;
@@ -190,13 +203,22 @@ public class InsuranceActivity extends SocketActivity implements
 			JSONObject data = (JSONObject)obj;
 			JSONArray insurances = data.optJSONArray("insurances");
 			if(insurances != null){
-				String[] insurancesString = new String[insurances.length()];
+				ArrayList<String> insurancesList = new ArrayList<>();
+
 				for (int i = 0; i < insurances.length(); i++) {
-					insurancesString[i] = insurances.optJSONObject(i).optString("name");
+					insurancesList.add(insurances.optJSONObject(i).optString("name"));
 				}
-				Arrays.sort(insurancesString);
-				values = new String[insurancesString.length + 1];
-				values[values.length - 1] = "No Insurance";
+
+
+				Collections.sort(insurancesList, new Comparator<String>() {
+					@Override
+					public int compare(String s1, String s2) {
+						return s1.compareToIgnoreCase(s2);
+					}
+				});
+				insurancesList.add("No Insurance");
+				values = new String[insurancesList.size()];
+				values = insurancesList.toArray(values);
 				updateInsurancesData();
 				npInsurance.postDelayed(new Runnable() {
 					@Override

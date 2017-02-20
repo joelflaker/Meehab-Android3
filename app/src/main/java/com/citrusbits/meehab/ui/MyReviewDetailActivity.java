@@ -53,35 +53,50 @@ public class MyReviewDetailActivity extends SocketActivity implements
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		timeZoneOffset=MeetingUtils.getTimeZoneOffset();
+		timeZoneOffset = MeetingUtils.getTimeZoneOffset();
 		pd = UtilityClass.getProgressDialog(MyReviewDetailActivity.this);
 		setContentView(R.layout.activity_my_review_detail);
-		object = getIntent().getSerializableExtra(
-				MyReview.EXTRA_REVIEW);
+		object = getIntent().getSerializableExtra(MyReview.EXTRA_REVIEW);
 
-		TextView tvReviewTitle = (TextView) this
+		final TextView tvReviewTitle = (TextView) this
 				.findViewById(R.id.tvReviewTitle);
-		RatingBar rating = (RatingBar) this.findViewById(R.id.rating);
-		TextView tvMeetingName = (TextView) this
+		final RatingBar rating = (RatingBar) this.findViewById(R.id.rating);
+		final TextView tvMeetingName = (TextView) this
 				.findViewById(R.id.tvMeetingName);
-		TextView tvDateTime = (TextView) this.findViewById(R.id.tvDateTime);
-		TextView tvComment = (TextView) this.findViewById(R.id.tvComment);
+		final TextView tvDateTime = (TextView) this.findViewById(R.id.tvDateTime);
+		final TextView tvComment = (TextView) this.findViewById(R.id.tvComment);
 
-		ImageView ivUserIcon =(ImageView) findViewById(R.id.ivUserIcon);
+		final ImageView ivUserIcon =(ImageView) findViewById(R.id.ivUserIcon);
 
-		ImageButton topRightBtn = (ImageButton) findViewById(R.id.topRightBtn);
-		String userId = AccountUtils.getUserId(this) + "";
+		final ImageButton topRightBtn = (ImageButton) findViewById(R.id.topRightBtn);
+		final String userId = AccountUtils.getUserId(this) + "";
 		if (object instanceof MyReview) {
 			myReview = (MyReview) object;
 			tvReviewTitle.setText(myReview.getReviewTitle());
-
 			rating.setRating(myReview.getRating());
 
 			tvMeetingName.setText(myReview.getMeetingName());
+			tvMeetingName.setTag(reviewModel);
+			tvMeetingName.setOnClickListener(new View.OnClickListener() {
+
+				@Override
+				public void onClick(View v) {
+					final MeetingReviewModel review = (MeetingReviewModel) v.getTag();
+
+					App.toast("Meeting Name! working on it");
+
+//					rev.setUserId(user.getId() + "");
+//					Intent intent = new Intent(getActivity(),
+//							MyReviewDetailActivity.class);
+//					intent.putExtra(MyReview.EXTRA_REVIEW, rev);
+//					startActivity(intent);
+				}
+			});
+
 			tvDateTime.setText(DateTimeUtils.getDatetimeReview(myReview
 					.getDateTimeAdded(),timeZoneOffset));
 			tvComment.setText(myReview.getComment());
-			String commentUserId = myReview.getUserId() + "";
+			final String commentUserId = myReview.getUserId() + "";
 
 			ivUserIcon.setVisibility(View.GONE);
 
@@ -93,7 +108,6 @@ public class MyReviewDetailActivity extends SocketActivity implements
 		} else if (object instanceof MeetingReviewModel) {
 			reviewModel = (MeetingReviewModel) object;
 			tvReviewTitle.setText(reviewModel.getTitle());
-
 			ivUserIcon.setTag(reviewModel);
 			ivUserIcon.setOnClickListener(new View.OnClickListener() {
 				@Override
@@ -113,13 +127,14 @@ public class MyReviewDetailActivity extends SocketActivity implements
 			rating.setRating(reviewModel.getStars());
 
 			tvMeetingName.setText(reviewModel.getUsername());
+
 			tvDateTime.setText(DateTimeUtils.getDatetimeReview(reviewModel
 					.getDatetimeAdded(),timeZoneOffset));
 
 			tvComment.setText(reviewModel.getComments());
-			String commentUserId = reviewModel.getUserId() + "";
-			
-			String userImage = reviewModel.getImage();
+			final String commentUserId = reviewModel.getUserId() + "";
+
+			final String userImage = reviewModel.getImage();
 
 			Log.e("User image is ",""+ userImage);
 

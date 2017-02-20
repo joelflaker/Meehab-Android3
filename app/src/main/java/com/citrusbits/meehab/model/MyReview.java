@@ -29,9 +29,9 @@ public class MyReview implements Serializable {
 	private String dateTimeAdded;
 	
 	private String userId;
-	
+	private String meetingId;
 
-	
+
 	public String getUserId() {
 		return userId;
 	}
@@ -87,7 +87,13 @@ public class MyReview implements Serializable {
 	public void setComment(String comment) {
 		this.comment = comment;
 	}
-	
-	
-	
+
+
+	public void setMeetingId(String meetingId) {
+		this.meetingId = meetingId;
+	}
+
+	public String getMeetingId() {
+		return meetingId;
+	}
 }

@@ -50,10 +50,10 @@ public class CannotFindInsuranceActivity extends SocketActivity implements OnSoc
 		case R.id.ibSubmit:
 			final String insurance = etInsuranceProvider.getText().toString().trim();
 			if(insurance.isEmpty()){
-				Toast.makeText(CannotFindInsuranceActivity.this, "Please enter insurnace name ", Toast.LENGTH_SHORT).show();
+				Toast.makeText(CannotFindInsuranceActivity.this, "Please enter insurance name ", Toast.LENGTH_SHORT).show();
 				return;
 			}
-			if (insurance.isEmpty() || ValidationUtils.isSpecialChar(insurance)) {
+			if (insurance.isEmpty() || ValidationUtils.isSpecialChar(insurance) || "no insurance".equalsIgnoreCase(insurance)) {
 				Toast.makeText(this,
 						"Enter valid insurance provider name!",
 						Toast.LENGTH_SHORT).show();
@@ -66,17 +66,18 @@ public class CannotFindInsuranceActivity extends SocketActivity implements OnSoc
 							Toast.LENGTH_SHORT).show();
 					return;
 				}
-				
-			AlertDialog dialog = new AlertDialog.Builder(this).create();
-			dialog.setMessage("Thank you for filling in your insurance provider. We will get back you to you shortly regarding your addition");
-			dialog.setButton(DialogInterface.BUTTON_POSITIVE,"Ok", new DialogInterface.OnClickListener() {
+			addInsurance(insurance);
 
-				@Override
-				public void onClick(DialogInterface dialog, int which) {
-					addInsurance(insurance);
-				}
-			});
-			dialog.show();
+//			AlertDialog dialog = new AlertDialog.Builder(this).create();
+//			dialog.setMessage("Thank you for filling in your insurance provider. We will get back you to you shortly regarding your addition.");
+//			dialog.setButton(DialogInterface.BUTTON_POSITIVE,"Ok", new DialogInterface.OnClickListener() {
+//
+//				@Override
+//				public void onClick(DialogInterface dialog, int which) {
+//					addInsurance(insurance);
+//				}
+//			});
+//			dialog.show();
 			break;
 		}
 	}

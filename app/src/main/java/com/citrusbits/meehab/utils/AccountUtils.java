@@ -28,10 +28,21 @@ public class AccountUtils {
 		AppPrefs prefs = AppPrefs.getAppPrefs(context);
 		prefs.saveStringPrefs(AppPrefs.KEY_USER_PASS,value);
 	}
+
 	public static String getPassword(Context context) {
 		AppPrefs prefs = AppPrefs.getAppPrefs(context);
 		return prefs.getStringPrefs(AppPrefs.KEY_USER_PASS,
 				"");
+	}
+
+	public static void setTime(Context context,long value) {
+		AppPrefs prefs = AppPrefs.getAppPrefs(context);
+		prefs.saveLongPrefs(AppPrefs.KEY_USER_INS_TIME,value);
+	}
+
+	public static long getTime(Context context) {
+		AppPrefs prefs = AppPrefs.getAppPrefs(context);
+		return prefs.getLongPrefs(AppPrefs.KEY_USER_INS_TIME,0);
 	}
 
 

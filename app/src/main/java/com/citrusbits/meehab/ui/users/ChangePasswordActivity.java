@@ -76,16 +76,20 @@ public class ChangePasswordActivity extends SocketActivity implements OnSocketRe
 		String reNewPassword = editReNewPassword.getText().toString();
 		
 		if(TextUtils.isEmpty(oldassword) || TextUtils.isEmpty(newPassword) || TextUtils.isEmpty(reNewPassword)){
-			textResponse.setText("Enter password");
+			textResponse.setText("Enter password!");
 			return;
 		}
 
 
 		if(!newPassword.equals(reNewPassword)){
-			textResponse.setText("Password Does't match");
+			textResponse.setText("Password does't match!");
 			return;
 		}
-		
+		if(!oldassword.equals(AccountUtils.getPassword(this))){
+			textResponse.setText("Current password is incorrect!");
+			return;
+		}
+
 		com.citrusbits.meehab.utils.Pair pair = UtilityClass
 				.isPasswordValid(newPassword);
 		if(!pair.valid){
