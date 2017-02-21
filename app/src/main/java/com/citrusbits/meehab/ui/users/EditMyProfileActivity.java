@@ -813,7 +813,7 @@ public class EditMyProfileActivity extends SocketActivity implements
 				} else if (haveKidsNoBtn.isChecked()) {
 					hasKidsString = "No";
 				} else if (haveKidsNoAnsBtn.isChecked()) {
-					hasKidsString = "No Answer";
+					hasKidsString = "";
 				}
 
 				if(hasKidsString != null){

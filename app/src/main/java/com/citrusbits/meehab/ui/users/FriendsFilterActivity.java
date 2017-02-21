@@ -222,7 +222,7 @@ public class FriendsFilterActivity extends Activity implements OnClickListener {
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.ibCancel:
-			onBackPressed();
+			finish();
 			break;
 		case R.id.ibApply:
 
@@ -241,6 +241,12 @@ public class FriendsFilterActivity extends Activity implements OnClickListener {
 			returnIntent.putExtra(FriendsFragment.EXTRA_FILTER_RESULT,
 					fFilterResultHolder);
 
+			//this will clear filter
+			if(/*isFilterCleared || */!isThereAnyFilter(fFilterResultHolder)){
+				onBackPressed();
+				return;
+			}
+
 			cacheCategories.clear();
 			cacheCategories.addAll(categories);
 			setResult(RESULT_OK, returnIntent);
@@ -251,9 +257,20 @@ public class FriendsFilterActivity extends Activity implements OnClickListener {
 			cacheCategories.clear();
 			//update ui
 			updateUi();
+			mAdapter.setFriendFilterResultHolder(new FriendFilterResultHolder());
+			mAdapter.notifyDataSetChanged();
 			break;
 
 		}
+	}
+
+	private boolean isThereAnyFilter(FriendFilterResultHolder filter) {
+		return filter.isOnlineNow() || filter.isWillingToSponsor()
+				|| filter.isHasKids() || filter.isAnyFriendType()
+				|| filter.isAnyGender() || filter.isAnyAge()
+				|| filter.isAnyEthenticity() || filter.isAnyMaterialStatus()
+				|| filter.isAnyinterestedIn() || filter.isAnyTimeSober()
+				|| filter.isAnyHeight() || filter.isAnyWeight();
 	}
 
 	public void heightPickerDialog() {

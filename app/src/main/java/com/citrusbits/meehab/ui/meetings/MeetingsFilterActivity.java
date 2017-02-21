@@ -41,7 +41,6 @@ public class MeetingsFilterActivity extends SocketActivity implements
 //	private TextView txtRating;
 //	private Button btnRating;
 
-	private static MeetingFilterModel filterModel = new MeetingFilterModel();
 	private String[] distanceValues;
 
 	private static boolean mFavorite;
@@ -65,7 +64,7 @@ public class MeetingsFilterActivity extends SocketActivity implements
 				new View.OnClickListener() {
 					@Override
 					public void onClick(View v) {
-						onBackPressed();
+						finish();
 					}
 				});
 
@@ -73,7 +72,7 @@ public class MeetingsFilterActivity extends SocketActivity implements
 
 		findViewById(R.id.ibClear).setOnClickListener(this);
 
-		findViewById(R.id.topRightBtn).setOnClickListener(this);
+		findViewById(R.id.btnApply).setOnClickListener(this);
 
 		btnMyFavorite = (Button) findViewById(R.id.btnMyFavorite);
 		tglMyFavorite = (CheckBox) findViewById(R.id.tglMyFavorite);
@@ -129,22 +128,32 @@ public class MeetingsFilterActivity extends SocketActivity implements
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
-		case R.id.topRightBtn:
-			// getherUserFilters();
+		case R.id.btnApply:
+
 			FilterResultHolder resultHolder = mAdapter.getFilterResultHolder();
 			cacheCategories.clear();
 			cacheCategories.addAll(categories);
 			resultHolder = appendFilter(resultHolder);
+
+			//this will clear filter
+			if(/*isFilterCleared || */!isThereAnyFilter(resultHolder)){
+				onBackPressed();
+				return;
+			}
+
 			getIntent().putExtra(MEETING_FILTER, resultHolder);
 			setResult(RESULT_OK, getIntent());
 			finish();
 			break;
 		case R.id.ibClear:
 			applyClear();
-			filterModel = new MeetingFilterModel();
 			categories = buildDefaultFilter();
+			FilterResultHolder defaultFilter = new FilterResultHolder();
+			getIntent().putExtra(MEETING_FILTER, defaultFilter);
 			isFilterCleared = true;
+			mAdapter.setFilterResultHolder(defaultFilter);
 			updateUI();
+			mAdapter.notifyDataSetChanged();
 			break;
 		case R.id.btnMyFavorite:
 			tglMyFavorite.setChecked(!tglMyFavorite.isChecked());
@@ -194,6 +203,12 @@ public class MeetingsFilterActivity extends SocketActivity implements
 		default:
 			break;
 		}
+	}
+
+	private boolean isThereAnyFilter(FilterResultHolder filter) {
+		return filter.getAnyDay() || filter.getAnyTime()
+				|| filter.getAnyType() || filter.getAnyCode()
+				|| filter.isAnyDistance() || filter.getRating() != 0;
 	}
 
 	@Override

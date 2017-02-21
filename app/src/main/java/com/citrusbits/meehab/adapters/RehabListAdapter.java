@@ -191,7 +191,7 @@ public class RehabListAdapter extends ArrayAdapter<RehabModel> {
 			}
 			
 			//insurances
-			boolean isInsuracesMatch = resultHolder.isanyInsuranceAccepted();
+			boolean isInsuracesMatch = resultHolder.isAnyInsuranceAccepted();
 			for(String insA: wp.getRehabInsurances()){
 				if(resultHolder.getInsuranceAccepted().contains(insA)
 						|| wp.getPackageName().equalsIgnoreCase(RehabResponseModel.PLATINUM_PACKAGE)){

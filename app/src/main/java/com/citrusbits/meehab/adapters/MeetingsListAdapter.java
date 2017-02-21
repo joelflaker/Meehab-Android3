@@ -231,7 +231,7 @@ public class MeetingsListAdapter extends ArrayAdapter<MeetingModel> {
 //		final List<FilterTime> filterTimings = resultHolder.applyMapping();
 
 		final List<String> typesOrigion = resultHolder.getTypes();
-		final List<String> types = new ArrayList<String>();
+		final List<String> types = new ArrayList<>();
 		for (int i = 0; i < typesOrigion.size(); i++) {
 			String type = typesOrigion.get(i);
 			String typeArray[] = type.split("-");
@@ -250,7 +250,7 @@ public class MeetingsListAdapter extends ArrayAdapter<MeetingModel> {
 			// String day = wp.getOnDay();
 //			String time = meeting.getOnTime();
 			String zipCode = meeting.getZipCode();
-			double miles = meeting.getDistanceInMiles();
+//			double miles = meeting.getDistanceInMiles();
 			float revAvg = meeting.getReviewsAvg();
 
 			/*

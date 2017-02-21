@@ -213,7 +213,7 @@
         </LinearLayout>
 
         <ImageButton
-            android:id="@+id/topRightBtn"
+            android:id="@+id/btnApply"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"

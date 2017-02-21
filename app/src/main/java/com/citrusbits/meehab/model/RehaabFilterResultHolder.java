@@ -91,7 +91,7 @@ public class RehaabFilterResultHolder implements Serializable {
 		this.anyType = anyType;
 	}
 
-	public boolean isanyInsuranceAccepted() {
+	public boolean isAnyInsuranceAccepted() {
 		return anyInsuranceAccepted;
 	}
 

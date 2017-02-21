@@ -701,7 +701,6 @@ public class MeetingsFragment extends Fragment implements
 				 * MeetingFilterModel fm = (MeetingFilterModel) data
 				 * .getSerializableExtra(MeetingsFilterActivity.MEETING_FILTER);
 				 */
-
 				resultHolder = (FilterResultHolder) data
 						.getSerializableExtra(MeetingsFilterActivity.MEETING_FILTER);
 

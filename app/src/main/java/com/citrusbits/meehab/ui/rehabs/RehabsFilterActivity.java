@@ -60,7 +60,7 @@ public class RehabsFilterActivity extends SocketActivity implements
 				new View.OnClickListener() {
 					@Override
 					public void onClick(View v) {
-						onBackPressed();
+						finish();
 					}
 				});
 
@@ -236,6 +236,12 @@ public class RehabsFilterActivity extends SocketActivity implements
 				filterModel.setDistance(distance);
 			}
 
+			//this will clear filter
+			if(/*isFilterCleared || */!isThereAnyFilter(filterModel)){
+				onBackPressed();
+				return;
+			}
+
 			getIntent().putExtra(MEETING_FILTER, filterModel);
 			setResult(RESULT_OK, getIntent());
 			finish();
@@ -254,6 +260,12 @@ public class RehabsFilterActivity extends SocketActivity implements
 		default:
 			break;
 		}
+	}
+
+	private boolean isThereAnyFilter(RehaabFilterResultHolder filter) {
+		return filter.isOpenNow() || filter.isAnyType()
+				|| filter.isAnyInsuranceAccepted() || filter.isAnyZipCode()
+				|| filter.isAnyDistance();
 	}
 
 	@Override
