@@ -44,6 +44,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.citrusbits.meehab.model.NearestDateTime;
 import com.citrusbits.meehab.ui.ActivityMoreReviews;
 import com.citrusbits.meehab.ui.FullScreenMapActivity;
 import com.citrusbits.meehab.ui.MyReviewDetailActivity;
@@ -238,75 +239,85 @@ public class MeetingDetailsActivity extends SocketActivity implements
 		Bundle extra = getIntent().getExtras();
 		if (extra != null) {
 			meeting = (MeetingModel) extra.getSerializable("meeting");
+		}
 
-			//recalculate relative time
-			MeetingUtils.setStartInTime(meeting, meeting.getOnDateOrigion(),
-					meeting.getNearestTime());
+	}
+
+	@Override
+	public void onResume() {
+		super.onResume();
+		updateUi();
+	}
+
+	private void updateUi() {
+		if(meeting == null) return;
+
+		NearestDateTime nearDateTime = MeetingUtils.getNearestDate(meeting.getOnDay(),
+				meeting.getOnTime());
+		//recalculate relative time
+		MeetingUtils.setStartInTime(meeting, nearDateTime.getDateTime());
 			/*
 			 * if (meeting.getMarkertypeColor() == MarkerColorType.RED) {
 			 * setCheckInButton(); } else { //setRSVPButton(); }
 			 */
 
-			txtDate.setText(formateDate(meeting.getOnDateOrigion()));
-			txtMeetingName.setText(meeting.getName());
-			txtTime.setText(meeting.getOnTime());
-			numReviewsText.setText(String.valueOf(meeting.getReviewsCount()) + " REVIEWS");
-			txtMeetingCurrentStatus.setText(meeting.getStartInTime());
+		txtDate.setText(formateDate(meeting.getOnDateOrigion()));
+		txtMeetingName.setText(meeting.getName());
+		txtTime.setText(meeting.getOnTime());
+		numReviewsText.setText(String.valueOf(meeting.getReviewsCount()) + " REVIEWS");
+		txtMeetingCurrentStatus.setText(meeting.getStartInTime());
 
-			if (meeting.getMarkertypeColor() == MarkerColorType.GREEN) {
-				txtMeetingCurrentStatus
-						.setBackgroundResource(R.drawable.hours_bg_green);
-			} else if (meeting.getMarkertypeColor() == MarkerColorType.ORANGE) {
-				txtMeetingCurrentStatus
-						.setBackgroundResource(R.drawable.start_in_hour_btn);
-			} else if (meeting.getMarkertypeColor() == MarkerColorType.RED) {
-				txtMeetingCurrentStatus
-						.setBackgroundResource(R.drawable.ongoing_btn);
-			}
-
-			txtLocationName.setText(meeting.getBuildingType().toUpperCase());
-			txtLocationAddress.setText(meeting.getAddress() + ", "
-					+ meeting.getZipCode());
-			txtDistanceRight.setText(meeting.getDistanceInMiles()
-					+ " MILES AWAY");
-			rating.setRating(meeting.getReviewsAvg());
-
-			meetingCodes = meeting.getCodes().split(",");
-
-			ArrayAdapter<String> codesAdapter = new ArrayAdapter<>(this,R.layout.list_item_meeting_code,meetingCodes);
-			gridMeetingCode.setAdapter(codesAdapter);
-
-			ibRating.setImageResource(meeting.isFavourite() ? R.drawable.star_pink
-					: R.drawable.star_white);
-
-			if (!TextUtils.isEmpty(user.getMeetingHomeGroup()) && user.getMeetingHomeGroup().toLowerCase().trim()
-					.equals(meeting.getName().toLowerCase().trim())) {
-				cbHomeGroup.setChecked(true);
-				homeGroup = true;
-			}
-
-			String favAttendingMsg = meeting.getRsvpCount() == 0 ? "" : String
-					.format(getString(R.string.num_favourites_attending), meeting.getRsvpCount());
-
-			tvRSVPAttending.setText(favAttendingMsg);
-
-			String days = meeting.getOnDay();
-			String onTime = meeting.getOnTime();
-
-			multidateMap = getMultiDate(days, onTime);
-			MultiDatesManager nearMultidate = setNearestDay(days);
-
-			setMultidaylist(nearMultidate.getDay());
-			if (meeting.getMarkertypeColor() == MarkerColorType.RED) {
-				setCheckInButton();
-			} else {
-				setRSVPButton();
-				// dbHandler.removeAllCheckIn(String.valueOf(meeting
-				// .getMeetingId()));
-			}
-
+		if (meeting.getMarkertypeColor() == MarkerColorType.GREEN) {
+			txtMeetingCurrentStatus
+					.setBackgroundResource(R.drawable.hours_bg_green);
+		} else if (meeting.getMarkertypeColor() == MarkerColorType.ORANGE) {
+			txtMeetingCurrentStatus
+					.setBackgroundResource(R.drawable.start_in_hour_btn);
+		} else if (meeting.getMarkertypeColor() == MarkerColorType.RED) {
+			txtMeetingCurrentStatus
+					.setBackgroundResource(R.drawable.ongoing_btn);
 		}
 
+		txtLocationName.setText(meeting.getBuildingType().toUpperCase());
+		txtLocationAddress.setText(meeting.getAddress() + ", "
+				+ meeting.getZipCode());
+		txtDistanceRight.setText(meeting.getDistanceInMiles()
+				+ " MILES AWAY");
+		rating.setRating(meeting.getReviewsAvg());
+
+		meetingCodes = meeting.getCodes().split(",");
+
+		ArrayAdapter<String> codesAdapter = new ArrayAdapter<>(this,R.layout.list_item_meeting_code,meetingCodes);
+		gridMeetingCode.setAdapter(codesAdapter);
+
+		ibRating.setImageResource(meeting.isFavourite() ? R.drawable.star_pink
+				: R.drawable.star_white);
+
+		if (!TextUtils.isEmpty(user.getMeetingHomeGroup()) && user.getMeetingHomeGroup().toLowerCase().trim()
+				.equals(meeting.getName().toLowerCase().trim())) {
+			cbHomeGroup.setChecked(true);
+			homeGroup = true;
+		}
+
+		String favAttendingMsg = meeting.getRsvpCount() == 0 ? "" : String
+				.format(getString(R.string.num_favourites_attending), meeting.getRsvpCount());
+
+		tvRSVPAttending.setText(favAttendingMsg);
+
+		String days = meeting.getOnDay();
+		String onTime = meeting.getOnTime();
+
+		multidateMap = getMultiDate(days, onTime);
+		MultiDatesManager nearMultidate = setNearestDay(days);
+
+		setMultidaylist(nearMultidate.getDay());
+		if (meeting.getMarkertypeColor() == MarkerColorType.RED) {
+			setCheckInButton();
+		} else {
+			setRSVPButton();
+			// dbHandler.removeAllCheckIn(String.valueOf(meeting
+			// .getMeetingId()));
+		}
 	}
 
 	/**

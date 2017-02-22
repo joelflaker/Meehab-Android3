@@ -7,6 +7,8 @@ package com.citrusbits.meehab.model;
  * @author Xamar
  *
  */
+import android.support.annotation.Nullable;
+
 import java.io.Serializable;
 import java.util.Comparator;
 import java.util.Date;
@@ -20,6 +22,7 @@ public class MeetingModel implements Serializable {
 	@SerializedName("is_rsvp")
 	@Expose
 	private Integer rsvp;
+	private String onDateOrigin;
 
 	public Integer getRsvp() {
 		return rsvp;
@@ -146,13 +149,12 @@ public class MeetingModel implements Serializable {
 
 	private boolean favourite;
 
-	private String onDateOrigin;
 
 	private String startInTime;
 
 	private String nearestTime;
 
-	private Date dateObj;
+	private Date nearestDateTime;
 
 	public void setNearestTime(String nearestTime) {
 		this.nearestTime = nearestTime;
@@ -162,12 +164,12 @@ public class MeetingModel implements Serializable {
 		return this.nearestTime;
 	}
 
-	public Date getDateObj() {
-		return dateObj;
+	public Date getNearestDateTime() {
+		return nearestDateTime;
 	}
 
-	public void setDateObj(Date dateObj) {
-		this.dateObj = dateObj;
+	public @Nullable void setNearestDateTime(Date nearestDateTime) {
+		this.nearestDateTime = nearestDateTime;
 	}
 
 	public void setOnDateOrigin(String onDateOrigin) {

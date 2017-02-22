@@ -321,7 +321,7 @@ public class RehabResponseModel {
 //						"dd/MM/yyyy");
 //				String dateMade = dateFormate.format(sCalendar.getTime());
 //
-//				NearesDateTime nearDateTime = new NearesDateTime();
+//				NearestDateTime nearDateTime = new NearestDateTime();
 //				nearDateTime.setDate(dateMade);
 //				nearDateTime.setTime(onTime);
 //				nearestDateTimes.add(nearDateTime);

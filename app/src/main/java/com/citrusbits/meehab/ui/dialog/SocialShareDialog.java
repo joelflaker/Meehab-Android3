@@ -19,7 +19,6 @@ public class SocialShareDialog extends Dialog implements
 
 	public SocialShareDialog(Context context) {
 		super(context, android.R.style.Theme_Black_NoTitleBar);
-		// TODO Auto-generated constructor stub
 		this.context = context;
 	}
 
@@ -33,10 +32,9 @@ public class SocialShareDialog extends Dialog implements
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
-		this.getWindow().getAttributes().windowAnimations = R.style.PauseDialogAnimationQuick;
+		this.getWindow().getAttributes().windowAnimations = R.style.DialogAnimationFade;
 		getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 		setContentView(R.layout.dialog_share);
 		findViewById(R.id.ibCancel).setOnClickListener(this);
@@ -50,7 +48,6 @@ public class SocialShareDialog extends Dialog implements
 
 	@Override
 	public void onClick(View v) {
-		// TODO Auto-generated method stub
 		switch (v.getId()) {
 		case R.id.ibCancel:
 			if (SocialShareDialogClickListener != null) {
@@ -92,17 +89,17 @@ public class SocialShareDialog extends Dialog implements
 
 	public interface SocialShareDialogClickListener {
 
-		public void onCancelClick(SocialShareDialog dialog);
+		void onCancelClick(SocialShareDialog dialog);
 
-		public void onFacebookClick(SocialShareDialog dialog);
+		void onFacebookClick(SocialShareDialog dialog);
 
-		public void onTwitterClick(SocialShareDialog dialog);
+		void onTwitterClick(SocialShareDialog dialog);
 
-		public void onEmailClick(SocialShareDialog dialog);
+		void onEmailClick(SocialShareDialog dialog);
 
-		public void onSMSClick(SocialShareDialog dialog);
+		void onSMSClick(SocialShareDialog dialog);
 
-		public void onInstagramClick(SocialShareDialog dialog);
+		void onInstagramClick(SocialShareDialog dialog);
 
 	}
 

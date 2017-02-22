@@ -193,7 +193,7 @@ public class RehabsFilterActivity extends SocketActivity implements
 		editZipCode.setText(filterModel.getZipCode());
 		
 		//distance
-		if(filterModel.isAnyDistance() || filterModel.getDistance() == null){
+		if(filterModel.isAnyDistance()){
 			txtDistance.setText("Any");
 		}else {
 			txtDistance.setText(filterModel.getDistance());
@@ -228,8 +228,8 @@ public class RehabsFilterActivity extends SocketActivity implements
 				filterModel.setZipCode(zipCode);
 			}
 
-			String distance = txtDistance.getText().toString().replace("more than","").trim();
-			if (distance.equalsIgnoreCase("any") || distance.equalsIgnoreCase(getString(R.string.more_than_50_miles))) {
+			String distance = txtDistance.getText().toString();
+			if (distance.equalsIgnoreCase("any")) {
 				filterModel.setAnyDistance(true);
 			} else {
 				filterModel.setAnyDistance(false);

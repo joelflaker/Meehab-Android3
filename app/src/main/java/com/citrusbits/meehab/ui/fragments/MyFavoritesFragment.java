@@ -45,6 +45,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.citrusbits.meehab.model.NearestDateTime;
 import com.citrusbits.meehab.ui.HomeActivity;
 import com.citrusbits.meehab.ui.meetings.MeetingDetailsActivity;
 import com.citrusbits.meehab.R;
@@ -855,19 +856,11 @@ public class MyFavoritesFragment extends Fragment implements
 					MeetingModel meeting = meetings.get(i);
 					meeting.setFavourite(meeting.getFavouriteMeeting() == 1);
 
-					NearesDateTime nearDateTime = getOnDate(meeting.getOnDay(),
-							meeting.getOnTime(), i);
-
 					/*
 					 * String onDate = getOnDate(meeting.getOnDay(),
 					 * meeting.getOnTime());
 					 */
 
-					String onDate = nearDateTime.getDate();
-
-					meeting.setOnDateOrigin(onDate);
-
-					meeting.setNearestTime(nearDateTime.getTime());
 
 					Location pinLocation = new Location("B");
 					pinLocation.setLatitude(meeting.getLatitude());
@@ -878,16 +871,22 @@ public class MyFavoritesFragment extends Fragment implements
 					distance = Math.floor(distance * 100) / 100f;
 					meeting.setDistanceInMiles(distance);
 
-					Date dateObje = MeetingUtils.getDateObject(onDate);
-					meeting.setDateObj(dateObje);
-					meeting.setOnDate(MeetingUtils.formateDate(dateObje));
+					NearestDateTime nearDateTime = MeetingUtils.getNearestDate(meeting.getOnDay(),
+							meeting.getOnTime());
+
+					meeting.setNearestDateTime(nearDateTime.getDateTime());
+					meeting.setOnDateOrigin(nearDateTime.getDate());
+					meeting.setNearestTime(nearDateTime.getTime());
+					meeting.setNearestDateTime(nearDateTime.getDateTime());
+					meeting.setOnDate(MeetingUtils.formateDate(nearDateTime.getDateTime()));
 					// }
 
-					MeetingUtils.setStartInTime(meeting, meeting.getOnDateOrigion(),
-							meeting.getNearestTime());
+					MeetingUtils.setStartInTime(meeting, meeting.getNearestDateTime());
 				}
 
-				sortData();
+
+
+				MeetingUtils.sortByDistance(meetings);
 				String prevDate = "";
 				for (int i = 0; i < meetings.size(); i++) {
 					MeetingModel m = meetings.get(i);
@@ -904,181 +903,6 @@ public class MyFavoritesFragment extends Fragment implements
 			return null;
 		}
 
-//		public void setStartInTime(MeetingModel model, String date,
-//				String onTime) {
-//			SimpleDateFormat prevFormate = new SimpleDateFormat("dd/MM/yyyy");
-//			try {
-//				Date date2 = prevFormate.parse(date);
-//				SimpleDateFormat _12HourSDF = new SimpleDateFormat("hh:mm a");
-//				final Date dateObj = _12HourSDF.parse(onTime);
-//				Calendar calendar = Calendar.getInstance();
-//
-//				calendar.setTime(date2);
-//
-//				calendar.set(Calendar.HOUR_OF_DAY, dateObj.getHours());
-//				calendar.set(Calendar.MINUTE, dateObj.getMinutes());
-//				calendar.set(Calendar.SECOND, 0);
-//
-//				Calendar currentCalendar = Calendar.getInstance();
-//
-//				long difference = calendar.getTimeInMillis()
-//						- currentCalendar.getTimeInMillis();
-//
-//				long x = difference / 1000;
-//				Log.e("Difference ", x + "");
-//
-//				long days = x / (60 * 60 * 24);
-//
-//				long seconds = x % 60;
-//				x /= 60;
-//				long minutes = x % 60;
-//				x /= 60;
-//				long hours = x % 24;
-//
-//				Log.e("Hours Difference ", hours + ":" + minutes);
-//				SimpleDateFormat mmmDate = new SimpleDateFormat(
-//						"dd/MM/yyyy hh:mm a");
-//				String mDate = mmmDate.format(calendar.getTime());
-//				String mNow = mmmDate.format(currentCalendar.getTime());
-//				Log.e("Meeting date time ", mDate);
-//				Log.e("Nnow date time ", mNow);
-//
-//				if (days > 0) {
-//					model.setMarkerTypeColor(MarkerColorType.GREEN);
-//					model.setStartInTime("AFTER " + days + " "
-//							+ (days == 1 ? "DAY" : "DAYS"));
-//				} else if (hours > 1 || hours == 1 && minutes > 0) {
-//					model.setMarkerTypeColor(MarkerColorType.GREEN);
-//					model.setStartInTime("AFTER " + hours + " "
-//							+ (hours == 1 ? "HOUR" : "HOURS"));
-//				} else if (hours == 0 && minutes >= 0) {
-//					model.setMarkerTypeColor(MarkerColorType.ORANGE);
-//					model.setStartInTime("START IN HOUR");
-//				} else if (hours == 0 && minutes <= 0 || hours < 0
-//						&& hours > -2) {
-//					model.setMarkerTypeColor(MarkerColorType.RED);
-//					model.setStartInTime("ONGOING");
-//				} else if (hours <= -1) {
-//					model.setMarkerTypeColor(MarkerColorType.RED);
-//					model.setStartInTime("COMPLETED");
-//				}
-//
-//			} catch (ParseException e) {
-//				e.printStackTrace();
-//			}
-//		}
-
-		public void sortData() {
-			Collections.sort(meetings, new Comparator<MeetingModel>() {
-				public int compare(MeetingModel o1, MeetingModel o2) {
-
-//					if (o1.getDateObj() == null || o2.getDateObj() == null)
-//						return 0;
-//					return o1.getDateObj().compareTo(o2.getDateObj());
-//					return (int)(o1.getDistanceInMiles() - o2.getDistanceInMiles());
-					if(o1.getDistanceInMiles() == o2.getDistanceInMiles()) return 0;
-					return o1.getDistanceInMiles() < o2.getDistanceInMiles() ? -1: 1;
-				}
-			});
-		}
-
-		String daysInWeek[] = { "monday", "tuesday", "wednesday", "thursday",
-				"friday", "saturday", "sunday" };
-
-		public NearesDateTime getOnDate(String days, String times, int position) {
-
-			List<NearesDateTime> nearestDateTimes = new ArrayList<>();
-
-			String dayArray[] = days.split(",");
-			String timeArray[] = times.split(",");
-			int nearPosition = 0;
-			int minDayDiffer = Integer.MAX_VALUE;
-			for (int j = 0; j < dayArray.length; j++) {
-				String onDay = dayArray[j];
-				String onTime = timeArray[j];
-
-				Calendar sCalendar = Calendar.getInstance();
-				String dayLongName = sCalendar.getDisplayName(
-						Calendar.DAY_OF_WEEK, Calendar.LONG,
-						Locale.getDefault());
-				int onDayPositon = -1;
-				int todayPosition = -1;
-
-				for (int i = 0; i < daysInWeek.length; i++) {
-					if (onDay.toLowerCase().equals(daysInWeek[i])) {
-						onDayPositon = i;
-					}
-
-					if (dayLongName.toLowerCase().equals(daysInWeek[i])) {
-						todayPosition = i;
-					}
-				}
-
-				if (onDayPositon > todayPosition) {
-					sCalendar.add(Calendar.DAY_OF_MONTH,
-							(onDayPositon - todayPosition));
-					int dayDiffer = onDayPositon - todayPosition;
-					if (minDayDiffer > dayDiffer) {
-						minDayDiffer = dayDiffer;
-						nearPosition = j;
-					}
-
-				} else if (onDayPositon < todayPosition) {
-					sCalendar.add(Calendar.DAY_OF_MONTH, ((daysInWeek.length)
-							- todayPosition + onDayPositon));
-
-					int dayDiffer = ((daysInWeek.length) - todayPosition + onDayPositon);
-					if (minDayDiffer > dayDiffer) {
-						minDayDiffer = dayDiffer;
-						nearPosition = j;
-					}
-
-				} else if (onDayPositon == todayPosition) {
-					SimpleDateFormat _12HourSDF = new SimpleDateFormat(
-							"hh:mm a");
-					try {
-						final Date dateObj = _12HourSDF.parse(onTime);
-						sCalendar.set(Calendar.HOUR_OF_DAY,
-								dateObj.getHours() + 1);
-						sCalendar.set(Calendar.MINUTE, dateObj.getMinutes());
-						if (sCalendar.before(Calendar.getInstance())) {
-							sCalendar.add(Calendar.DAY_OF_MONTH,
-									(daysInWeek.length));
-
-							int dayDiffer = daysInWeek.length;
-							if (minDayDiffer > dayDiffer) {
-								minDayDiffer = dayDiffer;
-								nearPosition = j;
-							}
-
-						} else {
-							meetings.get(position).setTodayMeeting(true);
-							int dayDiffer = 0;
-							if (minDayDiffer > dayDiffer) {
-								minDayDiffer = dayDiffer;
-								nearPosition = j;
-							}
-						}
-					} catch (ParseException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-				}
-
-				SimpleDateFormat dateFormate = new SimpleDateFormat(
-						"dd/MM/yyyy");
-				String dateMade = dateFormate.format(sCalendar.getTime());
-
-				NearesDateTime nearDateTime = new NearesDateTime();
-				nearDateTime.setDate(dateMade);
-				nearDateTime.setTime(onTime);
-				nearestDateTimes.add(nearDateTime);
-			}
-
-			return nearestDateTimes.get(nearPosition);
-
-		}
-
 		@Override
 		protected void onPostExecute(Void result) {
 			super.onPostExecute(result);
@@ -1092,26 +916,5 @@ public class MyFavoritesFragment extends Fragment implements
 
 		}
 
-	}
-
-	public class NearesDateTime {
-		String date;
-		String time;
-
-		public void setDate(String date) {
-			this.date = date;
-		}
-
-		public String getDate() {
-			return this.date;
-		}
-
-		public void setTime(String time) {
-			this.time = time;
-		}
-
-		public String getTime() {
-			return this.time;
-		}
 	}
 }

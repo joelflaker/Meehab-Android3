@@ -32,5 +32,9 @@
         <item name="android:windowEnterAnimation">@anim/bottom_in_instant</item>
         <item name="android:windowExitAnimation">@anim/bottom_out_instant</item>
     </style>
+    <style name="DialogAnimationFade">
+        <item name="android:windowEnterAnimation">@android:anim/fade_in</item>
+        <item name="android:windowExitAnimation">@android:anim/fade_out</item>
+    </style>
 
 </resources>

@@ -39,10 +39,7 @@ public class FriendsGridAdapter extends ArrayAdapter<UserAccount> {
 	// context
 	Context mContext;
 	int grid_spacing;
-	int cellWidthHeight;
-
-	int rectBlueBgRes;
-	int rectMaroonBgRes;
+	final int cellWidthHeight;
 
 	public FriendsGridAdapter(Context c, int resource,
 			List<UserAccount> userAccount) {
@@ -53,9 +50,6 @@ public class FriendsGridAdapter extends ArrayAdapter<UserAccount> {
 				TypedValue.COMPLEX_UNIT_DIP, 10, c.getResources()
 						.getDisplayMetrics()) * 4;
 		cellWidthHeight = (ScreenUtils.screenWidthHeigh(c)[0] - grid_spacing) / 3;
-		rectBlueBgRes = R.drawable.rectangle_bg_blue;
-		rectMaroonBgRes = R.drawable.rectangle_bg_maroon;
-
 	}
 
 	@Override
@@ -64,10 +58,8 @@ public class FriendsGridAdapter extends ArrayAdapter<UserAccount> {
 		ViewHolder holder;
 		if (convertView == null) {
 			holder = new ViewHolder();
-			LayoutInflater inflater = (LayoutInflater) mContext
-					.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-			convertView = inflater.inflate(R.layout.grid_item_friend, parent,
-					false);
+			LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+			convertView = inflater.inflate(R.layout.grid_item_friend, parent,false);
 			holder.ivFriend = (ImageView) convertView
 					.findViewById(R.id.ivFriend);
 			holder.ivOnline = (ImageView) convertView
@@ -93,35 +85,8 @@ public class FriendsGridAdapter extends ArrayAdapter<UserAccount> {
 		}
 
 		UserAccount account = useraccount.get(position);
-		String url = account.getImage();
 
-		if(!TextUtils.isEmpty(url))
-			Picasso.with(mContext).load(url).placeholder(R.drawable.profile_pic_border)
-				.resize(cellWidthHeight + 20, cellWidthHeight + 20)
-				.error(R.drawable.profile_pic_border)
-
-				.into(holder.ivFriend);
-
-		holder.ivOnline
-				.setVisibility(account.getCheckinType().equals("online") ? View.VISIBLE
-						: View.GONE);
-		if (holder.ivFavourite != null) {
-			holder.ivFavourite.setVisibility(account.isFavourite() == 1
-					&& account.isBlocked() == 0 ? View.VISIBLE : View.GONE);
-		}
-
-		holder.ivBlockIcon
-				.setVisibility(account.isBlocked() == 1 ? View.VISIBLE
-						: View.GONE);
-
-		if (account.getUserCheckIn() != null && account.getUserCheckIn() == 1) {
-			holder.flCell.setBackgroundResource(rectBlueBgRes);
-		} else if (account.getRsvpUser() == 1) {
-			holder.flCell.setBackgroundResource(rectMaroonBgRes);
-		} else {
-			holder.flCell.setBackgroundColor(Color.TRANSPARENT);
-		}
-
+		holder.bind(mContext,account,cellWidthHeight);
 		return convertView;
 	}
 
@@ -132,6 +97,44 @@ public class FriendsGridAdapter extends ArrayAdapter<UserAccount> {
 		ImageView ivFavourite;
 		ImageView ivBlockIcon;
 		FrameLayout flCell;
+
+		public void bind(Context context, UserAccount account, int cellWidthHeight) {
+
+			ivOnline
+					.setVisibility(account.getCheckinType().equals("online") ? View.VISIBLE
+							: View.GONE);
+			if (ivFavourite != null) {
+				ivFavourite.setVisibility(account.isFavourite() == 1
+						&& account.isBlocked() == 0 ? View.VISIBLE : View.GONE);
+			}
+
+			ivBlockIcon
+					.setVisibility(account.isBlocked() == 1 ? View.VISIBLE
+							: View.GONE);
+
+			String url = account.getImage();
+
+			if(!TextUtils.isEmpty(url)) {
+				Picasso.with(context).load(url)
+						.placeholder(R.drawable.profile_pic_border)
+						.resize(cellWidthHeight + 20, cellWidthHeight + 20)
+						.error(R.drawable.profile_pic_border)
+						.into(ivFriend);
+			}else {
+				Picasso.with(context).load(R.drawable.profile_pic_border)
+						.resize(cellWidthHeight + 20, cellWidthHeight + 20)
+						.into(ivFriend);
+			}
+
+			if (account.getUserCheckIn() != null && account.getUserCheckIn() == 1) {
+				flCell.setBackgroundResource(R.drawable.rectangle_bg_blue);
+			} else if (account.getRsvpUser() == 1) {
+				flCell.setBackgroundResource(R.drawable.rectangle_bg_maroon);
+			} else {
+				flCell.setBackgroundColor(Color.TRANSPARENT);
+			}
+
+		}
 	}
 
 }

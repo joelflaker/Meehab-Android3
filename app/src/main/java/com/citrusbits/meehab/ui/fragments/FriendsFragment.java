@@ -149,7 +149,8 @@ public class FriendsFragment extends Fragment implements
 				userAccounts.clear();
 				for (UserAccount account : userAccountsCache) {
 					String name = account.getUsername();
-					if (name.toLowerCase().contains(inputText)) {
+					String email = account.getEmail();
+					if (name.toLowerCase().contains(inputText) || email.contains(inputText)) {
 						userAccounts.add(account);
 					}
 				}

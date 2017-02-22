@@ -35,11 +35,6 @@ public class FriendsListAdapter extends ArrayAdapter<UserAccount> {
 	Context mContext;
 	LayoutInflater inflater;
 
-	int circleBlueBgRes;
-	int circleMaroonBgRes;
-	
-	
-
 	public FriendsListAdapter(Context c, int resource, List<UserAccount> m) {
 		super(c, resource, m);
 		mContext = c;
@@ -47,8 +42,6 @@ public class FriendsListAdapter extends ArrayAdapter<UserAccount> {
 		inflater = (LayoutInflater) mContext
 				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-		circleBlueBgRes = R.drawable.circle_bg_blue;
-		circleMaroonBgRes = R.drawable.circle_bg_maroon;
 	}
 
 	@Override
@@ -79,32 +72,7 @@ public class FriendsListAdapter extends ArrayAdapter<UserAccount> {
 		}
 
 		UserAccount userAccount = meetings.get(position);
-
-		holder.tvUserName.setText(userAccount.getUsername());
-		holder.tvAge.setText(String.valueOf(userAccount.getAge()));
-		holder.tvRelationshipStatus.setText(userAccount.getMaritalStatus());
-		holder.tvGender.setText(userAccount.getGender());
-		holder.tvOrientation.setText(userAccount.getSexualOrientation());
-		holder.ivOnline.setVisibility(userAccount.getCheckinType().equals(
-				"online") ? View.VISIBLE : View.GONE);
-		String userImage = userAccount.getImage();
-
-		if(!TextUtils.isEmpty(userImage))
-		Picasso.with(mContext).load(userImage)
-				.placeholder(R.drawable.profile_pic_border).resize(60, 60)
-				.error(R.drawable.profile_pic_border)
-				.transform(new PicassoCircularTransform())
-				.into(holder.ivFriend);
-
-		if (userAccount.getUserCheckIn() != null
-				&& userAccount.getUserCheckIn() == 1) {
-			holder.flUserContainer.setBackgroundResource(circleBlueBgRes);
-		} else if (userAccount.getRsvpUser() == 1) {
-			holder.flUserContainer.setBackgroundResource(circleMaroonBgRes);
-		} else {
-			holder.flUserContainer.setBackgroundColor(Color.TRANSPARENT);
-		}
-
+		holder.bind(mContext,userAccount);
 		return convertView;
 	}
 
@@ -118,6 +86,38 @@ public class FriendsListAdapter extends ArrayAdapter<UserAccount> {
 		TextView tvOrientation;
 
 		FrameLayout flUserContainer;
+
+		public void bind(Context context, UserAccount userAccount) {
+			tvUserName.setText(userAccount.getUsername());
+			tvAge.setText(String.valueOf(userAccount.getAge()));
+			tvRelationshipStatus.setText(userAccount.getMaritalStatus());
+			tvGender.setText(userAccount.getGender());
+			tvOrientation.setText(userAccount.getSexualOrientation());
+			ivOnline.setVisibility(userAccount.getCheckinType().equals(
+					"online") ? View.VISIBLE : View.GONE);
+			String userImage = userAccount.getImage();
+
+			if(!TextUtils.isEmpty(userImage)) {
+				Picasso.with(context).load(userImage)
+						.placeholder(R.drawable.profile_pic_border).resize(60, 60)
+						.error(R.drawable.profile_pic_border)
+						.transform(new PicassoCircularTransform())
+						.into(ivFriend);
+			}else {
+				Picasso.with(context).load(R.drawable.profile_pic_border).resize(60, 60)
+						.transform(new PicassoCircularTransform())
+						.into(ivFriend);
+			}
+
+			if (userAccount.getUserCheckIn() != null
+					&& userAccount.getUserCheckIn() == 1) {
+				flUserContainer.setBackgroundResource(R.drawable.circle_bg_blue);
+			} else if (userAccount.getRsvpUser() == 1) {
+				flUserContainer.setBackgroundResource(R.drawable.circle_bg_maroon);
+			} else {
+				flUserContainer.setBackgroundColor(Color.TRANSPARENT);
+			}
+		}
 	}
 
 }

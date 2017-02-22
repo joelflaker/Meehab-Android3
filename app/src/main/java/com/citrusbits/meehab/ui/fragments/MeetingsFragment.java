@@ -13,7 +13,6 @@ import java.util.Locale;
 
 import org.json.JSONObject;
 
-import android.app.Activity;
 import android.app.Dialog;
 import android.content.ComponentName;
 import android.content.Context;
@@ -40,6 +39,7 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.citrusbits.meehab.model.NearestDateTime;
 import com.citrusbits.meehab.ui.HomeActivity;
 import com.citrusbits.meehab.ui.meetings.MeetingDetailsActivity;
 import com.citrusbits.meehab.ui.meetings.MeetingsFilterActivity;
@@ -56,7 +56,6 @@ import com.citrusbits.meehab.map.LocationService.MyLocalBinder;
 import com.citrusbits.meehab.map.LocationUtils;
 import com.citrusbits.meehab.model.MeetingModel;
 import com.citrusbits.meehab.model.MeetingModel.MarkerColorType;
-import com.citrusbits.meehab.model.NearesDateTime;
 import com.citrusbits.meehab.model.UserAccount;
 import com.citrusbits.meehab.pojo.MeetingResponse;
 import com.citrusbits.meehab.prefrences.AppPrefs;
@@ -827,14 +826,6 @@ public class MeetingsFragment extends Fragment implements
 					 * meeting.getOnTime(), timeZone));
 					 */
 
-					NearesDateTime nearDateTime = getOnDate(meeting.getOnDay(),
-							meeting.getOnTime(), i);
-
-					String onDate = nearDateTime.getDate();
-
-					meeting.setOnDateOrigin(onDate);
-					meeting.setNearestTime(nearDateTime.getTime());
-
 					//distance calculation
 					float[] results = new float[1];
 					Location.distanceBetween(myLocation.getLatitude(), myLocation.getLongitude(), meeting.getLatitude(), meeting.getLongitude(), results);
@@ -854,145 +845,30 @@ public class MeetingsFragment extends Fragment implements
 					
 					meeting.setDistanceInMiles(distance);
 
-					/*
-					 * Log.e("Timing", meeting.getOnTime()); if
-					 * (!prevDate.equals(onDate)) {
-					 * meeting.setDateHeaderVisibility(true); prevDate =
-					 * meeting.getOnDate(); Date dateObje=getDateObject(onDate);
-					 * meeting.setDateObj(dateObje);
-					 * meeting.setOnDate(formateDate(dateObje)); } else {
-					 */
-					// meeting.setOnDate(meetings.get(i - 1).getOnDate());
-					Date dateObje = MeetingUtils.getDateObject(onDate);
-					meeting.setDateObj(dateObje);
-					meeting.setOnDate(MeetingUtils.formateDate(dateObje));
-					// }
+					NearestDateTime nearDateTime = MeetingUtils.getNearestDate(meeting.getOnDay(),
+							meeting.getOnTime());
 
-					/*
-					 * setStartInTime(meeting, meeting.getOnDateOrigion(),
-					 * meeting.getOnTime());
-					 */
-					MeetingUtils.setStartInTime(meeting, meeting.getOnDateOrigion(),
-							meeting.getNearestTime());
+
+					if (nearDateTime != null) {
+						meeting.setTodayMeeting(nearDateTime.isToday());
+						meeting.setOnDateOrigin(nearDateTime.getDate());
+						meeting.setNearestTime(nearDateTime.getTime());
+						meeting.setNearestDateTime(nearDateTime.getDateTime());
+						meeting.setOnDate(MeetingUtils.formateDate(nearDateTime.getDateTime()));
+					}
+
+					MeetingUtils.setStartInTime(meeting, meeting.getNearestDateTime());
 				}
 
-				//sorting for nearest meeting first
-				Collections.sort(meetings, new Comparator<MeetingModel>() {
-					@Override
-					public int compare(MeetingModel lhs, MeetingModel rhs) {
-						if(lhs.getDistanceInMiles() == rhs.getDistanceInMiles()) return 0;
-						return lhs.getDistanceInMiles() < rhs.getDistanceInMiles() ? -1: 1;
-					}
-				});
-
+//				sorting for nearest meeting first
+//				MeetingUtils.sortByDistance(meetings);
+////				//sort by soonest
+				MeetingUtils.sortByDate(meetings);
 			}
 
 			return null;
 		}
 
-		public void sortData() {
-			Collections.sort(meetings, new Comparator<MeetingModel>() {
-				public int compare(MeetingModel o1, MeetingModel o2) {
-
-					if (o1.getDateObj() == null || o2.getDateObj() == null)
-						return 0;
-					return o1.getDateObj().compareTo(o2.getDateObj());
-				}
-			});
-		}
-
-		String daysInWeek[] = { "monday", "tuesday", "wednesday", "thursday",
-				"friday", "saturday", "sunday" };
-
-		public NearesDateTime getOnDate(String days, String times, int position) {
-
-			List<NearesDateTime> nearestDateTimes = new ArrayList<>();
-
-			String dayArray[] = days.split(",");
-			String timeArray[] = times.split(",");
-			int nearPosition = 0;
-			int minDayDiffer = Integer.MAX_VALUE;
-			for (int j = 0; j < dayArray.length; j++) {
-				String onDay = dayArray[j];
-				String onTime = timeArray[j];
-
-				Calendar sCalendar = Calendar.getInstance();
-				String dayLongName = sCalendar.getDisplayName(
-						Calendar.DAY_OF_WEEK, Calendar.LONG,
-						Locale.getDefault());
-				int onDayPositon = -1;
-				int todayPosition = -1;
-
-				for (int i = 0; i < daysInWeek.length; i++) {
-					if (onDay.toLowerCase(Locale.US).equals(daysInWeek[i])) {
-						onDayPositon = i;
-					}
-
-					if (dayLongName.toLowerCase(Locale.US).equals(daysInWeek[i])) {
-						todayPosition = i;
-					}
-				}
-
-				if (onDayPositon > todayPosition) {
-					sCalendar.add(Calendar.DAY_OF_MONTH,
-							(onDayPositon - todayPosition));
-					int dayDiffer = onDayPositon - todayPosition;
-					if (minDayDiffer > dayDiffer) {
-						minDayDiffer = dayDiffer;
-						nearPosition = j;
-					}
-
-				} else if (onDayPositon < todayPosition) {
-					sCalendar.add(Calendar.DAY_OF_MONTH, ((daysInWeek.length) - todayPosition + onDayPositon));
-
-					int dayDiffer = ((daysInWeek.length) - todayPosition + onDayPositon);
-					if (minDayDiffer > dayDiffer) {
-						minDayDiffer = dayDiffer;
-						nearPosition = j;
-					}
-
-				} else if (onDayPositon == todayPosition) {
-					SimpleDateFormat _12HourSDF = new SimpleDateFormat("hh:mm a", Locale.US);
-					try {
-						final Date dateObj = _12HourSDF.parse(onTime);
-						sCalendar.set(Calendar.HOUR_OF_DAY,
-								dateObj.getHours() + 1);
-						sCalendar.set(Calendar.MINUTE, dateObj.getMinutes());
-						if (sCalendar.before(Calendar.getInstance())) {
-							sCalendar.add(Calendar.DAY_OF_MONTH,
-									(daysInWeek.length));
-
-							int dayDiffer = daysInWeek.length;
-							if (minDayDiffer > dayDiffer) {
-								minDayDiffer = dayDiffer;
-								nearPosition = j;
-							}
-
-						} else {
-							meetings.get(position).setTodayMeeting(true);
-							int dayDiffer = 0;
-							if (minDayDiffer > dayDiffer) {
-								minDayDiffer = dayDiffer;
-								nearPosition = j;
-							}
-						}
-					} catch (ParseException e) {
-						e.printStackTrace();
-					}
-				}
-
-				SimpleDateFormat dateFormate = new SimpleDateFormat("dd/MM/yyyy", Locale.US);
-				String dateMade = dateFormate.format(sCalendar.getTime());
-
-				NearesDateTime nearDateTime = new NearesDateTime();
-				nearDateTime.setDate(dateMade);
-				nearDateTime.setTime(onTime);
-				nearestDateTimes.add(nearDateTime);
-			}
-
-			return nearestDateTimes.get(nearPosition);
-
-		}
 
 		@Override
 		protected void onPostExecute(Void result) {
