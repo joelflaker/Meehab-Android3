@@ -45,7 +45,7 @@
         android:layout_toLeftOf="@+id/ivArrow"
         android:layout_toRightOf="@+id/flUserContainer"
         android:orientation="vertical"
-        android:paddingLeft="2dp" >
+        android:paddingLeft="4dp" >
 
         <LinearLayout
             android:layout_width="wrap_content"

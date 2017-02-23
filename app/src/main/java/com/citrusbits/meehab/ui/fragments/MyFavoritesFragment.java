@@ -884,8 +884,6 @@ public class MyFavoritesFragment extends Fragment implements
 					MeetingUtils.setStartInTime(meeting, meeting.getNearestDateTime());
 				}
 
-
-
 				MeetingUtils.sortByDistance(meetings);
 				String prevDate = "";
 				for (int i = 0; i < meetings.size(); i++) {

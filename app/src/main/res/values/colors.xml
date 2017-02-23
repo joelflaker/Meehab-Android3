@@ -5,7 +5,7 @@
   
     <color name="red">#f00</color>
     <color name="alpha_gray">#aaaa</color>
-    <color name="dialog_alpha_gray">#EA666666</color>
+    <color name="dialog_alpha_gray">#FA666666</color>
 
     <drawable name="screen_background_holo_light">#fff3f3f3</drawable>
     <drawable name="screen_background_holo_dark">#ff000000</drawable>

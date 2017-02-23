@@ -34,8 +34,7 @@ public class LocationService extends Service implements ConnectionCallbacks,
 	AppPrefs prefs;
 
 	private static final LocationRequest REQUEST = LocationRequest.create()
-			.setInterval(5000) // 5 seconds
-			.setFastestInterval(16) // 16ms = 60fps
+			.setInterval(10000) // 10 seconds
 			.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
 
 	@Override
@@ -93,7 +92,6 @@ public class LocationService extends Service implements ConnectionCallbacks,
 
 	@Override
 	public void onConnectionFailed(ConnectionResult arg0) {
-		// TODO Auto-generated method stub
 		Log.e(TAG, "Connectin Failed");
 
 	}

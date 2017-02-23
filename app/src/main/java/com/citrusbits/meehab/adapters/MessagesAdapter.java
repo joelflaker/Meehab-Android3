@@ -153,8 +153,8 @@ public class MessagesAdapter extends ArrayAdapter<MessageModel> {
 	}
 	
 	private String getMessageTime(Date date){
-		SimpleDateFormat dateFormate=new SimpleDateFormat("hh:mm aa");
-		return dateFormate.format(date);
+		SimpleDateFormat dateFormat = new SimpleDateFormat("hh:mm aa\nmm-dd-yy");
+		return dateFormat.format(date);
 	}
 
 	public void setOnViewClickListener(OnClickListener onClickListener) {

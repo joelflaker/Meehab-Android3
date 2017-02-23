@@ -774,7 +774,6 @@ public class MeetingsFragment extends Fragment implements
 	public void onSocketResponseSuccess(String event, Object obj) {
 
 		if (pd != null && pd.isShowing()) {
-
 			pd.dismiss();
 
 		}
@@ -861,9 +860,9 @@ public class MeetingsFragment extends Fragment implements
 				}
 
 //				sorting for nearest meeting first
-//				MeetingUtils.sortByDistance(meetings);
+				MeetingUtils.sortByDistance(meetings);
 ////				//sort by soonest
-				MeetingUtils.sortByDate(meetings);
+//				MeetingUtils.sortByDate(meetings);
 			}
 
 			return null;

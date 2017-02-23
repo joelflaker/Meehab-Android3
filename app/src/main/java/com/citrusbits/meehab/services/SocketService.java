@@ -1871,6 +1871,36 @@ public class SocketService extends Service {
 		mSocket.on(EventParams.METHOD_USER_BY_ID, onCheckUserInfo);
 		return emit(EventParams.METHOD_USER_BY_ID, params, onCheckUserInfo);
 	}
+	public boolean getMeetingById(final String meetingId) {
+		JSONObject params = new JSONObject(new HashMap<String, Object>() {{
+			put("meeting_id",meetingId);
+		}});
+		Emitter.Listener onEvent = new Emitter.Listener() {
+			@Override
+			public void call(final Object... args) {
+				try {
+
+					JSONObject data = (JSONObject) args[0];
+
+					Log.d(tag, data.toString());
+
+					if (data.getBoolean("type") ) {
+						// userDatasource.update(response.getUser());
+						//
+						onSocketResponseSuccess(EventParams.METHOD_MEETING_BY_ID, data);
+						// App.getInstance().connectNodeJS();
+					} else {
+						onSocketResponseFailure(EventParams.METHOD_MEETING_BY_ID,data.getString("message"));
+					}
+				} catch (Exception e) {
+					onSocketResponseFailure(EventParams.METHOD_MEETING_BY_ID,getString(R.string.server_response_error));
+				}
+				mSocket.off(EventParams.METHOD_MEETING_BY_ID);
+			}
+		};
+		mSocket.on(EventParams.METHOD_MEETING_BY_ID, onEvent);
+		return emit(EventParams.METHOD_MEETING_BY_ID, params, onEvent);
+	}
 
 	public boolean deleteAccount(final String password) {
 		JSONObject params = new JSONObject(new HashMap<String, Object>() {{

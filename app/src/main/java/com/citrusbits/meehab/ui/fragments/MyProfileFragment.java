@@ -10,6 +10,7 @@ import org.json.JSONObject;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.location.Location;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -26,7 +27,14 @@ import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.citrusbits.meehab.map.LocationUtils;
+import com.citrusbits.meehab.model.MeetingModel;
+import com.citrusbits.meehab.model.NearestDateTime;
+import com.citrusbits.meehab.pojo.MeetingResponse;
+import com.citrusbits.meehab.ui.ReportInaccuracyActivity;
+import com.citrusbits.meehab.ui.meetings.MeetingDetailsActivity;
 import com.citrusbits.meehab.ui.users.EditMyProfileActivity;
 import com.citrusbits.meehab.ui.HomeActivity;
 import com.citrusbits.meehab.ui.MyReviewDetailActivity;
@@ -46,9 +54,11 @@ import com.citrusbits.meehab.utils.AccountUtils;
 import com.citrusbits.meehab.utils.DateTimeUtils;
 import com.citrusbits.meehab.utils.DeviceUtils;
 import com.citrusbits.meehab.utils.MeetingUtils;
+import com.citrusbits.meehab.utils.NetworkUtil;
 import com.citrusbits.meehab.utils.NetworkUtils;
 import com.citrusbits.meehab.utils.RecoverClockDateUtils;
 import com.citrusbits.meehab.utils.UtilityClass;
+import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 
 public class MyProfileFragment extends Fragment implements
@@ -306,13 +316,44 @@ public class MyProfileFragment extends Fragment implements
 	@Override
 	public void onSocketResponseSuccess(String event, Object obj) {
 		if (pd.isShowing()) {
-
 			pd.dismiss();
 		}
 
-		reviews.clear();
+		if (event.equals(EventParams.METHOD_MEETING_BY_ID)) {
+			JSONObject data = ((JSONObject) obj);
+			Log.d(TAG,""+data);
+			MeetingModel meeting = new Gson().fromJson(data.optJSONObject("meeting").toString(), MeetingModel.class);
 
+			meeting.setFavourite(meeting.getFavouriteMeeting() == 1);
+			NearestDateTime nearDateTime = MeetingUtils.getNearestDate(meeting.getOnDay(),
+					meeting.getOnTime());
+
+			Location myLocation = LocationUtils.getLastLocation(getContext());
+			//distance calculation
+			float[] results = new float[1];
+			Location.distanceBetween(myLocation.getLatitude(), myLocation.getLongitude(), meeting.getLatitude(), meeting.getLongitude(), results);
+			//
+			double distance = results[0] * 0.000621371192f;
+			distance = Math.floor(distance * 10) / 10f;
+			meeting.setDistanceInMiles(distance);
+
+			if (nearDateTime != null) {
+				meeting.setTodayMeeting(nearDateTime.isToday());
+				meeting.setOnDateOrigin(nearDateTime.getDate());
+				meeting.setNearestTime(nearDateTime.getTime());
+				meeting.setNearestDateTime(nearDateTime.getDateTime());
+				meeting.setOnDate(MeetingUtils.formateDate(nearDateTime.getDateTime()));
+				MeetingUtils.setStartInTime(meeting, meeting.getNearestDateTime());
+			}
+
+			Intent intent = new Intent(getActivity(), MeetingDetailsActivity.class);
+			intent.putExtra("meeting",meeting);
+			startActivity(intent);
+			getActivity().overridePendingTransition(R.anim.activity_in,
+					R.anim.activity_out);
+		}else
 		if (event.equals(EventParams.EVENT_GET_USER_REVIEWS)) {
+			reviews.clear();
 			JSONObject data = ((JSONObject) obj);
 
 			Log.e(TAG, data.toString());
@@ -409,21 +450,14 @@ public class MyProfileFragment extends Fragment implements
 
 			tvMeetingName.setText(myReview.getMeetingName());
 
-			tvMeetingName.setTag(i);
+			tvMeetingName.setTag(myReview);
 			tvMeetingName.setOnClickListener(new View.OnClickListener() {
 
 				@Override
 				public void onClick(View v) {
-					int id = (int) v.getTag();
-					MyReview rev = reviews.get(id);
+					MyReview rev = (MyReview) v.getTag();
 
-					App.toast("Meeting Name! working on it");
-
-//					rev.setUserId(user.getId() + "");
-//					Intent intent = new Intent(getActivity(),
-//							MyReviewDetailActivity.class);
-//					intent.putExtra(MyReview.EXTRA_REVIEW, rev);
-//					startActivity(intent);
+					getMeetingById(rev.getMeetingId());
 				}
 			});
 
@@ -439,6 +473,20 @@ public class MyProfileFragment extends Fragment implements
 					LayoutParams.MATCH_PARENT, 10));
 			linear.addView(divider);
 		}
+	}
+
+	private void getMeetingById(String meetingId) {
+		if (NetworkUtil
+				.getConnectivityStatus(homeActivity) == 0) {
+
+			Toast.makeText(getContext(),
+					getString(R.string.no_internet_connection),
+					Toast.LENGTH_SHORT).show();
+
+			return;
+		}
+		pd.show();
+		homeActivity.socketService.getMeetingById(meetingId);
 	}
 
 }

@@ -34,6 +34,7 @@ public class LogoutDialog extends Dialog implements
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
+		this.getWindow().getAttributes().windowAnimations = R.style.DialogAnimationFade;
 		getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 		setContentView(R.layout.dialog_logout);
 		findViewById(R.id.ibCancel).setOnClickListener(this);

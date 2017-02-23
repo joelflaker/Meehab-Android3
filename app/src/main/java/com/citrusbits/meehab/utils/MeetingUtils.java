@@ -185,8 +185,8 @@ public class MeetingUtils {
 					final Date dateObj = _12HourSDF.parse(onTime);
 
 					todayOrMeetingDay.set(Calendar.HOUR_OF_DAY,
-							dateObj.getHours()+1);
-					todayOrMeetingDay.set(Calendar.MINUTE, dateObj.getMinutes());
+							dateObj.getHours() == 23 ? dateObj.getHours() : dateObj.getHours()+1);
+					todayOrMeetingDay.set(Calendar.MINUTE, dateObj.getHours() == 23 ? dateObj.getMinutes() + 59 : dateObj.getMinutes());
 					todayOrMeetingDay.set(Calendar.SECOND,0);
 //					todayOrMeetingDay.add(Calendar.HOUR_OF_DAY,1);
 

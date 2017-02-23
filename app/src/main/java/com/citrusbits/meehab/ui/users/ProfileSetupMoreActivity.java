@@ -369,7 +369,7 @@ public class ProfileSetupMoreActivity extends SocketActivity implements
 				} else if (haveKidsNoBtn.isChecked()) {
 					hasKidsString = "no";
 				} else if (haveKidsNoAnsBtn.isChecked()) {
-					hasKidsString = "No Answer";
+					hasKidsString = "";
 				}
 
 				if (hasKidsString != null) {

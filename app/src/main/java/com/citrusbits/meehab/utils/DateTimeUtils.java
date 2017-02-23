@@ -440,7 +440,7 @@ public class DateTimeUtils {
 		SimpleDateFormat dateFormate = new SimpleDateFormat(
 				"yyyy-MM-dd HH:mm:ss");
 		SimpleDateFormat newDatetime = new SimpleDateFormat(
-				"MM-dd-yyyy @ hh:mm a");
+				"MM-dd-yy @ hh:mm a");
 
 		try {
 			if (dateTimeAdded.length() > 0) {

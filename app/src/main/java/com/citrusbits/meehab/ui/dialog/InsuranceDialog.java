@@ -38,6 +38,7 @@ public class InsuranceDialog extends Dialog implements
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
+		this.getWindow().getAttributes().windowAnimations = R.style.DialogAnimationFade;
 		getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 		setContentView(R.layout.dialog_insurance);
 		findViewById(R.id.ibSkip).setOnClickListener(this);

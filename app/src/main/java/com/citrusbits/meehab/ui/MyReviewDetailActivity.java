@@ -5,6 +5,7 @@ import org.json.JSONObject;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.location.Location;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -19,6 +20,9 @@ import com.citrusbits.meehab.R;
 import com.citrusbits.meehab.app.App;
 import com.citrusbits.meehab.constants.Consts;
 import com.citrusbits.meehab.constants.EventParams;
+import com.citrusbits.meehab.map.LocationUtils;
+import com.citrusbits.meehab.model.MeetingModel;
+import com.citrusbits.meehab.model.NearestDateTime;
 import com.citrusbits.meehab.model.UserAccount;
 import com.citrusbits.meehab.ui.dialog.DeleteReviewConfirmDialog;
 import com.citrusbits.meehab.ui.dialog.DeleteReviewConfirmDialog.DeleteReviewConfirmDialogClickListener;
@@ -27,10 +31,12 @@ import com.citrusbits.meehab.model.MeetingReviewModel;
 import com.citrusbits.meehab.model.MyReview;
 import com.citrusbits.meehab.services.OnBackendConnectListener;
 import com.citrusbits.meehab.services.OnSocketResponseListener;
+import com.citrusbits.meehab.ui.meetings.MeetingDetailsActivity;
 import com.citrusbits.meehab.ui.users.UserProfileActivity;
 import com.citrusbits.meehab.utils.AccountUtils;
 import com.citrusbits.meehab.utils.DateTimeUtils;
 import com.citrusbits.meehab.utils.MeetingUtils;
+import com.citrusbits.meehab.utils.NetworkUtil;
 import com.citrusbits.meehab.utils.NetworkUtils;
 import com.citrusbits.meehab.utils.UtilityClass;
 import com.google.gson.Gson;
@@ -76,20 +82,11 @@ public class MyReviewDetailActivity extends SocketActivity implements
 			rating.setRating(myReview.getRating());
 
 			tvMeetingName.setText(myReview.getMeetingName());
-			tvMeetingName.setTag(reviewModel);
 			tvMeetingName.setOnClickListener(new View.OnClickListener() {
 
 				@Override
 				public void onClick(View v) {
-					final MeetingReviewModel review = (MeetingReviewModel) v.getTag();
-
-					App.toast("Meeting Name! working on it");
-
-//					rev.setUserId(user.getId() + "");
-//					Intent intent = new Intent(getActivity(),
-//							MyReviewDetailActivity.class);
-//					intent.putExtra(MyReview.EXTRA_REVIEW, rev);
-//					startActivity(intent);
+					getMeetingById("" + myReview.getMeetingId());
 				}
 			});
 
@@ -252,12 +249,58 @@ public class MyReviewDetailActivity extends SocketActivity implements
 
 	}
 
+	private void getMeetingById(String meetingId) {
+		if (NetworkUtil
+				.getConnectivityStatus(this) == 0) {
+
+			Toast.makeText(this,
+					getString(R.string.no_internet_connection),
+					Toast.LENGTH_SHORT).show();
+
+			return;
+		}
+		pd.show();
+		socketService.getMeetingById(meetingId);
+	}
 
 	@Override
 	public void onSocketResponseSuccess(String event, Object obj) {
 		if (pd.isShowing()) {
 			pd.dismiss();
 		}
+		if (event.equals(EventParams.METHOD_MEETING_BY_ID)) {
+			JSONObject data = ((JSONObject) obj);
+			Log.d(TAG,""+data);
+			MeetingModel meeting = new Gson().fromJson(data.optJSONObject("meeting").toString(), MeetingModel.class);
+
+			meeting.setFavourite(meeting.getFavouriteMeeting() == 1);
+			NearestDateTime nearDateTime = MeetingUtils.getNearestDate(meeting.getOnDay(),
+					meeting.getOnTime());
+
+			Location myLocation = LocationUtils.getLastLocation(this);
+			//distance calculation
+			float[] results = new float[1];
+			Location.distanceBetween(myLocation.getLatitude(), myLocation.getLongitude(), meeting.getLatitude(), meeting.getLongitude(), results);
+			//
+			double distance = results[0] * 0.000621371192f;
+			distance = Math.floor(distance * 10) / 10f;
+			meeting.setDistanceInMiles(distance);
+
+			if (nearDateTime != null) {
+				meeting.setTodayMeeting(nearDateTime.isToday());
+				meeting.setOnDateOrigin(nearDateTime.getDate());
+				meeting.setNearestTime(nearDateTime.getTime());
+				meeting.setNearestDateTime(nearDateTime.getDateTime());
+				meeting.setOnDate(MeetingUtils.formateDate(nearDateTime.getDateTime()));
+				MeetingUtils.setStartInTime(meeting, meeting.getNearestDateTime());
+			}
+
+			Intent intent = new Intent(this, MeetingDetailsActivity.class);
+			intent.putExtra("meeting",meeting);
+			startActivity(intent);
+			overridePendingTransition(R.anim.activity_in,
+					R.anim.activity_out);
+		}else
 		if(EventParams.METHOD_USER_BY_ID.equals(event)){
 			pd.dismiss();
 			JSONObject data = (JSONObject) obj;
