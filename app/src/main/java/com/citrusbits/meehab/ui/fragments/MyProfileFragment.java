@@ -345,7 +345,7 @@ public class MyProfileFragment extends Fragment implements
 				meeting.setOnDate(MeetingUtils.formateDate(nearDateTime.getDateTime()));
 				MeetingUtils.setStartInTime(meeting, meeting.getNearestDateTime());
 			}
-
+			//navigate to meeting details
 			Intent intent = new Intent(getActivity(), MeetingDetailsActivity.class);
 			intent.putExtra("meeting",meeting);
 			startActivity(intent);
