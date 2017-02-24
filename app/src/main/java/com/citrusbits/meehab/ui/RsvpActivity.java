@@ -156,13 +156,12 @@ public class RsvpActivity extends SocketActivity implements
 			}
 		});
 
-
+		getRSVPFriends();
 	}
 
 	@Override
 	public void onResume() {
 		super.onResume();
-		getRSVPFriends();
 	}
 
 	@Override
