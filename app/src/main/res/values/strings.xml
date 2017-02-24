@@ -128,7 +128,7 @@
     <string name="share_body_text_twitter">Check this App out!\nhttp://www.LinkToMeehabInAppleStorePlaceholder.com</string>
     <string name="insurance_dialog_text">Please enter your insurance so we can help you find a center that takes your insurance.</string>
     <string name="plz_enter_insurance_txt">Please enter your insurance from the list provided.</string>
-    <string name="if_you_dont_have_insurance">If you don\'t have insurance,you can skip this step by clicking \"Skip\" in the top right.</string>
+    <string name="if_you_dont_have_insurance">If you don\'t have insurance, you can skip this step by clicking \"Skip\" in the top right.</string>
     <string name="please_explain_the_inaccuracy">Please explain the inaccuracy...(250 character limit)</string>
     <string name="feedback_hint">Please write any comments you have for us in here. We appreciate any and all types of feedback.\n(250 character limit)</string>
     <string name="type_of_facility">Type of Facility</string>

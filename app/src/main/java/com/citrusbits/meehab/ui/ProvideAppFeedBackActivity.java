@@ -48,7 +48,7 @@ public class ProvideAppFeedBackActivity extends SocketActivity implements
 	public void onSocketResponseSuccess(String event, Object obj) {
 		if (event.equals(EventParams.EVENT_APP_FEED_BACK)) {
 			pd.dismiss();
-			App.toast("Thanks for your feedback!");
+			App.toast("Thanks for your Feedback!");
 			finish();
 
 		}

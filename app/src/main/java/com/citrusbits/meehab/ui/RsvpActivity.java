@@ -156,25 +156,29 @@ public class RsvpActivity extends SocketActivity implements
 			}
 		});
 
-		getRSVPFriends();
 
 	}
 
+	@Override
+	public void onResume() {
+		super.onResume();
+		getRSVPFriends();
+	}
 
-    @Override
+	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
 		if (resultCode == RESULT_OK) {
 			if (requestCode == DETAIL_REQUEST) {
 				if (mAccountPosition != -1) {
-					UserAccount userAccount = (UserAccount) data
-							.getSerializableExtra(UserProfileActivity.EXTRA_USER_ACCOUNT);
-					// userAccountsCache.set(mAccountPosition, userAccount);
-					userAccountsCache.remove(mAccountPosition);
-					userAccounts.clear();
-					userAccounts.addAll(userAccountsCache);
-					friendsGridAdapter.notifyDataSetChanged();
-					friendsListAdapter.notifyDataSetChanged();
+//					UserAccount userAccount = (UserAccount) data
+//							.getSerializableExtra(UserProfileActivity.EXTRA_USER_ACCOUNT);
+//					// userAccountsCache.set(mAccountPosition, userAccount);
+//					userAccountsCache.remove(mAccountPosition);
+//					userAccounts.clear();
+//					userAccounts.addAll(userAccountsCache);
+//					friendsGridAdapter.notifyDataSetChanged();
+//					friendsListAdapter.notifyDataSetChanged();
 					updateEmptyView();
 				}
 			}

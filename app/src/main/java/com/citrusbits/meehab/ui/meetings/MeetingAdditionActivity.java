@@ -13,6 +13,7 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -25,6 +26,8 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.location.Address;
+import android.location.Geocoder;
 import android.os.Bundle;
 import android.telephony.PhoneNumberFormattingTextWatcher;
 import android.text.Editable;
@@ -56,14 +59,21 @@ import com.citrusbits.meehab.ui.SocketActivity;
 import com.citrusbits.meehab.utils.NetworkUtils;
 import com.citrusbits.meehab.utils.UtilityClass;
 import com.citrusbits.meehab.utils.ValidationUtils;
+import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.common.api.Scope;
+import com.google.android.gms.location.places.GeoDataApi;
 import com.google.android.gms.location.places.Place;
+import com.google.android.gms.location.places.PlaceBuffer;
+import com.google.android.gms.location.places.Places;
 import com.google.android.gms.location.places.ui.PlacePicker;
 import com.google.android.gms.maps.model.LatLng;
 
 public class MeetingAdditionActivity extends SocketActivity implements
-		OnClickListener, OnSocketResponseListener {
+		OnClickListener, OnSocketResponseListener,GoogleApiClient.ConnectionCallbacks {
 
 	private static final String PLACES_API_BASE = "https://maps.googleapis.com/maps/api/place";
 
@@ -101,6 +111,7 @@ public class MeetingAdditionActivity extends SocketActivity implements
 	private String lng = "73.6667";
 	private View viewFocusHacker;
 	private List<String> selectedDays = new ArrayList<>();
+	private boolean isGoogleConnected;
 
 
 	@Override
@@ -398,18 +409,73 @@ public class MeetingAdditionActivity extends SocketActivity implements
 
 			if(TextUtils.isEmpty(address)){
 				address = "Pin point location";
+			}else {
+				if(place != null && !TextUtils.isEmpty(place.getId())) {
+
+					Geocoder geocoder = new Geocoder(getApplicationContext(), Locale.getDefault());
+					List<Address> addresses;
+
+					// Attempt to Geocode from place lat & long
+					try {
+
+						addresses = geocoder.getFromLocation(
+								place.getLatLng().latitude,
+								place.getLatLng().longitude,
+								1);
+
+						if (addresses.size() > 0) {
+
+							// Here are some results you can geocode
+							String ZIP;
+							String city;
+							String state;
+							String country;
+
+							if (addresses.get(0).getPostalCode() != null) {
+								ZIP = addresses.get(0).getPostalCode();
+								Log.d("ZIP", ZIP);
+								etZipcode.setText(ZIP);
+
+							}
+
+							if (addresses.get(0).getLocality() != null) {
+								city = addresses.get(0).getLocality();
+								Log.d("city", city);
+								etCity.setText(city);
+							}
+
+							if (addresses.get(0).getAdminArea() != null) {
+								state = addresses.get(0).getAdminArea();
+								Log.d("state", state);
+							}
+
+							if (addresses.get(0).getCountryName() != null) {
+								country = addresses.get(0).getCountryName();
+								Log.d("country", country);
+							}
+
+						}
+
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+				}
 			}
 
 //	        mViewName.setText(name);
 			etAddress.setText(address);
-//			etCity.setText();
-//			etZipcode.setText();
 //	        mViewAttributions.setText(Html.fromHtml(attributions));
 
 		} else {
 			super.onActivityResult(requestCode, resultCode, data);
 		}
 	}
+
+	@Override
+	protected void onStop() {
+		super.onStop();
+	}
+
 
 	public void submitMeeting() {
 		String phone = UtilityClass.phoneNumberNormal(etPhoneNumber.getText().toString().trim());
@@ -632,7 +698,18 @@ public class MeetingAdditionActivity extends SocketActivity implements
 
 		return resultList;
 	}
-	class GooglePlacesAutocompleteAdapter extends ArrayAdapter implements Filterable {
+
+	@Override
+	public void onConnected(Bundle bundle) {
+		isGoogleConnected = true;
+	}
+
+	@Override
+	public void onConnectionSuspended(int i) {
+		isGoogleConnected = false;
+	}
+
+class GooglePlacesAutocompleteAdapter extends ArrayAdapter implements Filterable {
 
 		private ArrayList resultList;
 
