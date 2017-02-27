@@ -126,7 +126,7 @@
     <string name="messages">Messages</string>
     <string name="share_body_text">Hey! There\'s new app that I\'m using called Meehab and I love it! It is free and convenient way to find meetings, rehab, reviews and best of all, meet new friends! This app has everything you need and I highly recommend it! You should check it out!\n\nDownload link: </string>
     <string name="share_body_text_twitter">Check this App out!\nhttp://www.LinkToMeehabInAppleStorePlaceholder.com</string>
-    <string name="insurance_dialog_text">Please enter your insurance so we can help you find a center that takes your insurance.</string>
+    <string name="insurance_dialog_text">Please select your insurance so we can help you find a center that matches your insurance.</string>
     <string name="plz_enter_insurance_txt">Please enter your insurance from the list provided.</string>
     <string name="if_you_dont_have_insurance">If you don\'t have insurance, you can skip this step by clicking \"Skip\" in the top right.</string>
     <string name="please_explain_the_inaccuracy">Please explain the inaccuracy...(250 character limit)</string>
@@ -212,4 +212,5 @@
     <string name="msg_password_change">Your password has been successfully changed.</string>
     <string name="share_twitter_body_text">There\'s a new app in town called Meehab and I love it! Finding meetings, rehabs, and friends couldn\'t be any easier!</string>
     <string name="msg_thanks_for_add_insurance">Thank you for filling in your insurance provider we will get back to you shortly.</string>
+    <string name="label_not_assign">Not assigned</string>
 </resources>

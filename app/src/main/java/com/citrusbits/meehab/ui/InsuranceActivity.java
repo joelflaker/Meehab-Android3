@@ -41,7 +41,7 @@ public class InsuranceActivity extends SocketActivity implements
 	UserAccount user;
 	
 	private Dialog pd;
-	private String insurance;
+	private String mInsurance;
 	private String[] fullValues;
 
 
@@ -89,7 +89,7 @@ public class InsuranceActivity extends SocketActivity implements
 
 			for (int i = 0; i < insurance_arr.length; i++) {
 				String status = insurance_arr[i];
-				if (status.equals(insurance)) {
+				if (status.equals(mInsurance)) {
 					position = i;
 					break;
 				}
@@ -123,6 +123,7 @@ public class InsuranceActivity extends SocketActivity implements
 
 	@Override
 	public void onBackendConnected() {
+		pd.show();
 		socketService.listOfInsurances();
 	}
 
@@ -143,15 +144,15 @@ public class InsuranceActivity extends SocketActivity implements
 		case R.id.ibSubmit:
 			String insurance = fullValues[npInsurance.getValue()];
 
-			if("No Insurance".equals(insurance)){
-				AccountUtils.setTime(this, Calendar.getInstance().getTimeInMillis());
-				i = new Intent(InsuranceActivity.this, HomeActivity.class);
-				i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
-						| Intent.FLAG_ACTIVITY_NEW_TASK);
-				startActivity(i);
-				overridePendingTransition(R.anim.activity_in, R.anim.activity_out);
-				return;
-			}
+//			if("No Insurance".equals(mInsurance)){
+//				AccountUtils.setTime(this, Calendar.getInstance().getTimeInMillis());
+//				i = new Intent(InsuranceActivity.this, HomeActivity.class);
+//				i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
+//						| Intent.FLAG_ACTIVITY_NEW_TASK);
+//				startActivity(i);
+//				overridePendingTransition(R.anim.activity_in, R.anim.activity_out);
+//				return;
+//			}
 			
 			addInsurance(insurance);
 			break;
@@ -165,7 +166,7 @@ public class InsuranceActivity extends SocketActivity implements
 	
 	public void addInsurance(String insurance){
 		
-		this.insurance = insurance;
+		this.mInsurance = insurance;
 		if (!NetworkUtils.isNetworkAvailable(this)) {
 			Toast.makeText(this,
 					getString(R.string.no_internet_connection),
@@ -173,10 +174,15 @@ public class InsuranceActivity extends SocketActivity implements
 
 			return;
 		}
+
+		if("No Insurance".equals(insurance)){
+			AccountUtils.setTime(this, Calendar.getInstance().getTimeInMillis());
+			this.mInsurance = "";
+		}
 		
-		JSONObject obj=new JSONObject();
+		JSONObject obj = new JSONObject();
 		try {
-			obj.put("insurance", insurance);
+			obj.put("mInsurance", insurance);
 			socketService.updateAccount(obj);
 			pd.show();
 		} catch (JSONException e) {
@@ -197,9 +203,8 @@ public class InsuranceActivity extends SocketActivity implements
 			pd.dismiss();
 		}
 		
-		
 		if(event.equals(EventParams.EVENT_INSURANCE_LIST)) {
-			//update insurance list
+			//update mInsurance list
 			JSONObject data = (JSONObject)obj;
 			JSONArray insurances = data.optJSONArray("insurances");
 			if(insurances != null){
@@ -230,7 +235,7 @@ public class InsuranceActivity extends SocketActivity implements
 		}else if(event.equals(EventParams.EVENT_USER_UPDATE)){
 			UserDatasource uds = new UserDatasource(this);
 			UserAccount user = uds.findUser(AccountUtils.getUserId(this));
-			user.setInsurance(insurance);
+			user.setInsurance(mInsurance);
 			uds.update(user);
 			Toast.makeText(InsuranceActivity.this, "Insurance added successfully!", Toast.LENGTH_SHORT).show();
 //			if(fromOptions){ finish(); return; }

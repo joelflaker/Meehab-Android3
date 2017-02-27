@@ -122,6 +122,7 @@
                         android:layout_height="wrap_content"
                         android:gravity="center_vertical"
                         android:text="Age"
+                        android:textAllCaps="true"
                         android:textColor="@color/light_blue" />
 
                     <TextView
@@ -134,6 +135,7 @@
                     <TextView
                         android:id="@+id/tvGender"
                         android:layout_width="wrap_content"
+                        android:textAllCaps="true"
                         android:layout_height="wrap_content"
                         android:gravity="center_vertical"
                         android:text="Gender"
@@ -150,6 +152,7 @@
                         android:id="@+id/tvOriendation"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:textAllCaps="true"
                         android:gravity="center_vertical"
                         android:text="Orientation"
                         android:textColor="@color/light_blue" />
@@ -166,6 +169,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center_vertical"
+                        android:textAllCaps="true"
                         android:text="Marital Status"
                         android:textColor="@color/light_blue" />
                 </LinearLayout>
@@ -227,11 +231,10 @@
                                 android:textStyle="bold" />
                         </TableRow>
 
-                        <ImageView
+                        <android.support.v4.widget.Space
                             android:layout_width="fill_parent"
                             android:layout_height="1dp"
-                            android:layout_margin="5dp"
-                            android:background="@drawable/profile_divider" />
+                            android:layout_margin="5dp" />
 
                         <TableRow
                             android:layout_width="wrap_content"
@@ -252,11 +255,10 @@
                                 android:textStyle="bold" />
                         </TableRow>
 
-                        <ImageView
+                        <android.support.v4.widget.Space
                             android:layout_width="fill_parent"
                             android:layout_height="1dp"
-                            android:layout_margin="5dp"
-                            android:background="@drawable/profile_divider" />
+                            android:layout_margin="5dp" />
 
                         <TableRow
                             android:layout_width="wrap_content"
@@ -277,11 +279,10 @@
                                 android:textStyle="bold" />
                         </TableRow>
 
-                        <ImageView
+                        <android.support.v4.widget.Space
                             android:layout_width="fill_parent"
                             android:layout_height="1dp"
-                            android:layout_margin="5dp"
-                            android:background="@drawable/profile_divider" />
+                            android:layout_margin="5dp" />
 
                         <TableRow
                             android:layout_width="wrap_content"
@@ -302,11 +303,10 @@
                                 android:textStyle="bold" />
                         </TableRow>
 
-                        <ImageView
+                        <android.support.v4.widget.Space
                             android:layout_width="fill_parent"
                             android:layout_height="1dp"
-                            android:layout_margin="5dp"
-                            android:background="@drawable/profile_divider" />
+                            android:layout_margin="5dp" />
 
 
                         <TableRow
@@ -328,11 +328,10 @@
                                 android:textStyle="bold" />
                         </TableRow>
 
-                        <ImageView
+                        <android.support.v4.widget.Space
                             android:layout_width="fill_parent"
                             android:layout_height="1dp"
-                            android:layout_margin="5dp"
-                            android:background="@drawable/profile_divider" />
+                            android:layout_margin="5dp" />
 
                         <TableRow
                             android:layout_width="wrap_content"
@@ -353,11 +352,10 @@
                                 android:textStyle="bold" />
                         </TableRow>
 
-                        <ImageView
+                        <android.support.v4.widget.Space
                             android:layout_width="fill_parent"
                             android:layout_height="1dp"
-                            android:layout_margin="5dp"
-                            android:background="@drawable/profile_divider" />
+                            android:layout_margin="5dp" />
 
                         <TableRow
                             android:layout_width="wrap_content"
@@ -379,11 +377,10 @@
                                 android:textStyle="bold" />
                         </TableRow>
 
-                        <ImageView
+                        <android.support.v4.widget.Space
                             android:layout_width="fill_parent"
                             android:layout_height="1dp"
-                            android:layout_margin="5dp"
-                            android:background="@drawable/profile_divider" />
+                            android:layout_margin="5dp" />
 
                         <TableRow
                             android:layout_width="wrap_content"
@@ -404,12 +401,6 @@
                                 android:textStyle="bold" />
                         </TableRow>
 
-                        <ImageView
-                            android:layout_width="fill_parent"
-                            android:layout_height="1dp"
-                            android:layout_margin="5dp"
-                            android:background="@drawable/profile_divider"
-                            android:visibility="visible" />
                     </TableLayout>
 
                     <TextView
@@ -451,12 +442,19 @@
                             android:src="@drawable/see_more_btn" />
                     </RelativeLayout>
 
+                    <ImageView
+                        android:layout_width="fill_parent"
+                        android:layout_height="1dp"
+                        android:layout_margin="5dp"
+                        android:background="@drawable/profile_divider"
+                        android:visibility="visible" />
+
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:gravity="center_vertical"
-                        android:paddingBottom="4dp"
+                        android:paddingBottom="8dp"
                         android:paddingLeft="@dimen/activity_horizontal_margin"
                         android:paddingRight="@dimen/activity_horizontal_margin"
                         android:paddingTop="8dp"

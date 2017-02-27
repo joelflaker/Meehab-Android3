@@ -46,6 +46,7 @@ public class RehabsFilterActivity extends SocketActivity implements
 	public static RehaabFilterResultHolder filterModel = new RehaabFilterResultHolder();
 	private CheckBox tglOpenNow;
 	private boolean isFilterCleared;
+	private RehaabFilterResultHolder preFilterModel;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +61,7 @@ public class RehabsFilterActivity extends SocketActivity implements
 				new View.OnClickListener() {
 					@Override
 					public void onClick(View v) {
+						filterModel = preFilterModel;
 						finish();
 					}
 				});
@@ -83,6 +85,8 @@ public class RehabsFilterActivity extends SocketActivity implements
 
 		categories = buildDefaultFilter();
 		presetFilter();
+		//record current filter
+		preFilterModel = new RehaabFilterResultHolder(filterModel);
 	}
 
 	@Override

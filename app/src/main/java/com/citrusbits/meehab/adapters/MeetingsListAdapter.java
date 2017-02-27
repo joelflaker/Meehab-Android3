@@ -150,10 +150,10 @@ public class MeetingsListAdapter extends ArrayAdapter<MeetingModel> {
 		/*
 		 * for (String value : codes) {
 		 * 
-		 * tagsContainer.removeAllViews(); ImageView tag = new
+		 * tagsContainer.removeAllViews(); ImageView TAG = new
 		 * ImageView(getContext());
-		 * tag.setImageResource(R.drawable.gray_circle);
-		 * tagsContainer.addView(tag); }
+		 * TAG.setImageResource(R.drawable.gray_circle);
+		 * tagsContainer.addView(TAG); }
 		 */
 		final ToggleButton checkBox = (ToggleButton) v.findViewById(R.id.checkBox);
 

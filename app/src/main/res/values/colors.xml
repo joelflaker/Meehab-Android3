@@ -36,6 +36,8 @@
     <!-- General purpose colors for Holo-themed elements -->
     <eat-comment />
 
+    <color name="text_color_light_gray">#888888</color>
+
     <!-- A light Holo shade of blue -->
     <color name="holo_blue_light">#ff33b5e5</color>
     <!-- A light Holo shade of gray -->

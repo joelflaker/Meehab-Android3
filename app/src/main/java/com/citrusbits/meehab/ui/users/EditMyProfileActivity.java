@@ -601,7 +601,7 @@ public class EditMyProfileActivity extends SocketActivity implements
 						.error(R.drawable.profile_pic_border)
 						.transform(
 								new PicassoBlurTransform(
-										EditMyProfileActivity.this, 20))
+										EditMyProfileActivity.this, 8))
 						.into(ivBlurBg);
 
 			}
@@ -738,10 +738,7 @@ public class EditMyProfileActivity extends SocketActivity implements
 				}
 
 				// about Story
-				if (aaStoryEdit.getText().toString().trim().length() > 0) {
-					// updatedUser.setAboutStory(aaStoryEdit.getText().toString());
-					params.put("about_story", aaStoryEdit.getText().toString());
-				}
+				params.put("about_story", aaStoryEdit.getText().toString());
 
 				// update fields
 				// height

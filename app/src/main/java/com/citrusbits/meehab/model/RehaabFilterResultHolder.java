@@ -145,4 +145,21 @@ public class RehaabFilterResultHolder implements Serializable {
 	public void apply(boolean bool) {
 		applied = bool;
 	}
+
+	public RehaabFilterResultHolder() {}
+
+	public RehaabFilterResultHolder(RehaabFilterResultHolder other) {
+		this.anyType = other.anyType;
+		this.anyInsuranceAccepted = other.anyInsuranceAccepted;
+		this.anyZipCode = other.anyZipCode;
+		this.anyDistance = other.anyDistance;
+		this.rehabType = other.rehabType;
+		this.insuranceAccepted = other.insuranceAccepted;
+		this.zipCode = other.zipCode;
+		this.distance = other.distance;
+		this.selectAllType = other.selectAllType;
+		this.selectAllInsurance = other.selectAllInsurance;
+		this.openNow = other.openNow;
+		this.applied = other.applied;
+	}
 }

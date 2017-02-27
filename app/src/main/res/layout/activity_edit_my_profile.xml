@@ -79,7 +79,7 @@
                     android:layout_height="wrap_content"
                     android:paddingBottom="6dp"
                     android:text="@string/gender"
-                    android:textColor="#888888" />
+                    android:textColor="@color/text_color_light_gray" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -207,7 +207,7 @@
                     android:layout_height="wrap_content"
                     android:paddingBottom="5dp"
                     android:text="@string/interested_in_"
-                    android:textColor="#444444" />
+                    android:textColor="@color/text_color_light_gray" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -257,7 +257,8 @@
                     android:paddingBottom="6dp"
                     android:paddingTop="15dp"
                     android:text="@string/my_aa_story"
-                    android:textColor="#888888" />
+                    android:textAllCaps="true"
+                    android:textColor="@color/text_color_light_gray" />
 
                 <EditText
                     android:id="@+id/aaStoryEdit"
@@ -271,7 +272,7 @@
                     android:maxLength="250"
                     android:paddingBottom="2dp"
                     android:paddingTop="2dp"
-                    android:textColor="#888888"
+                    android:textColorHint="#888888"
                     android:textSize="14sp" />
 
                 <ImageView
@@ -327,8 +328,8 @@
                             android:layout_weight="1"
                             android:background="@drawable/simple_button_selector"
                             android:hint="Height"
-                            android:singleLine="true"
-                            android:textColor="#444444" />
+                            android:lines="1"
+                            android:textColor="@color/text_color_light_gray" />
 
                         <ImageView
                             android:layout_width="fill_parent"
@@ -354,8 +355,7 @@
                             android:layout_weight="1"
                             android:background="@drawable/simple_button_selector"
                             android:hint="Weight"
-                            android:singleLine="true"
-                            android:textColor="#444444" />
+                            android:textColor="@color/text_color_light_gray" />
 
                         <ImageView
                             android:layout_width="fill_parent"
@@ -377,8 +377,7 @@
                         android:background="@drawable/simple_button_selector"
                         android:hint="Sexual Orientation"
                         android:maxLength="20"
-                        android:singleLine="true"
-                        android:textColor="#444444" />
+                        android:textColor="@color/text_color_light_gray" />
 
                     <ImageView
                         android:layout_width="fill_parent"
@@ -395,7 +394,6 @@
                         android:hint="Other"
                         android:inputType="textWebEditText|textCapWords"
                         android:maxLength="20"
-                        android:singleLine="true"
                         android:visibility="gone" />
                 </LinearLayout>
 
@@ -436,8 +434,7 @@
                     android:background="@drawable/simple_button_selector"
                     android:hint="How long have you been sober?"
                     android:maxLength="20"
-                    android:singleLine="true"
-                    android:textColor="#444444" />
+                    android:textColor="@color/text_color_light_gray" />
 
                 <ImageView
                     android:layout_width="fill_parent"
@@ -453,7 +450,8 @@
                     android:layout_height="wrap_content"
                     android:hint="@string/do_you_have_kids_"
                     android:paddingBottom="4dp"
-                    android:textColor="#444444" />
+                    android:textAllCaps="true"
+                    android:textColor="@color/text_color_light_gray" />
 
                 <LinearLayout
                     android:layout_width="match_parent"

@@ -184,7 +184,7 @@ public class MyProfileFragment extends Fragment implements
 						.placeholder(R.drawable.profile_pic_border)
 						// .resize(300, 200)
 						.error(R.drawable.profile_pic_border)
-						.transform(new PicassoBlurTransform(getActivity(), 20))
+						.transform(new PicassoBlurTransform(getActivity(), 8))
 						.into(ivBlurBg);
 			}
 
@@ -227,7 +227,7 @@ public class MyProfileFragment extends Fragment implements
 				kidsText.setText("No Answer");
 			}
 
-			homegroupText.setText(user.getMeetingHomeGroup() == null? "" : user.getMeetingHomeGroup());
+			homegroupText.setText(user.getMeetingHomeGroup() == null? getString(R.string.label_not_assign) : user.getMeetingHomeGroup());
 
 			String aaStoryTxt = user.getAboutStory();
 			if (!TextUtils.isEmpty(aaStoryTxt) && aaStoryTxt.length() > 100) {

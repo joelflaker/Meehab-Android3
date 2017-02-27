@@ -59,7 +59,7 @@ import io.socket.emitter.Emitter;
 
 public class SocketService extends Service {
 
-	public static final String tag = "NodeJSConnectionService";
+	public static final String TAG = "NodeJSConnectionService";
 	public static final String ACTION_CLEAR_NOTIFICATION = "clear_notification";
 	public static final String ACTION_DISABLE_FOREGROUND = "disable_foreground";
 	private static final String ACTION_MERGE_PHONE_CONTACTS = "merge_phone_contacts";
@@ -101,7 +101,7 @@ public class SocketService extends Service {
 
 	@Override
 	public int onStartCommand(Intent intent, int flags, int startId) {
-		Log.d(tag, "Service:onStartCommand");
+		Log.d(TAG, "Service:onStartCommand");
 
 		final String action = intent == null ? null : intent.getAction();
 //		Notification note = new Notification(0, null,
@@ -184,7 +184,7 @@ public class SocketService extends Service {
 	public void onCreate() {
 		dbHandler = DatabaseHandler.getInstance(SocketService.this);
 		mHandler = new Handler();
-		Log.d(tag, "Service:onCreate");
+		Log.d(TAG, "Service:onCreate");
 		this.mSocketServcie = this;
 		prefs = AppPrefs.getAppPrefs(SocketService.this);
 		this.userDatasource = new UserDatasource(this);
@@ -318,7 +318,7 @@ public class SocketService extends Service {
 
 				JSONObject data = (JSONObject) args[0];
 
-				Log.d(tag, data.toString());
+				Log.d(TAG, data.toString());
 
 				// toastOnUiThread("Message is "+data.getBoolean("type"));
 
@@ -348,7 +348,7 @@ public class SocketService extends Service {
 
 				JSONObject data = (JSONObject) args[0];
 
-				Log.d(tag, data.toString());
+				Log.d(TAG, data.toString());
 
 				// toastOnUiThread("Message is "+data.getBoolean("type"));
 
@@ -378,7 +378,7 @@ public class SocketService extends Service {
 //
 //				JSONObject data = (JSONObject) args[0];
 //
-//				Log.d(tag, data.toString());
+//				Log.d(TAG, data.toString());
 //
 //				if (data.getBoolean("type") ) {
 //					// userDatasource.update(response.getUser());
@@ -404,7 +404,7 @@ public class SocketService extends Service {
 
 				JSONObject data = (JSONObject) args[0];
 
-				Log.d(tag, data.toString());
+				Log.d(TAG, data.toString());
 
 				if (data.getBoolean("type") ) {
 					// userDatasource.update(response.getUser());
@@ -486,7 +486,7 @@ public class SocketService extends Service {
 
 				JSONObject data = (JSONObject) args[0];
 
-				Log.d(tag, data.toString());
+				Log.d(TAG, data.toString());
 
 				if (data.getBoolean("type") ) {
 					// userDatasource.update(response.getUser());
@@ -515,7 +515,7 @@ public class SocketService extends Service {
 
 				JSONObject data = (JSONObject) args[0];
 
-				Log.d(tag, data.toString());
+				Log.d(TAG, data.toString());
 
 				if (data.getBoolean("type") ) {
 					// userDatasource.update(response.getUser());
@@ -539,7 +539,7 @@ public class SocketService extends Service {
 
 				JSONObject data = (JSONObject) args[0];
 
-				Log.d(tag, data.toString());
+				Log.d(TAG, data.toString());
 
 				if (data.getBoolean("type") ) {
 					// userDatasource.update(response.getUser());
@@ -564,7 +564,7 @@ public class SocketService extends Service {
 
 				JSONObject data = (JSONObject) args[0];
 
-				Log.d(tag, data.toString());
+				Log.d(TAG, data.toString());
 
 				if (data.getBoolean("type") ) {
 					// userDatasource.update(response.getUser());
@@ -589,7 +589,7 @@ public class SocketService extends Service {
 
 				JSONObject data = (JSONObject) args[0];
 
-				Log.d(tag, data.toString());
+				Log.d(TAG, data.toString());
 
 				if (data.getBoolean("type") ) {
 					// userDatasource.update(response.getUser());
@@ -613,7 +613,7 @@ public class SocketService extends Service {
 
 				JSONObject data = (JSONObject) args[0];
 
-				Log.d(tag, data.toString());
+				Log.d(TAG, data.toString());
 
 				if (data.getBoolean("type")) {
 					// userDatasource.update(response.getUser());
@@ -635,7 +635,7 @@ public class SocketService extends Service {
 
 				JSONObject data = (JSONObject) args[0];
 
-				Log.d(tag, data.toString());
+				Log.d(TAG, data.toString());
 
 				if (!data.getBoolean("type")) {
 
@@ -659,7 +659,7 @@ public class SocketService extends Service {
 
 				JSONObject data = (JSONObject) args[0];
 
-				Log.d(tag, data.toString());
+				Log.d(TAG, data.toString());
 
 				if (data.getBoolean("type")) {
 					// userDatasource.update(response.getUser());
@@ -683,7 +683,7 @@ public class SocketService extends Service {
 
 				JSONObject data = (JSONObject) args[0];
 
-				Log.d(tag, data.toString());
+				Log.d(TAG, data.toString());
 
 				if (data.getBoolean("type")) {
 					// userDatasource.update(response.getUser());
@@ -707,7 +707,7 @@ public class SocketService extends Service {
 
 				JSONObject data = (JSONObject) args[0];
 
-				Log.d(tag, data.toString());
+				Log.d(TAG, data.toString());
 
 				if (data.getBoolean("type")) {
 					// userDatasource.update(response.getUser());
@@ -731,7 +731,7 @@ public class SocketService extends Service {
 
 				JSONObject data = (JSONObject) args[0];
 
-				Log.d(tag, data.toString());
+				Log.d(TAG, data.toString());
 
 				if (data.getBoolean("type") ) {
 					// userDatasource.update(response.getUser());
@@ -917,7 +917,7 @@ public class SocketService extends Service {
 
 				JSONObject data = (JSONObject) args[0];
 
-				Log.d(tag, data.toString());
+				Log.d(TAG, data.toString());
 
 				if (data.getBoolean("type") ) {
 					// userDatasource.update(response.getUser());
@@ -941,7 +941,7 @@ public class SocketService extends Service {
 
 				final JSONObject data = (JSONObject) args[0];
 
-				Log.d(tag, data.toString());
+				Log.d(TAG, data.toString());
 
 				if (data.getBoolean("type") ) {
 					// userDatasource.update(response.getUser());
@@ -965,7 +965,7 @@ public class SocketService extends Service {
 
 				JSONObject data = (JSONObject) args[0];
 
-				Log.d(tag, data.toString());
+				Log.d(TAG, data.toString());
 
 				if (data.getBoolean("type") ) {
 					// userDatasource.update(response.getUser());
@@ -989,7 +989,7 @@ public class SocketService extends Service {
 
 				JSONObject data = (JSONObject) args[0];
 
-				Log.d(tag, data.toString());
+				Log.d(TAG, data.toString());
 
 				if (data.getBoolean("type") ) {
 					// userDatasource.update(response.getUser());
@@ -1014,7 +1014,7 @@ public class SocketService extends Service {
 
 				JSONObject data = (JSONObject) args[0];
 
-				Log.d(tag, data.toString());
+				Log.d(TAG, data.toString());
 
 				if (data.getBoolean("type") ) {
 					// userDatasource.update(response.getUser());
@@ -1038,7 +1038,7 @@ public class SocketService extends Service {
 
 				JSONObject data = (JSONObject) args[0];
 
-				Log.d(tag, data.toString());
+				Log.d(TAG, data.toString());
 
 				if (data.getBoolean("type") ) {
 					// userDatasource.update(response.getUser());
@@ -1061,7 +1061,7 @@ public class SocketService extends Service {
 
 				JSONObject data = (JSONObject) args[0];
 
-				Log.d(tag, data.toString());
+				Log.d(TAG, data.toString());
 
 				if (data.getBoolean("type") ) {
 					// userDatasource.update(response.getUser());
@@ -1084,7 +1084,7 @@ public class SocketService extends Service {
 			try {
 
 				JSONObject data = (JSONObject) args[0];
-				Log.d(tag, data.toString());
+				Log.d(TAG, "User: "+data.toString());
 				AddUserResponse response = new Gson().fromJson(data.toString(),
 						AddUserResponse.class);
 				if (response.getType()) {
@@ -1114,7 +1114,7 @@ public class SocketService extends Service {
 			try {
 
 				JSONObject data = (JSONObject) args[0];
-				Log.d(tag, data.toString());
+				Log.d(TAG, data.toString());
 				MeetingReviewsResponse response = new Gson().fromJson(
 						data.toString(), MeetingReviewsResponse.class);
 				if (data.getBoolean("type")) {
@@ -1139,7 +1139,7 @@ public class SocketService extends Service {
 			try {
 
 				JSONObject data = (JSONObject) args[0];
-//				Log.d(tag, data.toString());
+//				Log.d(TAG, data.toString());
 				// AddUserResponse response = gson.fromJson(data.toString(),
 				// AddUserResponse.class);
 				if (data.getBoolean("type")) {
@@ -1164,7 +1164,7 @@ public class SocketService extends Service {
 			try {
 
 				JSONObject data = (JSONObject) args[0];
-				Log.d(tag, data.toString());
+				Log.d(TAG, data.toString());
 				// AddUserResponse response = gson.fromJson(data.toString(),
 				// AddUserResponse.class);
 				if (data.getBoolean("type")) {
@@ -1187,7 +1187,7 @@ public class SocketService extends Service {
 	private Emitter.Listener onConnectError = new Emitter.Listener() {
 		@Override
 		public void call(Object... args) {
-			Log.d(tag, "disconnected" + args.toString());
+			Log.d(TAG, "disconnected" + args.toString());
 		}
 	};
 	private List<Conversation> conversations;
@@ -1262,7 +1262,7 @@ public class SocketService extends Service {
 		// Intent intent = new Intent(context, EventReceiver.class);
 		// alarmManager.cancel(PendingIntent.getBroadcast(context, 0, intent,
 		// 0));
-		Log.d(tag, "good bye");
+		Log.d(TAG, "good bye");
 		stopSelf();
 	}
 
@@ -1372,7 +1372,7 @@ public class SocketService extends Service {
 			public void call(final Object... args) {
 				try {
 					JSONObject data = (JSONObject) args[0];
-					Log.d(tag, data.toString());
+					Log.d(TAG, data.toString());
 					AddUserResponse response = new Gson().fromJson(data.toString(),
 							AddUserResponse.class);
 
@@ -1405,7 +1405,7 @@ public class SocketService extends Service {
 
 				try {
 					JSONObject data = (JSONObject) args[0];
-					Log.d(tag, data.toString());
+					Log.d(TAG, data.toString());
 					AddUserResponse response = new Gson().fromJson(data.toString(),
 							AddUserResponse.class);
 
@@ -1435,7 +1435,7 @@ public class SocketService extends Service {
 			public void call(final Object... args) {
 				try {
 					JSONObject data = (JSONObject) args[0];
-					Log.d(tag, data.toString());
+					Log.d(TAG, data.toString());
 					AddUserResponse response = new Gson().fromJson(data.toString(),
 							AddUserResponse.class);
 					if (response.getType()) {
@@ -1478,7 +1478,7 @@ public class SocketService extends Service {
 
 					JSONObject data = (JSONObject) args[0];
 
-					Log.d(tag, data.toString());
+					Log.d(TAG, data.toString());
 
 					if (data.getBoolean("type") ) {
 						// userDatasource.update(response.getUser());
@@ -1507,7 +1507,7 @@ public class SocketService extends Service {
 
 					JSONObject data = (JSONObject) args[0];
 
-					Log.d(tag, data.toString());
+					Log.d(TAG, data.toString());
 
 					if (data.getBoolean("type") ) {
 						// userDatasource.update(response.getUser());
@@ -1539,7 +1539,7 @@ public class SocketService extends Service {
 
 					JSONObject data = (JSONObject) args[0];
 
-					Log.d(tag, data.toString());
+					Log.d(TAG, data.toString());
 
 					if (data.getBoolean("type") ) {
 						// userDatasource.update(response.getUser());
@@ -1569,7 +1569,7 @@ public class SocketService extends Service {
 
 					JSONObject data = (JSONObject) args[0];
 
-					Log.d(tag, data.toString());
+					Log.d(TAG, data.toString());
 
 					if (data.getBoolean("type") ) {
 						// userDatasource.update(response.getUser());
@@ -1682,7 +1682,7 @@ public class SocketService extends Service {
 
 					JSONObject data = (JSONObject) args[0];
 
-					Log.d(tag, data.toString());
+					Log.d(TAG, data.toString());
 
 					if (data.getBoolean("type") ) {
 						// userDatasource.update(response.getUser());
@@ -1718,7 +1718,7 @@ public class SocketService extends Service {
 
 					JSONObject data = (JSONObject) args[0];
 
-					Log.d(tag, data.toString());
+					Log.d(TAG, data.toString());
 
 					if (data.getBoolean("type") ) {
 						// userDatasource.update(response.getUser());
@@ -1798,7 +1798,7 @@ public class SocketService extends Service {
 
 					JSONObject data = (JSONObject) args[0];
 
-					Log.d(tag, data.toString());
+					Log.d(TAG, data.toString());
 
 					if (data.getBoolean("type") ) {
 						// userDatasource.update(response.getUser());
@@ -1852,7 +1852,7 @@ public class SocketService extends Service {
 
 					JSONObject data = (JSONObject) args[0];
 
-					Log.d(tag, data.toString());
+					Log.d(TAG, data.toString());
 
 					if (data.getBoolean("type") ) {
 						// userDatasource.update(response.getUser());
@@ -1882,7 +1882,7 @@ public class SocketService extends Service {
 
 					JSONObject data = (JSONObject) args[0];
 
-					Log.d(tag, data.toString());
+					Log.d(TAG, data.toString());
 
 					if (data.getBoolean("type") ) {
 						// userDatasource.update(response.getUser());
@@ -1913,7 +1913,7 @@ public class SocketService extends Service {
 
 					JSONObject data = (JSONObject) args[0];
 
-					Log.d(tag, data.toString());
+					Log.d(TAG, data.toString());
 
 					if (data.getBoolean("type") ) {
 						// userDatasource.update(response.getUser());
@@ -2163,7 +2163,7 @@ public class SocketService extends Service {
 	@Override
 	public void onDestroy() {
 		super.onDestroy();
-		Log.d(tag, "Service:onDestroy");
+		Log.d(TAG, "Service:onDestroy");
 		// App.alert("Service:onDestroy");
 
 		// disconnectSocket();
@@ -2197,7 +2197,7 @@ public class SocketService extends Service {
 
 					JSONObject data = (JSONObject) args[0];
 
-					Log.d(tag, data.toString());
+					Log.d(TAG, data.toString());
 
 					if (data.getBoolean("type") ) {
 						// userDatasource.update(response.getUser());
@@ -2228,7 +2228,7 @@ public class SocketService extends Service {
 
 					JSONObject data = (JSONObject) args[0];
 
-					Log.d(tag, data.toString());
+					Log.d(TAG, data.toString());
 
 					if (data.getBoolean("type") ) {
 						// userDatasource.update(response.getUser());

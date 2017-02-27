@@ -30,6 +30,7 @@ public class FriendsFilterActivity extends Activity implements OnClickListener {
 	private static ArrayList<ExpCategory> cacheCategories = new ArrayList<>();
 	private ArrayList<ExpCategory> categories = new ArrayList<ExpCategory>();
 	private boolean isFilterCleared;
+	private ArrayList<ExpCategory> previousCategoies = new ArrayList<>();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +44,9 @@ public class FriendsFilterActivity extends Activity implements OnClickListener {
 
 		expFriendsFilter = (ExpandableListView) findViewById(R.id.expFriendsFilter);
 		updateUi();
+
+		//record current filter
+		previousCategoies.addAll(cacheCategories);
 	}
 
 	private void updateUi() {
@@ -222,6 +226,7 @@ public class FriendsFilterActivity extends Activity implements OnClickListener {
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.ibCancel:
+			cacheCategories.addAll(previousCategoies);
 			finish();
 			break;
 		case R.id.ibApply:
@@ -255,6 +260,7 @@ public class FriendsFilterActivity extends Activity implements OnClickListener {
 			break;
 		case R.id.ibClear:
 			cacheCategories.clear();
+			previousCategoies.addAll(cacheCategories);
 			//update ui
 			updateUi();
 			mAdapter.setFriendFilterResultHolder(new FriendFilterResultHolder());

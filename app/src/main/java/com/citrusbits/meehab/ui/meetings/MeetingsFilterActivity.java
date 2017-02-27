@@ -48,6 +48,11 @@ public class MeetingsFilterActivity extends SocketActivity implements
 	private static String mDistance = "";
 	private static int mRating = 0;
 	private RatingBar rating;
+	private ArrayList<ExpCategory> previousCategoies = new ArrayList<>();
+	private String mPreDistance;
+	private int mPreRating;
+	private String mPreZipcode;
+	private boolean mPreFavorite;
 
 	// private ArrayList<Parent> parents;
 
@@ -64,6 +69,11 @@ public class MeetingsFilterActivity extends SocketActivity implements
 				new View.OnClickListener() {
 					@Override
 					public void onClick(View v) {
+						cacheCategories.addAll(previousCategoies);
+						mDistance = mPreDistance;
+						mRating = mPreRating;
+						mZipcode = mPreZipcode;
+						mFavorite = mPreFavorite;
 						finish();
 					}
 				});
@@ -95,9 +105,14 @@ public class MeetingsFilterActivity extends SocketActivity implements
 		} else {
 			categories.addAll(cacheCategories);
 		}
-
 		updateUI();
 
+		//record current filter
+		previousCategoies.addAll(cacheCategories);
+		mPreDistance = mDistance;
+		mPreRating = mRating;
+		mPreZipcode = mZipcode;
+		mPreFavorite = mFavorite;
 	}
 
 	private void updateUI() {
@@ -146,6 +161,12 @@ public class MeetingsFilterActivity extends SocketActivity implements
 			finish();
 			break;
 		case R.id.ibClear:
+			cacheCategories.clear();
+			mDistance = "";
+			mRating = 0;
+			mZipcode = "";
+			mFavorite = false;
+
 			applyClear();
 			categories = buildDefaultFilter();
 			FilterResultHolder defaultFilter = new FilterResultHolder();
