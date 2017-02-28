@@ -181,7 +181,6 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:orientation="vertical"
-                            android:paddingLeft="15dp"
                             android:layout_marginRight="8dp">
 
                             <TextView
@@ -408,7 +407,7 @@
                                 android:layout_height="wrap_content"
                                 android:background="@null"
                                 android:focusable="false"
-                                android:gravity="left|center_vertical"
+                                android:layout_centerVertical="true"
                                 android:paddingLeft="@dimen/activity_horizontal_margin"
                                 android:paddingRight="@dimen/activity_horizontal_margin"
                                 android:text="Add Review"

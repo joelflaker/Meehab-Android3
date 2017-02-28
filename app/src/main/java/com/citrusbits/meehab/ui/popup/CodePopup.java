@@ -42,18 +42,15 @@ public class CodePopup implements OnClickListener {
 				false);
 		popupWindow = new PopupWindow(popupView, LayoutParams.WRAP_CONTENT,
 				LayoutParams.WRAP_CONTENT);
-
+		popupWindow.setAnimationStyle(R.style.DialogAnimationFade);
 		TextView tvCodePopup = (TextView) popupView
 				.findViewById(R.id.tvCodePopup);
 		if (meetingValue != null) {
-
 			tvCodePopup.setText(meetingValue);
-
 		}
 
 		popupWindow.setBackgroundDrawable(new BitmapDrawable());
 		popupWindow.setOutsideTouchable(true);
-
 		setClickListenerOnButtons(((LinearLayout) popupView));
 		popupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
 
@@ -81,9 +78,17 @@ public class CodePopup implements OnClickListener {
 		popupWindow.showAtLocation(popupView, Gravity.NO_GRAVITY, location[0],
 				(int) (location[1] + view.getHeight()+px));
 		isShown = true;
+		popupView.postDelayed(action,800);
 		// popupWindow.update(0, 0, popupView.getMeasuredWidth(),
 		// popupView.getMeasuredHeight());
 	}
+
+	Runnable action = new Runnable() {
+		@Override
+		public void run() {
+			dismiss();
+		}
+	};
 
 	public void setClickListenerOnButtons(LinearLayout group) {
 
@@ -100,7 +105,6 @@ public class CodePopup implements OnClickListener {
 
 	@Override
 	public void onClick(View v) {
-		// TODO Auto-generated method stub
 		if (popClickListener != null) {
 			Button btn = (Button) v;
 			popClickListener.onClick(btn.getTag().toString());
@@ -122,6 +126,7 @@ public class CodePopup implements OnClickListener {
 	 * 
 	 */
 	public void dismiss() {
+		popupView.removeCallbacks(action);
 		popupWindow.dismiss();
 		isShown = false;
 	}

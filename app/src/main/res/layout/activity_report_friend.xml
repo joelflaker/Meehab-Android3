@@ -55,7 +55,7 @@
             android:id="@+id/etReportText"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:gravity="left"
+            android:gravity="center_horizontal"
             android:textSize="14sp"
             android:maxLength="255"
             android:hint="@string/report_txt_hint" />

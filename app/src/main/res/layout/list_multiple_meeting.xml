@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:drawableLeft="@drawable/white_rectangle"
+        android:drawableLeft="@drawable/calendar_icon_light"
         android:drawablePadding="4dp"
         android:gravity="center|left"
         android:paddingTop="4dp"

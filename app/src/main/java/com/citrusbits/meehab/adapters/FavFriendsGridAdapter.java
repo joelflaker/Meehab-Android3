@@ -4,6 +4,7 @@ import java.util.List;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.text.TextUtils;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -94,11 +95,16 @@ public class FavFriendsGridAdapter  extends ArrayAdapter<UserAccount> {
 		UserAccount account = useraccount.get(position);
 		String url = account.getImage();
 
-		Picasso.with(mContext).load(url).placeholder(R.drawable.profile_pic_border)
-				.resize(cellWidthHeight + 20, cellWidthHeight + 20)
-				.error(R.drawable.profile_pic_border)
-
-				.into(holder.ivFriend);
+		if(!TextUtils.isEmpty(url)) {
+			Picasso.with(mContext).load(url).placeholder(R.drawable.profile_pic_border)
+					.resize(cellWidthHeight + 20, cellWidthHeight + 20)
+					.error(R.drawable.profile_pic_border)
+					.into(holder.ivFriend);
+		}else {
+			Picasso.with(mContext).load(R.drawable.profile_pic_border)
+					.resize(cellWidthHeight + 20, cellWidthHeight + 20)
+					.into(holder.ivFriend);
+		}
 
 		holder.ivOnline
 				.setVisibility(account.getCheckinType().equals("online") ? View.VISIBLE

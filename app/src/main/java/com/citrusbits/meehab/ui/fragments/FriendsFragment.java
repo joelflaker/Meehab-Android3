@@ -31,6 +31,7 @@ import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.citrusbits.meehab.ui.users.FriendsFilterActivity;
 import com.citrusbits.meehab.ui.HomeActivity;
@@ -91,7 +92,7 @@ public class FriendsFragment extends Fragment implements
 	private View emptyList;
 
 	public static FriendFilterResultHolder fFilterResultHolder = new FriendFilterResultHolder();
-	private View textViewCross;
+	private TextView btnFilter;
 
 	public FriendsFragment() {
 	}
@@ -111,13 +112,12 @@ public class FriendsFragment extends Fragment implements
 
 		// init UI
 		v.findViewById(R.id.topMenuBtn).setOnClickListener(this);
-		v.findViewById(R.id.btnFilter).setOnClickListener(this);
+		btnFilter = (TextView)v.findViewById(R.id.btnFilter);
+		btnFilter.setOnClickListener(this);
 		mPager = (ViewPager) v.findViewById(R.id.pager);
 		btnGrid = (Button) v.findViewById(R.id.btnGrid);
 		btnList = (Button) v.findViewById(R.id.btnList);
 		emptyList = v.findViewById(R.id.emptyList);
-		textViewCross = v.findViewById(R.id.textViewCross);
-		textViewCross.setOnClickListener(this);
 
 		ivGridBar = (ImageView) v.findViewById(R.id.ivGridBar);
 		ivListBar = (ImageView) v.findViewById(R.id.ivListBar);
@@ -142,9 +142,9 @@ public class FriendsFragment extends Fragment implements
 			public void afterTextChanged(Editable s) {
 				String inputText = s.toString().trim().toLowerCase();
 				if (inputText.trim().length() == 0) {
-					textViewCross.setVisibility(View.INVISIBLE);
+					btnFilter.setText(R.string.filter);
 				}else{
-					textViewCross.setVisibility(View.VISIBLE);
+					btnFilter.setText("Cancel");
 				}
 				userAccounts.clear();
 				for (UserAccount account : userAccountsCache) {
@@ -678,6 +678,13 @@ public class FriendsFragment extends Fragment implements
 				}
 				break;
 			case R.id.btnFilter:
+
+				if(editTopCenter.getText().length() > 0){
+					editTopCenter.setText("");
+					UtilityClass.hideSoftKeyboard(getContext(), editTopCenter);
+					return;
+				}
+
 				Intent intent = new Intent(getActivity(),
 						FriendsFilterActivity.class);
 
@@ -700,10 +707,6 @@ public class FriendsFragment extends Fragment implements
 					return;
 				}
 				mPager.setCurrentItem(1);
-				break;
-			case R.id.textViewCross:
-				editTopCenter.setText("");
-				UtilityClass.hideSoftKeyboard(getContext(), editTopCenter);
 				break;
 			default:
 				break;

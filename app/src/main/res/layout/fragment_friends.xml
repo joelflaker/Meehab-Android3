@@ -72,7 +72,7 @@
                     android:hint="Search for Friends"
                     android:imeOptions="actionSearch"
                     android:inputType="textWebEditText|textCapWords"
-                    android:maxLength="20"
+                    android:maxLength="50"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textColor="#ffffff"
                     android:textColorHint="#efefef"
@@ -107,6 +107,7 @@
                     android:layout_centerVertical="true"
                     android:paddingRight="8dp"
                     android:text="@string/filter"
+                    android:textAllCaps="true"
                     android:textColor="#FFFFFF"
                     android:textSize="12sp" />
             </RelativeLayout>

@@ -15,8 +15,8 @@
 
     <style name="customRatingBarBig" parent="@android:style/Widget.RatingBar">
         <item name="android:progressDrawable">@drawable/map_list_rating_bar</item>
-        <item name="android:minHeight">24dip</item>
-        <item name="android:maxHeight">24dip</item>
+        <item name="android:minHeight">26dp</item>
+        <item name="android:maxHeight">26dp</item>
     </style>
 
     <style name="PauseDialog" parent="@android:style/Theme.Dialog">

@@ -175,14 +175,14 @@ public class InsuranceActivity extends SocketActivity implements
 			return;
 		}
 
-		if("No Insurance".equals(insurance)){
+		if("No Insurance".equals(mInsurance)){
 			AccountUtils.setTime(this, Calendar.getInstance().getTimeInMillis());
 			this.mInsurance = "";
 		}
 		
 		JSONObject obj = new JSONObject();
 		try {
-			obj.put("mInsurance", insurance);
+			obj.put("mInsurance", mInsurance);
 			socketService.updateAccount(obj);
 			pd.show();
 		} catch (JSONException e) {
@@ -213,7 +213,6 @@ public class InsuranceActivity extends SocketActivity implements
 				for (int i = 0; i < insurances.length(); i++) {
 					insurancesList.add(insurances.optJSONObject(i).optString("name"));
 				}
-
 
 				Collections.sort(insurancesList, new Comparator<String>() {
 					@Override

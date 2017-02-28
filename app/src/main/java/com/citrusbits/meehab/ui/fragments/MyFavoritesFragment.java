@@ -558,6 +558,15 @@ public class MyFavoritesFragment extends Fragment implements
 			break;
 		}
 
+		if(meetings.size() > 0 && position == 0){
+			ibRemove.setVisibility(meetingsAdapter.getEdit() ? View.VISIBLE
+					: View.GONE);
+		}else if(userAccounts.size() > 0 && position == 1){
+			ibRemove.setVisibility(meetingsAdapter.getEdit() ? View.VISIBLE
+					: View.GONE);
+		}else {
+			ibRemove.setVisibility(View.GONE);
+		}
 		editTopCenter.setText("");
 
 	}
@@ -597,12 +606,15 @@ public class MyFavoritesFragment extends Fragment implements
 				}
 
 				unFavoriteUsers(userIds);
-
 				break;
 			}
 
 			break;
 		case R.id.ibEdit:
+
+//			if(userAccounts.size() == 0 && meetings.size() == 0){
+//				App.toast("Nothing to edit!");
+//			}
 
 			meetingsAdapter.setEdit(!meetingsAdapter.getEdit());
 			friendsGridAdapter.setEdit(!friendsGridAdapter.isEdit());
@@ -618,8 +630,15 @@ public class MyFavoritesFragment extends Fragment implements
 
 			ibEdit.setImageResource(editResId);
 
-			ibRemove.setVisibility(meetingsAdapter.getEdit() ? View.VISIBLE
-					: View.GONE);
+			if(meetings.size() > 0 && currentTabPosition == 0){
+				ibRemove.setVisibility(meetingsAdapter.getEdit() ? View.VISIBLE
+						: View.GONE);
+			}else if(userAccounts.size() > 0 && currentTabPosition == 1){
+				ibRemove.setVisibility(meetingsAdapter.getEdit() ? View.VISIBLE
+						: View.GONE);
+			}else {
+				ibRemove.setVisibility(View.GONE);
+			}
 
 			break;
 			case R.id.textViewCross:

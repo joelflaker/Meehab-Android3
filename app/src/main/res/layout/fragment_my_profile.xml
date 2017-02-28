@@ -442,7 +442,7 @@
                             android:src="@drawable/see_more_btn" />
                     </RelativeLayout>
 
-                    <ImageView
+                    <View
                         android:layout_width="fill_parent"
                         android:layout_height="1dp"
                         android:layout_margin="5dp"
@@ -461,6 +461,13 @@
                         android:text="Reviews"
                         android:textAllCaps="true"
                         android:textStyle="bold" />
+
+                    <View
+                        android:layout_width="fill_parent"
+                        android:layout_height="1dp"
+                        android:layout_margin="5dp"
+                        android:background="@drawable/profile_divider"
+                        android:visibility="visible" />
 
                     <LinearLayout
                         android:id="@+id/reviewsContainer"

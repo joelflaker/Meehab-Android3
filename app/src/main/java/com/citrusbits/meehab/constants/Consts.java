@@ -29,7 +29,7 @@ public class Consts {
 	//rating
 	public static final String IS_RATING = "is_rating";
 	public static final String CLOSED_TODAY = "Closed Today";
-	public static final float MAP_ZOOM = 12f;
+	public static final float MAP_ZOOM = 10f;
 
 	public static final String SID = "AC05f81aa73348b83219be2613c794871f";
 	public static final String TwilioSecret = "993084372175c482d81d5571aa75af3d";

@@ -7,7 +7,7 @@
         android:id="@+id/relativeTop"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#888888" >
+        android:background="@color/nav_light_gray" >
 
         <ImageView
             android:id="@+id/topMenuBtn"
@@ -61,7 +61,7 @@
                     android:background="@android:color/transparent"
                     android:gravity="left|center_vertical"
                     android:text="@string/appear_online"
-                    android:textColor="#888888" />
+                    android:textColor="@color/text_color_dark_gray" />
 
                 <CheckBox
                     android:id="@+id/cbAppearOffline"
@@ -76,17 +76,20 @@
                     android:textOn="" />
             </RelativeLayout>
 
-            <TextView
+            <Button
+                android:background="@color/nav_light_gray"
+                android:textColor="@color/text_color_dark_gray"
+                android:layout_height="28dp"
+                android:focusable="false"
+                android:clickable="false"
+                android:focusableInTouchMode="false"
+                android:gravity="center_vertical"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:paddingLeft="@dimen/activity_horizontal_margin"
                 android:paddingRight="@dimen/activity_horizontal_margin"
-                android:paddingTop="@dimen/activity_vertical_margin"
                 android:text="@string/account"
-                android:textAllCaps="true"
-                android:textColor="#999999"
-                android:textStyle="bold" />
+                android:textAllCaps="true" />
 
             <Button
                 android:id="@+id/btnChangeEmail"
@@ -98,7 +101,7 @@
                 android:paddingLeft="@dimen/activity_horizontal_margin"
                 android:paddingRight="@dimen/activity_horizontal_margin"
                 android:text="@string/change_email"
-                android:textColor="#888888" />
+                android:textColor="@color/text_color_dark_gray" />
 
             <TextView
                 android:layout_width="fill_parent"
@@ -115,7 +118,7 @@
                 android:paddingLeft="@dimen/activity_horizontal_margin"
                 android:paddingRight="@dimen/activity_horizontal_margin"
                 android:text="@string/change_password"
-                android:textColor="#888888" />
+                android:textColor="@color/text_color_dark_gray" />
 
             <TextView
                 android:layout_width="fill_parent"
@@ -132,7 +135,7 @@
                 android:paddingLeft="@dimen/activity_horizontal_margin"
                 android:paddingRight="@dimen/activity_horizontal_margin"
                 android:text="@string/change_insurance_information"
-                android:textColor="#888888" />
+                android:textColor="@color/text_color_dark_gray" />
 
             <TextView
                 android:layout_width="fill_parent"
@@ -151,7 +154,7 @@
                 android:background="@null"
                 android:gravity="left|center_vertical"
                 android:text="@string/link_my_facebook_account"
-                android:textColor="#888888" />
+                android:textColor="@color/text_color_dark_gray" />
             
             <CheckBox
                     android:id="@+id/cbLinkFacebook"
@@ -185,7 +188,7 @@
                     android:background="@android:color/transparent"
                     android:gravity="left|center_vertical"
                     android:text="@string/message_notifications"
-                    android:textColor="#888888" />
+                    android:textColor="@color/text_color_dark_gray" />
 
                 <CheckBox
                     android:id="@+id/cbMessageNotification"
@@ -202,17 +205,20 @@
 
             <!--  -->
 
-            <TextView
+            <Button
+                android:background="@color/nav_light_gray"
+                android:textColor="@color/text_color_dark_gray"
+                android:layout_height="28dp"
+                android:focusable="false"
+                android:clickable="false"
+                android:focusableInTouchMode="false"
+                android:gravity="center_vertical"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:paddingLeft="@dimen/activity_horizontal_margin"
                 android:paddingRight="@dimen/activity_horizontal_margin"
-                android:paddingTop="@dimen/activity_vertical_margin"
                 android:text="@string/request"
-                android:textAllCaps="true"
-                android:textColor="#999999"
-                android:textStyle="bold" />
+                android:textAllCaps="true" />
 
             <Button
                 android:id="@+id/requestMeetingAdditionBtn"
@@ -224,7 +230,7 @@
                 android:paddingLeft="@dimen/activity_horizontal_margin"
                 android:paddingRight="@dimen/activity_horizontal_margin"
                 android:text="Request a Meeting Addition"
-                android:textColor="#888888" />
+                android:textColor="@color/text_color_dark_gray" />
 
             <TextView
                 android:layout_width="fill_parent"
@@ -241,24 +247,27 @@
                 android:paddingLeft="@dimen/activity_horizontal_margin"
                 android:paddingRight="@dimen/activity_horizontal_margin"
                 android:text="@string/request_a_rehab_addition"
-                android:textColor="#888888" />
+                android:textColor="@color/text_color_dark_gray" />
 
             <TextView
                 android:layout_width="fill_parent"
                 android:layout_height="1dp"
                 android:background="#99cccccc" />
 
-            <TextView
+            <Button
+                android:background="@color/nav_light_gray"
+                android:textColor="@color/text_color_dark_gray"
+                android:layout_height="28dp"
+                android:focusable="false"
+                android:clickable="false"
+                android:focusableInTouchMode="false"
+                android:gravity="center_vertical"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:paddingLeft="@dimen/activity_horizontal_margin"
                 android:paddingRight="@dimen/activity_horizontal_margin"
-                android:paddingTop="@dimen/activity_vertical_margin"
                 android:text="@string/other"
-                android:textAllCaps="true"
-                android:textColor="#999999"
-                android:textStyle="bold" />
+                android:textAllCaps="true" />
 
             <Button
                 android:id="@+id/btnBlockFriends"
@@ -267,7 +276,7 @@
                 android:background="@drawable/simple_button_selector"
                 android:drawableRight="@drawable/right_arrow"
                 android:gravity="left|center_vertical"
-                android:textColor="#888888"
+                android:textColor="@color/text_color_dark_gray"
                 android:paddingLeft="@dimen/activity_horizontal_margin"
                 android:paddingRight="@dimen/activity_horizontal_margin"
                 android:text="@string/block_friends" />
@@ -284,7 +293,7 @@
                 android:background="@drawable/simple_button_selector"
                 android:drawableRight="@drawable/right_arrow"
                 android:gravity="left|center_vertical"
-                android:textColor="#888888"
+                android:textColor="@color/text_color_dark_gray"
                 android:paddingLeft="@dimen/activity_horizontal_margin"
                 android:paddingRight="@dimen/activity_horizontal_margin"
                 android:text="@string/provide_feedback" />
@@ -296,7 +305,7 @@
 
             <Button
                 android:id="@+id/rateUsBtn"
-                android:textColor="#888888"
+                android:textColor="@color/text_color_dark_gray"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/simple_button_selector"
@@ -316,7 +325,7 @@
                 android:background="@drawable/simple_button_selector"
                 android:drawableRight="@drawable/right_arrow"
                 android:gravity="left|center_vertical"
-                android:textColor="#888888"
+                android:textColor="@color/text_color_dark_gray"
                 android:paddingLeft="@dimen/activity_horizontal_margin"
                 android:paddingRight="@dimen/activity_horizontal_margin"
                 android:text="@string/terms_conditions" />
@@ -333,7 +342,7 @@
                 android:background="@drawable/simple_button_selector"
                 android:drawableRight="@drawable/right_arrow"
                 android:gravity="left|center_vertical"
-                android:textColor="#888888"
+                android:textColor="@color/text_color_dark_gray"
                 android:paddingLeft="@dimen/activity_horizontal_margin"
                 android:paddingRight="@dimen/activity_horizontal_margin"
                 android:text="@string/privacy_policy" />
@@ -344,7 +353,7 @@
                 android:background="#99cccccc" />
             <Button
                 android:id="@+id/logout"
-                android:textColor="#888888"
+                android:textColor="@color/text_color_dark_gray"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/simple_button_selector"
@@ -352,9 +361,13 @@
                 android:paddingLeft="@dimen/activity_horizontal_margin"
                 android:paddingRight="@dimen/activity_horizontal_margin"
                 android:text="@string/logout" />
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:background="#99cccccc" />
             <Button
                 android:id="@+id/btnDeleteAccount"
-                android:textColor="#888888"
+                android:textColor="@color/text_color_dark_gray"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/simple_button_selector"

@@ -83,7 +83,6 @@ public class BlockFriendsActivity extends SocketActivity implements
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		pd = UtilityClass.getProgressDialog(this);
 		setContentView(R.layout.activity_block_friends);

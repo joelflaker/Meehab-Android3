@@ -135,7 +135,7 @@ public class RehabsFragment extends Fragment implements
 	private ResponseProcessingTask responseProcessinTask;
 	private Marker myLocMarker;
 	private View emptyList;
-	private View textViewCross;
+	private TextView topRightBtn;
 
 	public RehabsFragment() {
 	}
@@ -203,13 +203,12 @@ public class RehabsFragment extends Fragment implements
 		pd = UtilityClass.getProgressDialog(homeActivity);
 
 		v.findViewById(R.id.topMenuBtn).setOnClickListener(this);
-		v.findViewById(R.id.topRightBtn).setOnClickListener(this);
+		topRightBtn = (TextView)v.findViewById(R.id.topRightBtn);
+		topRightBtn.setOnClickListener(this);
 		list = (ListView) v.findViewById(R.id.list);
 		emptyList = v.findViewById(R.id.emptyList);
 		btnList = (ImageButton) v.findViewById(R.id.btnList);
 		btnFindMe = (ImageButton) v.findViewById(R.id.btnFindMe);
-		textViewCross = v.findViewById(R.id.textViewCross);
-		textViewCross.setOnClickListener(this);
 		etSearch = (EditText) v.findViewById(R.id.etSearch);
 
 		etSearch.addTextChangedListener(new TextWatcher() {
@@ -231,13 +230,13 @@ public class RehabsFragment extends Fragment implements
 				String inputText = s.toString().trim().toLowerCase();
 				searchRehabs(inputText);
 				if (inputText.trim().length() == 0) {
-					textViewCross.setVisibility(View.INVISIBLE);
+					topRightBtn.setText(R.string.filter);
 					if (listWasInvisible) {
 						switchList();
 						listWasInvisible = false;
 					}
 				}else{
-					textViewCross.setVisibility(View.VISIBLE);
+					topRightBtn.setText("Cancel");
 				}
 				
 				updateEmptyViewVisibility();
@@ -447,6 +446,12 @@ public class RehabsFragment extends Fragment implements
 			}
 			break;
 		case R.id.topRightBtn:
+
+			if(etSearch.getText().length() > 0){
+				etSearch.setText("");
+				UtilityClass.hideSoftKeyboard(getContext(), etSearch);
+			}
+
 			// filter
 			Intent intent = new Intent(getActivity(),
 					RehabsFilterActivity.class);
@@ -468,10 +473,6 @@ public class RehabsFragment extends Fragment implements
 					myLocation.getLongitude()));
 
 			break;
-			case R.id.textViewCross:
-				etSearch.setText("");
-				UtilityClass.hideSoftKeyboard(getContext(), etSearch);
-				break;
 
 		default:
 			break;

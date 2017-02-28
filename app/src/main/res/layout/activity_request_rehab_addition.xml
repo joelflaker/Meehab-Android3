@@ -80,7 +80,7 @@
                 android:background="@android:color/transparent"
                 android:gravity="center"
                 android:maxLength="30"
-                android:hint="Name"
+                android:hint="Your Name"
                 android:inputType="text"
                 android:lines="1" />
 

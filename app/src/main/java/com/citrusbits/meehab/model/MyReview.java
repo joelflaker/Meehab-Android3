@@ -30,6 +30,7 @@ public class MyReview implements Serializable {
 	
 	private String userId;
 	private String meetingId;
+	private String image;
 
 
 	public String getUserId() {
@@ -95,5 +96,13 @@ public class MyReview implements Serializable {
 
 	public String getMeetingId() {
 		return meetingId;
+	}
+
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
 	}
 }

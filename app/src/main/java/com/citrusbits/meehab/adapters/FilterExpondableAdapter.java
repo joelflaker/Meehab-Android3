@@ -73,9 +73,9 @@ public class FilterExpondableAdapter extends BaseExpandableListAdapter {
 
 		// Change right check image on parent at runtime
 		if (isExpanded) {
-			rightcheck.setImageResource(R.drawable.down_arrow);
-		} else {
 			rightcheck.setImageResource(R.drawable.up_arrow);
+		} else {
+			rightcheck.setImageResource(R.drawable.down_arrow);
 		}
 		return convertView;
 	}
@@ -101,14 +101,14 @@ public class FilterExpondableAdapter extends BaseExpandableListAdapter {
 				.findViewById(R.id.filter_check);
 		check.setChecked(child.isChecked());
 
-		check.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+		convertView.setOnClickListener(new View.OnClickListener() {
 
 			@Override
-			public void onCheckedChanged(CompoundButton buttonView,
-					boolean isChecked) {
-				child.setChecked(isChecked);
+			public void onClick(View v) {
+				child.setChecked(!child.isChecked());
+				check.setChecked(child.isChecked());
 				String childName = child.getName();
-				if (isChecked) {
+				if (child.isChecked()) {
 					if (childName.toLowerCase().equals("select all")) {
 						List<ExpChild> childs = categories.get(groupPosition)
 								.getChildren();

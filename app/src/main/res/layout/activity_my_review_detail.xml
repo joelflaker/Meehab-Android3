@@ -135,16 +135,17 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:ellipsize="end"
-                                android:singleLine="true"
+                                android:lines="1"
                                 android:text="Meeting Name"
                                 android:textColor="@color/light_blue"
-                                android:textSize="12sp" />
+                                android:textSize="10sp" />
 
                             <TextView
                                 android:layout_width="1dp"
                                 android:layout_height="12dp"
                                 android:layout_marginLeft="8dp"
                                 android:layout_marginRight="8dp"
+                                android:textSize="10sp"
                                 android:background="#999999" />
 
                             <TextView
@@ -152,10 +153,10 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:ellipsize="end"
-                                android:singleLine="true"
+                                android:lines="1"
                                 android:text="17 May 2015 @ 12:00 PM"
                                 android:textColor="@color/light_dark_detail"
-                                android:textSize="12sp" />
+                                android:textSize="10sp" />
                         </LinearLayout>
                     </RelativeLayout>
                 </RelativeLayout>
@@ -163,6 +164,7 @@
                 <TextView
                     android:id="@+id/tvComment"
                     android:layout_width="wrap_content"
+                    android:layout_marginTop="8dp"
                     android:layout_height="wrap_content"
                     android:paddingTop="4dp"
                     android:text="@string/simple_long_text" />

@@ -37,27 +37,33 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp" >
 
-                <RatingBar
-                    android:id="@+id/rating"
-                    style="@style/customRatingBarReviews"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:focusable="false"
-                    android:isIndicator="true"
-                    android:focusableInTouchMode="false"
-                    android:indeterminateDrawable="@drawable/popup_window_rating_bar"
-                    android:rating="4"
-                    android:stepSize="1" />
+
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:gravity="center_vertical"
-                    android:paddingLeft="5dp"
                     android:paddingRight="5dp"
                     android:orientation="horizontal" >
+
+                    <RatingBar
+                        android:id="@+id/rating"
+                        style="@style/customRatingBarReviews"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:focusable="false"
+                        android:isIndicator="true"
+                        android:focusableInTouchMode="false"
+                        android:indeterminateDrawable="@drawable/popup_window_rating_bar"
+                        android:rating="4"
+                        android:stepSize="1" />
+
+                    <android.support.v4.widget.Space
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="1px" />
 
                     <TextView
                         android:id="@+id/tvMeetingName"
@@ -65,14 +71,15 @@
                         android:layout_height="wrap_content"
                         android:text="Meeting Name"
                         android:textColor="@color/light_blue"
-                        android:textSize="12sp" />
+                        android:textSize="10sp" />
 
                     <TextView
                         android:layout_width="1dp"
                         android:layout_height="12dp"
                         android:layout_marginLeft="8dp"
                         android:layout_marginRight="8dp"
-                        android:background="#999999" />
+                        android:background="#999999"
+                        android:textSize="10sp"/>
 
                     <TextView
                         android:id="@+id/tvDateTime"
@@ -80,7 +87,7 @@
                         android:layout_height="wrap_content"
                         android:text="17 May 2015 @ 12:00 PM"
                         android:textColor="#999999"
-                        android:textSize="12sp" />
+                        android:textSize="10sp" />
                 </LinearLayout>
             </RelativeLayout>
 
@@ -88,6 +95,7 @@
                 android:id="@+id/tvComment"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
                 android:maxLength="100"
                 android:paddingTop="4dp"
                 android:text="@string/simple_long_text" />

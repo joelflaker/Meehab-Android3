@@ -190,7 +190,7 @@ public class MyProfileFragment extends Fragment implements
 
 			usernameText.setText(""+user.getUsername());
 
-			tvAge.setText(""+AgeHelper.calculateAge(user.getDateOfBirth()) + "");
+			tvAge.setText(""+AgeHelper.calculateAge(user.getDateOfBirth()) + " "+getString(R.string.label_years));
 			tvGender.setText(""+user.getGender());
 			tvOriendation.setText(user.getSexualOrientation() == null? "" : user.getSexualOrientation());
 			tvMaritalStatus.setText(user.getMaritalStatus() == null? "" : user.getMaritalStatus());
@@ -231,10 +231,10 @@ public class MyProfileFragment extends Fragment implements
 
 			String aaStoryTxt = user.getAboutStory();
 			if (!TextUtils.isEmpty(aaStoryTxt) && aaStoryTxt.length() > 100) {
-				aaStoryText.setText(aaStoryTxt.substring(0, 100));
+				aaStoryText.setText(aaStoryTxt.substring(0, 100).trim());
 				ibSeeMore.setVisibility(View.VISIBLE);
 			} else {
-				aaStoryText.setText(aaStoryTxt == null? "" : aaStoryTxt);
+				aaStoryText.setText(aaStoryTxt == null? "" : aaStoryTxt.trim());
 				ibSeeMore.setVisibility(View.GONE);
 			}
 

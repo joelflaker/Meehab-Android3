@@ -147,7 +147,7 @@ public class MeetingsFragment extends Fragment implements
 	private Marker myLocMarker;
 
 	private View emptyList;
-	private View textViewCross;
+	private TextView topRightBtn;
 
 	public MeetingsFragment() {
 	}
@@ -219,14 +219,13 @@ public class MeetingsFragment extends Fragment implements
 		View v = inflater.inflate(R.layout.fragment_meetings, container, false);
 
 		v.findViewById(R.id.topMenuBtn).setOnClickListener(this);
-		v.findViewById(R.id.topRightBtn).setOnClickListener(this);
+		topRightBtn = (TextView)v.findViewById(R.id.topRightBtn);
+		topRightBtn.setOnClickListener(this);
 		list = (ListView) v.findViewById(R.id.list);
 		emptyList = v.findViewById(R.id.emptyList);
 		btnList = (ImageButton) v.findViewById(R.id.btnList);
 		btnFindMe = (ImageButton) v.findViewById(R.id.btnFindMe);
 		editTopCenter = (EditText) v.findViewById(R.id.editTopCenter);
-		textViewCross = v.findViewById(R.id.textViewCross);
-		textViewCross.setOnClickListener(this);
 		meetingsAdapter = new MeetingsListAdapter(getActivity(),
 				R.layout.list_item_meeting, meetings);
 
@@ -268,13 +267,13 @@ public class MeetingsFragment extends Fragment implements
 				String inputText = s.toString().trim().toLowerCase();
 				searchMeetings(inputText);
 				if (inputText.trim().length() == 0) {
-					textViewCross.setVisibility(View.INVISIBLE);
+					topRightBtn.setText(R.string.filter);
 					if (listWasInvisible) {
 						switchList();
 						listWasInvisible = false;
 					}
 				}else{
-					textViewCross.setVisibility(View.VISIBLE);
+					topRightBtn.setText("Cancel");
 				}
 				updateEmptyViewVisibility();
 			}
@@ -598,6 +597,13 @@ public class MeetingsFragment extends Fragment implements
 			}
 			break;
 		case R.id.topRightBtn:
+
+			if(editTopCenter.getText().length() > 0){
+				editTopCenter.setText("");
+				UtilityClass.hideSoftKeyboard(getContext(), editTopCenter);
+				return;
+			}
+
 			// filter
 			Intent intent = new Intent(getActivity(),
 					MeetingsFilterActivity.class);
@@ -620,10 +626,6 @@ public class MeetingsFragment extends Fragment implements
 					myLocation.getLongitude()));
 
 			break;
-			case R.id.textViewCross:
-				editTopCenter.setText("");
-				UtilityClass.hideSoftKeyboard(getContext(), editTopCenter);
-				break;
 		default:
 			break;
 		}

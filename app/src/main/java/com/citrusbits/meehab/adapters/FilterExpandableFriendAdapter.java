@@ -98,7 +98,6 @@ public class FilterExpandableFriendAdapter extends BaseExpandableListAdapter {
 
 				@Override
 				public void onClick(View v) {
-					// TODO Auto-generated method stub
 					onlineNow = ((CheckBox) v).isChecked();
 				}
 			});
@@ -109,7 +108,6 @@ public class FilterExpandableFriendAdapter extends BaseExpandableListAdapter {
 
 				@Override
 				public void onClick(View v) {
-					// TODO Auto-generated method stub
 					willingToSponsor = ((CheckBox) v).isChecked();
 				}
 			});
@@ -120,7 +118,6 @@ public class FilterExpandableFriendAdapter extends BaseExpandableListAdapter {
 
 				@Override
 				public void onClick(View v) {
-					// TODO Auto-generated method stub
 					hasKids = ((CheckBox) v).isChecked();
 				}
 			});
@@ -146,9 +143,9 @@ public class FilterExpandableFriendAdapter extends BaseExpandableListAdapter {
 
 		// Change right check image on parent at runtime
 		if (isExpanded) {
-			rightcheck.setImageResource(R.drawable.down_arrow);
-		} else {
 			rightcheck.setImageResource(R.drawable.up_arrow);
+		} else {
+			rightcheck.setImageResource(R.drawable.down_arrow);
 		}
 		return convertView;
 	}

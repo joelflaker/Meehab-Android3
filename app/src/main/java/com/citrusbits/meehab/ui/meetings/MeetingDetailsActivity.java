@@ -119,7 +119,7 @@ public class MeetingDetailsActivity extends SocketActivity implements
 
 	private Dialog pd;
 	protected GoogleMap map;
-	protected float defaultZoom = 8;
+	protected float defaultZoom = 10;
 	protected ArrayList<MeetingReviewModel> meetingReviewModels = new ArrayList<>();
 
 	UserDatasource userDatasource;
@@ -972,7 +972,6 @@ public class MeetingDetailsActivity extends SocketActivity implements
 								@Override
 								public void onInaccuracyClick(
 										ReportAnInAccuracyDialog dialog) {
-									// TODO Auto-generated method stub
 									dialog.dismiss();
 									Intent i = new Intent(
 											MeetingDetailsActivity.this,

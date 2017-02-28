@@ -36,7 +36,7 @@
                     android:paddingBottom="8dp"
                     android:paddingRight="15dp"
                     android:paddingTop="8dp"
-                    android:src="@drawable/menu_icon" />
+                    android:src="@drawable/back_btn" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -115,7 +115,7 @@
         </LinearLayout>
     </RelativeLayout>
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/rlTopBar"
@@ -129,6 +129,7 @@
             android:paddingLeft="10dp"
             android:id="@+id/tvNumBlockedFriendsList"
             android:paddingTop="20dp"
+            android:layout_centerInParent="true"
             android:text="BLOCKED FRIENDS"
             />
 
@@ -136,6 +137,6 @@
             android:id="@+id/pager"
             android:layout_width="match_parent"
             android:layout_height="fill_parent" />
-    </LinearLayout>
+    </RelativeLayout>
 
 </RelativeLayout>

@@ -84,7 +84,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="18dp"
             android:background="@drawable/round_corner_button"
-            android:text="@string/save"
+            android:text="Submit"
             android:textColor="@android:color/white" />
 
         <TextView

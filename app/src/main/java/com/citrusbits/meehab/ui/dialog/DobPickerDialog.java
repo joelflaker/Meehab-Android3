@@ -64,9 +64,6 @@ public class DobPickerDialog extends Dialog implements
 		this.getWindow().getAttributes().windowAnimations = R.style.PauseDialogAnimation;
 		getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
-		
-	
-		
 		setContentView(R.layout.dialog_date_picker);
 		getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 		

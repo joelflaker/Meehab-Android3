@@ -78,7 +78,7 @@ OnSocketResponseListener, OnClickListener, OnMapClickListener {
 
 	private Dialog pd;
 	protected GoogleMap map;
-	protected float defaultZoom = 8;
+	protected float defaultZoom = 10;
 
 	UserDatasource userDatasource;
 	UserAccount user;
