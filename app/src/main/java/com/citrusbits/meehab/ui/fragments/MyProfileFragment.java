@@ -190,10 +190,28 @@ public class MyProfileFragment extends Fragment implements
 
 			usernameText.setText(""+user.getUsername());
 
-			tvAge.setText(""+AgeHelper.calculateAge(user.getDateOfBirth()) + " "+getString(R.string.label_years));
+			if(!TextUtils.isEmpty(user.getDateOfBirth())){
+				tvAge.setText(""+AgeHelper.calculateAge(user.getDateOfBirth()) + " "+getString(R.string.label_years));
+				getView().findViewById(R.id.tvLine1).setVisibility(View.VISIBLE);
+			}else {
+				tvAge.setText("");
+				getView().findViewById(R.id.tvLine1).setVisibility(View.GONE);
+			}
 			tvGender.setText(""+user.getGender());
-			tvOriendation.setText(user.getSexualOrientation() == null? "" : user.getSexualOrientation());
-			tvMaritalStatus.setText(user.getMaritalStatus() == null? "" : user.getMaritalStatus());
+			if(!TextUtils.isEmpty(user.getSexualOrientation())){
+				tvOriendation.setText(user.getSexualOrientation());
+				getView().findViewById(R.id.tvLine2).setVisibility(View.VISIBLE);
+			}else {
+				tvOriendation.setText("");
+				getView().findViewById(R.id.tvLine2).setVisibility(View.GONE);
+			}
+			if(!TextUtils.isEmpty(user.getMaritalStatus())){
+				tvMaritalStatus.setText(user.getMaritalStatus());
+				getView().findViewById(R.id.tvLine3).setVisibility(View.VISIBLE);
+			}else {
+				tvMaritalStatus.setText("");
+				getView().findViewById(R.id.tvLine3).setVisibility(View.GONE);
+			}
 
 			if(user.getWillingSponsor().equalsIgnoreCase("yes")){
 				sponsorText.setText("Yes");

@@ -58,7 +58,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Building"
-                    android:textColor="#00b0e0" />
+                    android:textColor="#309de4" />
             </LinearLayout>
 
             <ImageView
@@ -76,7 +76,7 @@
                 android:layout_alignParentRight="true"
                 android:drawablePadding="4dp"
                 android:text="Address"
-                android:textColor="#888888" />
+                android:textColor="#309de4" />
 
             <LinearLayout
                 android:layout_width="fill_parent"

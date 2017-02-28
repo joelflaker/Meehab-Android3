@@ -126,6 +126,7 @@
                         android:textColor="@color/light_blue" />
 
                     <TextView
+                        android:id="@+id/tvLine1"
                         android:layout_width="1dp"
                         android:layout_height="12dp"
                         android:layout_marginLeft="4dp"
@@ -142,6 +143,7 @@
                         android:textColor="@color/light_blue" />
 
                     <TextView
+                        android:id="@+id/tvLine2"
                         android:layout_width="1dp"
                         android:layout_height="12dp"
                         android:layout_marginLeft="4dp"
@@ -158,6 +160,7 @@
                         android:textColor="@color/light_blue" />
 
                     <TextView
+                        android:id="@+id/tvLine3"
                         android:layout_width="1dp"
                         android:layout_height="12dp"
                         android:layout_marginLeft="4dp"
