@@ -42,7 +42,7 @@ public class CodePopup implements OnClickListener {
 				false);
 		popupWindow = new PopupWindow(popupView, LayoutParams.WRAP_CONTENT,
 				LayoutParams.WRAP_CONTENT);
-		popupWindow.setAnimationStyle(R.style.DialogAnimationFade);
+		popupWindow.setAnimationStyle(R.style.DialogAnimationShow);
 		TextView tvCodePopup = (TextView) popupView
 				.findViewById(R.id.tvCodePopup);
 		if (meetingValue != null) {

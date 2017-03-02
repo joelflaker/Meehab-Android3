@@ -171,14 +171,14 @@ public class FilterExpandableFriendAdapter extends BaseExpandableListAdapter {
 				.findViewById(R.id.filter_check);
 		check.setChecked(child.isChecked());
 
-		check.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+		convertView.setOnClickListener(new View.OnClickListener() {
 
 			@Override
-			public void onCheckedChanged(CompoundButton buttonView,
-					boolean isChecked) {
-				child.setChecked(isChecked);
+			public void onClick(View v) {
+				child.setChecked(!child.isChecked());
+				check.setChecked(child.isChecked());
 				String childName = child.getName();
-				if (isChecked) {
+				if (child.isChecked()) {
 					if (childName.toLowerCase().equals("select all")) {
 						List<ExpChild> childs = categories.get(groupPosition)
 								.getChildren();

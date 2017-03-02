@@ -450,6 +450,7 @@ public class RehabsFragment extends Fragment implements
 			if(etSearch.getText().length() > 0){
 				etSearch.setText("");
 				UtilityClass.hideSoftKeyboard(getContext(), etSearch);
+				return;
 			}
 
 			// filter

@@ -90,7 +90,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Location Name"
-                    android:textColor="#00b0e0" />
+                    android:textColor="@color/light_blue" />
 
                 <TextView
                     android:layout_width="1dp"
@@ -104,7 +104,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Location Address"
-                    android:textColor="#00b0e0" />
+                    android:textColor="@color/light_blue" />
             </LinearLayout>
 
             <ImageView

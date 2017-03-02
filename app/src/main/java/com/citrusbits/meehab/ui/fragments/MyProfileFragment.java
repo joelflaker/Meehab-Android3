@@ -184,7 +184,7 @@ public class MyProfileFragment extends Fragment implements
 						.placeholder(R.drawable.profile_pic_border)
 						// .resize(300, 200)
 						.error(R.drawable.profile_pic_border)
-						.transform(new PicassoBlurTransform(getActivity(), 8))
+						.transform(new PicassoBlurTransform(getActivity(), Consts.IMAGE_BLURR_RADIUS))
 						.into(ivBlurBg);
 			}
 

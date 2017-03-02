@@ -2,6 +2,7 @@
 <resources>
 
     <color name="light_dark_color">#2c313f</color>
+    <!--blue 309de4-->
     <color name="light_blue">#00b0e0</color>
     <color name="orange">#FF9900</color>
     <color name="green">#009900</color>

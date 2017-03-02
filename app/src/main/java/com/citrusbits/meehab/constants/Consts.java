@@ -34,5 +34,6 @@ public class Consts {
 	public static final String SID = "AC05f81aa73348b83219be2613c794871f";
 	public static final String TwilioSecret = "993084372175c482d81d5571aa75af3d";
 	public static final String FromNumber = "+12017205413";
-	
+
+	public static final int IMAGE_BLURR_RADIUS = 8;
 }

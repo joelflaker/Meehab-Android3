@@ -176,14 +176,14 @@ public class UserProfileActivity extends SocketActivity implements
 						.error(R.drawable.profile_pic_border)
 						.transform(
 								new PicassoBlurTransform(
-										UserProfileActivity.this, 20))
+										UserProfileActivity.this, Consts.IMAGE_BLURR_RADIUS))
 						.into(ivBlurBg);
 			}else {
 				Picasso.with(this)
 						.load(R.drawable.profile_pic_border)
 						.transform(
 								new PicassoBlurTransform(
-										UserProfileActivity.this, 20))
+										UserProfileActivity.this, Consts.IMAGE_BLURR_RADIUS))
 						.into(ivBlurBg);
 			}
 

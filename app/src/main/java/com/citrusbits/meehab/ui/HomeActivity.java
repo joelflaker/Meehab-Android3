@@ -29,6 +29,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.citrusbits.meehab.constants.Consts;
 import com.citrusbits.meehab.ui.users.ChatActivity;
 import com.citrusbits.meehab.ui.users.FriendsFilterActivity;
 import com.citrusbits.meehab.ui.meetings.MeetingsFilterActivity;
@@ -184,7 +185,7 @@ public class HomeActivity extends SocketActivity implements
 					.placeholder(R.drawable.profile_pic_border)
 					// .resize(300, 200)
 					.error(R.drawable.profile_pic_border)
-					.transform(new PicassoBlurTransform(HomeActivity.this, 20))
+					.transform(new PicassoBlurTransform(HomeActivity.this, Consts.IMAGE_BLURR_RADIUS))
 					.into(ivPictureBig);
 
 			ivUserIcon.postDelayed(new Runnable() {

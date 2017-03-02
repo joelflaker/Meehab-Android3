@@ -1245,15 +1245,14 @@ public class MeetingDetailsActivity extends SocketActivity implements
 			JSONObject data = (JSONObject) obj;
 
 			UserAccount account = new Gson().fromJson(data.optJSONObject("user").toString(),
-					UserAccount.class); ;
-//
+					UserAccount.class);
+
 			Intent intent = new Intent(this, UserProfileActivity.class);
 			intent.putExtra(UserProfileActivity.EXTRA_USER_ACCOUNT, account);
 
 			// put friend
 			startActivity(intent);
-			overridePendingTransition(R.anim.activity_in,
-					R.anim.activity_out);
+			overridePendingTransition(R.anim.activity_in, R.anim.activity_out);
 		}else if (event.equals(EventParams.EVENT_MEETING_GET_REVIEWS)) {
 
 			meetingReviewModels = (ArrayList<MeetingReviewModel>) ((MeetingReviewsResponse) obj)

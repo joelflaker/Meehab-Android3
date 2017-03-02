@@ -46,6 +46,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.citrusbits.meehab.R;
+import com.citrusbits.meehab.constants.Consts;
 import com.citrusbits.meehab.ui.SocketActivity;
 import com.citrusbits.meehab.app.App;
 import com.citrusbits.meehab.constants.EventParams;
@@ -178,7 +179,7 @@ public class ProfileSetupActivity extends SocketActivity implements
 					.transform(newbitmap.copy(Bitmap.Config.ARGB_8888,false));
 
 			Bitmap blurBitmap = new PicassoBlurTransform(
-					ProfileSetupActivity.this, 20).transform(newbitmap);
+					ProfileSetupActivity.this, Consts.IMAGE_BLURR_RADIUS).transform(newbitmap);
 
 			ivBlurBg.setImageBitmap(blurBitmap);
 			profilePic.setImageBitmap(circularBitamp);
@@ -643,7 +644,7 @@ public class ProfileSetupActivity extends SocketActivity implements
 				}
 
 				Bitmap blurBitmap = new PicassoBlurTransform(
-						ProfileSetupActivity.this, 20).transform(newbitmap.copy(Bitmap.Config.ARGB_8888,false));
+						ProfileSetupActivity.this, Consts.IMAGE_BLURR_RADIUS).transform(newbitmap.copy(Bitmap.Config.ARGB_8888,false));
 
 				Bitmap circularBitamp = new PicassoCircularTransform()
 						.transform(newbitmap);

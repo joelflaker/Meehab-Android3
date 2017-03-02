@@ -601,7 +601,7 @@ public class EditMyProfileActivity extends SocketActivity implements
 						.error(R.drawable.profile_pic_border)
 						.transform(
 								new PicassoBlurTransform(
-										EditMyProfileActivity.this, 8))
+										EditMyProfileActivity.this, Consts.IMAGE_BLURR_RADIUS))
 						.into(ivBlurBg);
 
 			}
@@ -1119,7 +1119,7 @@ public class EditMyProfileActivity extends SocketActivity implements
 				Bitmap circularBitamp = new PicassoCircularTransform()
 						.transform(newbitmap.copy(Bitmap.Config.ARGB_8888,false));
 				Bitmap blurBitmap = new PicassoBlurTransform(
-						EditMyProfileActivity.this, 20).transform(newbitmap.copy(Bitmap.Config.ARGB_8888,false));
+						EditMyProfileActivity.this, Consts.IMAGE_BLURR_RADIUS).transform(newbitmap.copy(Bitmap.Config.ARGB_8888,false));
 
 				ivBlurBg.setImageBitmap(blurBitmap);
 				profilePic.setImageBitmap(circularBitamp);

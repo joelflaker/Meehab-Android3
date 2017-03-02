@@ -448,7 +448,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/do_you_have_kids_"
+                    android:text="@string/do_you_have_kids_"
                     android:paddingBottom="4dp"
                     android:textAllCaps="true"
                     android:textColor="@color/text_color_light_gray" />
