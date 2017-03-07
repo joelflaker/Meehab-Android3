@@ -285,7 +285,6 @@ public class MeetingsFilterActivity extends SocketActivity implements
 		for (String value : daysValues) {
 			final ExpChild child = new ExpChild();
 			child.setName(value);
-			// parent.getChildren().add(child);
 			parent.addChild(child);
 
 		}
@@ -297,12 +296,11 @@ public class MeetingsFilterActivity extends SocketActivity implements
 		parent2.setName("Time Range");
 		parent2.setValue("Anytime");
 		String[] timeRangeValues = getResources().getStringArray(
-				R.array.timeRangeValues);
+				R.array.timeRangeFilterValues);
 
 		for (String value : timeRangeValues) {
 			final ExpChild child = new ExpChild();
 			child.setName(value);
-			// parent2.getChildren().add(child);
 			parent2.addChild(child);
 
 		}
@@ -319,8 +317,6 @@ public class MeetingsFilterActivity extends SocketActivity implements
 		for (String value : typesValues) {
 			final ExpChild child = new ExpChild();
 			child.setName(value);
-			// parent3.getChildren().add(child);
-
 			parent3.addChild(child);
 
 		}

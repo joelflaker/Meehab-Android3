@@ -17,14 +17,13 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.citrusbits.meehab.R;
+import com.citrusbits.meehab.app.MeehabApp;
 import com.citrusbits.meehab.ui.SocketActivity;
-import com.citrusbits.meehab.app.App;
 import com.citrusbits.meehab.constants.EventParams;
 import com.citrusbits.meehab.contacts.GetContactTask;
 import com.citrusbits.meehab.contacts.GetContactTask.ContactsListener;
@@ -113,7 +112,7 @@ public class SignupActivity extends SocketActivity implements
 				&& extra.getBoolean(LoginAndRegisterActivity.FACEBOOK)) {
 			final AccessToken accessToken = AccessToken.getCurrentAccessToken();
 			if (accessToken == null) {
-				App.toast("Facebook access problem");
+				MeehabApp.toast("Facebook access problem");
 				return;
 			}
 			pd.show();
@@ -188,9 +187,9 @@ public class SignupActivity extends SocketActivity implements
 
 					facebookFriends = friends;
 
-		        	App.toast(friends.length() + " friends of "+ fbNameString);
+		        	MeehabApp.toast(friends.length() + " friends of "+ fbNameString);
 //		        	Toast.makeText(getApplicationContext(), "" + friends, Toast.LENGTH_LONG).show();
-		        	App.log(""+friends);
+		        	MeehabApp.log(""+friends);
 		        	
 					
 				}
@@ -424,7 +423,7 @@ public class SignupActivity extends SocketActivity implements
 		hideKeyboard();
 
 		if (NetworkUtil.getConnectivityStatus(this) == 0) {
-			App.toast(getString(R.string.no_internet_connection));
+			MeehabApp.toast(getString(R.string.no_internet_connection));
 			return;
 		}
 
@@ -437,7 +436,7 @@ public class SignupActivity extends SocketActivity implements
 						  final String phone) {
 		
 		if (!NetworkUtils.isNetworkAvailable(this)) {
-			App.toast(getString(R.string.no_internet_connection));
+			MeehabApp.toast(getString(R.string.no_internet_connection));
 			return;
 		}
 		final JSONObject checkInfoParams = new JSONObject();
@@ -467,7 +466,7 @@ public class SignupActivity extends SocketActivity implements
 	private ImageRequest getImageRequest() {
 		ImageRequest request = null;
 		ImageRequest.Builder requestBuilder = new ImageRequest.Builder(
-				App.getInstance(),
+				MeehabApp.getInstance(),
 				ImageRequest.getProfilePictureUri(
 						user.optString("id"),
 						getResources()
@@ -477,12 +476,12 @@ public class SignupActivity extends SocketActivity implements
 								.getDimensionPixelSize(
 										R.dimen.usersettings_fragment_profile_picture_height)));
 
-		request = requestBuilder.setCallerTag(App.getInstance())
+		request = requestBuilder.setCallerTag(MeehabApp.getInstance())
 				.setCallback(new ImageRequest.Callback() {
 					@Override
 					public void onCompleted(ImageResponse response) {
 
-						App.getInstance().globleBitmap = Bitmap.createScaledBitmap(response.getBitmap(), 400, 400, false);
+						MeehabApp.getInstance().globleBitmap = Bitmap.createScaledBitmap(response.getBitmap(), 400, 400, false);
 //								response.getBitmap(), 0, 0, 400, 400);
 					}
 				}).build();
@@ -521,7 +520,7 @@ public class SignupActivity extends SocketActivity implements
 	@Override
 	public void onSocketResponseFailure(String onEvent, String message) {
 		pd.dismiss();
-		App.toast(message);
+		MeehabApp.toast(message);
 	}
 	
 	@Override

@@ -8,8 +8,7 @@ import android.content.Context;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.citrusbits.meehab.R;
-import com.citrusbits.meehab.app.App;
+import com.citrusbits.meehab.app.MeehabApp;
 import com.citrusbits.meehab.app.GsonRequest;
 import com.citrusbits.meehab.constants.Consts;
 import com.citrusbits.meehab.pojo.AddUserResponse;
@@ -33,7 +32,7 @@ public class AddUserService extends BaseDataSource {
 		params.put("qbid", qbid);
 		params.put("token", token);
 		
-		RequestQueue requestQueue = App.getInstance().getRequestQueue();
+		RequestQueue requestQueue = MeehabApp.getInstance().getRequestQueue();
 
 		GsonRequest<AddUserResponse> request = new GsonRequest<AddUserResponse>(
 				com.android.volley.Request.Method.POST, Consts.SOCKET_URL + "adduser", AddUserResponse.class, params,
@@ -46,7 +45,7 @@ public class AddUserService extends BaseDataSource {
 		Map<String, String> params = new HashMap<String, String>();
 		params.put("email", email);
 		
-		RequestQueue requestQueue = App.getInstance().getRequestQueue();
+		RequestQueue requestQueue = MeehabApp.getInstance().getRequestQueue();
 
 		GsonRequest<AddUserResponse> request = new GsonRequest<AddUserResponse>(
 				com.android.volley.Request.Method.POST, Consts.SOCKET_URL + "checkemail", AddUserResponse.class, params,
@@ -59,7 +58,7 @@ public class AddUserService extends BaseDataSource {
 		Map<String, String> params = new HashMap<String, String>();
 		params.put("username", username);
 		
-		RequestQueue requestQueue = App.getInstance().getRequestQueue();
+		RequestQueue requestQueue = MeehabApp.getInstance().getRequestQueue();
 
 		GsonRequest<AddUserResponse> request = new GsonRequest<AddUserResponse>(
 				com.android.volley.Request.Method.POST, Consts.SOCKET_URL + "checkusername", AddUserResponse.class, params,

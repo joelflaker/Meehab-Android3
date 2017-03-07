@@ -8,7 +8,7 @@
         android:id="@+id/rlTopBar"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:background="#888888" >
+        android:background="#7f7f7f" >
 
         <RelativeLayout
             android:id="@+id/relativeTop"
@@ -120,8 +120,13 @@
         android:layout_height="match_parent"
         android:layout_below="@id/rlTopBar"
         android:orientation="vertical" >
-        
-        <TextView 
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/pager"
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent" />
+
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="14sp"
@@ -130,13 +135,8 @@
             android:id="@+id/tvNumBlockedFriendsList"
             android:paddingTop="20dp"
             android:layout_centerInParent="true"
-            android:text="BLOCKED FRIENDS"
+            android:text="@string/no_blocked_friend_list"
             />
-
-        <android.support.v4.view.ViewPager
-            android:id="@+id/pager"
-            android:layout_width="match_parent"
-            android:layout_height="fill_parent" />
     </RelativeLayout>
 
 </RelativeLayout>

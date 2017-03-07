@@ -25,7 +25,7 @@ import android.widget.Toast;
 import com.citrusbits.meehab.R;
 import com.citrusbits.meehab.ui.SocketActivity;
 import com.citrusbits.meehab.ui.TwoOptionActivity;
-import com.citrusbits.meehab.app.App;
+import com.citrusbits.meehab.app.MeehabApp;
 import com.citrusbits.meehab.constants.EventParams;
 import com.citrusbits.meehab.services.OnSocketResponseListener;
 import com.citrusbits.meehab.services.SocketService;
@@ -212,7 +212,7 @@ public class LoginAndRegisterActivity extends SocketActivity implements
 		switch (v.getId()) {
 		case R.id.ibLoginWithFacebook:
 			if (NetworkUtil.getConnectivityStatus(this) == 0) {
-				App.toast(getString(R.string.no_internet_connection));
+				MeehabApp.toast(getString(R.string.no_internet_connection));
 				return;
 			} else {
 				loginAction = LoginAction.FACEBOOOK;
@@ -227,7 +227,7 @@ public class LoginAndRegisterActivity extends SocketActivity implements
 							permissions);
 				} else {
 					if (!NetworkUtils.isNetworkAvailable(this)) {
-						App.toast(getString(R.string.no_internet_connection));
+						MeehabApp.toast(getString(R.string.no_internet_connection));
 						return;
 					}
 					startSocketService();
@@ -241,7 +241,7 @@ public class LoginAndRegisterActivity extends SocketActivity implements
 				startLoginActivity();
 			} else {
 				if (!NetworkUtils.isNetworkAvailable(this)) {
-					App.toast(getString(R.string.no_internet_connection));
+					MeehabApp.toast(getString(R.string.no_internet_connection));
 					return;
 				}
 				loginPressed = true;
@@ -255,7 +255,7 @@ public class LoginAndRegisterActivity extends SocketActivity implements
 				startSignUpActivity();
 			} else {
 				if (!NetworkUtils.isNetworkAvailable(this)) {
-					App.toast(getString(R.string.no_internet_connection));
+					MeehabApp.toast(getString(R.string.no_internet_connection));
 					return;
 				}
 				startSocketService();

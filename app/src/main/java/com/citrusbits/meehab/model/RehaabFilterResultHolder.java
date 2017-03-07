@@ -11,8 +11,8 @@ public class RehaabFilterResultHolder implements Serializable {
 	private boolean anyZipCode = true;
 	private boolean anyDistance = true;
 
-	List<String> rehabType = new ArrayList<String>();
-	List<String> insuranceAccepted = new ArrayList<String>();
+	List<String> rehabType = new ArrayList<>();
+	List<String> insuranceAccepted = new ArrayList<>();
 
 	private String zipCode;
 	private String distance;

@@ -33,13 +33,13 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.citrusbits.meehab.app.MeehabApp;
 import com.citrusbits.meehab.ui.users.FriendsFilterActivity;
 import com.citrusbits.meehab.ui.HomeActivity;
 import com.citrusbits.meehab.R;
 import com.citrusbits.meehab.ui.users.UserProfileActivity;
 import com.citrusbits.meehab.adapters.FriendsGridAdapter;
 import com.citrusbits.meehab.adapters.FriendsListAdapter;
-import com.citrusbits.meehab.app.App;
 import com.citrusbits.meehab.constants.EventParams;
 import com.citrusbits.meehab.db.DatabaseHandler;
 import com.citrusbits.meehab.model.FriendFilterResultHolder;
@@ -384,7 +384,15 @@ public class FriendsFragment extends Fragment implements
 		int foot = Integer.parseInt(footInch[0].trim());
 		int inch = Integer.parseInt(footInch[1].trim());
 
+
+
 		List<String> heights = fFilterResultHolder.getHeight();
+		for (String s : heights) {
+			//7+
+			if(s.contains("+")){
+				return foot >= 7;
+			}
+		}
 
 		if (foot == 4 && inch >= 5 || foot == 5 && inch == 0) {
 			return heights.contains("4'5-5'0");
@@ -423,18 +431,27 @@ public class FriendsFragment extends Fragment implements
 		weight = weight.toLowerCase().replace("lbs", "").trim();
 		List<String> weights = filterResultHolder.getWeight();
 
+		boolean weightFilter = false;
 		for (String weightRange : weights) {
 			weightRange = weightRange.toLowerCase().replace("lbs", "").trim();
+			int userWeight = Integer.parseInt(weight);
+
+			if (weightRange.contains("250")) {
+				weightFilter = userWeight >= 250;
+				continue;
+			}
 			String weightArr[] = weightRange.split("-");
 			int startWeight = Integer.parseInt(weightArr[0]);
 			int endWeight = Integer.parseInt(weightArr[1]);
-			int userWeight = Integer.parseInt(weight);
+
 			if (userWeight >= startWeight && userWeight <= endWeight) {
-				return true;
+				weightFilter = true;
 			}
+
+			if(weightFilter) break;
 		}
 
-		return false;
+		return weightFilter;
 
 	}
 
@@ -792,7 +809,7 @@ public class FriendsFragment extends Fragment implements
 			return;
 		}
 		if (!NetworkUtils.isNetworkAvailable(homeActivity)) {
-			App.toast(getString(R.string.no_internet_connection));
+			MeehabApp.toast(getString(R.string.no_internet_connection));
 			return;
 		}
 

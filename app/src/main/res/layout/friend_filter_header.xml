@@ -18,7 +18,7 @@
             android:background="@android:color/transparent"
             android:gravity="left|center_vertical"
             android:text="@string/online_now"
-            android:textColor="#666666"
+            android:textColor="@color/text_color_gray"
             android:textSize="16sp" />
 
         <CheckBox
@@ -52,7 +52,7 @@
             android:background="@android:color/transparent"
             android:gravity="left|center_vertical"
             android:text="@string/willing_to_sponsor"
-            android:textColor="#666666"
+            android:textColor="@color/text_color_gray"
             android:textSize="16sp" />
 
         <CheckBox
@@ -86,7 +86,7 @@
             android:background="@android:color/transparent"
             android:gravity="left|center_vertical"
             android:text="@string/has_kids"
-            android:textColor="#666666"
+            android:textColor="@color/text_color_gray"
             android:textSize="16sp" />
 
         <CheckBox

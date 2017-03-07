@@ -157,10 +157,13 @@ public class FilterExpandableFriendAdapter extends BaseExpandableListAdapter {
 	@Override
 	public View getChildView(final int groupPosition, final int childPosition,
 			boolean isLastChild, View convertView, ViewGroup parent) {
-		LayoutInflater inflater = (LayoutInflater) this.context
-				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-		convertView = inflater.inflate(R.layout.list_exp_item_filter_child,
-				parent, false);
+
+		if(convertView == null) {
+			LayoutInflater inflater = (LayoutInflater) this.context
+					.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+			convertView = inflater.inflate(R.layout.list_exp_item_filter_child,
+					parent, false);
+		}
 
 		final ExpChild child = categories.get(groupPosition).getChildren()
 				.get(childPosition);
@@ -177,167 +180,96 @@ public class FilterExpandableFriendAdapter extends BaseExpandableListAdapter {
 			public void onClick(View v) {
 				child.setChecked(!child.isChecked());
 				check.setChecked(child.isChecked());
-				String childName = child.getName();
-				if (child.isChecked()) {
-					if (childName.toLowerCase().equals("select all")) {
-						List<ExpChild> childs = categories.get(groupPosition)
-								.getChildren();
-						for (int i = 0; i < childs.size(); i++) {
-							childs.get(i).setChecked(true);
-							cacheSelection(groupPosition, childs.get(i)
-									.getName());
-						}
-						childs.get(0).setName("Deselect All");
 
-						setUnSetAny(groupPosition, true);
-						notifyDataSetChanged();
-					} else {
-						List<ExpChild> childs = categories.get(groupPosition)
-								.getChildren();
 
-						boolean allChecked = true;
-						String name = childs.get(childPosition).getName();
+				List<ExpChild> childs = categories.get(groupPosition)
+						.getChildren();
 
-						if (groupPosition == 1) {
-							fFilterResultHolder.setAnyFriendType(false);
-							fFilterResultHolder.addFriendType(name);
-						} else if (groupPosition == 2) {
-							fFilterResultHolder.setAnyGender(false);
-							fFilterResultHolder.addGender(name);
-						} else if (groupPosition == 3) {
-							fFilterResultHolder.setAnyAge(false);
-							fFilterResultHolder.addAge(name);
-						} else if (groupPosition == 4) {
-							fFilterResultHolder.setAnyEthenticity(false);
-							fFilterResultHolder.addEthenticity(name);
-						} else if (groupPosition == 5) {
-							fFilterResultHolder.setAnyMaterialStatus(false);
-							fFilterResultHolder.addMaterialStatus(name);
-						} else if (groupPosition == 6) {
-							fFilterResultHolder.setAnyinterestedIn(false);
-							fFilterResultHolder.addInterestedIn(name);
-						} else if (groupPosition == 7) {
-							fFilterResultHolder.setAnyTimeSober(false);
-							fFilterResultHolder.addSober(name);
-						} else if (groupPosition == 8) {
-							fFilterResultHolder.setAnyHeight(false);
-							fFilterResultHolder.addHeight(name);
-						} else if (groupPosition == 9) {
-							fFilterResultHolder.setAnyWeight(false);
-							fFilterResultHolder.addWeight(name);
-						}
 
-						for (int i = 1; i < childs.size(); i++) {
+				String name = childs.get(childPosition).getName();
 
-							Log.e(" " + i, childs.get(i).isChecked() + "");
+				boolean allChecked = true;
 
-							if (!childs.get(i).isChecked()) {
-								allChecked = false;
-								break;
-							}
-						}
-
-						if (allChecked) {
-
-							childs.get(0).setChecked(true);
-							childs.get(0).setName("Deselect All");
-							setUnSetAny(groupPosition, true);
-							notifyDataSetChanged();
-
-						}
-
-					}
-				} else {
-					if (childName.toLowerCase().equals("deselect all")) {
-						List<ExpChild> childs = categories.get(groupPosition)
-								.getChildren();
-						for (int i = 0; i < childs.size(); i++) {
-							childs.get(i).setChecked(false);
-						}
-
-						childs.get(0).setName("Select All");
-
-						if (groupPosition == 1) {
-							fFilterResultHolder.clearFriendType();
-						} else if (groupPosition == 2) {
-							fFilterResultHolder.clearGender();
-						} else if (groupPosition == 3) {
-							fFilterResultHolder.clearAge();
-						} else if (groupPosition == 4) {
-							fFilterResultHolder.clearEhtenticity();
-						} else if (groupPosition == 5) {
-							fFilterResultHolder.clearMaterialStatus();
-						} else if (groupPosition == 6) {
-							fFilterResultHolder.clearInterestedIn();
-						} else if (groupPosition == 7) {
-							fFilterResultHolder.clearSober();
-						} else if (groupPosition == 8) {
-							fFilterResultHolder.clearHeight();
-						} else if (groupPosition == 9) {
-							fFilterResultHolder.clearWeight();
-						}
-
-						notifyDataSetChanged();
-					} else {
-
-						List<ExpChild> childs = categories.get(groupPosition)
-								.getChildren();
-
-						if (childs.get(0).isChecked()) {
-							childs.get(0).setChecked(false);
-							childs.get(0).setName("Select All");
-						}
-
-						String name = childs.get(childPosition).getName();
-						if (groupPosition == 1) {
-							fFilterResultHolder.setAnyFriendType(false);
-							fFilterResultHolder.removeFriendType(name);
-						} else if (groupPosition == 2) {
-							fFilterResultHolder.setAnyGender(false);
-							fFilterResultHolder.removeGender(name);
-						} else if (groupPosition == 3) {
-							fFilterResultHolder.setAnyAge(false);
-							fFilterResultHolder.removeAge(name);
-						} else if (groupPosition == 4) {
-							fFilterResultHolder.setAnyEthenticity(false);
-							fFilterResultHolder.removeEthenticiy(name);
-						} else if (groupPosition == 5) {
-							fFilterResultHolder.setAnyMaterialStatus(false);
-							fFilterResultHolder.removeMaterialStatus(name);
-						} else if (groupPosition == 6) {
-							fFilterResultHolder.setAnyinterestedIn(false);
-							fFilterResultHolder.removeInterestedIn(name);
-						} else if (groupPosition == 7) {
-							fFilterResultHolder.setAnyTimeSober(false);
-							fFilterResultHolder.removeSober(name);
-						} else if (groupPosition == 8) {
-							fFilterResultHolder.setAnyHeight(false);
-							fFilterResultHolder.removeHeight(name);
-						} else if (groupPosition == 9) {
-							fFilterResultHolder.setAnyWeight(false);
-							fFilterResultHolder.removeWeight(name);
-						}
-
-						boolean allunChecked = true;
-
-						for (int i = 1; i < childs.size(); i++) {
-							Log.e("Uncheck " + i, childs.get(i).isChecked()
-									+ "");
-							if (childs.get(i).isChecked()) {
-								allunChecked = false;
-								break;
-							}
-						}
-
-						if (allunChecked) {
-							childs.get(0).setName("Select All");
-							setUnSetAny(groupPosition, true);
-						}
-
-						notifyDataSetChanged();
-
+				for (int i = 1; i < childs.size(); i++) {
+					if (!childs.get(i).isChecked()) {
+						allChecked = false;
+						break;
 					}
 				}
+
+				if (groupPosition == 1) {
+					if (child.isChecked()) {
+						fFilterResultHolder.addFriendType(name);
+					}else {
+						fFilterResultHolder.removeFriendType(name);
+					}
+					fFilterResultHolder.setAnyFriendType(allChecked || fFilterResultHolder.getFriendType().size() == 0);
+
+				} else if (groupPosition == 2) {
+					if (child.isChecked()) {
+						fFilterResultHolder.addGender(name);
+					}else {
+						fFilterResultHolder.removeGender(name);
+					}
+					fFilterResultHolder.setAnyGender(allChecked || fFilterResultHolder.getGender().size() == 0);
+				} else if (groupPosition == 3) {
+					if (child.isChecked()) {
+						fFilterResultHolder.addAge(name);
+					}else {
+						fFilterResultHolder.removeAge(name);
+					}
+					fFilterResultHolder.setAnyAge(allChecked || fFilterResultHolder.getAge().size() == 0);
+				} else if (groupPosition == 4) {
+					if (child.isChecked()) {
+						fFilterResultHolder.addEthenticity(name);
+					}else {
+						fFilterResultHolder.removeEthenticiy(name);
+					}
+					fFilterResultHolder.setAnyEthenticity(allChecked || fFilterResultHolder.getEthenticity().size() == 0);
+				} else if (groupPosition == 5) {
+					if (child.isChecked()) {
+						fFilterResultHolder.addMaterialStatus(name);
+					}else {
+						fFilterResultHolder.removeMaterialStatus(name);
+					}
+					fFilterResultHolder.setAnyMaterialStatus(allChecked || fFilterResultHolder.getMaterialStatus().size() == 0);
+				} else if (groupPosition == 6) {
+					if (child.isChecked()) {
+						fFilterResultHolder.addInterestedIn(name);
+					}else {
+						fFilterResultHolder.removeInterestedIn(name);
+					}
+					if (allChecked) {
+						fFilterResultHolder.setAnyinterestedIn(allChecked || fFilterResultHolder.getInterestedIn().size() == 0);
+					}else if(child.isChecked()) {
+						fFilterResultHolder.setAnyinterestedIn(child.getName().equalsIgnoreCase("both"));
+					}
+				} else if (groupPosition == 7) {
+					if (child.isChecked()) {
+						fFilterResultHolder.addSober(name);
+					}else {
+						fFilterResultHolder.removeSober(name);
+					}
+					fFilterResultHolder.setAnyTimeSober(allChecked || fFilterResultHolder.getSober().size() == 0);
+				} else if (groupPosition == 8) {
+					if (child.isChecked()) {
+						fFilterResultHolder.addHeight(name);
+					}else {
+						fFilterResultHolder.removeHeight(name);
+					}
+					fFilterResultHolder.setAnyHeight(allChecked || fFilterResultHolder.getHeight().size() == 0);
+
+				} else if (groupPosition == 9) {
+					if (child.isChecked()) {
+						fFilterResultHolder.addWeight(name);
+					}else {
+						fFilterResultHolder.removeWeight(name);
+					}
+					fFilterResultHolder.setAnyWeight(allChecked || fFilterResultHolder.getWeight().size() == 0);
+				}
+
+				notifyDataSetChanged();
+
 			}
 		});
 
@@ -363,28 +295,6 @@ public class FilterExpandableFriendAdapter extends BaseExpandableListAdapter {
 			fFilterResultHolder.addHeight(selectedValue);
 		} else if (groupPosition == 9) {
 			fFilterResultHolder.addWeight(selectedValue);
-		}
-	}
-
-	public void setUnSetAny(int groupPosition, boolean any) {
-		if (groupPosition == 1) {
-			fFilterResultHolder.setAnyFriendType(any);
-		} else if (groupPosition == 2) {
-			fFilterResultHolder.setAnyGender(any);
-		} else if (groupPosition == 3) {
-			fFilterResultHolder.setAnyAge(any);
-		} else if (groupPosition == 4) {
-			fFilterResultHolder.setAnyEthenticity(any);
-		} else if (groupPosition == 5) {
-			fFilterResultHolder.setAnyMaterialStatus(any);
-		} else if (groupPosition == 6) {
-			fFilterResultHolder.setAnyinterestedIn(any);
-		} else if (groupPosition == 7) {
-			fFilterResultHolder.setAnyTimeSober(any);
-		} else if (groupPosition == 8) {
-			fFilterResultHolder.setAnyHeight(any);
-		} else if (groupPosition == 9) {
-			fFilterResultHolder.setAnyWeight(any);
 		}
 	}
 

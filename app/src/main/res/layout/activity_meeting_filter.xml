@@ -84,7 +84,7 @@
                     android:background="@drawable/simple_button_selector"
                     android:gravity="left|center_vertical"
                     android:text="@string/my_favorites"
-                    android:textColor="#888888" />
+                    android:textColor="@color/text_color_gray" />
 
                 <CheckBox
                     android:id="@+id/tglMyFavorite"
@@ -122,7 +122,7 @@
                     android:background="@drawable/simple_button_selector"
                     android:gravity="left|center_vertical"
                     android:text="Zip Code"
-                    android:textColor="#888888" />
+                    android:textColor="@color/text_color_gray" />
 
                 <EditText
                     android:id="@+id/editZipCode"
@@ -137,7 +137,7 @@
                     android:maxLength="5"
                     android:paddingLeft="2dp"
                     android:paddingRight="2dp"
-                    android:singleLine="true"
+                    android:lines="1"
                     android:text=""
                     android:textSize="13sp" />
             </RelativeLayout>
@@ -155,7 +155,7 @@
                     android:background="@drawable/simple_button_selector"
                     android:gravity="left|center_vertical"
                     android:text="Distance"
-                    android:textColor="#888888" />
+                    android:textColor="@color/text_color_gray" />
 
                 <TextView
                     android:id="@+id/txtDistance"
@@ -166,7 +166,7 @@
                     android:background="@android:color/transparent"
                     android:gravity="center_vertical"
                     android:text="Any"
-                    android:textColor="#888888" />
+                    android:textColor="@color/text_color_gray" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -185,7 +185,7 @@
                     android:background="@drawable/simple_button_selector"
                     android:gravity="left|center_vertical"
                     android:text="Rating"
-                    android:textColor="#888888" />
+                    android:textColor="@color/text_color_gray" />
 
                 <RatingBar
                     android:id="@+id/rating"

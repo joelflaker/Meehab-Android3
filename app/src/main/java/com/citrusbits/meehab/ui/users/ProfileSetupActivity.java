@@ -6,7 +6,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -48,7 +47,7 @@ import android.widget.Toast;
 import com.citrusbits.meehab.R;
 import com.citrusbits.meehab.constants.Consts;
 import com.citrusbits.meehab.ui.SocketActivity;
-import com.citrusbits.meehab.app.App;
+import com.citrusbits.meehab.app.MeehabApp;
 import com.citrusbits.meehab.constants.EventParams;
 import com.citrusbits.meehab.db.UserDatasource;
 import com.citrusbits.meehab.ui.dialog.DobPickerDialog;
@@ -109,7 +108,7 @@ public class ProfileSetupActivity extends SocketActivity implements
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_profile_setup);
 
-		newbitmap = App.getInstance().globleBitmap;
+		newbitmap = MeehabApp.getInstance().globleBitmap;
 
 		userDatasource = new UserDatasource(this);
 
@@ -224,7 +223,7 @@ public class ProfileSetupActivity extends SocketActivity implements
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
-		App.getInstance().globleBitmap = null;
+		MeehabApp.getInstance().globleBitmap = null;
 	}
 
 	OnClickListener onToggleClickListener = new OnClickListener() {
@@ -381,7 +380,7 @@ public class ProfileSetupActivity extends SocketActivity implements
 
 	private void updateProfile() {
 		if (NetworkUtil.getConnectivityStatus(this) == 0) {
-			App.toast("It's seems to be network problem");
+			MeehabApp.toast("It's seems to be network problem");
 			return;
 		} else {
 
@@ -479,7 +478,7 @@ public class ProfileSetupActivity extends SocketActivity implements
 
 				if (params != null && params.length() > 0) {
 					if (!NetworkUtils.isNetworkAvailable(this)) {
-						App.toast(getString(R.string.no_internet_connection));
+						MeehabApp.toast(getString(R.string.no_internet_connection));
 						return;
 					}
 					socketService.updateAccount(params);
@@ -760,7 +759,7 @@ public class ProfileSetupActivity extends SocketActivity implements
 		pd.dismiss();
 		if (event.equals(EventParams.EVENT_USER_UPDATE)) {
 			ProfileSetupActivity.this.finish();
-			App.getInstance().globleBitmap = null;
+			MeehabApp.getInstance().globleBitmap = null;
 			Intent intent = new Intent(ProfileSetupActivity.this,
 					ProfileSetupMoreActivity.class);
 			startActivityForResult(intent, 22);
@@ -775,6 +774,6 @@ public class ProfileSetupActivity extends SocketActivity implements
 	@Override
 	public void onSocketResponseFailure(String onEvent, String message) {
 		pd.dismiss();
-		App.toast(message);
+		MeehabApp.toast(message);
 	}
 }

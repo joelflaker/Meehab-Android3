@@ -20,9 +20,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.citrusbits.meehab.app.MeehabApp;
 import com.citrusbits.meehab.ui.HomeActivity;
 import com.citrusbits.meehab.R;
-import com.citrusbits.meehab.app.App;
 import com.citrusbits.meehab.constants.EventParams;
 import com.citrusbits.meehab.db.UserDatasource;
 import com.citrusbits.meehab.ui.dialog.ResetRecoverClockDialog;
@@ -91,7 +91,7 @@ public class RecoveryClockFragment extends Fragment implements OnClickListener,
 		String soberDate = user.getSoberSence();
 		Log.i("Sober date",""+ soberDate);
 		if(soberDate == null){
-			App.toast("User sober date= "+soberDate+ " to fix this situation!");
+			MeehabApp.toast("User sober date= "+soberDate+ " to fix this situation!");
 			return v;
 		}
 		mDateSelected = soberDate;
@@ -140,7 +140,7 @@ public class RecoveryClockFragment extends Fragment implements OnClickListener,
 			}
 			break;
 		case R.id.ivReset:
-			// App.alert("In dev");
+			// MeehabApp.alert("In dev");
 			String soberDate = tvSoberDate.getText().toString().trim();
 			new ResetRecoverClockDialog(getActivity()).setRecoveryClockDialogListener(
 							new ResetRecoveryClockDialogListener() {
@@ -299,7 +299,7 @@ public class RecoveryClockFragment extends Fragment implements OnClickListener,
 	public void updateProfile(String soberDate) {
 
 		if (!NetworkUtils.isNetworkAvailable(getActivity())) {
-			App.toast(getString(R.string.no_internet_connection));
+			MeehabApp.toast(getString(R.string.no_internet_connection));
 			return;
 		}
 

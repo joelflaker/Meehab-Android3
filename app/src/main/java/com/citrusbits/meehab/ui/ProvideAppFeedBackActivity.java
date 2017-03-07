@@ -3,10 +3,9 @@ package com.citrusbits.meehab.ui;
 import org.json.JSONObject;
 
 import com.citrusbits.meehab.R;
-import com.citrusbits.meehab.app.App;
+import com.citrusbits.meehab.app.MeehabApp;
 import com.citrusbits.meehab.constants.EventParams;
 import com.citrusbits.meehab.services.OnSocketResponseListener;
-import com.citrusbits.meehab.ui.SocketActivity;
 import com.citrusbits.meehab.utils.NetworkUtils;
 import com.citrusbits.meehab.utils.UtilityClass;
 
@@ -48,7 +47,7 @@ public class ProvideAppFeedBackActivity extends SocketActivity implements
 	public void onSocketResponseSuccess(String event, Object obj) {
 		if (event.equals(EventParams.EVENT_APP_FEED_BACK)) {
 			pd.dismiss();
-			App.toast("Thanks for your Feedback!");
+			MeehabApp.toast("Thanks for your Feedback!");
 			finish();
 
 		}
@@ -77,7 +76,7 @@ public class ProvideAppFeedBackActivity extends SocketActivity implements
 	 */
 	private void submitFeeback() {
 		if (!NetworkUtils.isNetworkAvailable(this)) {
-			App.toast(getString(R.string.no_internet_connection));
+			MeehabApp.toast(getString(R.string.no_internet_connection));
 			return;
 		}
 
@@ -85,7 +84,7 @@ public class ProvideAppFeedBackActivity extends SocketActivity implements
 			String feebackString = editFeedback.getText().toString();
 
 			if (TextUtils.isEmpty(feebackString)) {
-				App.toast("Write some feedback first!");
+				MeehabApp.toast("Write some feedback first!");
 				return;
 			}
 

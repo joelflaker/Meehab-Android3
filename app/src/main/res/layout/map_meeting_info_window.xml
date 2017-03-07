@@ -48,7 +48,6 @@
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:paddingLeft="6dp"
         android:paddingTop="2dp" >
 
         <RatingBar

@@ -1,10 +1,8 @@
 package com.citrusbits.meehab.app;
 
 import java.io.IOException;
-import java.net.URISyntaxException;
 import java.util.HashMap;
 
-import android.annotation.SuppressLint;
 import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
@@ -30,9 +28,8 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
 import com.google.android.gms.maps.model.LatLng;
-import com.instabug.library.Instabug;
 
-public class App extends Application {
+public class MeehabApp extends Application {
 	
 	//Google analytics variables
     private static final String PROPERTY_ID = "UA-66671940-1";
@@ -78,7 +75,7 @@ public class App extends Application {
 	 * A singleton instance of the application class for easy access in other
 	 * places
 	 */
-	private static App sInstance;
+	private static MeehabApp sInstance;
 	private static LatLng myPosition = new LatLng(33.671447, 73.069612);;
 
 	@Override
@@ -133,7 +130,7 @@ public class App extends Application {
 				Integer.MIN_VALUE);
 		int currentVersion = getAppVersion(context);
 		if (registeredVersion != currentVersion) {
-			Log.i(TAG, "App version changed.");
+			Log.i(TAG, "MeehabApp version changed.");
 			return "";
 		}
 		return registrationId;
@@ -249,7 +246,7 @@ public class App extends Application {
 	/**
 	 * @return ApplicationController singleton instance
 	 */
-	public static synchronized App getInstance() {
+	public static synchronized MeehabApp getInstance() {
 		return sInstance;
 	}
 

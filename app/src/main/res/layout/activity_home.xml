@@ -32,7 +32,7 @@
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"
                 android:background="@color/alpha_gray"
-                android:src="@drawable/profile_pic_border" />
+                android:src="@drawable/img_place_holder" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -52,7 +52,7 @@
                     android:padding="8dp"
                     
                     android:scaleType="fitXY"
-                    android:src="@drawable/profile_pic_border" >
+                    android:src="@drawable/img_place_holder" >
                 </ImageView>
 
                 <TextView

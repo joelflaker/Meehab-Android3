@@ -25,9 +25,9 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.citrusbits.meehab.app.MeehabApp;
 import com.citrusbits.meehab.ui.MyReviewDetailActivity;
 import com.citrusbits.meehab.R;
-import com.citrusbits.meehab.app.App;
 import com.citrusbits.meehab.constants.Consts;
 import com.citrusbits.meehab.constants.EventParams;
 import com.citrusbits.meehab.ui.dialog.BlockFrindConfirmationDialog;
@@ -159,7 +159,7 @@ public class UserProfileActivity extends SocketActivity implements
 			if (!TextUtils.isEmpty(user.getImage())) {
 				/*
 				 * profileNetworkImageView.setImageUrl(getString(R.string.url) +
-				 * user.getImage(), App.getInstance().getImageLoader());
+				 * user.getImage(), MeehabApp.getInstance().getImageLoader());
 				 */
 				String userImage = user.getImage();
 
@@ -345,7 +345,7 @@ public class UserProfileActivity extends SocketActivity implements
 
 	public void getUserReviews() {
 		if (!NetworkUtils.isNetworkAvailable(this)) {
-			App.toast(getString(R.string.no_internet_connection));
+			MeehabApp.toast(getString(R.string.no_internet_connection));
 			return;
 		}
 		if (socketService != null) {
@@ -447,11 +447,11 @@ public class UserProfileActivity extends SocketActivity implements
 				setFavourite();
 				if (user.isFavourite() == 1) {
 					Toast.makeText(UserProfileActivity.this,
-							"User added to favourite!", Toast.LENGTH_SHORT)
+							"User added to favorite!", Toast.LENGTH_SHORT)
 							.show();
 				} else {
 					Toast.makeText(UserProfileActivity.this,
-							"User removed from favourite!", Toast.LENGTH_SHORT)
+							"User removed from favorite!", Toast.LENGTH_SHORT)
 							.show();
 				}
 			} catch (JSONException e) {
@@ -499,7 +499,7 @@ public class UserProfileActivity extends SocketActivity implements
 
 	public void favouriteUser() {
 		if (!NetworkUtils.isNetworkAvailable(this)) {
-			App.toast(getString(R.string.no_internet_connection));
+			MeehabApp.toast(getString(R.string.no_internet_connection));
 			return;
 		}
 		if (socketService != null) {
@@ -524,7 +524,7 @@ public class UserProfileActivity extends SocketActivity implements
 
 	public void blockUser() {
 		if (!NetworkUtils.isNetworkAvailable(this)) {
-			App.toast(getString(R.string.no_internet_connection));
+			MeehabApp.toast(getString(R.string.no_internet_connection));
 			return;
 		}
 		if (socketService != null) {

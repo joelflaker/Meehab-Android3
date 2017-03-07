@@ -5,7 +5,7 @@ import org.json.JSONObject;
 
 import com.citrusbits.meehab.R;
 import com.citrusbits.meehab.ui.SocketActivity;
-import com.citrusbits.meehab.app.App;
+import com.citrusbits.meehab.app.MeehabApp;
 import com.citrusbits.meehab.constants.EventParams;
 import com.citrusbits.meehab.services.OnSocketResponseListener;
 import com.citrusbits.meehab.utils.NetworkUtil;
@@ -16,7 +16,6 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -31,8 +30,8 @@ public class ForgetPasswordActivity extends SocketActivity implements OnSocketRe
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_forget_password);
 
-//		if(App.getInstance().socketIO == null){
-//			App.getInstance().initConnectNodeJS();
+//		if(MeehabApp.getInstance().socketIO == null){
+//			MeehabApp.getInstance().initConnectNodeJS();
 //		}
 		//top back button
 		findViewById(R.id.topMenuBtn).setOnClickListener(new View.OnClickListener() {
@@ -98,7 +97,7 @@ public class ForgetPasswordActivity extends SocketActivity implements OnSocketRe
 		hideKeyboard();
 
 		if(NetworkUtil.getConnectivityStatus(this) == 0){
-			App.toast(getString(R.string.network_problem));
+			MeehabApp.toast(getString(R.string.network_problem));
 		}else{
 			JSONObject params = new JSONObject();
 			try {
@@ -127,12 +126,12 @@ public class ForgetPasswordActivity extends SocketActivity implements OnSocketRe
 	@Override
 	public void onSocketResponseSuccess(String event, Object obj) {
 		pd.dismiss();
-		App.toast(getString(R.string.email_has_been_send));
+		MeehabApp.toast(getString(R.string.email_has_been_send));
 	}
 
 	@Override
 	public void onSocketResponseFailure(String onEvent,String message) {
 		pd.dismiss();
-		App.toast(""+message);
+		MeehabApp.toast(""+message);
 	}
 }

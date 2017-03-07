@@ -4,7 +4,7 @@ import org.json.JSONObject;
 
 import com.citrusbits.meehab.R;
 import com.citrusbits.meehab.ui.SocketActivity;
-import com.citrusbits.meehab.app.App;
+import com.citrusbits.meehab.app.MeehabApp;
 import com.citrusbits.meehab.constants.EventParams;
 import com.citrusbits.meehab.db.UserDatasource;
 import com.citrusbits.meehab.model.UserAccount;
@@ -119,7 +119,7 @@ public class ChangeEmailActivity extends SocketActivity implements
 							if(NetworkUtil.isConnected(ChangeEmailActivity.this)) {
 								attempChangeEmail();
 							}else {
-								App.toast(getResources().getString(R.string.no_internet_connection));
+								MeehabApp.toast(getResources().getString(R.string.no_internet_connection));
 							}
 						}
 
@@ -149,7 +149,7 @@ public class ChangeEmailActivity extends SocketActivity implements
 				.getWindowToken(), 0);
 
 		if (NetworkUtil.getConnectivityStatus(this) == 0) {
-			App.toast("It's seems to be network problem");
+			MeehabApp.toast("It's seems to be network problem");
 			return;
 		}
 

@@ -30,13 +30,12 @@ import android.widget.ListView;
 import com.citrusbits.meehab.R;
 import com.citrusbits.meehab.adapters.FriendsGridAdapter;
 import com.citrusbits.meehab.adapters.FriendsListAdapter;
-import com.citrusbits.meehab.app.App;
+import com.citrusbits.meehab.app.MeehabApp;
 import com.citrusbits.meehab.constants.EventParams;
 import com.citrusbits.meehab.model.GetRsvpFriendsResponse;
 import com.citrusbits.meehab.model.UserAccount;
 import com.citrusbits.meehab.services.OnBackendConnectListener;
 import com.citrusbits.meehab.services.OnSocketResponseListener;
-import com.citrusbits.meehab.ui.SocketActivity;
 import com.citrusbits.meehab.ui.users.UserProfileActivity;
 import com.citrusbits.meehab.utils.NetworkUtils;
 import com.citrusbits.meehab.utils.UtilityClass;
@@ -337,7 +336,7 @@ public class RsvpActivity extends SocketActivity implements
 
 	public void getRSVPFriends() {
 		if (!NetworkUtils.isNetworkAvailable(this)) {
-			App.toast(getString(R.string.no_internet_connection));
+			MeehabApp.toast(getString(R.string.no_internet_connection));
 			return;
 		}
 		if (socketService != null) {

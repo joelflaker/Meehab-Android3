@@ -44,6 +44,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.citrusbits.meehab.app.MeehabApp;
 import com.citrusbits.meehab.model.NearestDateTime;
 import com.citrusbits.meehab.ui.ActivityMoreReviews;
 import com.citrusbits.meehab.ui.FullScreenMapActivity;
@@ -52,7 +53,6 @@ import com.citrusbits.meehab.R;
 import com.citrusbits.meehab.ui.ReportInaccuracyActivity;
 import com.citrusbits.meehab.ui.RsvpActivity;
 import com.citrusbits.meehab.ui.users.UserProfileActivity;
-import com.citrusbits.meehab.app.App;
 import com.citrusbits.meehab.constants.EventParams;
 import com.citrusbits.meehab.db.DatabaseHandler;
 import com.citrusbits.meehab.db.UserDatasource;
@@ -211,7 +211,7 @@ public class MeetingDetailsActivity extends SocketActivity implements
 		btnSeeMoreReviews.setOnClickListener(this);
 		tvChooseADifferentDate.setOnClickListener(this);
 
-		if (App.isPlayServiceOk) {
+		if (MeehabApp.isPlayServiceOk) {
 			if (map == null) {
 				((SupportMapFragment) getSupportFragmentManager()
 						.findFragmentById(R.id.map))
@@ -653,7 +653,7 @@ public class MeetingDetailsActivity extends SocketActivity implements
 	public void onBackendConnected() {
 
 		if (!NetworkUtils.isNetworkAvailable(this)) {
-			App.toast(getString(R.string.no_internet_connection));
+			MeehabApp.toast(getString(R.string.no_internet_connection));
 			return;
 		}
 
@@ -672,7 +672,7 @@ public class MeetingDetailsActivity extends SocketActivity implements
 
 	public void addRSVPEvent(String day) {
 		if (!NetworkUtils.isNetworkAvailable(this)) {
-			App.toast(getString(R.string.no_internet_connection));
+			MeehabApp.toast(getString(R.string.no_internet_connection));
 			return;
 		}
 
@@ -695,7 +695,7 @@ public class MeetingDetailsActivity extends SocketActivity implements
 	public void checkIncheckOut(String check, MultiDatesManager multidate) {
 
 		if (!NetworkUtils.isNetworkAvailable(this)) {
-			App.toast(getString(R.string.no_internet_connection));
+			MeehabApp.toast(getString(R.string.no_internet_connection));
 			return;
 		}
 
@@ -739,7 +739,7 @@ public class MeetingDetailsActivity extends SocketActivity implements
 
 	public void removeRSVPEvent(String day) {
 		if (!NetworkUtils.isNetworkAvailable(this)) {
-			App.toast(getString(R.string.no_internet_connection));
+			MeehabApp.toast(getString(R.string.no_internet_connection));
 			return;
 		}
 
@@ -763,7 +763,7 @@ public class MeetingDetailsActivity extends SocketActivity implements
 	public void addHomeGroup() {
 
 		if (!NetworkUtils.isNetworkAvailable(this)) {
-			App.toast(getString(R.string.no_internet_connection));
+			MeehabApp.toast(getString(R.string.no_internet_connection));
 			return;
 		}
 
@@ -784,7 +784,7 @@ public class MeetingDetailsActivity extends SocketActivity implements
 
 	public void addUserFavourite() {
 		if (!NetworkUtils.isNetworkAvailable(this)) {
-			App.toast(getString(R.string.no_internet_connection));
+			MeehabApp.toast(getString(R.string.no_internet_connection));
 			return;
 		}
 
@@ -1179,7 +1179,7 @@ public class MeetingDetailsActivity extends SocketActivity implements
 					MeetingReviewModel review = (MeetingReviewModel) v.getTag();
 
 					if(AccountUtils.getUserId(MeetingDetailsActivity.this) == review.getUserId()) {
-						App.toast(getString(R.string.message_your_profile));
+						MeehabApp.toast(getString(R.string.message_your_profile));
 						return;
 					}
 
@@ -1187,7 +1187,7 @@ public class MeetingDetailsActivity extends SocketActivity implements
 						pd.show();
 						socketService.getUserById(review.getUserId());
 					}else {
-						App.toast(getResources().getString(R.string.no_internet_connection));
+						MeehabApp.toast(getResources().getString(R.string.no_internet_connection));
 					}
 
 
@@ -1197,12 +1197,12 @@ public class MeetingDetailsActivity extends SocketActivity implements
 
 			if(!TextUtils.isEmpty(userImage)) {
 				Picasso.with(MeetingDetailsActivity.this).load("" + userImage)
-						.placeholder(R.drawable.profile_pic_border).resize(80, 80)
-						.error(R.drawable.profile_pic_border)
+						.placeholder(R.drawable.img_place_holder).resize(R.dimen.review_image_size, R.dimen.review_image_size)
+						.error(R.drawable.img_place_holder)
 						.transform(new PicassoCircularTransform()).into(ivUserIcon);
 			}else {
-				Picasso.with(MeetingDetailsActivity.this).load(R.drawable.profile_pic_border)
-						.resize(80, 80)
+				Picasso.with(MeetingDetailsActivity.this).load(R.drawable.img_place_holder)
+						.resize(R.dimen.review_image_size, R.dimen.review_image_size)
 						.into(ivUserIcon);
 			}
 			tvReviewTitle.setText(m.getTitle());

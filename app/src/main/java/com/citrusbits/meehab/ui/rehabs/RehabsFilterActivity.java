@@ -16,7 +16,7 @@ import android.widget.TextView;
 
 import com.citrusbits.meehab.R;
 import com.citrusbits.meehab.adapters.FilterExpandableRehabAdapter;
-import com.citrusbits.meehab.app.App;
+import com.citrusbits.meehab.app.MeehabApp;
 import com.citrusbits.meehab.constants.EventParams;
 import com.citrusbits.meehab.ui.dialog.DistancePickerDialog;
 import com.citrusbits.meehab.ui.dialog.DistancePickerDialog.DistancePickerDialogListener;
@@ -111,9 +111,9 @@ public class RehabsFilterActivity extends SocketActivity implements
 				parent2.setName("Insurance Accepted");
 				parent2.setValue("Any");
 
-				final ExpChild topItem1 = new ExpChild();
-				topItem1.setName("Select All");
-				parent2.addChild(topItem1);
+//				final ExpChild topItem1 = new ExpChild();
+//				topItem1.setName("Select All");
+//				parent2.addChild(topItem1);
 
 				for (String value : insurancesString) {
 					final ExpChild child = new ExpChild();
@@ -132,7 +132,7 @@ public class RehabsFilterActivity extends SocketActivity implements
 	@Override
 	public void onSocketResponseFailure(String event, String message) {
 		if(EventParams.EVENT_INSURANCE_LIST.equals(event)){
-			App.toast(""+message);
+			MeehabApp.toast(""+message);
 		}
 	}
 
@@ -316,9 +316,9 @@ public class RehabsFilterActivity extends SocketActivity implements
 		String[] daysValues = getResources().getStringArray(
 				R.array.rehab_facility_arr);
 		
-		final ExpChild topItem = new ExpChild();
-		topItem.setName("Select All");
-		parent.addChild(topItem);
+//		final ExpChild topItem = new ExpChild();
+//		topItem.setName("Select All");
+//		parent.addChild(topItem);
 
 		for (String value : daysValues) {
 			final ExpChild child = new ExpChild();
@@ -337,9 +337,9 @@ public class RehabsFilterActivity extends SocketActivity implements
 		String[] insuranceValues = getResources().getStringArray(
 				R.array.insurance_arr);
 
-		final ExpChild topItem1 = new ExpChild();
-		topItem1.setName("Select All");
-		parent2.addChild(topItem1);
+//		final ExpChild topItem1 = new ExpChild();
+//		topItem1.setName("Select All");
+//		parent2.addChild(topItem1);
 		
 		for (String value : insuranceValues) {
 			final ExpChild child = new ExpChild();

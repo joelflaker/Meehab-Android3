@@ -31,7 +31,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.citrusbits.meehab.R;
 import com.citrusbits.meehab.ui.SocketActivity;
-import com.citrusbits.meehab.app.App;
+import com.citrusbits.meehab.app.MeehabApp;
 import com.citrusbits.meehab.constants.Consts;
 import com.citrusbits.meehab.constants.EventParams;
 import com.citrusbits.meehab.contacts.PhoneContacts;
@@ -193,7 +193,7 @@ public class VerificationActivity extends SocketActivity implements
         params.put("To", phoneNumber);
         params.put("Body", smsCode);
 
-        RequestQueue requestQueue = App.getInstance().getRequestQueue();
+        RequestQueue requestQueue = MeehabApp.getInstance().getRequestQueue();
 
         CustomRequest request = new CustomRequest(Request.Method.POST, "https://" + Consts.SID + Consts.TwilioSecret +
                 "@api.twilio.com/2010-04-01/Accounts/" + Consts.SID + "/SMS/Messages.json", params, new Response.Listener<JSONObject>() {
@@ -286,7 +286,7 @@ public class VerificationActivity extends SocketActivity implements
 	public void signup(SignupModel model) {
 		
 		if (!NetworkUtils.isNetworkAvailable(this)) {
-			App.toast(getString(R.string.no_internet_connection));
+			MeehabApp.toast(getString(R.string.no_internet_connection));
 			return;
 		}
 		JSONObject signupParams = new JSONObject();

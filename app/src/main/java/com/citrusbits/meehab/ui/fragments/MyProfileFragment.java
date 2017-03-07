@@ -32,14 +32,12 @@ import android.widget.Toast;
 import com.citrusbits.meehab.map.LocationUtils;
 import com.citrusbits.meehab.model.MeetingModel;
 import com.citrusbits.meehab.model.NearestDateTime;
-import com.citrusbits.meehab.pojo.MeetingResponse;
-import com.citrusbits.meehab.ui.ReportInaccuracyActivity;
 import com.citrusbits.meehab.ui.meetings.MeetingDetailsActivity;
 import com.citrusbits.meehab.ui.users.EditMyProfileActivity;
 import com.citrusbits.meehab.ui.HomeActivity;
 import com.citrusbits.meehab.ui.MyReviewDetailActivity;
 import com.citrusbits.meehab.R;
-import com.citrusbits.meehab.app.App;
+import com.citrusbits.meehab.app.MeehabApp;
 import com.citrusbits.meehab.constants.Consts;
 import com.citrusbits.meehab.constants.EventParams;
 import com.citrusbits.meehab.db.UserDatasource;
@@ -169,7 +167,7 @@ public class MyProfileFragment extends Fragment implements
 			if (!TextUtils.isEmpty(user.getImage())) {
 				/*
 				 * profileNetworkImageView.setImageUrl(getString(R.string.url) +
-				 * user.getImage(), App.getInstance().getImageLoader());
+				 * user.getImage(), MeehabApp.getInstance().getImageLoader());
 				 */
 				String userImage = user.getImage();
 
@@ -313,7 +311,7 @@ public class MyProfileFragment extends Fragment implements
 
 	public void getUserReviews() {
 		if (!NetworkUtils.isNetworkAvailable(getActivity())) {
-			App.toast(getString(R.string.no_internet_connection));
+			MeehabApp.toast(getString(R.string.no_internet_connection));
 			return;
 		}
 		if (homeActivity.socketService != null) {

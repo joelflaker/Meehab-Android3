@@ -1,15 +1,8 @@
 package com.citrusbits.meehab.ui.fragments;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 
 import org.json.JSONObject;
 
@@ -39,13 +32,13 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.citrusbits.meehab.app.MeehabApp;
 import com.citrusbits.meehab.model.NearestDateTime;
 import com.citrusbits.meehab.ui.HomeActivity;
 import com.citrusbits.meehab.ui.meetings.MeetingDetailsActivity;
 import com.citrusbits.meehab.ui.meetings.MeetingsFilterActivity;
 import com.citrusbits.meehab.R;
 import com.citrusbits.meehab.adapters.MeetingsListAdapter;
-import com.citrusbits.meehab.app.App;
 import com.citrusbits.meehab.constants.Consts;
 import com.citrusbits.meehab.constants.EventParams;
 import com.citrusbits.meehab.ui.customviews.CustomMapFragment;
@@ -283,7 +276,7 @@ public class MeetingsFragment extends Fragment implements
 		btnFindMe.setOnClickListener(this);
 		list.setOnItemClickListener(this);
 
-		if (App.isPlayServiceOk) {
+		if (MeehabApp.isPlayServiceOk) {
 			if (map == null) {
 				/*
 				 * mapFrag = ((SupportMapFragment) getChildFragmentManager()
@@ -406,7 +399,7 @@ public class MeetingsFragment extends Fragment implements
 
 	void refreshMeetingList() {
 		if (!NetworkUtils.isNetworkAvailable(getActivity())) {
-			App.toast(getString(R.string.no_internet_connection));
+			MeehabApp.toast(getString(R.string.no_internet_connection));
 			return;
 		}
 		if (homeActivity.socketService != null) {
@@ -908,7 +901,7 @@ public class MeetingsFragment extends Fragment implements
 				}
 
 			} else {
-				App.toast(getString(R.string.no_internet_connection));
+				MeehabApp.toast(getString(R.string.no_internet_connection));
 			}
 
 		}

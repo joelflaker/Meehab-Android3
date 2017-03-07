@@ -16,9 +16,9 @@ public class FilterResultHolder implements Serializable {
 	private boolean anyStar = true;
 
 	private boolean favourite;
-	List<String> days = new ArrayList<String>();
-	List<String> times = new ArrayList<String>();
-	List<String> types = new ArrayList<String>();
+	List<String> days = new ArrayList<>();
+	List<String> times = new ArrayList<>();
+	List<String> types = new ArrayList<>();
 
 	private String zipCode;
 

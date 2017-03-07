@@ -1,17 +1,7 @@
 package com.citrusbits.meehab.webservices;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import android.content.Context;
 
-import com.android.volley.DefaultRetryPolicy;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.citrusbits.meehab.R;
-import com.citrusbits.meehab.app.App;
-import com.citrusbits.meehab.app.GsonRequest;
 import com.citrusbits.meehab.pojo.ContactSyncResponse;
 
 public class ContactSyncService extends BaseDataSource {
@@ -33,7 +23,7 @@ public class ContactSyncService extends BaseDataSource {
 //		params.put("uome_names_array", uome_names_array);
 //		params.put("uome_token", uome_token);
 //		
-//		RequestQueue requestQueue = App.getInstance().getRequestQueue();
+//		RequestQueue requestQueue = MeehabApp.getInstance().getRequestQueue();
 //
 //		GsonRequest<ContactSyncResponse> request = new GsonRequest<ContactSyncResponse>(
 //				com.android.volley.Request.Method.POST, context.getResources().getString(

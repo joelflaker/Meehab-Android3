@@ -19,9 +19,9 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.citrusbits.meehab.R;
+import com.citrusbits.meehab.app.MeehabApp;
 import com.citrusbits.meehab.ui.SocketActivity;
 import com.citrusbits.meehab.ui.TwoOptionActivity;
-import com.citrusbits.meehab.app.App;
 import com.citrusbits.meehab.constants.EventParams;
 import com.citrusbits.meehab.db.UserDatasource;
 import com.citrusbits.meehab.ui.dialog.DobPickerDialog;
@@ -288,7 +288,7 @@ public class ProfileSetupMoreActivity extends SocketActivity implements
 
 	private void updateProfile() {
 		if (NetworkUtil.getConnectivityStatus(this) == 0) {
-			App.toast(getString(R.string.network_problem));
+			MeehabApp.toast(getString(R.string.network_problem));
 			return;
 		} else {
 
@@ -424,6 +424,6 @@ public class ProfileSetupMoreActivity extends SocketActivity implements
 	@Override
 	public void onSocketResponseFailure(String onEvent, String message) {
 		pd.dismiss();
-		App.toast(message);
+		MeehabApp.toast(message);
 	}
 }

@@ -32,7 +32,7 @@ import android.widget.Toast;
 import com.citrusbits.meehab.R;
 import com.citrusbits.meehab.adapters.FriendsGridAdapter;
 import com.citrusbits.meehab.adapters.FriendsListAdapter;
-import com.citrusbits.meehab.app.App;
+import com.citrusbits.meehab.app.MeehabApp;
 import com.citrusbits.meehab.constants.EventParams;
 import com.citrusbits.meehab.model.FriendFilterResultHolder;
 import com.citrusbits.meehab.model.GetFriendsResponse;
@@ -162,7 +162,7 @@ public class BlockFriendsActivity extends SocketActivity implements
 		});
 
 		getFriends();
-
+		updateEmptyView();
 	}
 
 	@Override
@@ -230,7 +230,7 @@ public class BlockFriendsActivity extends SocketActivity implements
 				}
 
 				// boolean friendType
-
+				updateEmptyView();
 			} else if (requestCode == DETAIL_REQUEST) {
 				if (mAccountPosition != -1) {
 					UserAccount userAccount = (UserAccount) data
@@ -241,7 +241,7 @@ public class BlockFriendsActivity extends SocketActivity implements
 					userAccounts.addAll(userAccountsCache);
 					friendsGridAdapter.notifyDataSetChanged();
 					friendsListAdapter.notifyDataSetChanged();
-
+					updateEmptyView();
 				}
 			}
 		}
@@ -393,7 +393,6 @@ public class BlockFriendsActivity extends SocketActivity implements
 			return getDiffYears(dateOfBirthDate, currentDate);
 
 		} catch (Exception e) {
-			// TODO: handle exception
 			return 0;
 		}
 	}
@@ -599,7 +598,7 @@ public class BlockFriendsActivity extends SocketActivity implements
 
 	public void getFriends() {
 		if (!NetworkUtils.isNetworkAvailable(this)) {
-			App.toast(getString(R.string.no_internet_connection));
+			MeehabApp.toast(getString(R.string.no_internet_connection));
 			return;
 		}
 
@@ -614,7 +613,6 @@ public class BlockFriendsActivity extends SocketActivity implements
 				Log.e("json send ", object.toString());
 				socketService.getAllFriends(object);
 			} catch (JSONException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 
@@ -623,13 +621,11 @@ public class BlockFriendsActivity extends SocketActivity implements
 
 	@Override
 	public void onBackendConnected() {
-		// TODO Auto-generated method stub
 		getFriends();
 	}
 
 	@Override
 	public void onSocketResponseSuccess(String event, Object obj) {
-		// TODO Auto-generated method stub
 		pd.dismiss();
 		if (event.equals(EventParams.METHOD_GET_ALL_FRIENDS)) {
 			userAccounts.clear();
@@ -659,24 +655,8 @@ public class BlockFriendsActivity extends SocketActivity implements
 
 			userAccounts.addAll(friends);
 			userAccountsCache.addAll(friends);
-			if (friends.size() > 0) {
-				if (friends.size() == 1) {
-					tvNumBlockedFriendsList.setText(String.format(
-							getString(R.string.num_blocked_friend_list),
-							friends.size()));
-				} else {
-					tvNumBlockedFriendsList.setText(String.format(
-							getString(R.string.num_blocked_friends_list),
-							friends.size()));
-				}
-
-			} else {
-				tvNumBlockedFriendsList
-						.setText(getString(R.string.no_blocked_friend_list));
-			}
-
 			friendsGridAdapter.notifyDataSetChanged();
-
+			updateEmptyView();
 			/*
 			 * Toast.makeText(homeActivity, "Friends data is " +
 			 * data.toString(), Toast.LENGTH_SHORT).show();
@@ -684,17 +664,24 @@ public class BlockFriendsActivity extends SocketActivity implements
 		}
 	}
 
-	@Override
-	public void onSocketResponseFailure(String onEvent,String message) {
-		// TODO Auto-generated method stub
-		if (pd != null) {
-			pd.dismiss();
+	private void updateEmptyView() {
+		if (friendsGridAdapter == null || friendsGridAdapter.getCount() == 0) {
+			tvNumBlockedFriendsList.setVisibility(View.VISIBLE);
+		} else {
+			tvNumBlockedFriendsList.setVisibility(View.GONE);
 		}
 	}
 
 	@Override
+	public void onSocketResponseFailure(String onEvent,String message) {
+		if (pd != null) {
+			pd.dismiss();
+		}
+		updateEmptyView();
+	}
+
+	@Override
 	public void onBackPressed() {
-		// TODO Auto-generated method stub
 		super.onBackPressed();
 		this.overridePendingTransition(R.anim.activity_back_in,
 				R.anim.activity_back_out);

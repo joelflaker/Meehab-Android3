@@ -2,7 +2,7 @@ package com.citrusbits.meehab.helpers;
 
 import com.citrusbits.meehab.ui.users.LoginAndRegisterActivity;
 import com.citrusbits.meehab.R;
-import com.citrusbits.meehab.app.App;
+import com.citrusbits.meehab.app.MeehabApp;
 import com.citrusbits.meehab.constants.Consts;
 import com.citrusbits.meehab.prefrences.AppPrefs;
 import com.citrusbits.meehab.services.SocketService;
@@ -47,7 +47,7 @@ public class LogoutHelper {
 	}
 
 	public void clearLoginCredentails() {
-		App.getInstance()
+		MeehabApp.getInstance()
 				.getSharedPreferences(Consts.APP_PREFS_NAME,
 						Context.MODE_PRIVATE).edit().clear().commit();
 

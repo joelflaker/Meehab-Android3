@@ -23,6 +23,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -134,12 +135,18 @@ public class ActivityMoreReviews extends SocketActivity implements OnSocketRespo
 
 			String userImage = m.getImage();
 
-			Log.e("User image is ", userImage);
+			Log.e("User image is ", ""+userImage);
 
-			Picasso.with(ActivityMoreReviews.this).load(userImage)
-					.placeholder(R.drawable.profile_pic_border).resize(80, 80)
-					.error(R.drawable.profile_pic_border)
-					.transform(new PicassoCircularTransform()).into(ivUserIcon);
+			if(!TextUtils.isEmpty(userImage)){
+				Picasso.with(ActivityMoreReviews.this).load(userImage)
+						.placeholder(R.drawable.img_place_holder).resize(R.dimen.review_image_size, R.dimen.review_image_size)
+						.error(R.drawable.img_place_holder)
+						.transform(new PicassoCircularTransform()).into(ivUserIcon);
+			}else {
+				Picasso.with(ActivityMoreReviews.this).load(R.drawable.img_place_holder).resize(R.dimen.review_image_size, R.dimen.review_image_size)
+						.transform(new PicassoCircularTransform()).into(ivUserIcon);
+			}
+
 
 			tvReviewTitle.setText(m.getTitle());
 

@@ -22,7 +22,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.citrusbits.meehab.R;
-import com.citrusbits.meehab.app.App;
+import com.citrusbits.meehab.app.MeehabApp;
 import com.citrusbits.meehab.constants.EventParams;
 import com.citrusbits.meehab.ui.dialog.ReportAnInAccuracyDialog;
 import com.citrusbits.meehab.ui.dialog.ReportAnInAccuracyDialog.ReportAnInAccuracyDialogClickListener;
@@ -148,7 +148,7 @@ public class FullScreenMapActivity extends SocketActivity implements
 		try {
 			
 			if (!NetworkUtils.isNetworkAvailable(this)) {
-				App.toast(getString(R.string.no_internet_connection));
+				MeehabApp.toast(getString(R.string.no_internet_connection));
 				return;
 			}
 

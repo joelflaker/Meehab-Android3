@@ -45,16 +45,16 @@ public class FriendFilterResultHolder implements Serializable{
 	private boolean anyHeight = true;
 	private boolean anyWeight = true;
 
-	List<String> friendType = new ArrayList<String>();
-	List<String> gender = new ArrayList<String>();
-	List<String> age = new ArrayList<String>();
+	List<String> friendType = new ArrayList<>();
+	List<String> gender = new ArrayList<>();
+	List<String> age = new ArrayList<>();
 
-	List<String> ethenticity = new ArrayList<String>();
-	List<String> materialStatus = new ArrayList<String>();
-	List<String> interestedIn = new ArrayList<String>();
-	List<String> sober = new ArrayList<String>();
-	List<String> height = new ArrayList<String>();
-	List<String> weight = new ArrayList<String>();
+	List<String> ethenticity = new ArrayList<>();
+	List<String> materialStatus = new ArrayList<>();
+	List<String> interestedIn = new ArrayList<>();
+	List<String> sober = new ArrayList<>();
+	List<String> height = new ArrayList<>();
+	List<String> weight = new ArrayList<>();
 
 	public void addFriendType(String fType) {
 		if (!this.friendType.contains(fType)) {

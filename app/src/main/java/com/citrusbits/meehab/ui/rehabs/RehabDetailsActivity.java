@@ -30,12 +30,12 @@ import android.widget.LinearLayout.LayoutParams;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.citrusbits.meehab.app.MeehabApp;
 import com.citrusbits.meehab.ui.MediaFullScreenActivity;
 import com.citrusbits.meehab.R;
 import com.citrusbits.meehab.ui.ReportInaccuracyActivity;
 import com.citrusbits.meehab.adapters.PhotosAdapter;
 import com.citrusbits.meehab.adapters.PhotosAdapter.PhotoClickListener;
-import com.citrusbits.meehab.app.App;
 import com.citrusbits.meehab.constants.EventParams;
 import com.citrusbits.meehab.db.DatabaseHandler;
 import com.citrusbits.meehab.db.UserDatasource;
@@ -225,7 +225,7 @@ OnSocketResponseListener, OnClickListener, OnMapClickListener {
 
 		tvInsuranceAccepted.setOnClickListener(this);
 
-		if (App.isPlayServiceOk) {
+		if (MeehabApp.isPlayServiceOk) {
 			if (map == null) {
 				((SupportMapFragment) getSupportFragmentManager()
 						.findFragmentById(R.id.map))
@@ -326,7 +326,7 @@ OnSocketResponseListener, OnClickListener, OnMapClickListener {
 				String url  = photoUrls.get(position);
 
 				if(TextUtils.isEmpty(url)){
-					App.toast("Sorry broken link!");
+					MeehabApp.toast("Sorry broken link!");
 					return;
 				}
 
@@ -351,7 +351,7 @@ OnSocketResponseListener, OnClickListener, OnMapClickListener {
 				String url = videoUrls.get(position);
 
 				if(TextUtils.isEmpty(url)){
-					App.toast("Sorry broken link!");
+					MeehabApp.toast("Sorry broken link!");
 					return;
 				}
 
@@ -373,7 +373,7 @@ OnSocketResponseListener, OnClickListener, OnMapClickListener {
 //					intent.setDataAndType(Uri.parse(url), "video/mp4");
 //				startActivity(intent);
 //				}catch(ActivityNotFoundException e){
-//					App.toast("Video Player not found");
+//					MeehabApp.toast("Video Player not found");
 //				}
 			}
 		};
@@ -620,7 +620,7 @@ OnSocketResponseListener, OnClickListener, OnMapClickListener {
 
 	public void addUserFavourite() {
 		if (!NetworkUtils.isNetworkAvailable(this)) {
-			App.toast(getString(R.string.no_internet_connection));
+			MeehabApp.toast(getString(R.string.no_internet_connection));
 			isFavorite = rehab.isFavorite();
 			resetFavoriteIcon();
 			return;

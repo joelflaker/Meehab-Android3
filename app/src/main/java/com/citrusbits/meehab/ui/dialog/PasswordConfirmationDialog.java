@@ -11,7 +11,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.citrusbits.meehab.R;
-import com.citrusbits.meehab.app.App;
+import com.citrusbits.meehab.app.MeehabApp;
 import com.citrusbits.meehab.utils.AccountUtils;
 
 public class PasswordConfirmationDialog extends Dialog implements
@@ -67,14 +67,14 @@ public class PasswordConfirmationDialog extends Dialog implements
 			if (confirmDialogClickListener != null) {
 				String password = editPassword.getText().toString().trim();
 				if(password.length() == 0) {
-					App.toast("Password is required!");
+					MeehabApp.toast("Password is required!");
 					return;
 				}
 
 				if(AccountUtils.getPassword(context).equals(password)){
 					confirmDialogClickListener.onOkClick(password,this);
 				}else {
-					App.toast("Password doesn't match!");
+					MeehabApp.toast("Password doesn't match!");
 				}
 			}
 			break;

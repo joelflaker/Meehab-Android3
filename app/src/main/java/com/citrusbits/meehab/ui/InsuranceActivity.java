@@ -5,7 +5,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.citrusbits.meehab.R;
-import com.citrusbits.meehab.app.App;
+import com.citrusbits.meehab.app.MeehabApp;
 import com.citrusbits.meehab.constants.EventParams;
 import com.citrusbits.meehab.db.UserDatasource;
 import com.citrusbits.meehab.model.UserAccount;
@@ -17,6 +17,7 @@ import com.citrusbits.meehab.utils.UtilityClass;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.NumberPicker;
@@ -182,7 +183,7 @@ public class InsuranceActivity extends SocketActivity implements
 		
 		JSONObject obj = new JSONObject();
 		try {
-			obj.put("mInsurance", mInsurance);
+			obj.put("insurance", mInsurance);
 			socketService.updateAccount(obj);
 			pd.show();
 		} catch (JSONException e) {
@@ -248,8 +249,12 @@ public class InsuranceActivity extends SocketActivity implements
 
 	@Override
 	public void onSocketResponseFailure(String event, String message) {
-		if(EventParams.EVENT_USER_UPDATE.equals(event)){
-			App.toast(""+message);
+		if(EventParams.EVENT_USER_UPDATE.equals(event)) {
+			if (TextUtils.isEmpty(mInsurance)) {
+				MeehabApp.toast("Insurance removed successfully!");
+			} else {
+				MeehabApp.toast("" + message);
+			}
 		}
 		if(pd!=null && pd.isShowing()){
 			pd.dismiss();

@@ -36,13 +36,13 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import com.citrusbits.meehab.app.MeehabApp;
 import com.citrusbits.meehab.ui.users.ChatActivity;
 import com.citrusbits.meehab.ui.HomeActivity;
 import com.citrusbits.meehab.R;
 import com.citrusbits.meehab.ui.users.UserProfileActivity;
 import com.citrusbits.meehab.adapters.MessagesAdapter;
 import com.citrusbits.meehab.adapters.MessagesAdapter.MessageCheckedChangeListener;
-import com.citrusbits.meehab.app.App;
 import com.citrusbits.meehab.constants.EventParams;
 import com.citrusbits.meehab.ui.dialog.BlockFrindConfirmationDialog;
 import com.citrusbits.meehab.ui.dialog.BlockFrindConfirmationDialog.BlockFrindConfirmationDialogClickListener;
@@ -146,7 +146,7 @@ public class MessagesFragment extends Fragment implements
 					pd.show();
 					homeActivity.socketService.getUserById(messageModel.getFromID());
 				}else {
-					App.toast(getResources().getString(R.string.no_internet_connection));
+					MeehabApp.toast(getResources().getString(R.string.no_internet_connection));
 				}
 			}
 		});
@@ -214,7 +214,7 @@ public class MessagesFragment extends Fragment implements
 //		if(ifMessagesUpdated || isWatingMessages) return;
 		
 		if (!NetworkUtils.isNetworkAvailable(getActivity())) {
-			App.toast(getString(R.string.no_internet_connection));
+			MeehabApp.toast(getString(R.string.no_internet_connection));
 			return;
 		}
 		if (homeActivity.socketService != null) {
@@ -250,7 +250,7 @@ public class MessagesFragment extends Fragment implements
 		case R.id.ibDelete:
 			if (getCheckedCount() > 0) {
 				if (!NetworkUtils.isNetworkAvailable(getActivity())) {
-					App.toast(getActivity().getString(
+					MeehabApp.toast(getActivity().getString(
 							R.string.no_internet_connection));
 					return;
 				}

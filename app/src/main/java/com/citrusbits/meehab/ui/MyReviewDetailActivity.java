@@ -17,8 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.citrusbits.meehab.R;
-import com.citrusbits.meehab.app.App;
-import com.citrusbits.meehab.constants.Consts;
+import com.citrusbits.meehab.app.MeehabApp;
 import com.citrusbits.meehab.constants.EventParams;
 import com.citrusbits.meehab.map.LocationUtils;
 import com.citrusbits.meehab.model.MeetingModel;
@@ -123,7 +122,7 @@ public class MyReviewDetailActivity extends SocketActivity implements
 					MeetingReviewModel review = (MeetingReviewModel) v.getTag();
 
 					if(AccountUtils.getUserId(MyReviewDetailActivity.this) == review.getUserId()) {
-						App.toast(getString(R.string.message_your_profile));
+						MeehabApp.toast(getString(R.string.message_your_profile));
 						return;
 					}
 
@@ -229,12 +228,12 @@ public class MyReviewDetailActivity extends SocketActivity implements
 
 	public void deleteUserReview(String reviewId) {
 		if (!NetworkUtils.isNetworkAvailable(this)) {
-			App.toast(getString(R.string.no_internet_connection));
+			MeehabApp.toast(getString(R.string.no_internet_connection));
 			return;
 		}
 		if (socketService != null) {
 			if (!NetworkUtils.isNetworkAvailable(this)) {
-				App.toast(getString(R.string.no_internet_connection));
+				MeehabApp.toast(getString(R.string.no_internet_connection));
 				return;
 			}
 

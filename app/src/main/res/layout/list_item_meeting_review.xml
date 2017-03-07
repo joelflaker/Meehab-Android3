@@ -24,8 +24,8 @@
 
                 <ImageView
                     android:id="@+id/ivUserIcon"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
+                    android:layout_width="@dimen/review_image_size"
+                    android:layout_height="@dimen/review_image_size"
                     android:layout_centerVertical="true"
                     android:src="@drawable/profile_pic_border" />
 

@@ -63,6 +63,7 @@ public class EventParams {
 	public static final String METHOD_DELETE_CHAT_MESSAGE = "users:deleteChatMessages";
 
 	public static final String METHOD_GET_CHAT_FRIENDS = "users:getChatFrinds";
+
 	public static final String METHOD_DELETE_CONVERSATION = "users:deleteConversetion";
 	
 	public static final String METHOD_BLOCK_USER = "users:blockUser";

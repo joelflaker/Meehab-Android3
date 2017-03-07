@@ -243,7 +243,7 @@ public class SocketService extends Service {
 			final String accessToken = getSharedPreferences(
 					Consts.APP_PREFS_NAME, Context.MODE_PRIVATE).getString(
 					Consts.SERVER_ACCESS_TOKEN, null);
-			Log.d("App:connect", "accessToken: " + accessToken);
+			Log.d("MeehabApp:connect", "accessToken: " + accessToken);
 
 			opts = new IO.Options();
 			opts.forceNew = true;
@@ -330,7 +330,7 @@ public class SocketService extends Service {
 
 					onSocketResponseSuccess(EventParams.EVENT_MEETING_GET_ALL,
 							data);
-					// App.getInstance().connectNodeJS();
+					// MeehabApp.getInstance().connectNodeJS();
 				} else {
 					onSocketResponseFailure(EventParams.EVENT_MEETING_GET_ALL,data.getString("message"));
 				}
@@ -360,7 +360,7 @@ public class SocketService extends Service {
 
 					onSocketResponseSuccess(EventParams.EVENT_GET_ALL_REHABS,
 							data);
-					// App.getInstance().connectNodeJS();
+					// MeehabApp.getInstance().connectNodeJS();
 				} else {
 					onSocketResponseFailure(EventParams.EVENT_GET_ALL_REHABS,data.getString("message"));
 				}
@@ -385,7 +385,7 @@ public class SocketService extends Service {
 //					//
 //					onSocketResponseSuccess(
 //							EventParams.EVENT_ADD_INSURANCE, data);
-//					// App.getInstance().connectNodeJS();
+//					// MeehabApp.getInstance().connectNodeJS();
 //				} else {
 //					onSocketResponseFailure(EventParams.EVENT_ADD_INSURANCE,data.getString("message"));
 //				}
@@ -411,7 +411,7 @@ public class SocketService extends Service {
 					onSocketResponseSuccess(EventParams.METHOD_CHAT_PAGINATION,
 							data);
 
-					// App.getInstance().connectNodeJS();
+					// MeehabApp.getInstance().connectNodeJS();
 				} else {
 					onSocketResponseFailure(EventParams.METHOD_CHAT_PAGINATION,data.getString("message"));
 				}
@@ -433,7 +433,7 @@ public class SocketService extends Service {
 	public void updateAccessToken() {
 		final String accessToken = getSharedPreferences(Consts.APP_PREFS_NAME,
 				Context.MODE_PRIVATE).getString(Consts.SERVER_ACCESS_TOKEN, "");
-		Log.d("App:connect", "accessToken: " + accessToken);
+		Log.d("MeehabApp:connect", "accessToken: " + accessToken);
 
 		// opts.query = "apiKey=@citrusbits&apiSecret=@citrusbits&accessToken=";
 		String query = opts.query;
@@ -498,7 +498,7 @@ public class SocketService extends Service {
 					i.putExtra(ContactSyncService.EXTRA_RESULT, data.toString());
 					SocketService.this.sendBroadcast(i);
 
-					// App.getInstance().connectNodeJS();
+					// MeehabApp.getInstance().connectNodeJS();
 				} else {
 					onSocketResponseFailure(EventParams.METHOD_SYNC_PHONE,data.getString("message"));
 				}
@@ -522,7 +522,7 @@ public class SocketService extends Service {
 					onSocketResponseSuccess(
 							EventParams.METHOD_BLOCK_USER_NOTIFY, data);
 
-					// App.getInstance().connectNodeJS();
+					// MeehabApp.getInstance().connectNodeJS();
 				} else {
 					onSocketResponseFailure(EventParams.METHOD_BLOCK_USER_NOTIFY,data.getString("message"));
 				}
@@ -546,7 +546,7 @@ public class SocketService extends Service {
 					onSocketResponseSuccess(EventParams.METHOD_CHECK_IN_USER,
 							data);
 
-					// App.getInstance().connectNodeJS();
+					// MeehabApp.getInstance().connectNodeJS();
 				} else {
 					onSocketResponseFailure(EventParams.METHOD_CHECK_IN_USER,data.getString("message"));
 				}
@@ -571,7 +571,7 @@ public class SocketService extends Service {
 					//
 					onSocketResponseSuccess(EventParams.METHOD_REPORT_USER,
 							data);
-					// App.getInstance().connectNodeJS();
+					// MeehabApp.getInstance().connectNodeJS();
 				} else {
 					onSocketResponseFailure(EventParams.METHOD_REPORT_USER,data.getString("message"));
 				}
@@ -595,7 +595,7 @@ public class SocketService extends Service {
 					// userDatasource.update(response.getUser());
 					//
 					onSocketResponseSuccess(EventParams.METHOD_BLOCK_USER, data);
-					// App.getInstance().connectNodeJS();
+					// MeehabApp.getInstance().connectNodeJS();
 				} else {
 					onSocketResponseFailure(EventParams.METHOD_BLOCK_USER,data.getString("message"));
 				}
@@ -618,7 +618,7 @@ public class SocketService extends Service {
 				if (data.getBoolean("type")) {
 					// userDatasource.update(response.getUser());
 					onSocketResponseSuccess(EventParams.METHOD_FAVOURITE_USER,data);
-					// App.getInstance().connectNodeJS();
+					// MeehabApp.getInstance().connectNodeJS();
 				} else {
 					onSocketResponseFailure(EventParams.METHOD_FAVOURITE_USER,data.getString("message"));
 				}
@@ -666,7 +666,7 @@ public class SocketService extends Service {
 					//
 					onSocketResponseSuccess(
 							EventParams.METHOD_DELETE_CONVERSATION, data);
-					// App.getInstance().connectNodeJS();
+					// MeehabApp.getInstance().connectNodeJS();
 				} else {
 					onSocketResponseFailure(EventParams.METHOD_DELETE_CONVERSATION,data.getString("message"));
 				}
@@ -690,7 +690,7 @@ public class SocketService extends Service {
 					//
 					onSocketResponseSuccess(
 							EventParams.METHOD_GET_CHAT_FRIENDS, data);
-					// App.getInstance().connectNodeJS();
+					// MeehabApp.getInstance().connectNodeJS();
 				} else {
 					onSocketResponseFailure(EventParams.METHOD_GET_CHAT_FRIENDS,data.getString("message"));
 				}
@@ -714,7 +714,7 @@ public class SocketService extends Service {
 					//
 					onSocketResponseSuccess(
 							EventParams.METHOD_DELETE_CHAT_MESSAGE, data);
-					// App.getInstance().connectNodeJS();
+					// MeehabApp.getInstance().connectNodeJS();
 				} else {
 					onSocketResponseFailure(EventParams.METHOD_DELETE_CHAT_MESSAGE,data.getString("message"));
 				}
@@ -809,7 +809,7 @@ public class SocketService extends Service {
 
 					}
 
-					// App.getInstance().connectNodeJS();
+					// MeehabApp.getInstance().connectNodeJS();
 				} else {
 					onSocketResponseFailure(EventParams.METHOD_CHAT_SEND_RECEIVE,data.getString("message"));
 				}
@@ -924,7 +924,7 @@ public class SocketService extends Service {
 					//
 					onSocketResponseSuccess(EventParams.EVENT_GET_USER_REVIEWS,
 							data);
-					// App.getInstance().connectNodeJS();
+					// MeehabApp.getInstance().connectNodeJS();
 				} else {
 					onSocketResponseFailure(EventParams.EVENT_GET_USER_REVIEWS,data.getString("message"));
 				}
@@ -948,7 +948,7 @@ public class SocketService extends Service {
 					//
 					onSocketResponseSuccess(EventParams.METHOD_RSVP, data);
 
-					// App.getInstance().connectNodeJS();
+					// MeehabApp.getInstance().connectNodeJS();
 				} else {
 					onSocketResponseFailure(EventParams.METHOD_RSVP,data.getString("message"));
 				}
@@ -972,7 +972,7 @@ public class SocketService extends Service {
 					//
 					onSocketResponseSuccess(EventParams.METHOD_HOME_GROUP_USER,
 							data);
-					// App.getInstance().connectNodeJS();
+					// MeehabApp.getInstance().connectNodeJS();
 				} else {
 					onSocketResponseFailure(EventParams.METHOD_HOME_GROUP_USER,data.getString("message"));
 				}
@@ -996,7 +996,7 @@ public class SocketService extends Service {
 					//
 					onSocketResponseSuccess(
 							EventParams.EVENT_DELETE_USER_REVIEW, data);
-					// App.getInstance().connectNodeJS();
+					// MeehabApp.getInstance().connectNodeJS();
 				} else {
 					onSocketResponseFailure(EventParams.EVENT_DELETE_USER_REVIEW,data.getString("message"));
 				}
@@ -1021,7 +1021,7 @@ public class SocketService extends Service {
 					//
 					onSocketResponseSuccess(
 							EventParams.METHOD_CHECK_IN_MEETING, data);
-					// App.getInstance().connectNodeJS();
+					// MeehabApp.getInstance().connectNodeJS();
 				} else {
 					onSocketResponseFailure(EventParams.METHOD_CHECK_IN_MEETING,data.getString("message"));
 				}
@@ -1044,7 +1044,7 @@ public class SocketService extends Service {
 					// userDatasource.update(response.getUser());
 					//
 					onSocketResponseSuccess(EventParams.METHOD_RSVP_USERS, data);
-					// App.getInstance().connectNodeJS();
+					// MeehabApp.getInstance().connectNodeJS();
 				} else {
 					onSocketResponseFailure(EventParams.METHOD_RSVP_USERS,data.getString("message"));
 				}
@@ -1068,7 +1068,7 @@ public class SocketService extends Service {
 					//
 					onSocketResponseSuccess(EventParams.METHOD_GET_ALL_FRIENDS,
 							data);
-					// App.getInstance().connectNodeJS();
+					// MeehabApp.getInstance().connectNodeJS();
 				} else {
 					onSocketResponseFailure(EventParams.METHOD_GET_ALL_FRIENDS,data.getString("message"));
 				}
@@ -1092,7 +1092,7 @@ public class SocketService extends Service {
 					//
 					onSocketResponseSuccess(EventParams.EVENT_USER_UPDATE,
 							response);
-					// App.getInstance().connectNodeJS();
+					// MeehabApp.getInstance().connectNodeJS();
 					String notify = response.getUser().getNotification();
 					if(!TextUtils.isEmpty(notify) || notify.equalsIgnoreCase("off")){
 						AppPrefs.getAppPrefs(getApplicationContext()).saveBooleanPrefs(AppPrefs.KEY_MSG_NOTIFICATION, false);
@@ -1122,7 +1122,7 @@ public class SocketService extends Service {
 					//
 					onSocketResponseSuccess(
 							EventParams.EVENT_MEETING_GET_REVIEWS, response);
-					// App.getInstance().connectNodeJS();
+					// MeehabApp.getInstance().connectNodeJS();
 				} else {
 					onSocketResponseFailure(EventParams.EVENT_MEETING_GET_REVIEWS,data.getString("message"));
 				}
@@ -1146,7 +1146,7 @@ public class SocketService extends Service {
 					// userDatasource.update(response.getUser());
 					//
 					onSocketResponseSuccess(EventParams.EVENT_MEETING_ADD_REVIEW, data);
-					// App.getInstance().connectNodeJS();
+					// MeehabApp.getInstance().connectNodeJS();
 				} else {
 					onSocketResponseFailure(EventParams.EVENT_MEETING_ADD_REVIEW,data.getString("message"));
 				}
@@ -1172,7 +1172,7 @@ public class SocketService extends Service {
 					//
 					onSocketResponseSuccess(
 							EventParams.EVENT_APP_FEED_BACK, data);
-					// App.getInstance().connectNodeJS();
+					// MeehabApp.getInstance().connectNodeJS();
 				} else {
 					onSocketResponseFailure(EventParams.EVENT_APP_FEED_BACK,data.getString("message"));
 				}
@@ -1327,7 +1327,7 @@ public class SocketService extends Service {
 						// disconnectSocket();
 						// connectSocket();
 
-						// App.getInstance().connectNodeJS();
+						// MeehabApp.getInstance().connectNodeJS();
 					} else {
 						onSocketResponseFailure(EventParams.EVENT_USER_SIGNUP,data.getString("message"));
 					}
@@ -1382,7 +1382,7 @@ public class SocketService extends Service {
 						// disconnectSocket();
 						// connectSocket();
 
-						// App.getInstance().connectNodeJS();
+						// MeehabApp.getInstance().connectNodeJS();
 					} else {
 						onSocketResponseFailure(EventParams.EVENT_USER_FACEBOOK,response.getMessage());
 					}
@@ -1485,7 +1485,7 @@ public class SocketService extends Service {
 						//
 						onSocketResponseSuccess(EventParams.EVENT_FAVOURITE_LIST,
 								data);
-						// App.getInstance().connectNodeJS();
+						// MeehabApp.getInstance().connectNodeJS();
 					} else {
 						onSocketResponseFailure(EventParams.EVENT_FAVOURITE_LIST,data.getString("message"));
 					}
@@ -1514,7 +1514,7 @@ public class SocketService extends Service {
 						//
 						onSocketResponseSuccess(
 								EventParams.EVENT_ADD_USER_FAVOURITE, data);
-						// App.getInstance().connectNodeJS();
+						// MeehabApp.getInstance().connectNodeJS();
 					} else {
 						onSocketResponseFailure(EventParams.EVENT_ADD_USER_FAVOURITE,data.getString("message"));
 					}
@@ -1546,7 +1546,7 @@ public class SocketService extends Service {
 						//
 						onSocketResponseSuccess(
 								EventParams.EVENT_ADD_MEETING, data);
-						// App.getInstance().connectNodeJS();
+						// MeehabApp.getInstance().connectNodeJS();
 					} else {
 						onSocketResponseFailure(EventParams.EVENT_ADD_MEETING,data.getString("message"));
 					}
@@ -1576,7 +1576,7 @@ public class SocketService extends Service {
 						//
 						onSocketResponseSuccess(
 								EventParams.EVENT_ADD_REHAB, data);
-						// App.getInstance().connectNodeJS();
+						// MeehabApp.getInstance().connectNodeJS();
 					} else {
 						onSocketResponseFailure(EventParams.EVENT_ADD_REHAB,data.getString("message"));
 					}
@@ -1690,7 +1690,7 @@ public class SocketService extends Service {
 						onSocketResponseSuccess(EventParams.METHOD_BIG_BOOK,
 								data);
 
-						// App.getInstance().connectNodeJS();
+						// MeehabApp.getInstance().connectNodeJS();
 					} else {
 						onSocketResponseFailure(EventParams.METHOD_BIG_BOOK,data.getString("message"));
 					}
@@ -1726,7 +1726,7 @@ public class SocketService extends Service {
 						onSocketResponseSuccess(EventParams.METHOD_REPORT_MEETING,
 								data);
 
-						// App.getInstance().connectNodeJS();
+						// MeehabApp.getInstance().connectNodeJS();
 					} else {
 						onSocketResponseFailure(EventParams.METHOD_REPORT_MEETING,data.getString("message"));
 					}
@@ -1804,7 +1804,7 @@ public class SocketService extends Service {
 						// userDatasource.update(response.getUser());
 						//
 						onSocketResponseSuccess(EventParams.METHOD_CHECK_INFO, data);
-						// App.getInstance().connectNodeJS();
+						// MeehabApp.getInstance().connectNodeJS();
 					} else {
 						onSocketResponseFailure(EventParams.METHOD_CHECK_INFO,data.getString("message"));
 					}
@@ -1858,7 +1858,7 @@ public class SocketService extends Service {
 						// userDatasource.update(response.getUser());
 						//
 						onSocketResponseSuccess(EventParams.METHOD_USER_BY_ID, data);
-						// App.getInstance().connectNodeJS();
+						// MeehabApp.getInstance().connectNodeJS();
 					} else {
 						onSocketResponseFailure(EventParams.METHOD_USER_BY_ID,data.getString("message"));
 					}
@@ -1888,7 +1888,7 @@ public class SocketService extends Service {
 						// userDatasource.update(response.getUser());
 						//
 						onSocketResponseSuccess(EventParams.METHOD_MEETING_BY_ID, data);
-						// App.getInstance().connectNodeJS();
+						// MeehabApp.getInstance().connectNodeJS();
 					} else {
 						onSocketResponseFailure(EventParams.METHOD_MEETING_BY_ID,data.getString("message"));
 					}
@@ -1919,7 +1919,7 @@ public class SocketService extends Service {
 						// userDatasource.update(response.getUser());
 						//
 						onSocketResponseSuccess(EventParams.METHOD_USERS_DELETE, data);
-						// App.getInstance().connectNodeJS();
+						// MeehabApp.getInstance().connectNodeJS();
 					} else {
 						onSocketResponseFailure(EventParams.METHOD_USERS_DELETE,data.getString("message"));
 					}
@@ -2164,7 +2164,7 @@ public class SocketService extends Service {
 	public void onDestroy() {
 		super.onDestroy();
 		Log.d(TAG, "Service:onDestroy");
-		// App.alert("Service:onDestroy");
+		// MeehabApp.alert("Service:onDestroy");
 
 		// disconnectSocket();
 		stopForeground(true);
@@ -2204,7 +2204,7 @@ public class SocketService extends Service {
 						//
 						onSocketResponseSuccess(EventParams.EVENT_REHAB_FAVOURITE,
 								data);
-						// App.getInstance().connectNodeJS();
+						// MeehabApp.getInstance().connectNodeJS();
 					} else {
 						onSocketResponseFailure(EventParams.EVENT_REHAB_FAVOURITE,data.getString("message"));
 					}
@@ -2235,7 +2235,7 @@ public class SocketService extends Service {
 						//
 						onSocketResponseSuccess(EventParams.EVENT_REHAB_REPORT,
 								data);
-						// App.getInstance().connectNodeJS();
+						// MeehabApp.getInstance().connectNodeJS();
 					} else {
 						onSocketResponseFailure(EventParams.EVENT_REHAB_REPORT,data.getString("message"));
 					}

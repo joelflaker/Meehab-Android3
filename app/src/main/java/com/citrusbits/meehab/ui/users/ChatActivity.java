@@ -34,7 +34,7 @@ import android.widget.Toast;
 import com.citrusbits.meehab.R;
 import com.citrusbits.meehab.adapters.ChatAdapter;
 import com.citrusbits.meehab.adapters.ChatAdapter.ChatCheckedChangeListener;
-import com.citrusbits.meehab.app.App;
+import com.citrusbits.meehab.app.MeehabApp;
 import com.citrusbits.meehab.constants.EventParams;
 import com.citrusbits.meehab.db.ChatDataSource;
 import com.citrusbits.meehab.db.DatabaseHandler;
@@ -309,7 +309,7 @@ public class ChatActivity extends SocketActivity implements OnClickListener,
 
 	public void deleteChatMessages() {
 		if (!NetworkUtils.isNetworkAvailable(this)) {
-			App.toast(getString(R.string.no_internet_connection));
+			MeehabApp.toast(getString(R.string.no_internet_connection));
 			return;
 		}
 
@@ -351,7 +351,7 @@ public class ChatActivity extends SocketActivity implements OnClickListener,
 
 	public void chatPagination(int index) {
 		if (!NetworkUtils.isNetworkAvailable(this)) {
-			App.toast(getString(R.string.no_internet_connection));
+			MeehabApp.toast(getString(R.string.no_internet_connection));
 			return;
 		}
 
@@ -378,7 +378,7 @@ public class ChatActivity extends SocketActivity implements OnClickListener,
 
 	public void sendChatMessage(String message) {
 		if (!NetworkUtils.isNetworkAvailable(this)) {
-			App.toast(getString(R.string.no_internet_connection));
+			MeehabApp.toast(getString(R.string.no_internet_connection));
 			return;
 		}
 
@@ -405,7 +405,7 @@ public class ChatActivity extends SocketActivity implements OnClickListener,
 
 	public void blockUser() {
 		if (!NetworkUtils.isNetworkAvailable(this)) {
-			App.toast(getString(R.string.no_internet_connection));
+			MeehabApp.toast(getString(R.string.no_internet_connection));
 			return;
 		}
 

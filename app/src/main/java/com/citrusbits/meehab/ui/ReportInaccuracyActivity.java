@@ -4,7 +4,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.citrusbits.meehab.R;
-import com.citrusbits.meehab.app.App;
+import com.citrusbits.meehab.app.MeehabApp;
 import com.citrusbits.meehab.constants.EventParams;
 import com.citrusbits.meehab.ui.dialog.MessageDialog;
 import com.citrusbits.meehab.services.OnBackendConnectListener;
@@ -41,7 +41,7 @@ public class ReportInaccuracyActivity extends SocketActivity implements
 		if(getIntent().hasExtra(KEY_REHAB_ID)){
 			isMeetingId = false;
 			reportId = getIntent().getIntExtra(KEY_REHAB_ID, -1);
-			App.toast("Reporting Rehab");
+			MeehabApp.toast("Reporting Rehab");
 		}else{
 			isMeetingId = true;
 			reportId = getIntent().getIntExtra(KEY_MEETING_ID, -1);
@@ -91,7 +91,7 @@ public class ReportInaccuracyActivity extends SocketActivity implements
 
 	public void reportMeetings(String message) {
 		if (!NetworkUtils.isNetworkAvailable(this)) {
-			App.toast(getString(R.string.no_internet_connection));
+			MeehabApp.toast(getString(R.string.no_internet_connection));
 			return;
 		}
 		try {

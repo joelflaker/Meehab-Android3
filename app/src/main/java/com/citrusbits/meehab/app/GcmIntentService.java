@@ -105,7 +105,7 @@ public class GcmIntentService extends IntentService {
 //	public void showToast(final String message) {
 //		handler.post(new Runnable() {
 //			public void run() {
-//				Toast.makeText(App.getInstance(), message, Toast.LENGTH_LONG)
+//				Toast.makeText(MeehabApp.getInstance(), message, Toast.LENGTH_LONG)
 //						.show();
 //			}
 //		});

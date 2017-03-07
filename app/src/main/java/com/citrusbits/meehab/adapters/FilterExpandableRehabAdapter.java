@@ -42,11 +42,13 @@ public class FilterExpandableRehabAdapter extends BaseExpandableListAdapter {
 	@Override
 	public View getGroupView(int groupPosition, boolean isExpanded,
 			View convertView, ViewGroup parent) {
-		LayoutInflater inflater = (LayoutInflater) this.context
-				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		if(convertView == null) {
+			LayoutInflater inflater = (LayoutInflater) this.context
+					.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-		convertView = inflater.inflate(R.layout.list_exp_item_filter_parent,
-				parent, false);
+			convertView = inflater.inflate(R.layout.list_exp_item_filter_parent,
+					parent, false);
+		}
 
 		ExpCategory group = categories.get(groupPosition);
 		// Get grouprow.xml file elements and set values
@@ -78,10 +80,12 @@ public class FilterExpandableRehabAdapter extends BaseExpandableListAdapter {
 	@Override
 	public View getChildView(final int groupPosition, final int childPosition,
 			boolean isLastChild, View convertView, ViewGroup parent) {
-		LayoutInflater inflater = (LayoutInflater) this.context
-				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-		convertView = inflater.inflate(R.layout.list_exp_item_filter_child,
-				parent, false);
+		if(convertView == null) {
+			LayoutInflater inflater = (LayoutInflater) this.context
+					.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+			convertView = inflater.inflate(R.layout.list_exp_item_filter_child,
+					parent, false);
+		}
 
 		final ExpChild child = categories.get(groupPosition).getChildren()
 				.get(childPosition);
@@ -99,132 +103,39 @@ public class FilterExpandableRehabAdapter extends BaseExpandableListAdapter {
 				child.setChecked(!child.isChecked());
 				check.setChecked(child.isChecked());
 				String childName = child.getName();
-				if (child.isChecked()) {
-					if (childName.toLowerCase().equals("select all")) {
-						List<ExpChild> childs = categories.get(groupPosition)
-								.getChildren();
-						for (int i = 0; i < childs.size(); i++) {
-							childs.get(i).setChecked(true);
-//							cacheSelection(groupPosition, childs.get(i)
-//									.getName());
-						}
-						childs.get(0).setName("Deselect All");
+				List<ExpChild> childs = categories.get(groupPosition)
+						.getChildren();
 
-						if (groupPosition == 0) {
-							fFilterResultHolder.selectAllType(true);
-						} else if (groupPosition == 1) {
-							fFilterResultHolder.selectAllInsurance(true);
-						}
-						
-						setUnSetAny(groupPosition, true);
-						notifyDataSetChanged();
-					} else {
-						List<ExpChild> childs = categories.get(groupPosition)
-								.getChildren();
+				boolean allChecked = true;
+				String name = childs.get(childPosition).getName();
 
-						boolean allChecked = true;
-						String name = childs.get(childPosition).getName();
-
-						if (groupPosition == 0) {
-							fFilterResultHolder.setanyType(false);
-							fFilterResultHolder.addRehabType(name);
-						} else if (groupPosition == 1) {
-							fFilterResultHolder.setanyInsuranceAccepted(false);
-							fFilterResultHolder.addInsuranceAccepted(name);
-						}
-						for (int i = 1; i < childs.size(); i++) {
-
-							Log.e(" " + i, childs.get(i).isChecked() + "");
-
-							if (!childs.get(i).isChecked()) {
-								allChecked = false;
-								break;
-							}
-						}
-
-						if (groupPosition == 0) {
-							fFilterResultHolder.selectAllType(allChecked);
-						} else if (groupPosition == 1) {
-							fFilterResultHolder.selectAllInsurance(allChecked);
-						}
-						if (allChecked) {
-
-							childs.get(0).setChecked(true);
-							childs.get(0).setName("Deselect All");
-							setUnSetAny(groupPosition, true);
-							notifyDataSetChanged();
-							
-						}
-
-					}
-				} else {
-					if (childName.toLowerCase().equals("deselect all")) {
-						List<ExpChild> childs = categories.get(groupPosition)
-								.getChildren();
-						for (int i = 0; i < childs.size(); i++) {
-							childs.get(i).setChecked(false);
-						}
-
-						childs.get(0).setName("Select All");
-
-						if (groupPosition == 0) {
-							fFilterResultHolder.clearRehabType();
-							fFilterResultHolder.selectAllType(false);
-							fFilterResultHolder.setanyType(true);
-						} else if (groupPosition == 1) {
-							fFilterResultHolder.selectAllInsurance(false);
-							fFilterResultHolder.setanyInsuranceAccepted(true);
-							fFilterResultHolder.clearInsuranceAccepted();
-						}
-
-						notifyDataSetChanged();
-					} else {
-
-						List<ExpChild> childs = categories.get(groupPosition)
-								.getChildren();
-
-						if (childs.get(0).isChecked()) {
-							childs.get(0).setChecked(false);
-							childs.get(0).setName("Select All");
-						}
-
-						boolean allunChecked = true;
-
-						for (int i = 1; i < childs.size(); i++) {
-							Log.e("Uncheck " + i, childs.get(i).isChecked()
-									+ "");
-							if (childs.get(i).isChecked()) {
-								allunChecked = false;
-								break;
-							}
-						}
-						
-						String name = childs.get(childPosition).getName();
-						if (groupPosition == 0) {
-							fFilterResultHolder.removeRehabType(name);
-							fFilterResultHolder.setanyType(fFilterResultHolder.getRehabType().size() == 0);
-						} else if (groupPosition == 1) {
-							fFilterResultHolder.removeInsuranceAccepted(name);
-							fFilterResultHolder.setanyInsuranceAccepted(fFilterResultHolder.getInsuranceAccepted().size() == 0);
-						}
-						
-
-						if (allunChecked) {
-							childs.get(0).setName("Select All");
-							setUnSetAny(groupPosition, true);
-							
-						}
-						
-						if (groupPosition == 0) {
-							fFilterResultHolder.selectAllType(allunChecked);
-						} else if (groupPosition == 1) {
-							fFilterResultHolder.selectAllInsurance(allunChecked);
-						}
-
-						notifyDataSetChanged();
-
+				for (int i = 1; i < childs.size(); i++) {
+					if (!childs.get(i).isChecked()) {
+						allChecked = false;
+						break;
 					}
 				}
+
+				if (groupPosition == 0) {
+					if (child.isChecked()) {
+						fFilterResultHolder.addRehabType(name);
+					}else {
+						fFilterResultHolder.removeRehabType(name);
+					}
+					fFilterResultHolder.selectAllType(allChecked);
+					fFilterResultHolder.setanyType(allChecked || fFilterResultHolder.getRehabType().size() == 0);
+				} else if (groupPosition == 1) {
+					if (child.isChecked()) {
+						fFilterResultHolder.addInsuranceAccepted(name);
+					}else {
+						fFilterResultHolder.removeInsuranceAccepted(name);
+					}
+					fFilterResultHolder.selectAllInsurance(allChecked);
+					fFilterResultHolder.setanyInsuranceAccepted(allChecked || fFilterResultHolder.getInsuranceAccepted().size() == 0);
+				}
+
+				notifyDataSetChanged();
+
 			}
 		});
 
@@ -236,14 +147,6 @@ public class FilterExpandableRehabAdapter extends BaseExpandableListAdapter {
 			fFilterResultHolder.addRehabType(selectedValue);
 		} else if (groupPosition == 1) {
 			fFilterResultHolder.addInsuranceAccepted(selectedValue);
-		}
-	}
-
-	public void setUnSetAny(int groupPosition, boolean any) {
-		if (groupPosition == 0) {
-			fFilterResultHolder.setanyType(any);
-		} else if (groupPosition == 1) {
-			fFilterResultHolder.setanyInsuranceAccepted(any);
 		}
 	}
 

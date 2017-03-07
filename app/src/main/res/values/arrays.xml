@@ -3,7 +3,6 @@
 
     <!-- applyFilter Days -->
     <string-array name="daysValues">
-        <item>Select All</item>
         <item>Monday</item>
         <item>Tuesday</item>
         <item>Wednesday</item>
@@ -67,8 +66,16 @@
     </string-array>
 
     <!-- applyFilter Days -->
+    <string-array name="timeRangeFilterValues">
+        <item>06 AM - 09 AM</item>
+        <item>09 AM - 12 PM</item>
+        <item>12 PM - 03 PM</item>
+        <item>03 PM - 06 PM</item>
+        <item>06 PM - 09 PM</item>
+        <item>09 PM - 12 AM</item>
+    </string-array>
+
     <string-array name="timeRangeValues">
-        <item>Select All</item>
         <item>06 AM - 09 AM</item>
         <item>09 AM - 12 PM</item>
         <item>12 PM - 03 PM</item>
@@ -174,15 +181,14 @@
 
     <!-- FriendType -->
     <string-array name="friend_type_arr">
-        <item>Select All</item>
-        <item>Contacts</item>
         <item>Favourite</item>
-        <item>Facebook</item>
+        <item>From Facebook</item>
+        <item>From My Contacts</item>
+        <item>Blocked</item>
     </string-array>
 
     <!-- Gender Type -->
     <string-array name="gender_arr">
-        <item>Select All</item>
         <item>Male</item>
         <item>Female</item>
         <item>Other</item>
@@ -190,7 +196,6 @@
 
     <!-- Age -->
     <string-array name="age_arr">
-        <item>Select All</item>
         <item>18-25 years</item>
         <item>26-30 years</item>
         <item>31-35 years</item>
@@ -216,7 +221,6 @@
 
     <!-- Material Status -->
     <string-array name="material_arr">
-        <item>Select All</item>
         <item>Single</item>
         <item>In a Relationship</item>
         <item>Married</item>
@@ -226,14 +230,13 @@
 
     <!-- Interested in Status -->
     <string-array name="Interested_in_arr">
-        <item>Select All</item>
-        <item>Fellowship</item>
         <item>Dating</item>
+        <item>Fellowship</item>
+        <item>Both</item>
     </string-array>
 
     <!-- Time sobar -->
     <string-array name="time_sobar_arr">
-        <item>Select All</item>
         <item>Less than 1 year</item>
         <item>1-5 years</item>
         <item>6-10 years</item>
@@ -246,12 +249,12 @@
 
     <!-- Height -->
     <string-array name="height_arr">
-        <item>Select All</item>
         <item>4\'5"-5\'0"</item>
         <item>5\'1"-5\'5"</item>
         <item>5\'6"-6\'0"</item>
         <item>6\'1"-6\'5"</item>
         <item>6\'6"-7\'0"</item>
+        <item>7\'+</item>
     </string-array>
     <string-array name="insurance_arr">
         <item>Aetna</item>

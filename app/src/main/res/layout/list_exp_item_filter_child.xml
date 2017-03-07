@@ -9,12 +9,12 @@
     <TextView
         android:id="@+id/filter_value"
         android:layout_width="0dp"
-        android:layout_height="45dp"
+        android:layout_height="40dp"
         android:layout_weight="1"
         android:focusable="false"
         android:gravity="center_vertical"
         android:text="Child title"
-        android:textColor="#888888" />
+        android:textColor="@color/text_color_gray" />
 
     <CheckBox
         android:id="@+id/filter_check"
@@ -24,6 +24,6 @@
         android:focusable="false"
         android:clickable="false"
         android:focusableInTouchMode="false"
-        android:textColor="#888888" />
+        android:textColor="@color/text_color_gray" />
 
 </LinearLayout>

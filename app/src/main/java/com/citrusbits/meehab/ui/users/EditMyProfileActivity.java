@@ -6,13 +6,11 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-import org.apache.http.client.utils.CloneUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -32,7 +30,6 @@ import android.os.PersistableBundle;
 import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.util.Base64;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -50,7 +47,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.citrusbits.meehab.R;
-import com.citrusbits.meehab.app.App;
+import com.citrusbits.meehab.app.MeehabApp;
 import com.citrusbits.meehab.constants.Consts;
 import com.citrusbits.meehab.constants.EventParams;
 import com.citrusbits.meehab.db.UserDatasource;
@@ -136,8 +133,8 @@ public class EditMyProfileActivity extends SocketActivity implements
 					}
 				});
 
-		// if(App.getInstance().socketIO == null){
-		// App.getInstance().initConnectNodeJS();
+		// if(MeehabApp.getInstance().socketIO == null){
+		// MeehabApp.getInstance().initConnectNodeJS();
 		// }
 		userDatasource = new UserDatasource(this);
 
@@ -665,7 +662,7 @@ public class EditMyProfileActivity extends SocketActivity implements
 
 	private void updateProfile() {
 		if (NetworkUtil.getConnectivityStatus(this) == 0) {
-			App.toast("It's seems to be network problem");
+			MeehabApp.toast("It's seems to be network problem");
 			return;
 		} else {
 
@@ -1240,7 +1237,7 @@ public class EditMyProfileActivity extends SocketActivity implements
 		pd.dismiss();
 
 		if (event.equals(EventParams.EVENT_USER_UPDATE)) {
-			App.toast("Updated successfully");
+			MeehabApp.toast("Updated successfully");
 			EditMyProfileActivity.this.sendBroadcast(new Intent(
 					HomeActivity.ACTION_PROFILE_UPDATE));
 			EditMyProfileActivity.this.finish();
@@ -1251,7 +1248,7 @@ public class EditMyProfileActivity extends SocketActivity implements
 	@Override
 	public void onSocketResponseFailure(String onEvent,String message) {
 		pd.dismiss();
-		App.toast(message);
+		MeehabApp.toast(message);
 	}
 
 	@Override

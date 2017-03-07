@@ -24,6 +24,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 
+import com.citrusbits.meehab.app.MeehabApp;
 import com.citrusbits.meehab.ui.users.BlockFriendsActivity;
 import com.citrusbits.meehab.ui.users.ChangeEmailActivity;
 import com.citrusbits.meehab.ui.users.ChangePasswordActivity;
@@ -36,7 +37,6 @@ import com.citrusbits.meehab.ui.rehabs.RehabAdditionActivity;
 import com.citrusbits.meehab.ui.meetings.MeetingAdditionActivity;
 import com.citrusbits.meehab.ui.users.LoginAndRegisterActivity.PendingAction;
 import com.citrusbits.meehab.ui.users.TermsAndConditionsActivity;
-import com.citrusbits.meehab.app.App;
 import com.citrusbits.meehab.constants.Consts;
 import com.citrusbits.meehab.constants.EventParams;
 import com.citrusbits.meehab.db.UserDatasource;
@@ -330,7 +330,7 @@ public class OptionsFragment extends Fragment implements OnSocketResponseListene
 			case R.id.cbLinkFacebook:
 				if (!isLinkedFacebook) {
 					if (NetworkUtil.getConnectivityStatus(getContext()) == 0) {
-						App.toast(getString(R.string.no_internet_connection));
+						MeehabApp.toast(getString(R.string.no_internet_connection));
 						return;
 					}
 //						loginAction = LoginAction.FACEBOOOK;
@@ -505,7 +505,7 @@ public class OptionsFragment extends Fragment implements OnSocketResponseListene
 
 			waitingFor = ServiceCalls.NONE;
 		}else if (event.equals(EventParams.METHOD_USERS_DELETE)) {
-			App.toast(""+message);
+			MeehabApp.toast(""+message);
 		}
 	}
 	@Override
@@ -641,7 +641,7 @@ public class OptionsFragment extends Fragment implements OnSocketResponseListene
 								pd.show();
 								homeActivity.socketService.deleteAccount(password);
 							}else {
-								App.toast(getResources().getString(R.string.no_internet_connection));
+								MeehabApp.toast(getResources().getString(R.string.no_internet_connection));
 							}
 						}
 
@@ -662,7 +662,7 @@ public class OptionsFragment extends Fragment implements OnSocketResponseListene
 		Intent i = new Intent(getActivity(), SocketService.class);
 		getActivity().stopService(i);
 
-		App.getInstance()
+		MeehabApp.getInstance()
 		.getSharedPreferences(Consts.APP_PREFS_NAME,
 				Context.MODE_PRIVATE).edit().clear().commit();
 

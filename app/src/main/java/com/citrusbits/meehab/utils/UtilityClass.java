@@ -1,7 +1,6 @@
 package com.citrusbits.meehab.utils;
 
 import java.math.BigInteger;
-import java.net.URI;
 import java.security.MessageDigest;
 import java.text.DecimalFormatSymbols;
 import java.util.Formatter;
@@ -23,19 +22,16 @@ import android.graphics.Matrix;
 import android.graphics.drawable.ColorDrawable;
 import android.location.Location;
 import android.media.MediaMetadataRetriever;
-import android.media.ThumbnailUtils;
-import android.net.Uri;
 import android.os.Build;
-import android.provider.MediaStore;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Spinner;
 
+import com.citrusbits.meehab.app.MeehabApp;
 import com.citrusbits.meehab.ui.users.LoginAndRegisterActivity;
 import com.citrusbits.meehab.R;
-import com.citrusbits.meehab.app.App;
 import com.citrusbits.meehab.constants.Consts;
 import com.citrusbits.meehab.db.UserDatasource;
 import com.google.android.gms.maps.model.LatLng;
@@ -49,7 +45,7 @@ public class UtilityClass {
 		String token = null;
 		SharedPreferences settings = context.getSharedPreferences(Consts.APP_PREFS_NAME, 0);
 		if (token == null) {
-			token = App.regid;
+			token = MeehabApp.regid;
 
 			SharedPreferences.Editor editor = settings.edit();
 			editor.putString(Consts.GCM_TOKEN, token);
@@ -399,15 +395,15 @@ public class UtilityClass {
 		
 //		float[] results = new float[1];
 //		Location.distanceBetween(meeting.getLatitude(), meeting.getLongitude(),
-//				App.getMyPosition().latitude, App.getMyPosition().longitude,
+//				MeehabApp.getMyPosition().latitude, MeehabApp.getMyPosition().longitude,
 //		                         results);
 		
 		Location locationA = new Location("");
 		locationA.setLatitude(dist.latitude);
 		locationA.setLongitude( dist.longitude);
 		Location locationB = new Location("");
-		locationB.setLatitude(App.getMyPosition().latitude);
-		locationB.setLongitude(App.getMyPosition().longitude);
+		locationB.setLatitude(MeehabApp.getMyPosition().latitude);
+		locationB.setLongitude(MeehabApp.getMyPosition().longitude);
 		distance = (int)(locationA.distanceTo(locationB)/1000) + " miles";
 		
 		return distance;

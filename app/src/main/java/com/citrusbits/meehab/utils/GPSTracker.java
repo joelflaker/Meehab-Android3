@@ -29,7 +29,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.citrusbits.meehab.app.App;
+import com.citrusbits.meehab.app.MeehabApp;
 
 public class GPSTracker implements LocationListener {
 	private final Context mContext;
@@ -172,7 +172,7 @@ public class GPSTracker implements LocationListener {
 //		final String url = "http://maps.googleapis.com/maps/api/directions/json?origin="
 //				+ from + "&destination=" + to + "&sensor=false";
 
-		RequestQueue requestQueue = App.getInstance().getRequestQueue();
+		RequestQueue requestQueue = MeehabApp.getInstance().getRequestQueue();
 
 		
 		// prepare the Request

@@ -8,9 +8,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.citrusbits.meehab.R;
+import com.citrusbits.meehab.app.MeehabApp;
 import com.citrusbits.meehab.ui.SocketActivity;
 import com.citrusbits.meehab.ui.TwoOptionActivity;
-import com.citrusbits.meehab.app.App;
 import com.citrusbits.meehab.app.GCMManager;
 import com.citrusbits.meehab.constants.EventParams;
 import com.citrusbits.meehab.contacts.PhoneContacts;
@@ -30,7 +30,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
 
@@ -138,7 +137,7 @@ public class LoginActivity extends SocketActivity implements
 		// validate username and email
 
 		if (NetworkUtil.getConnectivityStatus(this) == 0) {
-			App.toast(getString(R.string.no_internet_connection));
+			MeehabApp.toast(getString(R.string.no_internet_connection));
 			return;
 		} else {
 
@@ -219,7 +218,7 @@ public class LoginActivity extends SocketActivity implements
 	public void onSocketResponseFailure(String event, String message) {
 		if (event.equals(EventParams.METHOD_USER_LOGIN)) {
 			pd.dismiss();
-			App.toast(message);
+			MeehabApp.toast(message);
 		}
 	}
 }
