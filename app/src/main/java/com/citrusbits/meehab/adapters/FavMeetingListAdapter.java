@@ -66,9 +66,6 @@ public class FavMeetingListAdapter extends ArrayAdapter<MeetingModel> {
 	public ArrayList<MeetingModel> getMeetingArray() {
 		return this.arrayList;
 	}
-	
-
-	
 
 	@Override
 	public View getView(final int position, View convertView, ViewGroup parent) {
@@ -84,7 +81,7 @@ public class FavMeetingListAdapter extends ArrayAdapter<MeetingModel> {
 		TextView txtDayDate = (TextView) v.findViewById(R.id.txtDayDate);
 		CheckBox cbMeeting = (CheckBox) v.findViewById(R.id.cbMeeting);
 
-		TextView tvDateHeading = (TextView) v.findViewById(R.id.tvDateHeading);
+//		TextView tvDateHeading = (TextView) v.findViewById(R.id.tvDateHeading);
 		tvCodes[0] = (TextView) v.findViewById(R.id.tvCode1);
 		tvCodes[1] = (TextView) v.findViewById(R.id.tvCode2);
 		tvCodes[2] = (TextView) v.findViewById(R.id.tvCode3);
@@ -107,7 +104,7 @@ public class FavMeetingListAdapter extends ArrayAdapter<MeetingModel> {
 		TextView txtDistance = (TextView) v.findViewById(R.id.txtDistance);
 
 		txtDayDate.setText(formateDate(m.getOnDateOrigion()));
-		tvDateHeading.setText(m.getOnDate() + " ");
+//		tvDateHeading.setText(m.getOnDate() + " ");
 		txtName.setText(m.getName());
 		txtTime.setText(m.getNearestTime());
 		txtNumOfReviews.setText(String.valueOf(m.getReviewsCount())
@@ -120,8 +117,7 @@ public class FavMeetingListAdapter extends ArrayAdapter<MeetingModel> {
 
 		// rating.setRating(5);
 
-		tvDateHeading.setVisibility(m.isDateHeaderVisible() ? View.VISIBLE
-				: View.GONE);
+//		tvDateHeading.setVisibility(View.GONE);
 
 		String[] codes = m.getCodes().split(",");
 		int i = 0;

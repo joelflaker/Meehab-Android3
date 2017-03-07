@@ -157,13 +157,10 @@ public class FilterExpandableFriendAdapter extends BaseExpandableListAdapter {
 	@Override
 	public View getChildView(final int groupPosition, final int childPosition,
 			boolean isLastChild, View convertView, ViewGroup parent) {
-
-		if(convertView == null) {
-			LayoutInflater inflater = (LayoutInflater) this.context
-					.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-			convertView = inflater.inflate(R.layout.list_exp_item_filter_child,
-					parent, false);
-		}
+		LayoutInflater inflater = (LayoutInflater) this.context
+				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		convertView = inflater.inflate(R.layout.list_exp_item_filter_child,
+				parent, false);
 
 		final ExpChild child = categories.get(groupPosition).getChildren()
 				.get(childPosition);

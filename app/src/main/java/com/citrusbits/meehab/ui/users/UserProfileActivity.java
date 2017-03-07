@@ -164,23 +164,23 @@ public class UserProfileActivity extends SocketActivity implements
 				String userImage = user.getImage();
 
 				Picasso.with(this).load(userImage)
-						.placeholder(R.drawable.profile_pic_border).resize(100, 100)
-						.error(R.drawable.profile_pic_border)
+						.placeholder(R.drawable.img_place_holder).resize(100, 100)
+						.error(R.drawable.img_place_holder)
 						.transform(new PicassoCircularTransform())
 						.into(ivUserIcon);
 
 				Picasso.with(this)
 						.load(userImage)
-						.placeholder(R.drawable.profile_pic_border)
+						.placeholder(R.drawable.img_place_holder)
 						// .resize(300, 200)
-						.error(R.drawable.profile_pic_border)
+						.error(R.drawable.img_place_holder)
 						.transform(
 								new PicassoBlurTransform(
 										UserProfileActivity.this, Consts.IMAGE_BLURR_RADIUS))
 						.into(ivBlurBg);
 			}else {
 				Picasso.with(this)
-						.load(R.drawable.profile_pic_border)
+						.load(R.drawable.img_place_holder)
 						.transform(
 								new PicassoBlurTransform(
 										UserProfileActivity.this, Consts.IMAGE_BLURR_RADIUS))

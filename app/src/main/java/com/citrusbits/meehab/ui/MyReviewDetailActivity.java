@@ -98,13 +98,13 @@ public class MyReviewDetailActivity extends SocketActivity implements
 
 			if(!TextUtils.isEmpty(userImage)) {
 				Picasso.with(MyReviewDetailActivity.this).load(userImage)
-						.placeholder(R.drawable.profile_pic_border).resize(80, 80)
-						.error(R.drawable.profile_pic_border)
+						.placeholder(R.drawable.img_place_holder)
+						.error(R.drawable.img_place_holder)
 						.transform(new PicassoCircularTransform()).into(ivUserIcon);
 			}else {
 				Picasso.with(MyReviewDetailActivity.this)
-						.load(R.drawable.profile_pic_border)
-						.resize(80, 80).into(ivUserIcon);
+						.load(R.drawable.img_place_holder)
+						.into(ivUserIcon);
 			}
 
 			topRightBtn

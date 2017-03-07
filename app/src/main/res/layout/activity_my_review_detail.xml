@@ -84,7 +84,7 @@
                         android:layout_width="50dp"
                         android:layout_height="50dp"
                         android:layout_centerVertical="true"
-                        android:src="@drawable/profile_pic_border" />
+                        android:src="@drawable/img_place_holder" />
 
                     <TextView
                         android:id="@+id/tvReviewTitle"
@@ -93,7 +93,7 @@
                         android:layout_toRightOf="@+id/ivUserIcon"
                         android:focusable="false"
                         android:focusableInTouchMode="false"
-                        android:paddingLeft="2dp"
+                        android:paddingLeft="4dp"
                         android:text="Review Title"
                         android:textColor="@android:color/black"
                         android:textSize="16sp"
@@ -105,7 +105,7 @@
                         android:layout_below="@+id/tvReviewTitle"
                         android:layout_marginTop="2dp"
                         android:layout_toRightOf="@+id/ivUserIcon"
-                        android:paddingLeft="2dp" >
+                        android:paddingLeft="4dp" >
 
                         <RatingBar
                             android:id="@+id/rating"

@@ -36,7 +36,7 @@
         android:layout_toLeftOf="@+id/ivArrow"
         android:layout_toRightOf="@+id/flUserContainer"
         android:orientation="vertical"
-        android:paddingLeft="2dp" >
+        android:paddingLeft="4dp" >
 
         <TextView
             android:id="@+id/tvUserName"

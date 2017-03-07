@@ -83,7 +83,7 @@ public class MeetingsListAdapter extends ArrayAdapter<MeetingModel> {
 
 		final TextView txtDayDate = (TextView) v.findViewById(R.id.txtDayDate);
 
-		final TextView tvDateHeading = (TextView) v.findViewById(R.id.tvDateHeading);
+//		final TextView tvDateHeading = (TextView) v.findViewById(R.id.tvDateHeading);
 		tvCodes[0] = (TextView) v.findViewById(R.id.tvCode1);
 		tvCodes[1] = (TextView) v.findViewById(R.id.tvCode2);
 		tvCodes[2] = (TextView) v.findViewById(R.id.tvCode3);
@@ -116,7 +116,7 @@ public class MeetingsListAdapter extends ArrayAdapter<MeetingModel> {
 		final TextView txtDistance = (TextView) v.findViewById(R.id.txtDistance);
 
 		txtDayDate.setText(formateDate(m.getOnDateOrigion()));
-		tvDateHeading.setText(m.getOnDate() + " ");
+//		tvDateHeading.setText(m.getOnDate() + " ");
 		txtName.setText(m.getName());
 		// txtTime.setText(m.getOnTime());
 		txtTime.setText(m.getNearestTime());
@@ -130,8 +130,8 @@ public class MeetingsListAdapter extends ArrayAdapter<MeetingModel> {
 
 		// rating.setRating(5);
 
-		tvDateHeading.setVisibility(m.isDateHeaderVisible() ? View.VISIBLE
-				: View.GONE);
+//		tvDateHeading.setVisibility(m.isDateHeaderVisible() ? View.VISIBLE
+//				: View.GONE);
 
 		Log.i(m.getName(), m.getCodes());
 

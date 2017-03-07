@@ -116,12 +116,12 @@ public class FriendsGridAdapter extends ArrayAdapter<UserAccount> {
 
 			if(!TextUtils.isEmpty(url)) {
 				Picasso.with(context).load(url)
-						.placeholder(R.drawable.profile_pic_border)
+						.placeholder(R.drawable.img_place_holder)
 						.resize(cellWidthHeight + 20, cellWidthHeight + 20)
-						.error(R.drawable.profile_pic_border)
+						.error(R.drawable.img_place_holder)
 						.into(ivFriend);
 			}else {
-				Picasso.with(context).load(R.drawable.profile_pic_border)
+				Picasso.with(context).load(R.drawable.img_place_holder)
 						.resize(cellWidthHeight + 20, cellWidthHeight + 20)
 						.into(ivFriend);
 			}

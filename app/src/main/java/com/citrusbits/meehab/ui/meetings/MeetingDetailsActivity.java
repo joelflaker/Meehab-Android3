@@ -119,7 +119,7 @@ public class MeetingDetailsActivity extends SocketActivity implements
 
 	private Dialog pd;
 	protected GoogleMap map;
-	protected float defaultZoom = 10;
+	protected float defaultZoom = 12;
 	protected ArrayList<MeetingReviewModel> meetingReviewModels = new ArrayList<>();
 
 	UserDatasource userDatasource;
@@ -1196,15 +1196,15 @@ public class MeetingDetailsActivity extends SocketActivity implements
 			String userImage = m.getImage();
 
 			if(!TextUtils.isEmpty(userImage)) {
-				Picasso.with(MeetingDetailsActivity.this).load("" + userImage)
-						.placeholder(R.drawable.img_place_holder).resize(R.dimen.review_image_size, R.dimen.review_image_size)
+				Picasso.with(this).load("" + userImage)
+						.placeholder(R.drawable.img_place_holder)
 						.error(R.drawable.img_place_holder)
 						.transform(new PicassoCircularTransform()).into(ivUserIcon);
-			}else {
-				Picasso.with(MeetingDetailsActivity.this).load(R.drawable.img_place_holder)
+			}/*else {
+				Picasso.with(this).load(R.drawable.img_place_holder)
 						.resize(R.dimen.review_image_size, R.dimen.review_image_size)
 						.into(ivUserIcon);
-			}
+			}*/
 			tvReviewTitle.setText(m.getTitle());
 
 			rating.setRating(m.getStars());

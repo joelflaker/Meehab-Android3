@@ -8,6 +8,7 @@ import java.util.List;
 import android.content.Context;
 import android.graphics.Color;
 import android.text.TextUtils;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +21,7 @@ import com.citrusbits.meehab.R;
 import com.citrusbits.meehab.constants.Consts;
 import com.citrusbits.meehab.images.PicassoCircularTransform;
 import com.citrusbits.meehab.model.UserAccount;
+import com.citrusbits.meehab.utils.ScreenUtils;
 import com.squareup.picasso.Picasso;
 
 /**
@@ -28,6 +30,7 @@ import com.squareup.picasso.Picasso;
  */
 public class FriendsListAdapter extends ArrayAdapter<UserAccount> {
 
+	private final int picSize;
 	// arraylists
 	List<UserAccount> meetings;
 
@@ -41,6 +44,9 @@ public class FriendsListAdapter extends ArrayAdapter<UserAccount> {
 		meetings = m;
 		inflater = (LayoutInflater) mContext
 				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		picSize = (int) TypedValue.applyDimension(
+				TypedValue.COMPLEX_UNIT_DIP, 60, c.getResources()
+						.getDisplayMetrics()) * 4;
 
 	}
 
@@ -72,7 +78,7 @@ public class FriendsListAdapter extends ArrayAdapter<UserAccount> {
 		}
 
 		UserAccount userAccount = meetings.get(position);
-		holder.bind(mContext,userAccount);
+		holder.bind(mContext,userAccount,picSize);
 		return convertView;
 	}
 
@@ -87,7 +93,7 @@ public class FriendsListAdapter extends ArrayAdapter<UserAccount> {
 
 		FrameLayout flUserContainer;
 
-		public void bind(Context context, UserAccount userAccount) {
+		public void bind(Context context, UserAccount userAccount,int cellWidth) {
 			tvUserName.setText(userAccount.getUsername());
 			tvAge.setText(String.valueOf(userAccount.getAge()));
 			tvRelationshipStatus.setText(userAccount.getMaritalStatus());
@@ -99,12 +105,12 @@ public class FriendsListAdapter extends ArrayAdapter<UserAccount> {
 
 			if(!TextUtils.isEmpty(userImage)) {
 				Picasso.with(context).load(userImage)
-						.placeholder(R.drawable.profile_pic_border).resize(60, 60)
-						.error(R.drawable.profile_pic_border)
+						.placeholder(R.drawable.img_place_holder).resize(cellWidth, cellWidth)
+						.error(R.drawable.img_place_holder)
 						.transform(new PicassoCircularTransform())
 						.into(ivFriend);
 			}else {
-				Picasso.with(context).load(R.drawable.profile_pic_border).resize(60, 60)
+				Picasso.with(context).load(R.drawable.img_place_holder).resize(cellWidth, cellWidth)
 						.transform(new PicassoCircularTransform())
 						.into(ivFriend);
 			}

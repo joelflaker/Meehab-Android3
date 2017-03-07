@@ -105,14 +105,14 @@ public class ActivityMoreReviews extends SocketActivity implements OnSocketRespo
 			});
 
 			// init
-			TextView tvReviewTitle = (TextView) view
+			final TextView tvReviewTitle = (TextView) view
 					.findViewById(R.id.tvReviewTitle);
-			RatingBar rating = (RatingBar) view.findViewById(R.id.rating);
-			TextView tvMeetingName = (TextView) view
+			final RatingBar rating = (RatingBar) view.findViewById(R.id.rating);
+			final TextView tvMeetingName = (TextView) view
 					.findViewById(R.id.tvMeetingName);
-			TextView tvDateTime = (TextView) view.findViewById(R.id.tvDateTime);
-			TextView tvComment = (TextView) view.findViewById(R.id.tvComment);
-			ImageView ivUserIcon = (ImageView) view
+			final TextView tvDateTime = (TextView) view.findViewById(R.id.tvDateTime);
+			final TextView tvComment = (TextView) view.findViewById(R.id.tvComment);
+			final ImageView ivUserIcon = (ImageView) view
 					.findViewById(R.id.ivUserIcon);
 
 			ivUserIcon.setTag(m);
@@ -139,13 +139,13 @@ public class ActivityMoreReviews extends SocketActivity implements OnSocketRespo
 
 			if(!TextUtils.isEmpty(userImage)){
 				Picasso.with(ActivityMoreReviews.this).load(userImage)
-						.placeholder(R.drawable.img_place_holder).resize(R.dimen.review_image_size, R.dimen.review_image_size)
+						.placeholder(R.drawable.img_place_holder)
 						.error(R.drawable.img_place_holder)
 						.transform(new PicassoCircularTransform()).into(ivUserIcon);
-			}else {
+			}/*else {
 				Picasso.with(ActivityMoreReviews.this).load(R.drawable.img_place_holder).resize(R.dimen.review_image_size, R.dimen.review_image_size)
 						.transform(new PicassoCircularTransform()).into(ivUserIcon);
-			}
+			}*/
 
 
 			tvReviewTitle.setText(m.getTitle());
