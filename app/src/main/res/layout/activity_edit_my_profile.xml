@@ -177,8 +177,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/simple_button_selector"
-                    android:text="Birthday"
-                    android:textColor="#444444" />
+                    android:hint="Birthday"
+                     />
 
                 <ImageView
                     android:layout_width="fill_parent"
@@ -190,8 +190,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/simple_button_selector"
-                    android:text="Marital Status"
-                    android:textColor="#444444" />
+                    android:hint="Marital Status" />
 
                 <ImageView
                     android:layout_width="fill_parent"
@@ -328,8 +327,7 @@
                             android:layout_weight="1"
                             android:background="@drawable/simple_button_selector"
                             android:hint="Height"
-                            android:lines="1"
-                            android:textColor="@color/text_color_light_gray" />
+                            android:lines="1" />
 
                         <ImageView
                             android:layout_width="fill_parent"
@@ -354,8 +352,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:background="@drawable/simple_button_selector"
-                            android:hint="Weight"
-                            android:textColor="@color/text_color_light_gray" />
+                            android:hint="Weight" />
 
                         <ImageView
                             android:layout_width="fill_parent"
@@ -377,7 +374,7 @@
                         android:background="@drawable/simple_button_selector"
                         android:hint="Sexual Orientation"
                         android:maxLength="20"
-                        android:textColor="@color/text_color_light_gray" />
+                         />
 
                     <ImageView
                         android:layout_width="fill_parent"
@@ -433,8 +430,7 @@
                     android:layout_height="wrap_content"
                     android:background="@drawable/simple_button_selector"
                     android:hint="How long have you been sober?"
-                    android:maxLength="20"
-                    android:textColor="@color/text_color_light_gray" />
+                    android:maxLength="20" />
 
                 <ImageView
                     android:layout_width="fill_parent"
@@ -450,8 +446,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/do_you_have_kids_"
                     android:paddingBottom="4dp"
-                    android:textAllCaps="true"
-                    android:textColor="@color/text_color_light_gray" />
+                    android:textAllCaps="true"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"

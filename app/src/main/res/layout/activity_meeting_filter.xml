@@ -189,7 +189,7 @@
 
                 <RatingBar
                     android:id="@+id/rating"
-                    style="@style/customRatingBarBig"
+                    style="@style/customRatingBarLightGrayMedium"
                     android:layout_width="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"

@@ -47,7 +47,7 @@ public class ProvideAppFeedBackActivity extends SocketActivity implements
 	public void onSocketResponseSuccess(String event, Object obj) {
 		if (event.equals(EventParams.EVENT_APP_FEED_BACK)) {
 			pd.dismiss();
-			MeehabApp.toast("Thanks for your Feedback!");
+			MeehabApp.toast("Thanks for your feedback!");
 			finish();
 
 		}

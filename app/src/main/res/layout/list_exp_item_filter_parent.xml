@@ -30,6 +30,7 @@
         android:textColor="@color/text_color_gray"
         android:focusableInTouchMode="false"
         android:gravity="center_vertical"
+        android:visibility="gone"
         android:text="Any" />
 
     <ImageButton

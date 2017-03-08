@@ -1247,6 +1247,8 @@ public class MeetingDetailsActivity extends SocketActivity implements
 			UserAccount account = new Gson().fromJson(data.optJSONObject("user").toString(),
 					UserAccount.class);
 
+//			account.setFavourite();
+
 			Intent intent = new Intent(this, UserProfileActivity.class);
 			intent.putExtra(UserProfileActivity.EXTRA_USER_ACCOUNT, account);
 

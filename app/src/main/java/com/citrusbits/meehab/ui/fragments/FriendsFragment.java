@@ -399,17 +399,19 @@ public class FriendsFragment extends Fragment implements
 			}
 		}
 
-		if (foot == 4 && inch >= 5 || foot == 5 && inch == 0) {
-			return heights.contains("4'5-5'0");
+		if (foot == 4 && inch <= 5) {
+			return heights.contains("4\' to 4\'5\"");
+		} else if (foot == 4 && inch >= 5 || foot == 5 && inch == 0) {
+			return heights.contains("4\'5\" to 5\'\"");
 		} else if (foot == 5 && inch >= 1 && inch <= 5) {
-			return heights.contains("5'1-5'5");
+			return heights.contains("5\' to 5\'5\"");
 		} else if (foot >= 5 && inch >= 6 || foot == 6 && inch == 0) {
 			Log.e("Condition Meet", "yes");
-			return heights.contains("5'6-6'0");
+			return heights.contains("5\'5\" to 6\'");
 		} else if (foot == 6 && inch >= 1 && inch <= 5) {
-			return heights.contains("6'1-6'5");
+			return heights.contains("6\' to 6\'5\"");
 		} else if (foot == 6 && inch >= 6 || foot == 7 && inch == 0) {
-			return heights.contains("6'6-7'0");
+			return heights.contains("6\'5\" to 7\'");
 		} else {
 			return false;
 		}
@@ -598,7 +600,7 @@ public class FriendsFragment extends Fragment implements
 		String userInterestedIn = user.getIntrestedIn().toLowerCase();
 		List<String> interestedInList = fFilterResultHolder.getInterestedIn();
 		for (String interestedIn : interestedInList) {
-			if (userInterestedIn.equals(interestedIn.toLowerCase())) {
+			if (interestedIn.toLowerCase().contains(userInterestedIn)) {
 				return true;
 			}
 		}

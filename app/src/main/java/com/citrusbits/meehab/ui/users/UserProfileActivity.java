@@ -26,6 +26,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.citrusbits.meehab.app.MeehabApp;
+import com.citrusbits.meehab.helpers.AgeHelper;
 import com.citrusbits.meehab.ui.MyReviewDetailActivity;
 import com.citrusbits.meehab.R;
 import com.citrusbits.meehab.constants.Consts;
@@ -48,6 +49,7 @@ import com.citrusbits.meehab.utils.DeviceUtils;
 import com.citrusbits.meehab.utils.MeetingUtils;
 import com.citrusbits.meehab.utils.NetworkUtils;
 import com.citrusbits.meehab.utils.RecoverClockDateUtils;
+import com.citrusbits.meehab.utils.UserAcountUtils;
 import com.citrusbits.meehab.utils.UtilityClass;
 import com.squareup.picasso.Picasso;
 
@@ -200,6 +202,29 @@ public class UserProfileActivity extends SocketActivity implements
 			tvGender.setText(user.getGender());
 			tvOriendation.setText(user.getSexualOrientation() == null? "" : user.getSexualOrientation());
 			tvMaritalStatus.setText(user.getMaritalStatus() == null? "" : user.getMaritalStatus());
+
+			if(!TextUtils.isEmpty(user.getDateOfBirth())){
+				tvAge.setText(""+ AgeHelper.calculateAge(user.getDateOfBirth()) + " "+getString(R.string.label_years));
+				findViewById(R.id.tvLine1).setVisibility(View.VISIBLE);
+			}else {
+				tvAge.setText("");
+				findViewById(R.id.tvLine1).setVisibility(View.GONE);
+			}
+			tvGender.setText(""+user.getGender());
+			if(!TextUtils.isEmpty(user.getSexualOrientation())){
+				tvOriendation.setText(user.getSexualOrientation());
+				findViewById(R.id.tvLine2).setVisibility(View.VISIBLE);
+			}else {
+				tvOriendation.setText("");
+				findViewById(R.id.tvLine2).setVisibility(View.GONE);
+			}
+			if(!TextUtils.isEmpty(user.getMaritalStatus())){
+				tvMaritalStatus.setText(user.getMaritalStatus());
+				findViewById(R.id.tvLine3).setVisibility(View.VISIBLE);
+			}else {
+				tvMaritalStatus.setText("");
+				findViewById(R.id.tvLine3).setVisibility(View.GONE);
+			}
 
 			heightText.setText(user.getHeight() == null? "" : user.getHeight());
 			weightText.setText(user.getWeight() == null? "" : user.getWeight());
@@ -384,23 +409,21 @@ public class UserProfileActivity extends SocketActivity implements
 
 					JSONObject reviewObject = userReviews.getJSONObject(i);
 
-					String comment = reviewObject.getString("comments");
-					String onDate = reviewObject.getString("on_date");
-					String onTime = reviewObject.getString("on_time");
+					String comment = reviewObject.optString("comments");
+					String image = reviewObject.optString("image");
 
-					String meetingName = reviewObject.getString("meeting_name");
-					int rating = reviewObject.getInt("stars");
-					int reviewId = reviewObject.getInt("id");
-					String reviewTitle = reviewObject.getString("title");
+					String meetingName = reviewObject.optString("meeting_name");
+					int rating = reviewObject.optInt("stars");
+					int reviewId = reviewObject.optInt("id");
+					String reviewTitle = reviewObject.optString("title");
 
-					String dateTimeAdded = reviewObject
-							.getString("datetime_added");
+					String datetimeUpdated = reviewObject
+							.optString("datetime_updated");
 
 					MyReview myReview = new MyReview();
-					myReview.setDateTimeAdded(dateTimeAdded);
+					myReview.setDatetimeUpdated(datetimeUpdated);
 					myReview.setComment(comment);
-					myReview.setOnDate(onDate);
-					myReview.setOnTime(onTime);
+					myReview.setImage(image);
 					myReview.setMeetingName(meetingName);
 					myReview.setRating(rating);
 					myReview.setReviewId(reviewId);
@@ -509,6 +532,7 @@ public class UserProfileActivity extends SocketActivity implements
 
 			try {
 
+				object.put("user_id", AccountUtils.getUserId(this));
 				object.put("friend_ids", user.getId());
 
 				object.put("favorite", user.isFavourite() == 1 ? 0 : 1);
@@ -594,7 +618,7 @@ public class UserProfileActivity extends SocketActivity implements
 			tvMeetingName.setText(myReview.getMeetingName());
 
 			tvDateTime.setText(DateTimeUtils.getDatetimeAdded(
-					myReview.getDateTimeAdded(), timeZoneOffest));
+					myReview.getDatetimeUpdated(), timeZoneOffest));
 
 			tvComment.setText(myReview.getComment());
 

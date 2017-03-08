@@ -7,6 +7,7 @@ import java.util.List;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -51,7 +52,7 @@ public class MessagesAdapter extends ArrayAdapter<MessageModel> {
 				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
 		baseUrl = Consts.SOCKET_URL;
-		
+
 		circleBlueBgRes = R.drawable.circle_bg_blue;
 		circleMaroonBgRes = R.drawable.circle_bg_maroon;
 	}
@@ -134,13 +135,17 @@ public class MessagesAdapter extends ArrayAdapter<MessageModel> {
 				onClickListener.onClick(v);
 			}
 		});
-		String userImage = baseUrl + message.getImage();
-		Picasso.with(mContext).load(userImage)
-				.placeholder(R.drawable.profile_pic_border).resize(60, 60)
-				.error(R.drawable.profile_pic_border)
-				.transform(new PicassoCircularTransform())
-				.into(holder.ivFriend);
-		
+		String userImage = message.getImage();
+		if(!TextUtils.isEmpty(userImage)) {
+			Picasso.with(mContext).load(userImage)
+					.placeholder(R.drawable.img_place_holder)
+					.error(R.drawable.img_place_holder)
+					.transform(new PicassoCircularTransform())
+					.into(holder.ivFriend);
+		}else {
+			Picasso.with(mContext).load(R.drawable.img_place_holder)
+					.into(holder.ivFriend);
+		}
 		if (message.getUserCheckIn() == 1) {
 			holder.flUserContainer.setBackgroundResource(circleBlueBgRes);
 		} else if (message.getRsvpUser() == 1) {
@@ -153,7 +158,7 @@ public class MessagesAdapter extends ArrayAdapter<MessageModel> {
 	}
 	
 	private String getMessageTime(Date date){
-		SimpleDateFormat dateFormat = new SimpleDateFormat("hh:mm aa\nmm-dd-yy");
+		SimpleDateFormat dateFormat = new SimpleDateFormat("hh:mm a\nMM-dd-yy");
 		return dateFormat.format(date);
 	}
 

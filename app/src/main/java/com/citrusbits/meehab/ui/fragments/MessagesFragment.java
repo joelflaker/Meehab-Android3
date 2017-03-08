@@ -74,7 +74,7 @@ public class MessagesFragment extends Fragment implements
 	private ImageButton ibEdit;
 	private Dialog pd;
 	private MessagesAdapter adapter;
-	private List<MessageModel> messages = new ArrayList<MessageModel>();
+	private List<MessageModel> messages = new ArrayList<>();
 
 	private AppPrefs prefs;
 	private ImageButton ibBlockUser;
@@ -87,13 +87,14 @@ public class MessagesFragment extends Fragment implements
 	//extra from message push
 	
 	private long timezone=0;
+	private boolean isThisUserFavorite;
 
 	@Override
 	public void onCreate(@Nullable Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		prefs = AppPrefs.getAppPrefs(getActivity());
 		prefs.saveBooleanPrefs(AppPrefs.KEY_CONVERSATION_FRAG_OPEN, true);
-		timezone=getTimeZoneOffset();
+		timezone = getTimeZoneOffset();
 	}
 	
 	public long getTimeZoneOffset() {
@@ -144,7 +145,8 @@ public class MessagesFragment extends Fragment implements
 
 				if(NetworkUtil.isConnected(getContext())){
 					pd.show();
-					homeActivity.socketService.getUserById(messageModel.getFromID());
+					isThisUserFavorite = messageModel.getFavourite() == 1;
+					homeActivity.socketService.getUserById(messageModel.getId());
 				}else {
 					MeehabApp.toast(getResources().getString(R.string.no_internet_connection));
 				}
@@ -490,6 +492,7 @@ public class MessagesFragment extends Fragment implements
 			UserAccount account = new Gson().fromJson(data.optJSONObject("user").toString(),
 					UserAccount.class); ;
 //
+			account.setFavourite(isThisUserFavorite? 1:0);
 			Intent intent = new Intent(getActivity(), UserProfileActivity.class);
 			intent.putExtra(UserProfileActivity.EXTRA_USER_ACCOUNT, account);
 

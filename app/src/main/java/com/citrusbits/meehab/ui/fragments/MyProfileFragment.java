@@ -172,16 +172,16 @@ public class MyProfileFragment extends Fragment implements
 				String userImage = user.getImage();
 
 				Picasso.with(getActivity()).load(userImage)
-						.placeholder(R.drawable.profile_pic_border).resize(100, 100)
-						.error(R.drawable.profile_pic_border)
+						.placeholder(R.drawable.img_place_holder).resize(100, 100)
+						.error(R.drawable.img_place_holder)
 						.transform(new PicassoCircularTransform())
 						.into(ivUserIcon);
 
 				Picasso.with(getActivity())
 						.load(userImage)
-						.placeholder(R.drawable.profile_pic_border)
+						.placeholder(R.drawable.img_place_holder)
 						// .resize(300, 200)
-						.error(R.drawable.profile_pic_border)
+						.error(R.drawable.img_place_holder)
 						.transform(new PicassoBlurTransform(getActivity(), Consts.IMAGE_BLURR_RADIUS))
 						.into(ivBlurBg);
 			}
@@ -212,11 +212,11 @@ public class MyProfileFragment extends Fragment implements
 			}
 
 			if(user.getWillingSponsor().equalsIgnoreCase("yes")){
-				sponsorText.setText("Yes");
-//				getView().findViewById(R.id.llNameContainer).setBackgroundResource(R.drawable.name_bg);
+				sponsorText.setText("Willing to Sponsor");
+				getView().findViewById(R.id.llNameContainer).setBackgroundResource(R.drawable.name_bg);
 			}else{
-				sponsorText.setText("Not");
-//				getView().findViewById(R.id.llNameContainer).setBackgroundResource(R.drawable.name_bg_gray);
+				sponsorText.setText("Not Willing to Sponsor");
+				getView().findViewById(R.id.llNameContainer).setBackgroundResource(R.drawable.name_bg_gray);
 //				sponsorText.setText("");
 			}
 			heightText.setText(user.getHeight() == null? "" : user.getHeight());
@@ -243,7 +243,7 @@ public class MyProfileFragment extends Fragment implements
 				kidsText.setText("No Answer");
 			}
 
-			homegroupText.setText(user.getMeetingHomeGroup() == null? getString(R.string.label_not_assign) : user.getMeetingHomeGroup());
+			homegroupText.setText(TextUtils.isEmpty(user.getMeetingHomeGroup()) ? getString(R.string.label_not_assign) : user.getMeetingHomeGroup());
 
 			String aaStoryTxt = user.getAboutStory();
 			if (!TextUtils.isEmpty(aaStoryTxt) && aaStoryTxt.length() > 100) {
@@ -381,24 +381,22 @@ public class MyProfileFragment extends Fragment implements
 
 					JSONObject reviewObject = userReviews.getJSONObject(i);
 
-					String comment = reviewObject.getString("comments");
-					String onDate = ""+reviewObject.optString("on_date");
-					String onTime = ""+reviewObject.optString("on_time");
+					String comment = reviewObject.optString("comments");
 
-					String meetingName = reviewObject.getString("meeting_name");
-					String meetingId = reviewObject.getString("meetingID");
-					int rating = reviewObject.getInt("stars");
-					int reviewId = reviewObject.getInt("id");
-					String reviewTitle = reviewObject.getString("title");
+					String meetingName = reviewObject.optString("meeting_name");
+					String image = reviewObject.optString("image");
+					String meetingId = reviewObject.optString("meetingID");
+					int rating = reviewObject.optInt("stars");
+					int reviewId = reviewObject.optInt("id");
+					String reviewTitle = reviewObject.optString("title");
 
 					String dateTimeAdded = reviewObject
-							.getString("datetime_added");
+							.optString("datetime_added");
 
 					MyReview myReview = new MyReview();
-					myReview.setDateTimeAdded(dateTimeAdded);
+					myReview.setDatetimeUpdated(dateTimeAdded);
 					myReview.setComment(comment);
-					myReview.setOnDate(onDate);
-					myReview.setOnTime(onTime);
+					myReview.setImage(image);
 					myReview.setMeetingId(meetingId);
 					myReview.setMeetingName(meetingName);
 					myReview.setRating(rating);
@@ -478,7 +476,7 @@ public class MyProfileFragment extends Fragment implements
 			});
 
 			tvDateTime.setText(DateTimeUtils.getDatetimeReview(myReview
-					.getDateTimeAdded(),timeZone));
+					.getDatetimeUpdated(),timeZone));
 
 			tvComment.setText(myReview.getComment());
 

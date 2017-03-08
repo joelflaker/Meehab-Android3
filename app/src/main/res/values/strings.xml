@@ -100,7 +100,7 @@
     <string name="new_password">New Password</string>
     <string name="retype_new_password">Retype New Password</string>
     <string name="see_more_reveiw">SEE %1$d MORE REVIEWS</string>
-    <string name="login_problem">Problems with Log in?</string>
+    <string name="login_problem">Problem with Log in?</string>
     <string name="no_internet_connection">No internet connection available!</string>
     <string name="login">Login</string>
     <string name="grid">GRID</string>
@@ -140,7 +140,7 @@
     <string name="meeting_name">Meeting Name</string>
     <string name="num_blocked_friends_list">%1$d BLOCKED FRIENDS LISTED</string>
     <string name="num_blocked_friend_list">%1$d BLOCKED FRIEND LISTED</string>
-    <string name="no_blocked_friend_list">No blocked friend listed.</string>
+    <string name="no_blocked_friend_list">No Blocked Friends</string>
     <string name="sober_date_diff_formate">%1$d years, %2$d days, %3$d hours, %4$d minutes, %5$d seconds</string>
     <string name="sober_date_diff_formate_profile">%1$d Y, %2$d D, %3$d H, %4$d M, %5$d S</string>
     <string name="num_favourites_attending">%1$d favorites Attending!</string>

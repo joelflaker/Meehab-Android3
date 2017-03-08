@@ -74,10 +74,11 @@ public class CustomTimePickerDialog extends Dialog implements
 
 		ArrayList<String> timeList = new ArrayList<>();
         timeList.add(format.format(now.getTime()));
+		int date = now.get(Calendar.DAY_OF_MONTH) + 1;
 		do{
             now.add(Calendar.MINUTE,15);
             timeList.add(format.format(now.getTime()));
-		}while (now.get(Calendar.HOUR_OF_DAY) < 23);
+		}while (now.get(Calendar.DAY_OF_MONTH) < date || now.get(Calendar.HOUR_OF_DAY) < 5 || now.get(Calendar.MINUTE) < 45);
 
 		timeValues = timeList.toArray(new String[timeList.size()]);
 		int position = 0;

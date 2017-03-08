@@ -21,6 +21,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.NumberPicker;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -81,9 +82,12 @@ public class InsuranceActivity extends SocketActivity implements
 //			}
 		
 		if (mode == InsuranceMode.EDIT) {
-			findViewById(R.id.text).setVisibility(View.INVISIBLE);
+			TextView textView1 = (TextView) findViewById(R.id.textView1);
+			TextView text = (TextView) findViewById(R.id.text);
+			text.setText(textView1.getText());
+			textView1.setVisibility(View.INVISIBLE);
 			findViewById(R.id.ibSkip).setVisibility(View.GONE);
-			
+
 			int position = 0;
 			String insurance_arr[] = this.getResources().getStringArray(
 					R.array.insurance_arr);
@@ -97,7 +101,9 @@ public class InsuranceActivity extends SocketActivity implements
 			}
 			npInsurance.setValue(position);
 
-		}
+		}else {
+            findViewById(R.id.ibBack).setVisibility(View.GONE);
+        }
 	}
 
 	private void updateInsurancesData() {

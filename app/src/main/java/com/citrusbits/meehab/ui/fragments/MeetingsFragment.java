@@ -712,20 +712,20 @@ public class MeetingsFragment extends Fragment implements
 
 //				meetingsAdapter.setLocation(location);
 
-				List<String> days = resultHolder.getDays();
-				List<String> times = resultHolder.getTimes();
-
-				Log.i("If Any Day ", resultHolder.getAnyDay() + "");
-
-				for (int i = 0; i < days.size(); i++) {
-					Log.e("Day ", days.get(i) + "");
-				}
-
-				Log.e("If Any Time ", resultHolder.getAnyTime() + "");
-
-				for (int i = 0; i < times.size(); i++) {
-					Log.e("Time ", times.get(i) + "");
-				}
+//				List<String> days = resultHolder.getDays();
+//				List<String> times = resultHolder.getTimes();
+//
+//				Log.i("If Any Day ", resultHolder.getAnyDay() + "");
+//
+//				for (int i = 0; i < days.size(); i++) {
+//					Log.e("Day ", days.get(i) + "");
+//				}
+//
+//				Log.e("If Any Time ", resultHolder.getAnyTime() + "");
+//
+//				for (int i = 0; i < times.size(); i++) {
+//					Log.e("Time ", times.get(i) + "");
+//				}
 
 				meetingsAdapter.filter(resultHolder);
 
@@ -855,9 +855,9 @@ public class MeetingsFragment extends Fragment implements
 				}
 
 //				sorting for nearest meeting first
-				MeetingUtils.sortByDistance(meetings);
-////				//sort by soonest
-//				MeetingUtils.sortByDate(meetings);
+//				MeetingUtils.sortByDistance(meetings);
+//				//sort by soonest
+				MeetingUtils.sortByDate(meetings);
 			}
 
 			return null;

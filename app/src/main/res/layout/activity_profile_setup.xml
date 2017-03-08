@@ -137,8 +137,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/simple_button_selector"
-                    android:hint="@string/birthday"
-                    android:textColor="#888888" />
+                    android:hint="@string/birthday" />
 
                 <ImageView
                     android:layout_width="fill_parent"
@@ -150,8 +149,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/simple_button_selector"
-                    android:hint="@string/marital_status"
-                    android:textColor="#888888" />
+                    android:hint="@string/marital_status" />
 
                 <ImageView
                     android:layout_width="fill_parent"

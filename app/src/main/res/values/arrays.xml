@@ -70,11 +70,11 @@
     <string-array name="timeRangeFilterValues">
         <item>Select All/Deselect All</item>
         <item>6 AM - 9 AM</item>
-        <item>9 AM - 2 PM</item>
-        <item>2 PM - 3 PM</item>
+        <item>9 AM - 12 PM</item>
+        <item>12 PM - 3 PM</item>
         <item>3 PM - 6 PM</item>
         <item>6 PM - 9 PM</item>
-        <item>9 PM - 2 AM</item>
+        <item>9 PM - 12 AM</item>
     </string-array>
 
     <string-array name="timeRangeValues">
@@ -232,7 +232,7 @@
     <!-- Interested in Status -->
     <string-array name="Interested_in_arr">
         <item>Dating</item>
-        <item>Fellowship</item>
+        <item>Fellowshipping</item>
         <item>Both</item>
     </string-array>
 
@@ -251,11 +251,12 @@
 
     <!-- Height -->
     <string-array name="height_arr">
-        <item>4\'5"-5\'0"</item>
-        <item>5\'1"-5\'5"</item>
-        <item>5\'6"-6\'0"</item>
-        <item>6\'1"-6\'5"</item>
-        <item>6\'6"-7\'0"</item>
+        <item>4\' to 4\'5\"</item>
+        <item>4\'5\" to 5\'</item>
+        <item>5\' to 5\'5\"</item>
+        <item>5\'5\" to 6\'</item>
+        <item>6\' to 6\'5\"</item>
+        <item>6\'5\" to 7\'</item>
         <item>7\'+</item>
     </string-array>
     <string-array name="insurance_arr">

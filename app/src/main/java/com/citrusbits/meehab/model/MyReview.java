@@ -5,8 +5,6 @@ package com.citrusbits.meehab.model;
 
 import java.io.Serializable;
 
-import com.google.android.gms.maps.model.LatLng;
-
 /**
  * @author Qamar
  * 
@@ -23,10 +21,7 @@ public class MyReview implements Serializable {
 	private int reviewId;
 	private String comment;
 	
-	private String onDate;
-	private String onTime;
-	
-	private String dateTimeAdded;
+	private String datetimeUpdated;
 	
 	private String userId;
 	private String meetingId;
@@ -39,23 +34,11 @@ public class MyReview implements Serializable {
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
-	public String getDateTimeAdded() {
-		return dateTimeAdded;
+	public String getDatetimeUpdated() {
+		return datetimeUpdated;
 	}
-	public void setDateTimeAdded(String dateTimeAdded) {
-		this.dateTimeAdded = dateTimeAdded;
-	}
-	public String getOnDate() {
-		return onDate;
-	}
-	public void setOnDate(String onDate) {
-		this.onDate = onDate;
-	}
-	public String getOnTime() {
-		return onTime;
-	}
-	public void setOnTime(String onTime) {
-		this.onTime = onTime;
+	public void setDatetimeUpdated(String datetimeUpdated) {
+		this.datetimeUpdated = datetimeUpdated;
 	}
 	public String getReviewTitle() {
 		return reviewTitle;

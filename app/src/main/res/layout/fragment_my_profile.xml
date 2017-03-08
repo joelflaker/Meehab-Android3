@@ -1,8 +1,10 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:scrollbarSize="0dp"
-    android:scrollbars="none">
+    android:scrollbars="none"
+    tools:context=".ui.fragments.MyProfileFragment">
 
     <LinearLayout
         android:layout_width="fill_parent"
@@ -86,6 +88,7 @@
                         android:layout_centerVertical="true"
                         android:background="@drawable/profile_pic_border"
                         android:padding="17dp"
+                        android:src="@drawable/img_place_holder"
                         android:scaleType="fitXY" />
                 </RelativeLayout>
             </RelativeLayout>
@@ -186,7 +189,7 @@
                     android:paddingBottom="20dp" >
 
                     <TextView
-                        android:id="@+id/interestedInText"
+                        android:id="@+id/sponsorText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="bottom"
@@ -282,6 +285,7 @@
                                 android:textStyle="bold" />
                         </TableRow>
 
+
                         <android.support.v4.widget.Space
                             android:layout_width="fill_parent"
                             android:layout_height="1dp"
@@ -299,6 +303,30 @@
 
                             <TextView
                                 android:id="@+id/occupationText"
+                                android:layout_marginLeft="12dp"
+                                android:layout_weight="1"
+                                android:gravity="right"
+                                android:text="undefine"
+                                android:textStyle="bold" />
+                        </TableRow>
+
+                        <android.support.v4.widget.Space
+                            android:layout_width="fill_parent"
+                            android:layout_height="1dp"
+                            android:layout_margin="5dp" />
+
+                        <TableRow
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingBottom="3dp"
+                            android:paddingTop="3dp" >
+
+                            <TextView
+                                android:layout_weight="1"
+                                android:text="Interested In" />
+
+                            <TextView
+                                android:id="@+id/interestedInText"
                                 android:layout_marginLeft="12dp"
                                 android:layout_weight="1"
                                 android:gravity="right"
@@ -355,30 +383,6 @@
                                 android:textStyle="bold" />
                         </TableRow>
 
-                        <android.support.v4.widget.Space
-                            android:layout_width="fill_parent"
-                            android:layout_height="1dp"
-                            android:layout_margin="5dp" />
-
-                        <TableRow
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:paddingBottom="3dp"
-                            android:paddingTop="3dp" >
-
-
-                            <TextView
-                                android:layout_weight="1"
-                                android:text="Willing to Sponsor" />
-
-                            <TextView
-                                android:id="@+id/sponsorText"
-                                android:layout_marginLeft="12dp"
-                                android:layout_weight="1"
-                                android:gravity="right"
-                                android:text="undefine"
-                                android:textStyle="bold" />
-                        </TableRow>
 
                         <android.support.v4.widget.Space
                             android:layout_width="fill_parent"

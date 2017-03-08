@@ -133,7 +133,7 @@
             android:textColor="#666666"
             android:paddingLeft="10dp"
             android:id="@+id/tvNumBlockedFriendsList"
-            android:paddingTop="20dp"
+            android:textStyle="bold"
             android:layout_centerInParent="true"
             android:text="@string/no_blocked_friend_list"
             />
