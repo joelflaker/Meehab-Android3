@@ -8,7 +8,7 @@
         android:id="@+id/rlTopBar"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:background="#7f7f7f" >
+        android:background="@color/nav_light_gray" >
 
         <RelativeLayout
             android:id="@+id/relativeTop"

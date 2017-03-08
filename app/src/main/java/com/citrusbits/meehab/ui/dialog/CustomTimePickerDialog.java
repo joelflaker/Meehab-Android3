@@ -1,6 +1,7 @@
 package com.citrusbits.meehab.ui.dialog;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 
 import android.app.Dialog;
@@ -58,13 +59,27 @@ public class CustomTimePickerDialog extends Dialog implements
 		getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 
 
-		timeValues = context.getResources().getStringArray(
-				R.array.timeValues);
+//		timeValues = context.getResources().getStringArray(
+//				R.array.timeValues);
 		
 //		 int n = arr.length - 1;
 //		 timeValues = new String[n];
 //		System.arraycopy(arr,1,timeRangeValues,0,n);
 
+		SimpleDateFormat format = new SimpleDateFormat("hh:mm a");
+
+		Calendar now = Calendar.getInstance();
+		now.set(Calendar.HOUR_OF_DAY,6);
+		now.set(Calendar.MINUTE,0);
+
+		ArrayList<String> timeList = new ArrayList<>();
+        timeList.add(format.format(now.getTime()));
+		do{
+            now.add(Calendar.MINUTE,15);
+            timeList.add(format.format(now.getTime()));
+		}while (now.get(Calendar.HOUR_OF_DAY) < 23);
+
+		timeValues = timeList.toArray(new String[timeList.size()]);
 		int position = 0;
 		for (int i = 0; i < timeValues.length; i++) {
 			String status = timeValues[i];

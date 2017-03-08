@@ -309,9 +309,10 @@ public class FriendsFragment extends Fragment implements
 			boolean userOnline = user.getCheckinType().equals("online");
 			boolean userWillingToSponser = !user.getWillingSponsor()
 					.toLowerCase().equals("no");
+
+			boolean friendsType = fFilterResultHolder.isAnyFriendType() ? true : satisfyFriendsTypeFilter(user,fFilterResultHolder.getFriendType());
 			// boolean userHaskids =
 			// !user.getHaveKids().equals("no")||!user.getHaveKids().isEmpty();
-
 			boolean userHaskids = user.getHaveKids().toLowerCase()
 					.equals("yes");
 
@@ -347,7 +348,7 @@ public class FriendsFragment extends Fragment implements
 
 			boolean isWeight = satisfyWeight(user, fFilterResultHolder);
 
-			if (onlineSatisfy && willingToSponserSatisfy
+			if (friendsType && onlineSatisfy && willingToSponserSatisfy
 					&& hasKidsSatisfy && isGenderSatisfy
 					&& isSatisfyAge && isEthenticity && isMaritalStatus
 					&& isInterestedIn && isTimeToSobar && isHeight
@@ -357,6 +358,10 @@ public class FriendsFragment extends Fragment implements
 
 		}
 
+	}
+
+	private boolean satisfyFriendsTypeFilter(UserAccount user, List<String> friendType) {
+		return true;
 	}
 
 	private boolean satisfyHeight(UserAccount user,
@@ -664,7 +669,6 @@ public class FriendsFragment extends Fragment implements
 	}
 
 	private boolean satisfyFilter(boolean filterValue, boolean userValue) {
-
 		return filterValue == false ? true : filterValue == userValue;
 
 	}

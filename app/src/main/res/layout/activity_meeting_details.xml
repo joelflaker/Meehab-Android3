@@ -1,8 +1,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="fill_parent"
-              android:layout_height="fill_parent"
-              xmlns:tools="http://schemas.android.com/tools"
-              android:orientation="vertical">
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    tools:context=".ui.meetings.MeetingDetailsActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -13,7 +14,7 @@
             android:id="@+id/relativeTop"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:background="#888888" >
+            android:background="#656669" >
 
             <ImageView
                 android:id="@+id/btnBack"
@@ -67,7 +68,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/relativeTop"
-            android:background="#999999" >
+            android:background="@color/detail_gray_background" >
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -154,15 +155,13 @@
 
                             <RatingBar
                                 android:id="@+id/rating"
-                                style="@style/customRatingBarBig"
+                                style="@style/customRatingBarMedium"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="6dp"
-                                android:indeterminateDrawable="@drawable/map_list_rating_bar"
+                                android:layout_marginLeft="-2dp"
                                 android:isIndicator="true"
-                                android:progressDrawable="@drawable/map_list_rating_bar"
-                                android:rating="4"
-                                android:stepSize="1" />
+                                android:rating="4" />
 
                             <TextView
                                 android:id="@+id/numReviewsText"
@@ -199,7 +198,6 @@
                                 android:scrollbars="none"
                                 android:numColumns="4"
                                 android:layout_marginTop="6dp"
-
                                 android:horizontalSpacing="2dp"
                                 android:verticalSpacing="2dp"
                                 android:layout_width="wrap_content"
@@ -352,7 +350,7 @@
                     <LinearLayout
                         android:layout_width="fill_parent"
                         android:layout_height="fill_parent"
-                        android:layout_marginTop="48dp"
+                        android:layout_marginTop="45dp"
                         android:background="@android:color/white"
                         android:orientation="vertical" >
 

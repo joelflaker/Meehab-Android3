@@ -13,13 +13,11 @@ import com.citrusbits.meehab.model.ExpChild;
 
 import android.app.Activity;
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.ExpandableListView;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -107,16 +105,13 @@ public class FilterExpondableAdapter extends BaseExpandableListAdapter {
 			public void onClick(View v) {
 				child.setChecked(!child.isChecked());
 				check.setChecked(child.isChecked());
-				List<ExpChild> childs = categories.get(groupPosition)
+				final List<ExpChild> childs = categories.get(groupPosition)
 						.getChildren();
 
 				boolean allChecked = true;
-				String name = childs.get(childPosition).getName();
+				final String name = childs.get(childPosition).getName();
 
 				for (int i = 1; i < childs.size(); i++) {
-
-					Log.e(" " + i, childs.get(i).isChecked() + "");
-
 					if (!childs.get(i).isChecked()) {
 						allChecked = false;
 						break;
@@ -126,16 +121,36 @@ public class FilterExpondableAdapter extends BaseExpandableListAdapter {
 
 				if (groupPosition == 0) {
 					if (child.isChecked()) {
-						filterResultHolder.addDay(name);
+						if(child.getName().contains("Select")){
+							setCheckForAll(childs,filterResultHolder.getDays(),true);
+							allChecked = true;
+						}else {
+							filterResultHolder.addDay(name);
+						}
 					} else {
-						filterResultHolder.removeDay(name);
+						if(child.getName().contains("Select")){
+							setCheckForAll(childs, filterResultHolder.getDays(), false);
+							allChecked = false;
+						}else {
+							filterResultHolder.removeDay(name);
+						}
 					}
 					filterResultHolder.setAnyDay(allChecked || filterResultHolder.getDays().size() == 0);
 				} else if (groupPosition == 1) {
 					if (child.isChecked()) {
-						filterResultHolder.addTime(name);
+						if(child.getName().contains("Select")){
+							setCheckForAll(childs,filterResultHolder.getTimes(),true);
+							allChecked = true;
+						}else {
+							filterResultHolder.addTime(name);
+						}
 					} else {
-						filterResultHolder.removeTime(name);
+						if(child.getName().contains("Select")){
+							setCheckForAll(childs,filterResultHolder.getTimes(),false);
+							allChecked = false;
+						}else {
+							filterResultHolder.removeTime(name);
+						}
 					}
 					filterResultHolder.setAnyTime(allChecked || filterResultHolder.getTimes().size() == 0);
 				} else if (groupPosition == 2) {
@@ -169,6 +184,14 @@ public class FilterExpondableAdapter extends BaseExpandableListAdapter {
 		 * } notifyDataSetChanged(); } } });
 		 */
 		return convertView;
+	}
+
+	private void setCheckForAll(List<ExpChild> childs, List<String> filterList, boolean b) {
+		filterList.clear();
+		for (ExpChild child : childs) {
+			child.setChecked(b);
+			if(b && !child.getName().contains("Select")) filterList.add(child.getName());
+		}
 	}
 
 	@Override

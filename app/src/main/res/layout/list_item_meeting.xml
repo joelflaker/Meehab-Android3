@@ -121,13 +121,14 @@
 
                 <RatingBar
                     android:id="@+id/rating"
-                    style="@style/customRatingBarReviews"
+                    style="@style/customRatingBarLightGrayMedium"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:focusable="false"
+                    android:layout_marginLeft="-2dp"
                     android:focusableInTouchMode="false"
-                    android:indeterminateDrawable="@drawable/map_list_rating_bar"
+                    android:indeterminateDrawable="@drawable/rating_bar_layer_list_small"
                     android:isIndicator="true"
                     android:numStars="5"
                     android:rating="4" />
@@ -137,7 +138,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_toRightOf="@+id/rating"
-                    android:paddingLeft="20dp"
+                    android:paddingLeft="8dp"
                     android:gravity="center_vertical"
                     android:orientation="vertical" >
 
@@ -263,13 +264,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:paddingLeft="35dp"
                 android:paddingTop="2dp"
                 android:text="Number of reviews"
                 android:textColor="#888888" />
 
             <RelativeLayout
-                android:layout_width="fill_parent"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingTop="8dp" >
 

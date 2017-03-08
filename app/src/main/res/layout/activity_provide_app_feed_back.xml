@@ -10,7 +10,7 @@
         android:layout_height="50dp"
         android:paddingTop="2dp"
         android:paddingBottom="2dp"
-        android:background="#888888" >
+        android:background="@color/nav_light_gray" >
 
         <ImageView
             android:id="@+id/topMenuBtn"

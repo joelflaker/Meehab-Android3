@@ -243,9 +243,19 @@ public class FilterExpandableFriendAdapter extends BaseExpandableListAdapter {
 					}
 				} else if (groupPosition == 7) {
 					if (child.isChecked()) {
-						fFilterResultHolder.addSober(name);
+						if(child.getName().contains("Select")){
+							setCheckForAll(childs,fFilterResultHolder.getSober(),true);
+							allChecked = true;
+						}else {
+							fFilterResultHolder.addSober(name);
+						}
 					}else {
-						fFilterResultHolder.removeSober(name);
+						if(child.getName().contains("Select")){
+							setCheckForAll(childs,fFilterResultHolder.getSober(),false);
+							allChecked = false;
+						}else {
+							fFilterResultHolder.removeSober(name);
+						}
 					}
 					fFilterResultHolder.setAnyTimeSober(allChecked || fFilterResultHolder.getSober().size() == 0);
 				} else if (groupPosition == 8) {
@@ -273,25 +283,11 @@ public class FilterExpandableFriendAdapter extends BaseExpandableListAdapter {
 		return convertView;
 	}
 
-	public void cacheSelection(int groupPosition, String selectedValue) {
-		if (groupPosition == 1) {
-			fFilterResultHolder.addFriendType(selectedValue);
-		} else if (groupPosition == 2) {
-			fFilterResultHolder.addGender(selectedValue);
-		} else if (groupPosition == 3) {
-			fFilterResultHolder.addAge(selectedValue);
-		} else if (groupPosition == 4) {
-			fFilterResultHolder.addEthenticity(selectedValue);
-		} else if (groupPosition == 5) {
-			fFilterResultHolder.addMaterialStatus(selectedValue);
-		} else if (groupPosition == 6) {
-			fFilterResultHolder.addInterestedIn(selectedValue);
-		} else if (groupPosition == 7) {
-			fFilterResultHolder.addSober(selectedValue);
-		} else if (groupPosition == 8) {
-			fFilterResultHolder.addHeight(selectedValue);
-		} else if (groupPosition == 9) {
-			fFilterResultHolder.addWeight(selectedValue);
+	private void setCheckForAll(List<ExpChild> childs, List<String> filterList, boolean b) {
+		filterList.clear();
+		for (ExpChild child : childs) {
+			child.setChecked(b);
+			if(b && !child.getName().contains("Select")) filterList.add(child.getName());
 		}
 	}
 

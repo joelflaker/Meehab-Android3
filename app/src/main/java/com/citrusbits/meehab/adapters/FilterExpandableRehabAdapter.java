@@ -122,9 +122,19 @@ public class FilterExpandableRehabAdapter extends BaseExpandableListAdapter {
 					fFilterResultHolder.setanyType(allChecked || fFilterResultHolder.getRehabType().size() == 0);
 				} else if (groupPosition == 1) {
 					if (child.isChecked()) {
-						fFilterResultHolder.addInsuranceAccepted(name);
+						if(child.getName().contains("Select")){
+							setCheckForAll(childs,fFilterResultHolder.getInsuranceAccepted(),true);
+							allChecked = true;
+						}else {
+							fFilterResultHolder.addInsuranceAccepted(name);
+						}
 					}else {
-						fFilterResultHolder.removeInsuranceAccepted(name);
+						if(child.getName().contains("Select")){
+							setCheckForAll(childs,fFilterResultHolder.getInsuranceAccepted(),false);
+							allChecked = false;
+						}else {
+							fFilterResultHolder.removeInsuranceAccepted(name);
+						}
 					}
 					fFilterResultHolder.selectAllInsurance(allChecked);
 					fFilterResultHolder.setanyInsuranceAccepted(allChecked || fFilterResultHolder.getInsuranceAccepted().size() == 0);
@@ -138,11 +148,11 @@ public class FilterExpandableRehabAdapter extends BaseExpandableListAdapter {
 		return convertView;
 	}
 
-	public void cacheSelection(int groupPosition, String selectedValue) {
-		if (groupPosition == 0) {
-			fFilterResultHolder.addRehabType(selectedValue);
-		} else if (groupPosition == 1) {
-			fFilterResultHolder.addInsuranceAccepted(selectedValue);
+	private void setCheckForAll(List<ExpChild> childs, List<String> filterList, boolean b) {
+		filterList.clear();
+		for (ExpChild child : childs) {
+			child.setChecked(b);
+			if(b && !child.getName().contains("Select")) filterList.add(child.getName());
 		}
 	}
 

@@ -10,24 +10,60 @@
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="249e763b-9471-407f-986e-4918a109a8df" name="Default" comment="remove select all, alignment and padding, colors, insurance&#10;">
+    <list default="true" id="249e763b-9471-407f-986e-4918a109a8df" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/circle_bg_dark_gray.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/edit_search_dark_gray.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/rating_bar_layer_list_medium.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/rating_bar_light_gray_layer_list_medium.xml" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/ui/users/UserFilterActivity.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_user_filter.xml" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/drawable-hdpi/star_yellow_big.png" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-hdpi/star_yellow_big.png" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/adapters/FavFriendsGridAdapter.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/adapters/FavFriendsGridAdapter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/adapters/FavMeetingListAdapter.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/adapters/FavMeetingListAdapter.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/adapters/FilterExpandableFriendAdapter.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/adapters/FilterExpandableFriendAdapter.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/adapters/FilterExpandableRehabAdapter.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/adapters/FilterExpandableRehabAdapter.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/adapters/FilterExpondableAdapter.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/adapters/FilterExpondableAdapter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/adapters/FriendsGridAdapter.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/adapters/FriendsGridAdapter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/adapters/FriendsListAdapter.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/adapters/FriendsListAdapter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/adapters/MeetingsListAdapter.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/adapters/MeetingsListAdapter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/ui/ActivityMoreReviews.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/ui/ActivityMoreReviews.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/ui/MyReviewDetailActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/ui/MyReviewDetailActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/ui/meetings/MeetingDetailsActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/ui/meetings/MeetingDetailsActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/ui/users/UserProfileActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/ui/users/UserProfileActivity.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/ui/dialog/CustomTimePickerDialog.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/ui/dialog/CustomTimePickerDialog.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/ui/fragments/FriendsFragment.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/ui/fragments/FriendsFragment.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/ui/rehabs/RehabsFilterActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/ui/rehabs/RehabsFilterActivity.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_add_review_over_meeting.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_add_review_over_meeting.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_block_friends.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_block_friends.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_cannot_find_insurance.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_cannot_find_insurance.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_change_email.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_change_email.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_change_password.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_change_password.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_chat.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_chat.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_friends_filter.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_friends_filter.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_full_screen_map.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_full_screen_map.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_insurance.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_insurance.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_login.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_login.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_meeting_details.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_meeting_details.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_meeting_filter.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_meeting_filter.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_more_reviews.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_more_reviews.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_my_review_detail.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_my_review_detail.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_user_profile.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_user_profile.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/list_item_friend.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/list_item_friend.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_profile_setup_more.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_profile_setup_more.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_provide_app_feed_back.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_provide_app_feed_back.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_rehab_details.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_rehab_details.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_rehabs_filter.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_rehabs_filter.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_report_friend.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_report_friend.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_report_inaccuracy.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_report_inaccuracy.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_request_add_meeting.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_request_add_meeting.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_request_rehab_addition.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_request_rehab_addition.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_rsvp_friends.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_rsvp_friends.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_terms_and_conditions.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_terms_and_conditions.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/dialog_time_picker.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/dialog_time_picker.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/fav_list_item_meeting.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fav_list_item_meeting.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_meetings.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_meetings.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_recoveryclock.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_recoveryclock.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/list_item_meeting.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/list_item_meeting.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/list_item_meeting_code.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/list_item_meeting_code.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/list_item_meeting_review.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/list_item_meeting_review.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/list_item_my_review.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/list_item_my_review.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/map_meeting_info_window.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/map_meeting_info_window.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/values/arrays.xml" afterPath="$PROJECT_DIR$/app/src/main/res/values/arrays.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/values/colors.xml" afterPath="$PROJECT_DIR$/app/src/main/res/values/colors.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/values/rating_style.xml" afterPath="$PROJECT_DIR$/app/src/main/res/values/rating_style.xml" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/src/main/res/drawable/map_list_rating_bar.xml" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/rating_bar_layer_list_small.xml" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/src/main/res/drawable/popup_window_rating_bar.xml" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/rating_bar_layer_list_big.xml" />
     </list>
     <ignored path="Meehab-Android.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -71,64 +107,7 @@
     <favorites_list name="Meehab-Android" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="UserProfileActivity.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/ui/users/UserProfileActivity.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="17">
-              <caret line="559" column="65" selection-start-line="559" selection-start-column="65" selection-end-line="559" selection-end-column="65" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="MeetingDetailsActivity.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/ui/meetings/MeetingDetailsActivity.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="167">
-              <caret line="1199" column="65" selection-start-line="1199" selection-start-column="65" selection-end-line="1199" selection-end-column="65" />
-              <folding>
-                <marker date="1488899991412" expanded="false" signature="36009:36034" ph="50dp" />
-                <marker date="1488899991412" expanded="false" signature="36036:36061" ph="50dp" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="MyReviewDetailActivity.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/ui/MyReviewDetailActivity.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="136">
-              <caret line="101" column="24" selection-start-line="101" selection-start-column="24" selection-end-line="101" selection-end-column="24" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ActivityMoreReviews.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/ui/ActivityMoreReviews.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="289">
-              <caret line="141" column="65" selection-start-line="141" selection-start-column="65" selection-end-line="141" selection-end-column="65" />
-              <folding>
-                <marker date="1488899939473" expanded="false" signature="5002:5027" ph="50dp" />
-                <marker date="1488899939473" expanded="false" signature="5029:5054" ph="50dp" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="dimens.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/values/dimens.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="250">
-              <caret line="24" column="17" selection-start-line="24" selection-start-column="17" selection-end-line="24" selection-end-column="17" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -3000,57 +2979,57 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/fragment_rehabs.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/fragment_options.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_two_option.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/ui/meetings/MeetingsFilterActivity.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/ui/rehabs/RehabsFilterActivity.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/model/RehaabFilterResultHolder.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/model/FriendFilterResultHolder.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/ui/fragments/FilterResultHolder.java" />
-        <option value="$PROJECT_DIR$/app/src/main/res/values/dimens.xml" />
-        <option value="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/layout/activity_home.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/ui/HomeActivity.java" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_home.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/app/App.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/app/MeehabApp.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/ui/fragments/FriendsFragment.java" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_report_friend.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/ui/InsuranceActivity.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/ui/fragments/MessagesFragment.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/constants/EventParams.java" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_add_review_over_meeting.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/list_item_meeting.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/values/rating_style.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/map_meeting_info_window.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/values/arrays.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_friends_filter.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/ui/users/FriendsFilterActivity.java" />
-        <option value="$PROJECT_DIR$/app/src/main/res/values/colors.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/friend_filter_header.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/list_exp_item_filter_parent.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_meeting_details.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/anim/fade_in_slow.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/anim/fade_out_slow.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_meeting_filter.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_rehabs_filter.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/list_exp_item_filter_child.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/adapters/FilterExpandableRehabAdapter.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_login.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/adapters/FilterExpondableAdapter.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/adapters/FilterExpandableRehabAdapter.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/adapters/FilterExpandableFriendAdapter.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/adapters/FavMeetingListAdapter.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/adapters/MeetingsListAdapter.java" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_user_profile.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/ui/users/UserProfileActivity.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/adapters/FriendsGridAdapter.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/adapters/FavFriendsGridAdapter.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/adapters/FriendsListAdapter.java" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/list_item_friend.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_my_review_detail.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/ui/rehabs/RehabsFilterActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/dialog_time_picker.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/ui/dialog/CustomTimePickerDialog.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/values/arrays.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/drawable/rating_bar_layer_list_medium.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/drawable/rating_bar_layer_list_small.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/drawable/rating_bar_layer_list_big.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/list_item_meeting_review.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/ui/ActivityMoreReviews.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/ui/meetings/MeetingDetailsActivity.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/ui/MyReviewDetailActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/map_meeting_info_window.xml" />
+        <option value="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/layout/activity_my_review_detail.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_add_review_over_meeting.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/list_item_my_review.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/fragment_my_favorites.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/fragment_meetings.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/values/rating_style.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/drawable/rating_bar_light_gray_layer_list_medium.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/list_item_meeting.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/fav_list_item_meeting.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/list_item_meeting_code.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/drawable/circle_bg_dark_gray.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/values/colors.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_meeting_details.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_rehab_details.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_my_review_detail.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_more_reviews.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_block_friends.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_cannot_find_insurance.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_change_email.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_change_password.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_chat.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_friends_filter.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_full_screen_map.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_insurance.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_meeting_filter.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_profile_setup_more.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_provide_app_feed_back.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_rehabs_filter.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_report_friend.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_report_inaccuracy.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_request_add_meeting.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_request_rehab_addition.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_rsvp_friends.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_terms_and_conditions.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/fragment_recoveryclock.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/drawable/edit_search_dark_gray.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/fragment_friends.xml" />
       </list>
     </option>
   </component>
@@ -3085,17 +3064,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
-      <pane id="ProjectPane">
-        <subPane>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Meehab-Android" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-          </PATH>
-        </subPane>
-      </pane>
+      <pane id="Scratches" />
+      <pane id="PackagesPane" />
       <pane id="AndroidView">
         <subPane>
           <PATH>
@@ -3112,6 +3082,20 @@
             <PATH_ELEMENT>
               <option name="myItemId" value="Meehab-Android" />
               <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Meehab-Android" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="res" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResFolderNode" />
             </PATH_ELEMENT>
           </PATH>
           <PATH>
@@ -3166,8 +3150,17 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
-      <pane id="Scratches" />
+      <pane id="ProjectPane">
+        <subPane>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Meehab-Android" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -3176,11 +3169,11 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="UI_DESIGNER_EDITOR_MODE.NlPaletteManager-NlPreviewForm.SHOW" value="false" />
     <property name="device.picker.selection" value="04aa9d3925273dbf" />
-    <property name="DEBUGGABLE_DEVICE" value="lge-nexus_5-04aa9d3925273dbf" />
+    <property name="DEBUGGABLE_DEVICE" value="lge-nexus_5-04e1af370a6730b2" />
     <property name="DEBUGGABLE_PROCESS" value="com.citrusbits.meehab" />
     <property name="SHOW_ALL_PROCESSES" value="false" />
     <property name="DEBUGGER_ID" value="Auto" />
-    <property name="SearchEverywhereHistoryKey" value="MyRE&#9;FILE&#9;file://D:/Company/Meehab/Meehab-Android/app/src/main/java/com/citrusbits/meehab/ui/MyReviewDetailActivity.java&#10;More&#9;PSI&#9;JAVA://com.citrusbits.meehab.ui.ActivityMoreReviews&#10;MeetingDe&#9;FILE&#9;file://D:/Company/Meehab/Meehab-Android/app/src/main/java/com/citrusbits/meehab/ui/meetings/MeetingDetailsActivity.java&#10;ReviewDe&#9;FILE&#9;file://D:/Company/Meehab/Meehab-Android/app/src/main/java/com/citrusbits/meehab/ui/MyReviewDetailActivity.java&#10;RevieDe&#9;PSI&#9;JAVA://com.citrusbits.meehab.ui.MyReviewDetailActivity&#10;ReviewAc&#9;FILE&#9;file://D:/Company/Meehab/Meehab-Android/app/src/main/java/com/citrusbits/meehab/ui/meetings/AddReviewOverMeetingActivity.java&#10;MyRe&#9;PSI&#9;JAVA://com.citrusbits.meehab.model.MyReview&#10;Grid&#9;FILE&#9;file://D:/Company/Meehab/Meehab-Android/app/src/main/java/com/citrusbits/meehab/adapters/FriendsGridAdapter.java&#10;Block&#9;PSI&#9;JAVA://com.citrusbits.meehab.ui.users.BlockFriendsActivity&#10;FrAda&#9;PSI&#9;JAVA://com.citrusbits.meehab.adapters.FriendsListAdapter&#10;FrieAda&#9;PSI&#9;JAVA://com.citrusbits.meehab.adapters.FavFriendsGridAdapter&#10;FrG&#9;PSI&#9;JAVA://com.citrusbits.meehab.adapters.FriendsGridAdapter&#10;UserP&#9;FILE&#9;file://D:/Company/Meehab/Meehab-Android/app/src/main/java/com/citrusbits/meehab/ui/users/UserProfileActivity.java&#10;MeetingAd&#9;PSI&#9;JAVA://com.citrusbits.meehab.adapters.MeetingsListAdapter&#10;listmeeting&#9;FILE&#9;file://D:/Company/Meehab/Meehab-Android/app/src/main/res/layout/list_item_meeting.xml&#10;MeetingFr&#9;PSI&#9;JAVA://com.citrusbits.meehab.ui.fragments.MyFavoritesFragment.MeetingsListFragment&#10;FilterAda&#9;FILE&#9;file://D:/Company/Meehab/Meehab-Android/app/src/main/java/com/citrusbits/meehab/adapters/FilterExpandableRehabAdapter.java&#10;actrehfi&#9;FILE&#9;file://D:/Company/Meehab/Meehab-Android/app/src/main/res/layout/activity_rehabs_filter.xml&#10;activmfi&#9;FILE&#9;file://D:/Company/Meehab/Meehab-Android/app/src/main/res/layout/activity_meeting_filter.xml&#10;FrFil&#9;FILE&#9;file://D:/Company/Meehab/Meehab-Android/app/src/main/java/com/citrusbits/meehab/ui/users/FriendsFilterActivity.java&#10;map&#9;FILE&#9;file://D:/Company/Meehab/Meehab-Android/app/src/main/res/drawable/map_list_rating_bar.xml&#10;AddRe&#9;PSI&#9;JAVA://com.citrusbits.meehab.ui.meetings.AddReviewOverMeetingActivity&#10;Optio&#9;FILE&#9;file://D:/Company/Meehab/Meehab-Android/app/src/main/java/com/citrusbits/meehab/ui/fragments/OptionsFragment.java&#10;Meeting&#9;FILE&#9;file://D:/Company/Meehab/Meehab-Android/app/src/main/res/layout/list_item_meeting.xml&#10;Mess&#9;FILE&#9;file://D:/Company/Meehab/Meehab-Android/app/src/main/java/com/citrusbits/meehab/ui/fragments/MessagesFragment.java&#10;Insu&#9;PSI&#9;JAVA://com.citrusbits.meehab.ui.InsuranceActivity&#10;UserPro&#9;PSI&#9;JAVA://com.citrusbits.meehab.ui.users.UserProfileActivity&#10;listmee&#9;FILE&#9;file://D:/Company/Meehab/Meehab-Android/app/src/main/res/layout/list_item_meeting.xml&#10;Repor&#9;PSI&#9;JAVA://com.citrusbits.meehab.ui.users.ReportFriendActivity&#10;FrFilt&#9;FILE&#9;file://D:/Company/Meehab/Meehab-Android/app/src/main/java/com/citrusbits/meehab/ui/users/FriendsFilterActivity.java&#10;FrFra&#9;FILE&#9;file://D:/Company/Meehab/Meehab-Android/app/src/main/java/com/citrusbits/meehab/ui/fragments/FriendsFragment.java&#10;App&#9;PSI&#9;JAVA://com.citrusbits.meehab.app.App&#10;Home&#9;PSI&#9;JAVA://com.citrusbits.meehab.ui.HomeActivity&#10;MeetingDetail&#9;FILE&#9;file://D:/Company/Meehab/Meehab-Android/app/src/main/java/com/citrusbits/meehab/ui/meetings/MeetingDetailsActivity.java&#10;RehabFil&#9;FILE&#9;file://D:/Company/Meehab/Meehab-Android/app/src/main/java/com/citrusbits/meehab/ui/rehabs/RehabsFilterActivity.java&#10;FriendF&#9;FILE&#9;file://D:/Company/Meehab/Meehab-Android/app/src/main/java/com/citrusbits/meehab/ui/users/FriendsFilterActivity.java&#10;RehabFilter&#9;PSI&#9;JAVA://com.citrusbits.meehab.ui.rehabs.RehabsFilterActivity&#10;RehabF&#9;FILE&#9;file://D:/Company/Meehab/Meehab-Android/app/src/main/java/com/citrusbits/meehab/ui/fragments/RehabsFragment.java&#10;FrFilter&#9;FILE&#9;file://D:/Company/Meehab/Meehab-Android/app/src/main/java/com/citrusbits/meehab/ui/users/FriendsFilterActivity.java&#10;MeetingFil&#9;PSI&#9;JAVA://com.citrusbits.meehab.ui.meetings.MeetingsFilterActivity&#10;Tw&#9;PSI&#9;JAVA://com.citrusbits.meehab.ui.TwoOptionActivity&#10;OptFr&#9;FILE&#9;file://D:/Company/Meehab/Meehab-Android/app/src/main/java/com/citrusbits/meehab/ui/fragments/OptionsFragment.java&#10;My&#9;FILE&#9;file://D:/Company/Meehab/Meehab-Android/app/src/main/java/com/citrusbits/meehab/ui/fragments/MyFavoritesFragment.java&#10;RehabFr&#9;FILE&#9;file://D:/Company/Meehab/Meehab-Android/app/src/main/java/com/citrusbits/meehab/ui/fragments/RehabsFragment.java&#10;MyFa&#9;PSI&#9;JAVA://com.citrusbits.meehab.ui.fragments.MyFavoritesFragment&#10;FrienFra&#9;FILE&#9;file://D:/Company/Meehab/Meehab-Android/app/src/main/java/com/citrusbits/meehab/ui/fragments/FriendsFragment.java&#10;OptioF&#9;PSI&#9;JAVA://com.citrusbits.meehab.ui.fragments.OptionsFragment&#10;colors&#9;FILE&#9;file://D:/Company/Meehab/Meehab-Android/app/src/main/res/values/colors.xml&#10;Bloc&#9;PSI&#9;JAVA://com.citrusbits.meehab.ui.users.BlockFriendsActivity&#10;MessageFr&#9;PSI&#9;JAVA://com.citrusbits.meehab.ui.fragments.MessagesFragment" />
+    <property name="SearchEverywhereHistoryKey" value="Rev&#9;FILE&#9;file://D:/Company/Meehab/Meehab-Android/app/src/main/java/com/citrusbits/meehab/ui/ActivityMoreReviews.java&#10;Two&#9;PSI&#9;JAVA://com.citrusbits.meehab.ui.TwoOptionActivity&#10;MyReview&#9;FILE&#9;file://D:/Company/Meehab/Meehab-Android/app/src/main/java/com/citrusbits/meehab/ui/MyReviewDetailActivity.java&#10;acrehab&#9;FILE&#9;file://D:/Company/Meehab/Meehab-Android/app/src/main/res/layout/activity_rehab_details.xml&#10;MyF&#9;FILE&#9;file://D:/Company/Meehab/Meehab-Android/app/src/main/res/layout/fragment_my_favorites.xml&#10;Ac&#9;FILE&#9;file://D:/Company/Meehab/Meehab-Android/app/src/main/res/layout/activity_meeting_details.xml&#10;favlis&#9;FILE&#9;file://D:/Company/Meehab/Meehab-Android/app/src/main/res/layout/fav_list_item_meeting.xml&#10;MeetingFr&#9;PSI&#9;JAVA://com.citrusbits.meehab.ui.fragments.MeetingsFragment&#10;MyFra&#9;FILE&#9;file://D:/Company/Meehab/Meehab-Android/app/src/main/java/com/citrusbits/meehab/ui/fragments/MyFavoritesFragment.java&#10;Ff&#9;FILE&#9;file://D:/Company/Meehab/Meehab-Android/app/src/main/java/com/citrusbits/meehab/ui/fragments/FriendsFragment.java&#10;acme&#9;FILE&#9;file://D:/Company/Meehab/Meehab-Android/app/src/main/res/layout/activity_meeting_details.xml&#10;acadd&#9;FILE&#9;file://D:/Company/Meehab/Meehab-Android/app/src/main/res/layout/activity_add_review_over_meeting.xml&#10;acmee&#9;FILE&#9;file://D:/Company/Meehab/Meehab-Android/app/src/main/res/layout/activity_meeting_details.xml&#10;Meeting&#9;FILE&#9;file://D:/Company/Meehab/Meehab-Android/app/src/main/res/layout/list_item_meeting.xml&#10;MyFr&#9;FILE&#9;file://D:/Company/Meehab/Meehab-Android/app/src/main/java/com/citrusbits/meehab/ui/fragments/MyFavoritesFragment.java&#10;FFil&#9;FILE&#9;file://D:/Company/Meehab/Meehab-Android/app/src/main/java/com/citrusbits/meehab/ui/users/FriendsFilterActivity.java&#10;FrFilA&#9;FILE&#9;file://D:/Company/Meehab/Meehab-Android/app/src/main/java/com/citrusbits/meehab/ui/users/FriendsFilterActivity.java&#10;RehFil&#9;PSI&#9;JAVA://com.citrusbits.meehab.ui.rehabs.RehabsFilterActivity&#10;Login&#9;PSI&#9;JAVA://com.citrusbits.meehab.ui.users.LoginActivity&#10;MeeFilt&#9;PSI&#9;JAVA://com.citrusbits.meehab.ui.meetings.MeetingsFilterActivity&#10;FrF&#9;FILE&#9;file://D:/Company/Meehab/Meehab-Android/app/src/main/java/com/citrusbits/meehab/ui/users/FriendsFilterActivity.java&#10;FrFra&#9;PSI&#9;JAVA://com.citrusbits.meehab.ui.fragments.FriendsFragment&#10;FrFil&#9;FILE&#9;file://D:/Company/Meehab/Meehab-Android/app/src/main/java/com/citrusbits/meehab/ui/users/FriendsFilterActivity.java&#10;MyRE&#9;FILE&#9;file://D:/Company/Meehab/Meehab-Android/app/src/main/java/com/citrusbits/meehab/ui/MyReviewDetailActivity.java&#10;More&#9;PSI&#9;JAVA://com.citrusbits.meehab.ui.ActivityMoreReviews&#10;MeetingDe&#9;FILE&#9;file://D:/Company/Meehab/Meehab-Android/app/src/main/java/com/citrusbits/meehab/ui/meetings/MeetingDetailsActivity.java&#10;ReviewDe&#9;FILE&#9;file://D:/Company/Meehab/Meehab-Android/app/src/main/java/com/citrusbits/meehab/ui/MyReviewDetailActivity.java&#10;RevieDe&#9;PSI&#9;JAVA://com.citrusbits.meehab.ui.MyReviewDetailActivity&#10;ReviewAc&#9;FILE&#9;file://D:/Company/Meehab/Meehab-Android/app/src/main/java/com/citrusbits/meehab/ui/meetings/AddReviewOverMeetingActivity.java&#10;MyRe&#9;PSI&#9;JAVA://com.citrusbits.meehab.model.MyReview&#10;Grid&#9;FILE&#9;file://D:/Company/Meehab/Meehab-Android/app/src/main/java/com/citrusbits/meehab/adapters/FriendsGridAdapter.java&#10;Block&#9;PSI&#9;JAVA://com.citrusbits.meehab.ui.users.BlockFriendsActivity&#10;FrAda&#9;PSI&#9;JAVA://com.citrusbits.meehab.adapters.FriendsListAdapter&#10;FrieAda&#9;PSI&#9;JAVA://com.citrusbits.meehab.adapters.FavFriendsGridAdapter&#10;FrG&#9;PSI&#9;JAVA://com.citrusbits.meehab.adapters.FriendsGridAdapter&#10;UserP&#9;FILE&#9;file://D:/Company/Meehab/Meehab-Android/app/src/main/java/com/citrusbits/meehab/ui/users/UserProfileActivity.java&#10;MeetingAd&#9;PSI&#9;JAVA://com.citrusbits.meehab.adapters.MeetingsListAdapter&#10;listmeeting&#9;FILE&#9;file://D:/Company/Meehab/Meehab-Android/app/src/main/res/layout/list_item_meeting.xml&#10;FilterAda&#9;FILE&#9;file://D:/Company/Meehab/Meehab-Android/app/src/main/java/com/citrusbits/meehab/adapters/FilterExpandableRehabAdapter.java&#10;actrehfi&#9;FILE&#9;file://D:/Company/Meehab/Meehab-Android/app/src/main/res/layout/activity_rehabs_filter.xml&#10;activmfi&#9;FILE&#9;file://D:/Company/Meehab/Meehab-Android/app/src/main/res/layout/activity_meeting_filter.xml&#10;map&#9;FILE&#9;file://D:/Company/Meehab/Meehab-Android/app/src/main/res/drawable/map_list_rating_bar.xml&#10;AddRe&#9;PSI&#9;JAVA://com.citrusbits.meehab.ui.meetings.AddReviewOverMeetingActivity&#10;Optio&#9;FILE&#9;file://D:/Company/Meehab/Meehab-Android/app/src/main/java/com/citrusbits/meehab/ui/fragments/OptionsFragment.java&#10;Mess&#9;FILE&#9;file://D:/Company/Meehab/Meehab-Android/app/src/main/java/com/citrusbits/meehab/ui/fragments/MessagesFragment.java&#10;Insu&#9;PSI&#9;JAVA://com.citrusbits.meehab.ui.InsuranceActivity&#10;UserPro&#9;PSI&#9;JAVA://com.citrusbits.meehab.ui.users.UserProfileActivity&#10;listmee&#9;FILE&#9;file://D:/Company/Meehab/Meehab-Android/app/src/main/res/layout/list_item_meeting.xml&#10;Repor&#9;PSI&#9;JAVA://com.citrusbits.meehab.ui.users.ReportFriendActivity&#10;FrFilt&#9;FILE&#9;file://D:/Company/Meehab/Meehab-Android/app/src/main/java/com/citrusbits/meehab/ui/users/FriendsFilterActivity.java" />
     <property name="extract.method.default.visibility" value="private" />
   </component>
   <component name="RecentsManager">
@@ -3188,8 +3181,8 @@
       <recent name="com.citrusbits.meehab.dialog" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="D:\Company\Meehab\Meehab-Android\app\src\main\res\anim" />
       <recent name="D:\Company\Meehab\Meehab-Android\app\src\main\res\drawable" />
+      <recent name="D:\Company\Meehab\Meehab-Android\app\src\main\res\anim" />
       <recent name="D:\Company\Meehab\Meehab-Android\app\src\main\res\layout" />
       <recent name="D:\Company\Meehab\Meehab-Android\app\src\main\java\com\citrusbits\meehab\utils" />
     </key>
@@ -3893,12 +3886,19 @@
       <option name="project" value="LOCAL" />
       <updated>1488897205270</updated>
     </task>
-    <option name="localTasksCounter" value="48" />
+    <task id="LOCAL-00048" summary="add profile place holder every user view">
+      <created>1488900095391</created>
+      <option name="number" value="00048" />
+      <option name="presentableId" value="LOCAL-00048" />
+      <option name="project" value="LOCAL" />
+      <updated>1488900095391</updated>
+    </task>
+    <option name="localTasksCounter" value="49" />
     <servers />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1616" height="916" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33069828" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
@@ -3906,7 +3906,7 @@
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.40974966" sideWeight="0.50771207" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Android Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.40974966" sideWeight="0.4922879" order="12" side_tool="false" content_ui="tabs" />
+      <window_info id="Android Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.40974966" sideWeight="0.4922879" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33161953" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32806325" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.66139656" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
@@ -3914,7 +3914,8 @@
       <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="11" side_tool="true" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17544988" sideWeight="0.46376812" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17544988" sideWeight="0.46376812" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32806325" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32969153" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Android Model" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="true" content_ui="tabs" />
@@ -3932,7 +3933,6 @@
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32806325" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="Vcs.Log.UiProperties">
@@ -3949,7 +3949,6 @@
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value="add joda time library and fixes recovery clock remaining time string format and handle months" />
     <MESSAGE value="fixes bug in recovery clock remaining time" />
     <MESSAGE value="fixes medal in recovery clock, next sober date and update profile and setup profile, date of birth picker" />
     <MESSAGE value="fixes next medal date, rehab filters, user details from review" />
@@ -3974,7 +3973,8 @@
     <MESSAGE value="Fixes MEEH-4854, EEH-4802" />
     <MESSAGE value="fixes friends filter, search and profile text casing" />
     <MESSAGE value="remove select all, alignment and padding, colors, insurance&#10;" />
-    <option name="LAST_COMMIT_MESSAGE" value="remove select all, alignment and padding, colors, insurance&#10;" />
+    <MESSAGE value="add profile place holder every user view" />
+    <option name="LAST_COMMIT_MESSAGE" value="add profile place holder every user view" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -3992,84 +3992,488 @@
           <properties />
           <option name="timeStamp" value="248" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/ui/dialog/CustomTimePickerDialog.java</url>
+          <line>76</line>
+          <properties />
+          <option name="timeStamp" value="249" />
+        </line-breakpoint>
       </breakpoints>
       <breakpoints-dialog>
         <breakpoints-dialog />
       </breakpoints-dialog>
-      <option name="time" value="249" />
+      <option name="time" value="250" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="Remote">
-        <watch expression="user.getDateOfBirth()" />
+        <watch expression="now.get(Calendar.HOUR_OF_DAY)" />
       </configuration>
     </watches-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/ui/InsuranceActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="491">
-          <caret line="253" column="64" selection-start-line="253" selection-start-column="64" selection-end-line="253" selection-end-column="64" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/services/SocketService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="260">
-          <caret line="1778" column="47" selection-start-line="1778" selection-start-column="47" selection-end-line="1778" selection-end-column="47" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/helpers/LogoutHelper.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_cannot_find_insurance.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="170">
-          <caret line="23" column="16" selection-start-line="23" selection-start-column="16" selection-end-line="23" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/ui/fragments/OptionsFragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="511" column="16" selection-start-line="511" selection-start-column="16" selection-end-line="511" selection-end-column="16" />
+          <caret line="10" column="49" selection-start-line="10" selection-start-column="49" selection-end-line="10" selection-end-column="49" />
           <folding />
         </state>
       </provider>
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/constants/EventParams.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_change_email.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="345">
-          <caret line="70" column="69" selection-start-line="70" selection-start-column="69" selection-end-line="70" selection-end-column="69" />
+        <state relative-caret-position="170">
+          <caret line="10" column="49" selection-start-line="10" selection-start-column="49" selection-end-line="10" selection-end-column="49" />
           <folding />
         </state>
       </provider>
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/popup_window_rating_bar.xml">
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_change_password.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="10" column="49" selection-start-line="10" selection-start-column="49" selection-end-line="10" selection-end-column="49" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_chat.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="10" column="49" selection-start-line="10" selection-start-column="49" selection-end-line="10" selection-end-column="49" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_edit_my_profile.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-663">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_forget_password.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable-hdpi/star_yellow_big.png">
-      <provider selected="true" editor-type-id="images">
+      <provider editor-type-id="android-designer2">
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable-hdpi/star_gray_big.gif" />
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/map_list_rating_bar.xml">
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_friends_filter.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="5" column="38" selection-start-line="5" selection-start-column="38" selection-end-line="5" selection-end-column="38" />
+        <state relative-caret-position="187">
+          <caret line="11" column="49" selection-start-line="11" selection-start-column="49" selection-end-line="11" selection-end-column="49" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_full_screen_map.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="10" column="49" selection-start-line="10" selection-start-column="49" selection-end-line="10" selection-end-column="49" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_home.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_insurance.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="10" column="49" selection-start-line="10" selection-start-column="49" selection-end-line="10" selection-end-column="49" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_login_and_register.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_media_full_screen.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_meeting_details.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="352" column="54" selection-start-line="352" selection-start-column="50" selection-end-line="352" selection-end-column="54" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_meeting_filter.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="12" column="49" selection-start-line="12" selection-start-column="49" selection-end-line="12" selection-end-column="49" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_profile_setup.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_profile_setup_more.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="10" column="49" selection-start-line="10" selection-start-column="49" selection-end-line="10" selection-end-column="49" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_provide_app_feed_back.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="12" column="49" selection-start-line="12" selection-start-column="49" selection-end-line="12" selection-end-column="49" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_register.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_rehabs_filter.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="12" column="49" selection-start-line="12" selection-start-column="49" selection-end-line="12" selection-end-column="49" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_report_friend.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="10" column="49" selection-start-line="10" selection-start-column="49" selection-end-line="10" selection-end-column="49" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_report_inaccuracy.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="10" column="49" selection-start-line="10" selection-start-column="49" selection-end-line="10" selection-end-column="49" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_request_add_meeting.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="16" column="53" selection-start-line="16" selection-start-column="53" selection-end-line="16" selection-end-column="53" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_request_rehab_addition.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="18" column="49" selection-start-line="18" selection-start-column="49" selection-end-line="18" selection-end-column="49" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_rsvp_friends.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="10" column="49" selection-start-line="10" selection-start-column="49" selection-end-line="10" selection-end-column="49" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_splash.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_terms_and_conditions.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="11" column="49" selection-start-line="11" selection-start-column="49" selection-end-line="11" selection-end-column="49" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_user_filter.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/ui/users/UserFilterActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="17" column="1" selection-start-line="17" selection-start-column="1" selection-end-line="17" selection-end-column="1" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/map_meeting_info_window.xml">
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_user_profile.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="89">
-          <caret line="78" column="46" selection-start-line="78" selection-start-column="46" selection-end-line="78" selection-end-column="46" />
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_two_option.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="8" column="4" selection-start-line="8" selection-start-column="4" selection-end-line="8" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_verification.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/chat_list_item.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/dialog_add_to_calendar.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_fav_friends.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_fav_meetings.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_my_profile.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_options.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_recoveryclock.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="33" column="0" selection-start-line="33" selection-start-column="0" selection-end-line="33" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_rehabs.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/friend_filter_header.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/picker_weight.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/progress_dialog.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/media_controller.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -4088,15 +4492,45 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/arrays.xml">
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_meetings.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="447">
-          <caret line="233" column="29" selection-start-line="233" selection-start-column="29" selection-end-line="233" selection-end-column="29" />
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/color_new.xml">
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_my_favorites.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="357">
+          <caret line="21" column="0" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_conversation.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable-hdpi/search_bg.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/circle_bg_dark_gray.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -4104,359 +4538,23 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/colors.xml">
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/edit_search_dark_gray.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="38" column="32" selection-start-line="38" selection-start-column="17" selection-end-line="38" selection-end-column="32" />
+        <state relative-caret-position="102">
+          <caret line="6" column="30" selection-start-line="6" selection-start-column="30" selection-end-line="6" selection-end-column="30" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/friend_filter_header.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="412">
-          <caret line="88" column="53" selection-start-line="88" selection-start-column="38" selection-end-line="88" selection-end-column="53" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/list_exp_item_filter_parent.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="493">
-          <caret line="29" column="49" selection-start-line="29" selection-start-column="49" selection-end-line="29" selection-end-column="49" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_meeting_details.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="412">
-          <caret line="196" column="53" selection-start-line="196" selection-start-column="53" selection-end-line="196" selection-end-column="53" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/anim/fade_in_slow.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="1" column="83" selection-start-line="1" selection-start-column="83" selection-end-line="1" selection-end-column="83" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/anim/fade_out_slow.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="1" column="83" selection-start-line="1" selection-start-column="83" selection-end-line="1" selection-end-column="83" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/rating_style.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="617">
-          <caret line="38" column="61" selection-start-line="38" selection-start-column="61" selection-end-line="38" selection-end-column="61" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_meeting_filter.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="548">
-          <caret line="187" column="61" selection-start-line="187" selection-start-column="61" selection-end-line="187" selection-end-column="61" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_rehabs_filter.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="279">
-          <caret line="175" column="31" selection-start-line="175" selection-start-column="31" selection-end-line="175" selection-end-column="31" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/list_exp_item_filter_child.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="442">
-          <caret line="26" column="49" selection-start-line="26" selection-start-column="49" selection-end-line="26" selection-end-column="49" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_friends_filter.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="12" column="0" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/adapters/FilterExpandableRehabAdapter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="442">
-          <caret line="70" column="27" selection-start-line="70" selection-start-column="27" selection-end-line="70" selection-end-column="27" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/adapters/FilterExpondableAdapter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="637">
-          <caret line="92" column="31" selection-start-line="89" selection-start-column="8" selection-end-line="92" selection-end-column="31" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/adapters/FilterExpandableFriendAdapter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1164">
-          <caret line="158" column="70" selection-start-line="158" selection-start-column="70" selection-end-line="158" selection-end-column="70" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/ui/users/FriendsFilterActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="646">
-          <caret line="59" column="29" selection-start-line="59" selection-start-column="29" selection-end-line="59" selection-end-column="29" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/ui/fragments/MessagesFragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="231" column="50" selection-start-line="231" selection-start-column="50" selection-end-line="231" selection-end-column="50" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/ui/fragments/MyFavoritesFragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="239">
-          <caret line="265" column="37" selection-start-line="265" selection-start-column="37" selection-end-line="265" selection-end-column="37" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fav_list_item_meeting.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="12" column="43" selection-start-line="12" selection-start-column="43" selection-end-line="12" selection-end-column="43" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/adapters/FavMeetingListAdapter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="294">
-          <caret line="83" column="26" selection-start-line="83" selection-start-column="26" selection-end-line="83" selection-end-column="26" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/adapters/MeetingsListAdapter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="79" column="57" selection-start-line="79" selection-start-column="57" selection-end-line="79" selection-end-column="57" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/list_item_meeting.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1789">
-          <caret line="126" column="51" selection-start-line="126" selection-start-column="51" selection-end-line="126" selection-end-column="51" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_user_profile.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1152">
-          <caret line="44" column="48" selection-start-line="44" selection-start-column="48" selection-end-line="44" selection-end-column="48" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/adapters/FavFriendsGridAdapter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="100" column="55" selection-start-line="100" selection-start-column="55" selection-end-line="100" selection-end-column="55" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/adapters/FriendsGridAdapter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="371">
-          <caret line="49" column="22" selection-start-line="49" selection-start-column="22" selection-end-line="49" selection-end-column="22" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/list_item_friend.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="191">
-          <caret line="38" column="30" selection-start-line="38" selection-start-column="30" selection-end-line="38" selection-end-column="30" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/adapters/FriendsListAdapter.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_friends.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="255">
-          <caret line="57" column="56" selection-start-line="57" selection-start-column="56" selection-end-line="57" selection-end-column="56" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/ui/users/BlockFriendsActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="235">
-          <caret line="135" column="8" selection-start-line="135" selection-start-column="8" selection-end-line="135" selection-end-column="8" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/model/MyReview.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="13" column="13" selection-start-line="13" selection-start-column="13" selection-end-line="13" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_add_review_over_meeting.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="378">
-          <caret line="76" column="21" selection-start-line="76" selection-start-column="21" selection-end-line="76" selection-end-column="21" />
+          <caret line="51" column="26" selection-start-line="51" selection-start-column="26" selection-end-line="51" selection-end-column="26" />
           <folding />
         </state>
       </provider>
       <provider editor-type-id="android-designer2">
         <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/ui/meetings/AddReviewOverMeetingActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="425">
-          <caret line="46" column="50" selection-start-line="46" selection-start-column="50" selection-end-line="46" selection-end-column="50" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_my_review_detail.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="429">
-          <caret line="102" column="50" selection-start-line="102" selection-start-column="50" selection-end-line="102" selection-end-column="50" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/list_item_my_review.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/list_item_meeting_review.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="339">
-          <caret line="48" column="50" selection-start-line="48" selection-start-column="50" selection-end-line="48" selection-end-column="50" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/ui/users/UserProfileActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="559" column="65" selection-start-line="559" selection-start-column="65" selection-end-line="559" selection-end-column="65" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/dimens.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="250">
-          <caret line="24" column="17" selection-start-line="24" selection-start-column="17" selection-end-line="24" selection-end-column="17" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/ui/MyReviewDetailActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="101" column="24" selection-start-line="101" selection-start-column="24" selection-end-line="101" selection-end-column="24" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/ui/meetings/MeetingDetailsActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="167">
-          <caret line="1199" column="65" selection-start-line="1199" selection-start-column="65" selection-end-line="1199" selection-end-column="65" />
-          <folding>
-            <marker date="1488899991412" expanded="false" signature="36009:36034" ph="50dp" />
-            <marker date="1488899991412" expanded="false" signature="36036:36061" ph="50dp" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/citrusbits/meehab/ui/ActivityMoreReviews.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="141" column="65" selection-start-line="141" selection-start-column="65" selection-end-line="141" selection-end-column="65" />
-          <folding>
-            <marker date="1488899939473" expanded="false" signature="5002:5027" ph="50dp" />
-            <marker date="1488899939473" expanded="false" signature="5029:5054" ph="50dp" />
-          </folding>
-        </state>
       </provider>
     </entry>
   </component>

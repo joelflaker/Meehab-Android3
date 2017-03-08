@@ -117,29 +117,38 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingLeft="6dp" >
+                    >
 
                     <RatingBar
                         android:id="@+id/rating"
-                        style="@style/customRatingBarBig"
+                        style="@style/customRatingBarLightGrayMedium"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:focusable="false"
                         android:focusableInTouchMode="false"
-                        android:indeterminateDrawable="@drawable/map_list_rating_bar"
                         android:isIndicator="true"
+                        android:layout_marginLeft="-2dp"
                         android:numStars="5"
-                        android:rating="4"
-                        android:stepSize="1" />
+                        android:rating="4" />
+
+                    <TextView
+                        android:id="@+id/txtNumOfReviews"
+                        android:layout_below="@id/rating"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal"
+                        android:paddingTop="2dp"
+                        android:text="Number of reviews"
+                        android:textColor="#888888" />
 
                     <LinearLayout
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
                         android:layout_toRightOf="@+id/rating"
                         android:gravity="center_vertical"
                         android:orientation="vertical"
-                        android:paddingLeft="20dp" >
+                        android:paddingTop="2dp"
+                        android:paddingLeft="8dp" >
 
                         <HorizontalScrollView
                             android:layout_width="wrap_content"
@@ -161,7 +170,7 @@
                                     android:gravity="center"
                                     android:textColor="@android:color/white"
                                     android:textSize="12sp"
-                                    android:visibility="gone" />
+                                    android:visibility="visible" />
 
                                 <TextView
                                     android:id="@+id/tvCode2"
@@ -258,21 +267,10 @@
                     </LinearLayout>
                 </RelativeLayout>
 
-                <TextView
-                    android:id="@+id/txtNumOfReviews"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:paddingLeft="35dp"
-                    android:paddingTop="2dp"
-                    android:text="Number of reviews"
-                    android:textColor="#888888" />
 
                 <RelativeLayout
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:paddingLeft="35dp"
-                    android:paddingRight="35dp"
                     android:paddingTop="8dp" >
 
                     <TextView

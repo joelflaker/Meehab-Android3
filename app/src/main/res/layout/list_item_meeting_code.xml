@@ -5,7 +5,7 @@
           android:minWidth="30dp"
           android:minHeight="30dp"
           android:layout_height="wrap_content"
-          android:background="@drawable/gray_circle"
+          android:background="@drawable/circle_bg_dark_gray"
           android:gravity="center"
           android:textColor="@android:color/white"
           android:textSize="12sp" />

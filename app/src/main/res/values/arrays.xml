@@ -3,6 +3,7 @@
 
     <!-- applyFilter Days -->
     <string-array name="daysValues">
+        <item>Select All/Deselect All</item>
         <item>Monday</item>
         <item>Tuesday</item>
         <item>Wednesday</item>
@@ -67,12 +68,13 @@
 
     <!-- applyFilter Days -->
     <string-array name="timeRangeFilterValues">
-        <item>06 AM - 09 AM</item>
-        <item>09 AM - 12 PM</item>
-        <item>12 PM - 03 PM</item>
-        <item>03 PM - 06 PM</item>
-        <item>06 PM - 09 PM</item>
-        <item>09 PM - 12 AM</item>
+        <item>Select All/Deselect All</item>
+        <item>6 AM - 9 AM</item>
+        <item>9 AM - 2 PM</item>
+        <item>2 PM - 3 PM</item>
+        <item>3 PM - 6 PM</item>
+        <item>6 PM - 9 PM</item>
+        <item>9 PM - 2 AM</item>
     </string-array>
 
     <string-array name="timeRangeValues">
@@ -84,27 +86,26 @@
         <item>09 PM - 12 AM</item>
     </string-array>
     <!--for meeting request-->
-    <string-array name="timeValues">
-        <item>06:00 AM</item>
-        <item>07:00 AM</item>
-        <item>08:00 AM</item>
-        <item>09:00 AM</item>
-        <item>10:00 AM</item>
-        <item>11:00 AM</item>
-        <item>12:00 PM</item>
-        <item>01:00 PM</item>
-        <item>02:00 PM</item>
-        <item>03:00 PM</item>
-        <item>04:00 PM</item>
-        <item>05:00 PM</item>
-        <item>06:00 PM</item>
-        <item>07:00 PM</item>
-        <item>08:00 PM</item>
-        <item>09:00 PM</item>
-        <item>10:00 PM</item>
-        <item>11:00 PM</item>
-        <!--<item>12:00 AM</item>-->
-    </string-array>
+    <!--<string-array name="timeValues">-->
+        <!--<item>06:00 AM</item>-->
+        <!--<item>07:00 AM</item>-->
+        <!--<item>08:00 AM</item>-->
+        <!--<item>09:00 AM</item>-->
+        <!--<item>10:00 AM</item>-->
+        <!--<item>11:00 AM</item>-->
+        <!--<item>12:00 PM</item>-->
+        <!--<item>01:00 PM</item>-->
+        <!--<item>02:00 PM</item>-->
+        <!--<item>03:00 PM</item>-->
+        <!--<item>04:00 PM</item>-->
+        <!--<item>05:00 PM</item>-->
+        <!--<item>06:00 PM</item>-->
+        <!--<item>07:00 PM</item>-->
+        <!--<item>08:00 PM</item>-->
+        <!--<item>09:00 PM</item>-->
+        <!--<item>10:00 PM</item>-->
+        <!--<item>11:00 PM</item>-->
+    <!--</string-array>-->
 
     <!-- applyFilter Days -->
     <string-array name="meetingsTypesValues">
@@ -237,6 +238,7 @@
 
     <!-- Time sobar -->
     <string-array name="time_sobar_arr">
+        <item>Select All/Deselect All</item>
         <item>Less than 1 year</item>
         <item>1-5 years</item>
         <item>6-10 years</item>

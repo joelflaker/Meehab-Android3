@@ -111,9 +111,9 @@ public class RehabsFilterActivity extends SocketActivity implements
 				parent2.setName("Insurance Accepted");
 				parent2.setValue("Any");
 
-//				final ExpChild topItem1 = new ExpChild();
-//				topItem1.setName("Select All");
-//				parent2.addChild(topItem1);
+				final ExpChild topItem1 = new ExpChild();
+				topItem1.setName("Select All/Deselect All");
+				parent2.addChild(topItem1);
 
 				for (String value : insurancesString) {
 					final ExpChild child = new ExpChild();
@@ -153,9 +153,7 @@ public class RehabsFilterActivity extends SocketActivity implements
 //		String name = types.get(childPosition).getName();
 
 		if (filterModel.isSelectAllType()) {
-			types.get(0).setName("Deselect All");
 			for(ExpChild child: types){
-				
 					child.setChecked(true);
 			}
 		}else{
@@ -179,7 +177,6 @@ public class RehabsFilterActivity extends SocketActivity implements
 		List<ExpChild> insurances = categories.get(1)
 				.getChildren();
 		if (filterModel.isSelectAllInsurance()) {
-			insurances.get(0).setName("Deselect All");
 			for(ExpChild child: insurances){
 					child.setChecked(true);
 			}
@@ -313,17 +310,16 @@ public class RehabsFilterActivity extends SocketActivity implements
 		parent.setChildren(new ArrayList<ExpChild>());
 		parent.setName("Type");
 		parent.setValue("Any");
-		String[] daysValues = getResources().getStringArray(
+		String[] rehabFacilityArr = getResources().getStringArray(
 				R.array.rehab_facility_arr);
 		
 //		final ExpChild topItem = new ExpChild();
-//		topItem.setName("Select All");
+//		topItem.setName("Select All/Deselect All");
 //		parent.addChild(topItem);
 
-		for (String value : daysValues) {
+		for (String value : rehabFacilityArr) {
 			final ExpChild child = new ExpChild();
 			child.setName(value);
-			// parent.getChildren().add(child);
 			parent.addChild(child);
 
 		}
@@ -337,9 +333,9 @@ public class RehabsFilterActivity extends SocketActivity implements
 		String[] insuranceValues = getResources().getStringArray(
 				R.array.insurance_arr);
 
-//		final ExpChild topItem1 = new ExpChild();
-//		topItem1.setName("Select All");
-//		parent2.addChild(topItem1);
+		final ExpChild topItem1 = new ExpChild();
+		topItem1.setName("Select All/Deselect All");
+		parent2.addChild(topItem1);
 		
 		for (String value : insuranceValues) {
 			final ExpChild child = new ExpChild();
