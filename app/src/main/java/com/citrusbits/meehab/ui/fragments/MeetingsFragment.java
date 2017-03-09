@@ -851,7 +851,7 @@ public class MeetingsFragment extends Fragment implements
 						meeting.setOnDate(MeetingUtils.formateDate(nearDateTime.getDateTime()));
 					}
 
-					MeetingUtils.setStartInTime(meeting, meeting.getNearestDateTime());
+					MeetingUtils.setMeetingTimingStatus(meeting, meeting.getNearestDateTime());
 				}
 
 //				sorting for nearest meeting first

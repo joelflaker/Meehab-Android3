@@ -108,7 +108,7 @@ public class MeetingsFilterActivity extends SocketActivity implements
 		updateUI();
 
 		//record current filter
-		previousCategoies.addAll(cacheCategories);
+		previousCategoies.addAll(categories);
 		mPreDistance = mDistance;
 		mPreRating = mRating;
 		mPreZipcode = mZipcode;

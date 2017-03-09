@@ -319,7 +319,10 @@
                                     android:layout_weight="1"
                                     android:background="@drawable/hours_bg_green"
                                     android:gravity="center"
-                                    android:padding="2dp"
+                                    android:paddingTop="2dp"
+                                    android:paddingBottom="2dp"
+                                    android:paddingLeft="4dp"
+                                    android:paddingRight="4dp"
                                     android:text="Start soon"
                                     android:textColor="@android:color/white"
                                     android:textSize="12sp" />
@@ -356,7 +359,7 @@
 
                         <TextView
                             android:layout_width="fill_parent"
-                            android:layout_height="200dp" />
+                            android:layout_height="170dp" />
 
                         <RelativeLayout
                             android:id="@+id/rlRSVP"

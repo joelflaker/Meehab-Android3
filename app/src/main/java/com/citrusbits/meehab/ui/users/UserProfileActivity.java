@@ -10,6 +10,7 @@ import org.json.JSONObject;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.location.Location;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -27,6 +28,9 @@ import android.widget.Toast;
 
 import com.citrusbits.meehab.app.MeehabApp;
 import com.citrusbits.meehab.helpers.AgeHelper;
+import com.citrusbits.meehab.map.LocationUtils;
+import com.citrusbits.meehab.model.MeetingModel;
+import com.citrusbits.meehab.model.NearestDateTime;
 import com.citrusbits.meehab.ui.MyReviewDetailActivity;
 import com.citrusbits.meehab.R;
 import com.citrusbits.meehab.constants.Consts;
@@ -43,14 +47,16 @@ import com.citrusbits.meehab.model.UserAccount;
 import com.citrusbits.meehab.services.OnBackendConnectListener;
 import com.citrusbits.meehab.services.OnSocketResponseListener;
 import com.citrusbits.meehab.ui.SocketActivity;
+import com.citrusbits.meehab.ui.meetings.MeetingDetailsActivity;
 import com.citrusbits.meehab.utils.AccountUtils;
 import com.citrusbits.meehab.utils.DateTimeUtils;
 import com.citrusbits.meehab.utils.DeviceUtils;
 import com.citrusbits.meehab.utils.MeetingUtils;
+import com.citrusbits.meehab.utils.NetworkUtil;
 import com.citrusbits.meehab.utils.NetworkUtils;
 import com.citrusbits.meehab.utils.RecoverClockDateUtils;
-import com.citrusbits.meehab.utils.UserAcountUtils;
 import com.citrusbits.meehab.utils.UtilityClass;
+import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 
 public class UserProfileActivity extends SocketActivity implements
@@ -396,7 +402,40 @@ public class UserProfileActivity extends SocketActivity implements
 		}
 
 		reviews.clear();
+		if (event.equals(EventParams.METHOD_MEETING_BY_ID)) {
+			JSONObject data = ((JSONObject) obj);
+			Log.d(TAG,""+data);
+			MeetingModel meeting = new Gson().fromJson(data.optJSONObject("meeting").toString(), MeetingModel.class);
 
+			if(meeting.getFavouriteMeeting() != null)
+				meeting.setFavourite(meeting.getFavouriteMeeting() == 1);
+			NearestDateTime nearDateTime = MeetingUtils.getNearestDate(meeting.getOnDay(),
+					meeting.getOnTime());
+
+			Location myLocation = LocationUtils.getLastLocation(this);
+			//distance calculation
+			float[] results = new float[1];
+			Location.distanceBetween(myLocation.getLatitude(), myLocation.getLongitude(), meeting.getLatitude(), meeting.getLongitude(), results);
+			//
+			double distance = results[0] * 0.000621371192f;
+			distance = Math.floor(distance * 10) / 10f;
+			meeting.setDistanceInMiles(distance);
+
+			if (nearDateTime != null) {
+				meeting.setTodayMeeting(nearDateTime.isToday());
+				meeting.setOnDateOrigin(nearDateTime.getDate());
+				meeting.setNearestTime(nearDateTime.getTime());
+				meeting.setNearestDateTime(nearDateTime.getDateTime());
+				meeting.setOnDate(MeetingUtils.formateDate(nearDateTime.getDateTime()));
+				MeetingUtils.setMeetingTimingStatus(meeting, meeting.getNearestDateTime());
+			}
+
+			Intent intent = new Intent(this, MeetingDetailsActivity.class);
+			intent.putExtra("meeting",meeting);
+			startActivity(intent);
+			overridePendingTransition(R.anim.activity_in,
+					R.anim.activity_out);
+		}else
 		if (event.equals(EventParams.EVENT_GET_USER_REVIEWS)) {
 			JSONObject data = ((JSONObject) obj);
 
@@ -413,6 +452,7 @@ public class UserProfileActivity extends SocketActivity implements
 					String image = reviewObject.optString("image");
 
 					String meetingName = reviewObject.optString("meeting_name");
+					String meetingId = reviewObject.optString("meeting_id");
 					int rating = reviewObject.optInt("stars");
 					int reviewId = reviewObject.optInt("id");
 					String reviewTitle = reviewObject.optString("title");
@@ -424,6 +464,7 @@ public class UserProfileActivity extends SocketActivity implements
 					myReview.setDatetimeUpdated(datetimeUpdated);
 					myReview.setComment(comment);
 					myReview.setImage(image);
+					myReview.setMeetingId(meetingId);
 					myReview.setMeetingName(meetingName);
 					myReview.setRating(rating);
 					myReview.setReviewId(reviewId);
@@ -497,6 +538,26 @@ public class UserProfileActivity extends SocketActivity implements
 
 		}
 
+	}
+
+
+	private void getMeetingById(String meetingId) {
+		if(noNetworkToast()) return;
+		pd.show();
+		socketService.getMeetingById(meetingId);
+	}
+
+	private boolean noNetworkToast() {
+		if (NetworkUtil
+				.getConnectivityStatus(this) == 0) {
+
+			Toast.makeText(this,
+					getString(R.string.no_internet_connection),
+					Toast.LENGTH_SHORT).show();
+
+			return true;
+		}
+		return false;
 	}
 
 	@Override
@@ -609,14 +670,20 @@ public class UserProfileActivity extends SocketActivity implements
 			TextView tvDateTime = (TextView) view.findViewById(R.id.tvDateTime);
 			TextView tvComment = (TextView) view.findViewById(R.id.tvComment);
 
-			MyReview myReview = list.get(i);
+			final MyReview myReview = list.get(i);
 
 			tvReviewTitle.setText(myReview.getReviewTitle());
 
 			rating.setRating(myReview.getRating());
 
 			tvMeetingName.setText(myReview.getMeetingName());
+			tvMeetingName.setOnClickListener(new View.OnClickListener() {
 
+				@Override
+				public void onClick(View v) {
+					getMeetingById("" + myReview.getMeetingId());
+				}
+			});
 			tvDateTime.setText(DateTimeUtils.getDatetimeAdded(
 					myReview.getDatetimeUpdated(), timeZoneOffest));
 

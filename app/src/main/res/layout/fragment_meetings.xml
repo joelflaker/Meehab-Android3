@@ -68,10 +68,9 @@
                 android:imeOptions="actionSearch"
                 android:inputType="textWebEditText|textCapWords"
                 android:maxLength="100"
-                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textAppearance="?android:attr/textAppearanceSmall"
                 android:textColor="#ffffff"
-                android:textColorHint="#efefef"
-                android:textSize="12sp" />
+                android:textColorHint="#efefef" />
 
             <TextView
                 android:id="@+id/tvFiltereSeparater"

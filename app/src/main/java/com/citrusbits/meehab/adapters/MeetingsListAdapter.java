@@ -5,7 +5,6 @@ package com.citrusbits.meehab.adapters;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Comparator;
 import java.util.Date;
@@ -228,7 +227,7 @@ public class MeetingsListAdapter extends ArrayAdapter<MeetingModel> {
 
 		meetings.clear();
 		final List<String> filterDays = resultHolder.getDays();
-//		final List<FilterTime> filterTimings = resultHolder.applyMapping();
+//		final List<FilterTime> filterTimings = resultHolder.applyMappingOnTimings();
 
 		final List<String> typesOrigion = resultHolder.getTypes();
 		final List<String> types = new ArrayList<>();
@@ -437,7 +436,7 @@ public class MeetingsListAdapter extends ArrayAdapter<MeetingModel> {
 
 		final List<String> inDays =  filter.getAnyDay() ? null : filter.getDays();
 
-		List<FilterTime> filters = filter.applyMapping();
+		List<FilterTime> filters = filter.applyMappingOnTimings();
 		String allTimeArray[] = meeting.getOnTime().split(",");
 		final String daysStr[] = meeting.getOnDay().split(",");
 
@@ -481,8 +480,6 @@ public class MeetingsListAdapter extends ArrayAdapter<MeetingModel> {
 
 					Calendar end = filterTime.getEndTime();
 
-					start.set(Calendar.SECOND, 0);
-					end.set(Calendar.SECOND, 0);
 					start.set(Calendar.MILLISECOND, 0);
 					end.set(Calendar.MILLISECOND, 0);
 

@@ -447,11 +447,9 @@ public class FriendsFragment extends Fragment implements
 				weightFilter = userWeight >= 250;
 				continue;
 			}
-			String weightArr[] = weightRange.split("-");
-			int startWeight = Integer.parseInt(weightArr[0]);
-			int endWeight = Integer.parseInt(weightArr[1]);
+			int weightInt = Integer.parseInt(weightRange);
 
-			if (userWeight >= startWeight && userWeight <= endWeight) {
+			if (userWeight <= weightInt) {
 				weightFilter = true;
 			}
 

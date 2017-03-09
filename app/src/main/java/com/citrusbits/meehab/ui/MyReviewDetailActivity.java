@@ -126,6 +126,8 @@ public class MyReviewDetailActivity extends SocketActivity implements
 						return;
 					}
 
+					if(noNetworkToast()) return;
+
 					pd.show();
 					socketService.getUserById(review.getUserId());
 				}
@@ -259,6 +261,12 @@ public class MyReviewDetailActivity extends SocketActivity implements
 	}
 
 	private void getMeetingById(String meetingId) {
+		if(noNetworkToast()) return;
+		pd.show();
+		socketService.getMeetingById(meetingId);
+	}
+
+	private boolean noNetworkToast() {
 		if (NetworkUtil
 				.getConnectivityStatus(this) == 0) {
 
@@ -266,10 +274,9 @@ public class MyReviewDetailActivity extends SocketActivity implements
 					getString(R.string.no_internet_connection),
 					Toast.LENGTH_SHORT).show();
 
-			return;
+			return true;
 		}
-		pd.show();
-		socketService.getMeetingById(meetingId);
+		return false;
 	}
 
 	@Override
@@ -282,6 +289,7 @@ public class MyReviewDetailActivity extends SocketActivity implements
 			Log.d(TAG,""+data);
 			MeetingModel meeting = new Gson().fromJson(data.optJSONObject("meeting").toString(), MeetingModel.class);
 
+            if(meeting.getFavouriteMeeting() != null)
 			meeting.setFavourite(meeting.getFavouriteMeeting() == 1);
 			NearestDateTime nearDateTime = MeetingUtils.getNearestDate(meeting.getOnDay(),
 					meeting.getOnTime());
@@ -301,7 +309,7 @@ public class MyReviewDetailActivity extends SocketActivity implements
 				meeting.setNearestTime(nearDateTime.getTime());
 				meeting.setNearestDateTime(nearDateTime.getDateTime());
 				meeting.setOnDate(MeetingUtils.formateDate(nearDateTime.getDateTime()));
-				MeetingUtils.setStartInTime(meeting, meeting.getNearestDateTime());
+				MeetingUtils.setMeetingTimingStatus(meeting, meeting.getNearestDateTime());
 			}
 
 			Intent intent = new Intent(this, MeetingDetailsActivity.class);

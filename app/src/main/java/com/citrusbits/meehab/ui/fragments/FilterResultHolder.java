@@ -166,65 +166,33 @@ public class FilterResultHolder implements Serializable {
 		return this.rating;
 	}
 
-	public boolean containDay(String day) {
-		return days.contains(day);
-	}
-
-	public boolean containTime(String time) {
-		return time.contains(time);
-	}
-
-	public boolean containType(String type) {
-
-		return types.contains(type);
-
-	}
-
-	public void clearDay() {
-
-		days.clear();
-	}
-
-	public void clearTime() {
-
-		times.clear();
-	}
-
-	public void clearType() {
-
-		types.clear();
-	}
-
-	public List<FilterTime> applyMapping() {
-		List<FilterTime> filterTimes=new ArrayList<FilterTime>();
+	public List<FilterTime> applyMappingOnTimings() {
+		List<FilterTime> filterTimes = new ArrayList<>();
 		for (int i = 0; i < times.size(); i++) {
 			String time = times.get(i);
-			if (time.equals("06 AM - 09 AM")) {
+			if (time.equals("6 AM - 9 AM")) {
 				Calendar startTime = Calendar.getInstance();
 				startTime.set(Calendar.HOUR_OF_DAY, 6);
 				startTime.set(Calendar.MINUTE, 0);
 				startTime.set(Calendar.SECOND, 0);
-				//startTime.set(Calendar.AM_PM, Calendar.AM);
-				
+
 				
 				Calendar endTime = Calendar.getInstance();
 				endTime.set(Calendar.HOUR_OF_DAY, 9);
 				endTime.set(Calendar.MINUTE, 0);
 				endTime.set(Calendar.SECOND, 0);
-			//	endTime.set(Calendar.AM_PM, Calendar.AM);
-				
+
 				FilterTime filterTime=new FilterTime(startTime, endTime);
 				filterTimes.add(filterTime);
 				
 				
 
-			} else if (time.equals("09 AM - 12 PM")) {
+			} else if (time.equals("9 AM - 12 PM")) {
 				Calendar startTime = Calendar.getInstance();
 				startTime.set(Calendar.HOUR_OF_DAY, 9);
 				startTime.set(Calendar.MINUTE, 0);
 				startTime.set(Calendar.SECOND, 0);
-			//	startTime.set(Calendar.AM_PM, Calendar.AM);
-				
+
 				
 				Calendar endTime = Calendar.getInstance();
 				endTime.set(Calendar.HOUR_OF_DAY, 12);
@@ -235,7 +203,7 @@ public class FilterResultHolder implements Serializable {
 				FilterTime filterTime=new FilterTime(startTime, endTime);
 				filterTimes.add(filterTime);
 
-			} else if (time.equals("12 PM - 03 PM")) {
+			} else if (time.equals("12 PM - 3 PM")) {
 				Calendar startTime = Calendar.getInstance();
 				startTime.set(Calendar.HOUR_OF_DAY, 12);
 				startTime.set(Calendar.MINUTE, 0);
@@ -251,7 +219,7 @@ public class FilterResultHolder implements Serializable {
 				FilterTime filterTime=new FilterTime(startTime, endTime);
 				filterTimes.add(filterTime);
 
-			} else if (time.equals("03 PM - 06 PM")) {
+			} else if (time.equals("3 PM - 6 PM")) {
 				Calendar startTime = Calendar.getInstance();
 				startTime.set(Calendar.HOUR_OF_DAY, 15);
 				startTime.set(Calendar.MINUTE, 0);
@@ -267,7 +235,7 @@ public class FilterResultHolder implements Serializable {
 				FilterTime filterTime=new FilterTime(startTime, endTime);
 				filterTimes.add(filterTime);
 
-			} else if (time.equals("06 PM - 09 PM")) {
+			} else if (time.equals("6 PM - 9 PM")) {
 				Calendar startTime = Calendar.getInstance();
 				startTime.set(Calendar.HOUR_OF_DAY, 18);
 				startTime.set(Calendar.MINUTE, 0);
@@ -283,7 +251,7 @@ public class FilterResultHolder implements Serializable {
 				FilterTime filterTime=new FilterTime(startTime, endTime);
 				filterTimes.add(filterTime);
 
-			} else if (time.equals("09 PM - 12 AM")) {
+			} else if (time.equals("9 PM - 12 AM")) {
 				Calendar startTime = Calendar.getInstance();
 				startTime.set(Calendar.HOUR_OF_DAY, 21);
 				startTime.set(Calendar.MINUTE, 0);
@@ -315,19 +283,9 @@ public class FilterResultHolder implements Serializable {
 			this.endTime=endTime;
 		}
 
-		public void setStartTime(Calendar startTime) {
-			
-			this.startTime = startTime;
-		}
-
 		public Calendar getStartTime() {
 			
 			return this.startTime;
-		}
-
-		public void setEndTime(Calendar endTime) {
-			
-			this.endTime = endTime;
 		}
 
 		public Calendar getEndTime() {

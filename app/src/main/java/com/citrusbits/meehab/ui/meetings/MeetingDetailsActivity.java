@@ -255,7 +255,7 @@ public class MeetingDetailsActivity extends SocketActivity implements
 		NearestDateTime nearDateTime = MeetingUtils.getNearestDate(meeting.getOnDay(),
 				meeting.getOnTime());
 		//recalculate relative time
-		MeetingUtils.setStartInTime(meeting, nearDateTime.getDateTime());
+		MeetingUtils.setMeetingTimingStatus(meeting, nearDateTime.getDateTime());
 			/*
 			 * if (meeting.getMarkertypeColor() == MarkerColorType.RED) {
 			 * setCheckInButton(); } else { //setRSVPButton(); }
@@ -271,9 +271,11 @@ public class MeetingDetailsActivity extends SocketActivity implements
 			txtMeetingCurrentStatus
 					.setBackgroundResource(R.drawable.hours_bg_green);
 		} else if (meeting.getMarkertypeColor() == MarkerColorType.ORANGE) {
+//			txtMeetingCurrentStatus
+//					.setBackgroundResource(R.drawable.start_in_hour_btn);
 			txtMeetingCurrentStatus
-					.setBackgroundResource(R.drawable.start_in_hour_btn);
-		} else if (meeting.getMarkertypeColor() == MarkerColorType.RED) {
+					.setBackgroundResource(R.drawable.yellow_round_corners);
+        } else if (meeting.getMarkertypeColor() == MarkerColorType.RED) {
 			txtMeetingCurrentStatus
 					.setBackgroundResource(R.drawable.ongoing_btn);
 		}

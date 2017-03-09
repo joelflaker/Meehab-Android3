@@ -22,8 +22,6 @@ import java.util.concurrent.TimeUnit;
 public class MeetingUtils {
 
 
-	private static final long MINUTES_BEFORE = 14;
-
 	public static Date getDateObject(String date) {
 		SimpleDateFormat prevFormate = new SimpleDateFormat("dd/MM/yyyy", Locale.US);
 		try {
@@ -83,20 +81,19 @@ public class MeetingUtils {
 		return cal;
 	}
 
-	public static void setStartInTime(MeetingModel model, Date nearestDateTime) {
+	public static void setMeetingTimingStatus(MeetingModel model, Date nearestDateTime) {
 		Calendar meetingDate = Calendar.getInstance();
 
 		meetingDate.setTime(nearestDateTime);
-//		meetingDate.add(Calendar.HOUR_OF_DAY,-1);
+        meetingDate.set(Calendar.SECOND, 0);
 
 		Calendar currentCalendar = Calendar.getInstance();
-
-//		 currentCalendar.set(Calendar.SECOND, 0);
+        currentCalendar.set(Calendar.SECOND, 0);
 
 		long differenceMillis = nearestDateTime.getTime()
 				- currentCalendar.getTimeInMillis();
 
-		long diffSec = differenceMillis / 1000 - 3600;
+		long diffSec = differenceMillis != 0 ? differenceMillis / 1000 : 0;// - 3600;
 		Log.e("Difference in sec", diffSec + "sec");
 
 		long days = diffSec / /*sec in 24h */ 86400;
@@ -117,26 +114,30 @@ public class MeetingUtils {
 		Log.i("Meeting Name ", model.getName());
 		Log.i("Meeting date time ", mDate);
 		Log.i("Now date time ", mNow);
+		Log.i("Difference", "days: "+days);
+		Log.i("Difference", "hours: "+hours);
+		Log.i("Difference", "minutes: "+minutes);
 
 		if (days > 0) {
 			model.setMarkerTypeColor(MeetingModel.MarkerColorType.GREEN);
 			model.setStartInTime("AFTER " + days + " "
 					+ (days == 1 ? "DAY" : "DAYS"));
 			//Qamar - change old if (hours == 0 && minutes > 0 || (hours == 0 && minutes == 0 && seconds > 1))
-		}else if (hours == 0 && minutes > MINUTES_BEFORE) {
+		}else if (hours <= -1/* || minutes <= -60*/) {
+            model.setMarkerTypeColor(MeetingModel.MarkerColorType.RED);
+            model.setStartInTime("COMPLETED");
+        }else if (hours >= 1) {
+            model.setMarkerTypeColor(MeetingModel.MarkerColorType.GREEN);
+            model.setStartInTime("AFTER " + hours + " "
+                    + (hours == 1 ? "HOUR" : "HOURS"));
+
+            //meeting will start under an hour 60 minutes
+        }else if (hours == 0 && (minutes > 0 && minutes < 60)) {
 			model.setMarkerTypeColor(MeetingModel.MarkerColorType.ORANGE);
 			model.setStartInTime("STARTS IN UNDER AN HOUR");
-		} else if (hours == 0 && minutes <= MINUTES_BEFORE || hours < 0 && hours > -2) {
+		} else if ((hours <= 0 && hours >= -1) && (minutes < 0 && minutes > -60)) {
 			model.setMarkerTypeColor(MeetingModel.MarkerColorType.RED);
 			model.setStartInTime("ONGOING");
-		}else if (hours >= 1 && minutes > 0) {
-			model.setMarkerTypeColor(MeetingModel.MarkerColorType.GREEN);
-			model.setStartInTime("AFTER " + hours + " "
-					+ (hours == 1 ? "HOUR" : "HOURS"));
-
-		}else if (hours <= -1) {
-			model.setMarkerTypeColor(MeetingModel.MarkerColorType.RED);
-			model.setStartInTime("COMPLETED");
 		}
 	}
 
@@ -184,11 +185,10 @@ public class MeetingUtils {
 					String onTime = timesList.get(indexOfNearToday);
 					final Date dateObj = _12HourSDF.parse(onTime);
 
-					todayOrMeetingDay.set(Calendar.HOUR_OF_DAY, dateObj.getHours());
-//					todayOrMeetingDay.set(Calendar.MINUTE, dateObj.getHours() == 23 ? dateObj.getMinutes() + 59 : dateObj.getMinutes());
+                    //+1 is for meeting will be ongoing for one hour
+					todayOrMeetingDay.set(Calendar.HOUR_OF_DAY, dateObj.getHours() + 1);
 					todayOrMeetingDay.set(Calendar.MINUTE, dateObj.getMinutes());
 					todayOrMeetingDay.set(Calendar.SECOND,0);
-//					todayOrMeetingDay.add(Calendar.HOUR_OF_DAY,1);
 
 					if(todayOrMeetingDay.before(Calendar.getInstance()) && weekDayCount != 7){
 						//add 1 day
@@ -196,7 +196,10 @@ public class MeetingUtils {
 						continue;
 					}
 
-					String onDate = dateFormat.format(todayOrMeetingDay.getTime());
+					//restore meeting starting time
+                    todayOrMeetingDay.add(Calendar.HOUR_OF_DAY,- 1);
+
+                    String onDate = dateFormat.format(todayOrMeetingDay.getTime());
 
 					NearestDateTime nearDateTime = new NearestDateTime();
 					nearDateTime.setIsToday(todayLongName.equals(dayLongName));

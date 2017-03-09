@@ -359,7 +359,7 @@ public class MyProfileFragment extends Fragment implements
 				meeting.setNearestTime(nearDateTime.getTime());
 				meeting.setNearestDateTime(nearDateTime.getDateTime());
 				meeting.setOnDate(MeetingUtils.formateDate(nearDateTime.getDateTime()));
-				MeetingUtils.setStartInTime(meeting, meeting.getNearestDateTime());
+				MeetingUtils.setMeetingTimingStatus(meeting, meeting.getNearestDateTime());
 			}
 			//navigate to meeting details
 			Intent intent = new Intent(getActivity(), MeetingDetailsActivity.class);
@@ -470,7 +470,6 @@ public class MyProfileFragment extends Fragment implements
 				@Override
 				public void onClick(View v) {
 					MyReview rev = (MyReview) v.getTag();
-
 					getMeetingById(rev.getMeetingId());
 				}
 			});
