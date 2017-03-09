@@ -102,11 +102,8 @@
             android:layout_marginRight="3dp"
             android:background="@drawable/yellow_round_corners"
             android:minWidth="90dp"
-            android:paddingBottom="2dp"
-            android:paddingLeft="2dp"
             android:gravity="center"
-            android:paddingRight="2dp"
-            android:paddingTop="2dp"
+            android:padding="4dp"
             android:text="Start in 1 hours"
             android:textColor="#FFFFFF"
             android:textSize="8sp" />

@@ -129,7 +129,8 @@
                         android:isIndicator="true"
                         android:layout_marginLeft="-2dp"
                         android:numStars="5"
-                        android:rating="4" />
+                        android:rating="4"
+                        android:stepSize="1" />
 
                     <TextView
                         android:id="@+id/txtNumOfReviews"

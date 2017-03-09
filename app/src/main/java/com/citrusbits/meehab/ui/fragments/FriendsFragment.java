@@ -718,15 +718,15 @@ public class FriendsFragment extends Fragment implements
 
 				break;
 			case R.id.btnGrid:
-				if(friendsListAdapter.getCount() == 0){
-					return;
-				}
+//				if(friendsListAdapter.getCount() == 0){
+//					return;
+//				}
 				mPager.setCurrentItem(0);
 				break;
 			case R.id.btnList:
-				if(friendsListAdapter.getCount() == 0){
-					return;
-				}
+//				if(friendsListAdapter.getCount() == 0){
+//					return;
+//				}
 				mPager.setCurrentItem(1);
 				break;
 			default:

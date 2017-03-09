@@ -9,16 +9,19 @@
     
      <style name="customRatingBarMedium" parent="@android:style/Widget.RatingBar">
         <item name="android:progressDrawable">@drawable/rating_bar_layer_list_medium</item>
-        <item name="android:minHeight">15dp</item>
+         <item name="android:minWidth">26dp</item>
+         <item name="android:minHeight">30dp</item>
     </style>
      <style name="customRatingBarLightGrayMedium" parent="@android:style/Widget.RatingBar">
         <item name="android:progressDrawable">@drawable/rating_bar_light_gray_layer_list_medium</item>
-        <item name="android:minHeight">15dp</item>
+        <item name="android:minWidth">26dp</item>
+        <item name="android:minHeight">30dp</item>
     </style>
 
     <style name="customRatingBarBig" parent="@android:style/Widget.RatingBar">
         <item name="android:progressDrawable">@drawable/rating_bar_layer_list_big</item>
-        <item name="android:minHeight">20dp</item>
+        <item name="android:minWidth">50dp</item>
+        <item name="android:minHeight">40dp</item>
     </style>
 
     <style name="PauseDialog" parent="@android:style/Theme.Dialog">

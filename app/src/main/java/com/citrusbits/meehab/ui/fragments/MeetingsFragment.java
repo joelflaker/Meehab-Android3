@@ -855,9 +855,9 @@ public class MeetingsFragment extends Fragment implements
 				}
 
 //				sorting for nearest meeting first
-//				MeetingUtils.sortByDistance(meetings);
-//				//sort by soonest
-				MeetingUtils.sortByDate(meetings);
+				MeetingUtils.sortByDistance(meetings);
+				//sort by soonest
+//				MeetingUtils.sortByDate(meetings);
 			}
 
 			return null;
@@ -941,7 +941,7 @@ public class MeetingsFragment extends Fragment implements
 			if (m.getMarkertypeColor() == MarkerColorType.GREEN) {
 				txtStatus.setBackgroundResource(R.drawable.hours_bg_green);
 			} else if (m.getMarkertypeColor() == MarkerColorType.ORANGE) {
-				txtStatus.setBackgroundResource(R.drawable.start_in_hour_btn);
+				txtStatus.setBackgroundResource(R.drawable.yellow_round_corners);
 			} else if (m.getMarkertypeColor() == MarkerColorType.RED) {
 				txtStatus.setBackgroundResource(R.drawable.ongoing_btn);
 			}

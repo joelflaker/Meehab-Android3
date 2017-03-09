@@ -511,11 +511,11 @@ public class UserProfileActivity extends SocketActivity implements
 				setFavourite();
 				if (user.isFavourite() == 1) {
 					Toast.makeText(UserProfileActivity.this,
-							"User added to favorite!", Toast.LENGTH_SHORT)
+							"User added to favorites!", Toast.LENGTH_SHORT)
 							.show();
 				} else {
 					Toast.makeText(UserProfileActivity.this,
-							"User removed from favorite!", Toast.LENGTH_SHORT)
+							"User removed from favorites", Toast.LENGTH_SHORT)
 							.show();
 				}
 			} catch (JSONException e) {

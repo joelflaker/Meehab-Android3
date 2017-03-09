@@ -35,7 +35,7 @@
                 android:layout_centerVertical="true"
                 android:layout_centerHorizontal="true"
                 android:textColor="#888888"
-                android:text="Select Time"
+                android:text="Select time"
                 />
             
             <ImageButton 
