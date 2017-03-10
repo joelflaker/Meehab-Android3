@@ -497,7 +497,6 @@ public class UserProfileActivity extends SocketActivity implements
 				}
 
 				onBackPressed();
-
 			} catch (JSONException e) {
 				e.printStackTrace();
 			}

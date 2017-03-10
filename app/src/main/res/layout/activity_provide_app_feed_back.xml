@@ -64,6 +64,7 @@
             android:gravity="center_horizontal"
             android:maxLength="250"
             android:textSize="14sp"
+            android:inputType="textCapWords|textMultiLine"
             android:hint="@string/feedback_hint" />
     </LinearLayout>
 

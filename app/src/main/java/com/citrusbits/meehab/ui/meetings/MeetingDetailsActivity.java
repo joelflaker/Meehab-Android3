@@ -3,6 +3,7 @@ package com.citrusbits.meehab.ui.meetings;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
@@ -25,11 +26,14 @@ import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.CalendarContract;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.AbsListView.LayoutParams;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -289,10 +293,26 @@ public class MeetingDetailsActivity extends SocketActivity implements
 
 		meetingCodes = meeting.getCodes().split(",");
 
-		ArrayAdapter<String> codesAdapter = new ArrayAdapter<>(this,R.layout.list_item_meeting_code,meetingCodes);
-		gridMeetingCode.setAdapter(codesAdapter);
-
-		ibRating.setImageResource(meeting.isFavourite() ? R.drawable.star_pink
+        List<String> meetingCodesList = new ArrayList<>(Arrays.asList(meetingCodes));
+        if(meetingCodes.length < 4) {
+            do{
+                meetingCodesList.add(0,"dummy"+meetingCodesList.size());
+            }while (meetingCodesList.size() != 4);
+            meetingCodes = meetingCodesList.toArray(new String[meetingCodesList.size()]);
+        }
+        ArrayAdapter<String> codesAdapter = new ArrayAdapter<String>(this,R.layout.list_item_meeting_code,meetingCodes){
+            @NonNull
+            @Override
+            public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+                View view = super.getView(position, convertView, parent);
+                if(getItem(position).contains("dummy")){
+                    view.setVisibility(View.INVISIBLE);
+                }
+                return view;
+            }
+        };
+        gridMeetingCode.setAdapter(codesAdapter);
+        ibRating.setImageResource(meeting.isFavourite() ? R.drawable.star_pink
 				: R.drawable.star_white);
 
 		if (!TextUtils.isEmpty(user.getMeetingHomeGroup()) && user.getMeetingHomeGroup().toLowerCase().trim()

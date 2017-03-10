@@ -153,11 +153,11 @@
                                 android:textColor="#CCCCCC"
                                 android:textSize="12sp" />
 
-                            <RatingBar
+                            <android.support.v7.widget.AppCompatRatingBar
                                 android:id="@+id/rating"
-                                style="@style/customRatingBarMedium"
                                 android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
+                                android:layout_height="26.8dp"
+                                android:progressDrawable="@drawable/rating_bar_layer_list_medium"
                                 android:layout_marginTop="6dp"
                                 android:layout_marginLeft="-2dp"
                                 android:isIndicator="true"
@@ -197,6 +197,8 @@
                                 android:paddingLeft="4dp"
                                 android:stretchMode="columnWidth"
                                 android:scrollbars="none"
+                                android:gravity="end"
+                                android:layout_gravity="right"
                                 android:numColumns="4"
                                 android:layout_marginTop="6dp"
                                 android:horizontalSpacing="2dp"
@@ -459,21 +461,31 @@
                                 android:textOn="" />
                         </RelativeLayout>
 
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="48dp"
-                            android:paddingTop="8dp"
+                        <ImageView
+                            android:layout_width="fill_parent"
+                            android:layout_height="2dp"
+                            android:layout_marginBottom="6dp"
                             android:layout_marginLeft="15dp"
                             android:layout_marginRight="15dp"
-                            android:gravity="bottom"
-                            android:layout_centerVertical="true"
-                            android:background="@drawable/simple_button_selector"
-                            android:text="Reviews"
-                            android:textColor="@color/light_dark_detail"
-                            android:textAllCaps="true"
-                            android:textSize="16sp" />
-                        <ImageView
+                            android:layout_marginTop="6dp"
+                            android:src="@drawable/filter_divider" />
+
+                        <TextView
                             android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:gravity="center_vertical"
+                            android:paddingBottom="4dp"
+                            android:paddingLeft="@dimen/activity_horizontal_margin"
+                            android:paddingRight="@dimen/activity_horizontal_margin"
+                            android:paddingTop="8dp"
+                            android:textColor="@color/light_dark_detail"
+                            android:text="Reviews"
+                            android:textAllCaps="true"
+                            android:textStyle="bold" />
+
+                        <ImageView
+                            android:layout_width="fill_parent"
                             android:layout_height="2dp"
                             android:layout_marginBottom="6dp"
                             android:layout_marginLeft="15dp"

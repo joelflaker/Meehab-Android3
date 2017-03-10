@@ -6,8 +6,8 @@ android {
 
     defaultConfig {
         applicationId "com.citrusbits.meehab"
-        versionCode = 9
-        versionName = "v1 Build 19"
+        versionCode = 10
+        versionName = "v1 build 20"
         minSdkVersion 16
         targetSdkVersion 21
 //        multiDexEnabled = true

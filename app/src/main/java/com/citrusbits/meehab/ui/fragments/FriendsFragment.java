@@ -19,12 +19,15 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.util.TypedValue;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
@@ -164,7 +167,15 @@ public class FriendsFragment extends Fragment implements
 
 			}
 		});
-
+        editTopCenter.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                    UtilityClass.hideSoftKeyboard(getContext(),getActivity().getCurrentFocus());
+                }
+                return false;
+            }
+        });
 		int width = (int) TypedValue.applyDimension(
 				TypedValue.COMPLEX_UNIT_DIP, 100, getActivity().getResources()
 						.getDisplayMetrics());
@@ -426,7 +437,7 @@ public class FriendsFragment extends Fragment implements
 		}
 
 		String weight = user.getWeight();
-		if (weight.isEmpty()) {
+		if (TextUtils.isEmpty(weight)) {
 			return false;
 		}
 
@@ -440,16 +451,18 @@ public class FriendsFragment extends Fragment implements
 
 		boolean weightFilter = false;
 		for (String weightRange : weights) {
-			weightRange = weightRange.toLowerCase().replace("lbs", "").trim();
+			weightRange = weightRange.toLowerCase().replace("lbs", "").replace(" ","");
 			int userWeight = Integer.parseInt(weight);
 
 			if (weightRange.contains("250")) {
 				weightFilter = userWeight >= 250;
 				continue;
 			}
-			int weightInt = Integer.parseInt(weightRange);
+			String weightArr[] = weightRange.split("-");
+			int startWeight = Integer.parseInt(weightArr[0]);
+			int endWeight = Integer.parseInt(weightArr[1]);
 
-			if (userWeight <= weightInt) {
+			if (userWeight >= startWeight && userWeight <= endWeight) {
 				weightFilter = true;
 			}
 

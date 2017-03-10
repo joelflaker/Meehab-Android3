@@ -2,7 +2,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical"
+    tools:context=".ui.users.ReportFriendActivity">
 
     <RelativeLayout
         android:id="@+id/relativeTop"
@@ -47,18 +48,30 @@
             android:textColor="@android:color/white" />
     </RelativeLayout>
 
-    <LinearLayout
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        android:layout_height="match_parent"
+        android:layout_margin="4dp"
+        >
 
         <EditText
             android:id="@+id/etReportText"
             android:layout_width="match_parent"
+            android:lines="4"
             android:layout_height="match_parent"
             android:gravity="center_horizontal"
             android:textSize="14sp"
             android:maxLength="255"
+            android:inputType="textCapWords|textMultiLine"
             android:hint="@string/report_txt_hint" />
-    </LinearLayout>
+        <!--<TextView-->
+            <!--android:id="@+id/txtReportText"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:gravity="center_horizontal"-->
+            <!--android:textSize="14sp"-->
+            <!--android:maxLength="255"-->
+            <!--android:hint="@string/report_txt_hint" />-->
+    </FrameLayout>
 
 </LinearLayout>

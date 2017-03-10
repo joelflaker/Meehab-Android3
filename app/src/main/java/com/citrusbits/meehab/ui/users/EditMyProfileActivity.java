@@ -688,7 +688,7 @@ public class EditMyProfileActivity extends SocketActivity implements
 				} else if (otherBtn.isChecked()) {
 						genderString = genderOtherEdit.getText().toString();
 				}
-				if (genderString != null) {
+				if (!TextUtils.isEmpty(genderString)) {
 					params.put("gender", genderString);
 				}else {
 					Toast.makeText(this,

@@ -121,14 +121,13 @@
 
                 <RatingBar
                     android:id="@+id/rating"
-                    style="@style/customRatingBarLightGrayMedium"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="26.8dp"
                     android:layout_centerVertical="true"
                     android:focusable="false"
                     android:layout_marginLeft="-2dp"
                     android:focusableInTouchMode="false"
-                    android:indeterminateDrawable="@drawable/rating_bar_layer_list_small"
+                    android:progressDrawable="@drawable/rating_bar_light_gray_layer_list_medium"
                     android:isIndicator="true"
                     android:numStars="5"
                     android:rating="4"

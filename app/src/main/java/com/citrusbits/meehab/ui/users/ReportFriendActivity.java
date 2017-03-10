@@ -6,6 +6,7 @@ import org.json.JSONObject;
 import android.app.Dialog;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.InputType;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
@@ -13,6 +14,7 @@ import android.view.View.OnClickListener;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.citrusbits.meehab.R;
 import com.citrusbits.meehab.app.MeehabApp;
@@ -44,16 +46,18 @@ public class ReportFriendActivity extends SocketActivity implements
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_report_friend);
 		etReportText = (EditText) findViewById(R.id.etReportText);
+//        final TextView txtReportText = (TextView) findViewById(R.id.txtReportText);
 		ibSend = (ImageButton) findViewById(R.id.ibSend);
 		ibSend.setAlpha(0.3f);
 		
 		etReportText.addTextChangedListener(new TextWatcher() {
-			
-			@Override
+
+            public boolean insideChange;
+
+            @Override
 			public void onTextChanged(CharSequence s, int start, int before, int count) {
-				String text=etReportText.getText().toString().trim();
+                String text=etReportText.getText().toString().trim();
 				if(text.length()==0||text.length()==1){
-					
 					ibSend.setAlpha(text.length()==0?0.3f:1f);
 				}
 			}
@@ -66,9 +70,20 @@ public class ReportFriendActivity extends SocketActivity implements
 			
 			@Override
 			public void afterTextChanged(Editable s) {
-
+//                txtReportText.setText(s.toString());
+//                if(insideChange) return;
+//                if(s.length() > 0) {
+//                    insideChange = true;
+//                    if (s.length() == 1) {
+//                        etReportText.setText(String.valueOf(s.toString().charAt(0)).toUpperCase());
+//                    } else if (s.length() > 1) {
+//                        etReportText.setText(String.valueOf(s.toString().charAt(0)).toUpperCase()+ s.toString().substring(1,s.length() -1));
+//                    }
+//                    insideChange = false;
+//                }
 			}
 		});
+//        etReportText.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_CAP_CHARACTERS);
 		ivBack = (ImageView) findViewById(R.id.ivBack);
 		
 

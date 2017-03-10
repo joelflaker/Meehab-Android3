@@ -24,6 +24,7 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -271,7 +272,15 @@ public class MeetingsFragment extends Fragment implements
 				updateEmptyViewVisibility();
 			}
 		});
-
+        editTopCenter.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                    UtilityClass.hideSoftKeyboard(getContext(),getActivity().getCurrentFocus());
+                }
+                return false;
+            }
+        });
 		btnList.setOnClickListener(this);
 		btnFindMe.setOnClickListener(this);
 		list.setOnItemClickListener(this);

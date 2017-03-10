@@ -17,6 +17,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.StringRes;
 import android.text.TextUtils;
+import android.view.Gravity;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -133,10 +134,12 @@ public class ChangePasswordActivity extends SocketActivity implements OnSocketRe
 	}
 
 	private void showDialogWithMessage(@StringRes int msgId) {
-		new AlertDialog.Builder(this)
+        Dialog d =new AlertDialog.Builder(this)
 				.setMessage(msgId)
-				.setPositiveButton("Ok",null)
-				.show();
+				.setPositiveButton("OK",null)
+                .create();
+        d.show();
+        ((TextView)d.findViewById(android.R.id.message)).setGravity(Gravity.CENTER);
 	}
 
 	@Override

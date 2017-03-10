@@ -209,7 +209,7 @@ public class FriendsFilterActivity extends Activity implements OnClickListener {
 
 		for (int i = 80; i <= 220; i = i + 20) {
 			final ExpChild child = new ExpChild();
-			child.setName((i + 20) + " lbs");
+			child.setName((i +" - "+(i + 20) + " lbs"));
 			parentWeight.addChild(child);
 
 		}

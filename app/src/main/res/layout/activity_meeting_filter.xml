@@ -189,11 +189,12 @@
 
                 <RatingBar
                     android:id="@+id/rating"
-                    style="@style/customRatingBarLightGrayMedium"
                     android:layout_width="wrap_content"
+                    android:layout_height="26.8dp"
+                    style="@style/customRatingBarLightGrayMedium"
+                    android:progressDrawable="@drawable/rating_bar_light_gray_layer_list_medium"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:layout_height="wrap_content"
                     android:gravity="center_vertical"
                     android:layout_gravity="center_horizontal"
                     android:rating="0"

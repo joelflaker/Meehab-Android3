@@ -1,8 +1,9 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical" >
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                tools:context=".ui.fragments.RehabsFragment">
 
     <RelativeLayout
         android:id="@+id/relativeTop"
@@ -43,7 +44,7 @@
             android:layout_marginRight="12dp"
             android:layout_toRightOf="@+id/rlMenuButton"
             android:background="@drawable/search_bg" >
-            
+
             <ImageView
                 android:id="@+id/ivSearch"
                 android:layout_width="wrap_content"
@@ -129,30 +130,30 @@
                 android:visibility="gone" >
             </ListView>
 
-             <LinearLayout
-                 android:id="@+id/emptyList"
-                 android:layout_width="wrap_content"
-                 android:layout_height="wrap_content"
-                 android:layout_centerInParent="true"
-                 android:gravity="center"
-                 android:orientation="vertical"
-                 android:visibility="gone" >
+            <LinearLayout
+                android:id="@+id/emptyList"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:visibility="gone" >
 
-                 <TextView
-                     android:layout_width="wrap_content"
-                     android:layout_height="wrap_content"
-                     android:gravity="center"
-                     android:text="No Rehab Found."
-                     android:textSize="@dimen/fs_rehab_name_normal"
-                     android:textStyle="bold" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="No Rehab Found."
+                    android:textSize="@dimen/fs_rehab_name_normal"
+                    android:textStyle="bold" />
 
-                 <TextView
-                     android:layout_width="wrap_content"
-                     android:layout_height="wrap_content"
-                     android:gravity="center"
-                     android:text="@string/rehabs_filter_empty" />
-             </LinearLayout>
-    
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/rehabs_filter_empty" />
+            </LinearLayout>
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

@@ -121,9 +121,9 @@
 
                     <RatingBar
                         android:id="@+id/rating"
-                        style="@style/customRatingBarLightGrayMedium"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="26.8dp"
+                        android:progressDrawable="@drawable/rating_bar_light_gray_layer_list_medium"
                         android:focusable="false"
                         android:focusableInTouchMode="false"
                         android:isIndicator="true"

@@ -17,6 +17,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -67,8 +68,9 @@ public class MessagesFragment extends Fragment implements
 	public static final int RESULT_CODE_CHANGES_HAPPEN = 5;
 
 	public static final String ACTION_REFRESH_CONVERSATION = "com.citrusbits.meehab.refresh.conversation";
+    private static final int USER_DETAIL_REQUEST = 32;
 
-	private ListView list;
+    private ListView list;
 	private HomeActivity homeActivity;
 
 	private ImageButton ibEdit;
@@ -463,8 +465,9 @@ public class MessagesFragment extends Fragment implements
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
-		if (requestCode == REQUEST_CODE_CHAT
-				&& resultCode == RESULT_CODE_CHANGES_HAPPEN) {
+		if ((requestCode == REQUEST_CODE_CHAT
+				&& resultCode == RESULT_CODE_CHANGES_HAPPEN)
+                || (requestCode == USER_DETAIL_REQUEST && resultCode == Activity.RESULT_OK)) {
 			messages.clear();
 			getChatFriends(false);
 		} else if (requestCode == REQUEST_CODE_CHAT
@@ -497,7 +500,7 @@ public class MessagesFragment extends Fragment implements
 			intent.putExtra(UserProfileActivity.EXTRA_USER_ACCOUNT, account);
 
 			// put friend
-			startActivity(intent);
+			startActivityForResult(intent,USER_DETAIL_REQUEST);
 			getActivity().overridePendingTransition(R.anim.activity_in,
 					R.anim.activity_out);
 		}

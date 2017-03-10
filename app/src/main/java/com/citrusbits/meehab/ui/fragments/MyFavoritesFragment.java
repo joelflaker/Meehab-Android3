@@ -25,9 +25,11 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.util.TypedValue;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
@@ -36,6 +38,7 @@ import android.widget.GridView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.citrusbits.meehab.app.MeehabApp;
@@ -114,7 +117,8 @@ public class MyFavoritesFragment extends Fragment implements
 	
 	protected int mReqPosition;
 	protected int mAccountPosition;
-	private View textViewCross;
+    private int preIbEditImage;
+//	private View textViewCross;
 
 	public MyFavoritesFragment() {
 	}
@@ -173,8 +177,8 @@ public class MyFavoritesFragment extends Fragment implements
 
 		ibEdit = (ImageButton) view.findViewById(R.id.ibEdit);
 		editTopCenter = (EditText) view.findViewById(R.id.editTopCenter);
-		textViewCross = view.findViewById(R.id.textViewCross);
-		textViewCross.setOnClickListener(this);
+//		textViewCross = view.findViewById(R.id.textViewCross);
+//		textViewCross.setOnClickListener(this);
 
 		editTopCenter.addTextChangedListener(new TextWatcher() {
 
@@ -194,10 +198,12 @@ public class MyFavoritesFragment extends Fragment implements
 			public void afterTextChanged(Editable s) {
 				String inputText = s.toString().trim().toLowerCase();
 				if(inputText.length() == 0){
-					textViewCross.setVisibility(View.INVISIBLE);
-				}else{
-					textViewCross.setVisibility(View.VISIBLE);
-				}
+//					textViewCross.setVisibility(View.INVISIBLE);
+                    ibEdit.setImageResource(preIbEditImage == 0 ? R.drawable.edit_btn : preIbEditImage);
+                }else{
+//					textViewCross.setVisibility(View.VISIBLE);
+                    ibEdit.setImageResource(R.drawable.cancel_btn_small);
+                }
 				if (currentTabPosition == 1) {
 					userAccounts.clear();
 					for (UserAccount account : userAccountsCache) {
@@ -218,6 +224,16 @@ public class MyFavoritesFragment extends Fragment implements
 				updateEmptyViews();
 			}
 		});
+
+        editTopCenter.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                    UtilityClass.hideSoftKeyboard(getContext(),getActivity().getCurrentFocus());
+                }
+                return false;
+            }
+        });
 
 		mPager = (ViewPager) view.findViewById(R.id.pager);
 		mPager.setOffscreenPageLimit(0);
@@ -609,6 +625,12 @@ public class MyFavoritesFragment extends Fragment implements
 //				MeehabApp.toast("Nothing to edit!");
 //			}
 
+            if(editTopCenter.getText().length() > 0){
+                editTopCenter.setText("");
+                UtilityClass.hideSoftKeyboard(getContext(), editTopCenter);
+                return;
+            }
+
 			meetingsAdapter.setEdit(!meetingsAdapter.getEdit());
 			friendsGridAdapter.setEdit(!friendsGridAdapter.isEdit());
 
@@ -618,10 +640,10 @@ public class MyFavoritesFragment extends Fragment implements
 			meetingsAdapter.notifyDataSetChanged();
 			friendsGridAdapter.notifyDataSetChanged();
 
-			int editResId = meetingsAdapter.getEdit() ? R.drawable.cancel_btn_small
+            preIbEditImage = meetingsAdapter.getEdit() ? R.drawable.cancel_btn_small
 					: R.drawable.edit_btn;
 
-			ibEdit.setImageResource(editResId);
+			ibEdit.setImageResource(preIbEditImage);
 
 			if(meetings.size() > 0 && currentTabPosition == 0){
 				ibRemove.setVisibility(meetingsAdapter.getEdit() ? View.VISIBLE

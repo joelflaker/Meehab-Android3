@@ -27,6 +27,7 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -242,7 +243,15 @@ public class RehabsFragment extends Fragment implements
 				updateEmptyViewVisibility();
 			}
 		});
-
+        etSearch.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                    UtilityClass.hideSoftKeyboard(getContext(),getActivity().getCurrentFocus());
+                }
+                return false;
+            }
+        });
 		focus_thief = v.findViewById(R.id.focus_thief);
 
 		rehabAdapter = new RehabListAdapter(getActivity(),
