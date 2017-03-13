@@ -117,6 +117,8 @@
             android:divider="@null"
             android:scrollbarStyle="outsideOverlay"
             android:dividerHeight="0dp"
+            android:scrollbars="none"
+            android:scrollbarSize="0dp"
             android:groupIndicator="@null" />
 
         <RelativeLayout

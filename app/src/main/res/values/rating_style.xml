@@ -1,28 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="customRatingBarSmall" parent="@android:style/Widget.RatingBar">
-        <item name="android:progressDrawable">@drawable/rating_bar_layer_list_small</item>
-        <item name="android:minHeight">14dp</item>
-        <item name="android:maxHeight">14dp</item>
-    </style>
-    
-     <style name="customRatingBarMedium" parent="@style/Widget.AppCompat.RatingBar">
-        <item name="android:progressDrawable">@drawable/rating_bar_layer_list_medium</item>
-         <item name="android:minWidth">25dp</item>
-         <item name="android:minHeight">25dp</item>
-    </style>
-     <style name="customRatingBarLightGrayMedium" parent="@android:style/Widget.RatingBar">
-        <item name="android:progressDrawable">@drawable/rating_bar_light_gray_layer_list_medium</item>
-        <item name="android:minWidth">25dp</item>
-        <item name="android:minHeight">25dp</item>
-    </style>
+    <!--<style name="customRatingBarSmall" parent="@android:style/Widget.RatingBar">-->
+        <!--<item name="android:progressDrawable">@drawable/rating_bar_layer_list_small</item>-->
+        <!--<item name="android:minHeight">14dp</item>-->
+        <!--<item name="android:maxHeight">14dp</item>-->
+    <!--</style>-->
+    <!---->
+     <!--<style name="customRatingBarMedium" parent="@style/Widget.AppCompat.RatingBar">-->
+        <!--<item name="android:progressDrawable">@drawable/rating_bar_layer_list_medium</item>-->
+         <!--<item name="android:minWidth">25dp</item>-->
+         <!--<item name="android:minHeight">25dp</item>-->
+    <!--</style>-->
+     <!--<style name="customRatingBarLightGrayMedium" parent="@android:style/Widget.RatingBar">-->
+        <!--<item name="android:progressDrawable">@drawable/rating_bar_light_gray_layer_list_medium</item>-->
+        <!--<item name="android:minWidth">25dp</item>-->
+        <!--<item name="android:minHeight">25dp</item>-->
+    <!--</style>-->
 
-    <style name="customRatingBarBig" parent="@android:style/Widget.RatingBar">
-        <item name="android:progressDrawable">@drawable/rating_bar_layer_list_big</item>
-        <item name="android:minWidth">45dp</item>
-        <item name="android:minHeight">39dp</item>
-    </style>
+    <!--<style name="customRatingBarBig" parent="@android:style/Widget.RatingBar">-->
+        <!--<item name="android:progressDrawable">@drawable/rating_bar_layer_list_big</item>-->
+        <!--<item name="android:minWidth">45dp</item>-->
+        <!--<item name="android:minHeight">39dp</item>-->
+    <!--</style>-->
 
     <style name="PauseDialog" parent="@android:style/Theme.Dialog">
         <item name="android:windowAnimationStyle">@style/PauseDialogAnimation</item>

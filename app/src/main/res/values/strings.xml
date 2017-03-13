@@ -113,7 +113,7 @@
     <string name="phone_number_is_invalid">Enter valid phone number</string>
     <string name="friend_profile_heading">%1$s\'s Profile</string>
     <string name="my_profile_s">My Profile\'s</string>
-    <string name="report_txt_hint">Briefly describe your reason for reporting this user (250 character limit)</string>
+    <string name="report_txt_hint">Briefly describe your reason for reporting this user (250 character limit).</string>
     <string name="send_message">SEND MESSAGE</string>
     <string name="send_a_message_">Send a message...</string>
     <string name="online_now">Online now</string>

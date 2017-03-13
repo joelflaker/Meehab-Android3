@@ -59,6 +59,7 @@
             android:layout_weight="1"
             android:divider="@drawable/profile_divider"
             android:dividerHeight="1dp"
+            android:scrollbarSize="0dp"
             android:groupIndicator="@null"
             android:scrollbars="none" />
 

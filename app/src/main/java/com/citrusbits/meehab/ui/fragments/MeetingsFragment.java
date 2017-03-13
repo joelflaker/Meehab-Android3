@@ -362,11 +362,12 @@ public class MeetingsFragment extends Fragment implements
 		// add marker
 		for (int i = 0; i < meetings.size(); i++) {
 
-			if (!meetings.get(i).isTodayMeeting()) {
+            MeetingModel m = meetings.get(i);
+
+            if (!m.isTodayMeeting()) {
 				continue;
 			}
 
-			MeetingModel m = meetings.get(i);
 			mapMeetings.add(m);
 
 			// Creating an instance of MarkerOptions to set position

@@ -109,9 +109,9 @@
 
                         <RatingBar
                             android:id="@+id/rating"
-                            style="@style/customRatingBarSmall"
+                            android:layout_height="15dp"
+                            android:progressDrawable="@drawable/rating_bar_layer_list_small"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
                             android:focusable="false"
                             android:focusableInTouchMode="false"
@@ -135,6 +135,7 @@
                                 android:layout_height="wrap_content"
                                 android:ellipsize="end"
                                 android:lines="1"
+                                android:padding="3dp"
                                 android:text="Meeting Name"
                                 android:textColor="@color/light_blue"
                                 android:textSize="10sp" />

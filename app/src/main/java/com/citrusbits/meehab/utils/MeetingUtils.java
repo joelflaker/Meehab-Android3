@@ -170,6 +170,7 @@ public class MeetingUtils {
 				Calendar.DAY_OF_WEEK, Calendar.LONG,
 				Locale.getDefault());
 		int weekDayCount = 0;
+        Calendar now = Calendar.getInstance();
 		do{
 			final String dayLongName = todayOrMeetingDay.getDisplayName(
 					Calendar.DAY_OF_WEEK, Calendar.LONG,
@@ -190,7 +191,7 @@ public class MeetingUtils {
 					todayOrMeetingDay.set(Calendar.MINUTE, dateObj.getMinutes());
 					todayOrMeetingDay.set(Calendar.SECOND,0);
 
-					if(todayOrMeetingDay.before(Calendar.getInstance()) && weekDayCount != 7){
+					if(todayOrMeetingDay.before(now) && weekDayCount != 7){
 						//add 1 day
 						todayOrMeetingDay.add(Calendar.DAY_OF_MONTH,1);
 						continue;
@@ -202,7 +203,9 @@ public class MeetingUtils {
                     String onDate = dateFormat.format(todayOrMeetingDay.getTime());
 
 					NearestDateTime nearDateTime = new NearestDateTime();
-					nearDateTime.setIsToday(todayLongName.equals(dayLongName));
+//					nearDateTime.setIsToday(todayLongName.equalsIgnoreCase(dayLongName));
+					nearDateTime.setIsToday(todayOrMeetingDay.get(Calendar.DAY_OF_MONTH) == now.get(Calendar.DAY_OF_MONTH)
+                    && todayOrMeetingDay.get(Calendar.YEAR) == now.get(Calendar.YEAR));
 					nearDateTime.setDate(onDate);
 					nearDateTime.setTime(onTime);
 					nearDateTime.setDateTime(todayOrMeetingDay.getTime());
@@ -215,88 +218,6 @@ public class MeetingUtils {
 
 			}
 		}while(++weekDayCount != 8);
-
-
-//		int minDayDiffer = Integer.MAX_VALUE;
-//		for (int j = 0; j < dayArray.length; j++) {
-//			String onDay = dayArray[j];
-//			String onTime = timeArray[j];
-//			int onDayPositon = -1;
-//			int todayPosition = -1;
-//
-//			onDayPositon = daysInWeek.indexOf(onDay.toLowerCase());
-//			todayPosition = daysInWeek.indexOf(dayLongName.toLowerCase());
-//
-//				if (dayLongName.toLowerCase(Locale.US).equals(daysInWeek[i])) {
-//					todayPosition = i;
-//				}
-//			}
-//			boolean isToday = false;
-//			if (onDayPositon > todayPosition) {
-//				today.add(Calendar.DAY_OF_MONTH,
-//						(onDayPositon - todayPosition));
-//				int dayDiffer = onDayPositon - todayPosition;
-//				if (minDayDiffer > dayDiffer) {
-//					minDayDiffer = dayDiffer;
-//					nearPosition = j;
-//				}
-//
-//			} else if (onDayPositon < todayPosition) {
-//				today.add(Calendar.DAY_OF_MONTH, ((daysInWeek.length) - todayPosition + onDayPositon));
-//
-//				int dayDiffer = ((daysInWeek.length) - todayPosition + onDayPositon);
-//				if (minDayDiffer > dayDiffer) {
-//					minDayDiffer = dayDiffer;
-//					nearPosition = j;
-//				}
-//
-//			} else if (onDayPositon == todayPosition) {
-//				try {
-//					final Date dateObj = _12HourSDF.parse(onTime);
-//					today.set(Calendar.HOUR_OF_DAY,
-//							dateObj.getHours() + 1);
-//					today.set(Calendar.MINUTE, dateObj.getMinutes());
-//					if (today.before(Calendar.getInstance())) {
-//						today.add(Calendar.DAY_OF_MONTH,
-//								(daysInWeek.length));
-//
-//						int dayDiffer = daysInWeek.length;
-//						if (minDayDiffer > dayDiffer) {
-//							minDayDiffer = dayDiffer;
-//							nearPosition = j;
-//						}
-//
-//					} else {
-//						isToday = true;
-//						int dayDiffer = 0;
-//						if (minDayDiffer > dayDiffer) {
-//							minDayDiffer = dayDiffer;
-//							nearPosition = j;
-//						}
-//					}
-//
-//				} catch (ParseException e) {
-//					e.printStackTrace();
-//				}
-//			}
-//
-//
-//			String dateMade = dateFormat.format(today.getTime());
-//
-//			NearestDateTime nearDateTime = new NearestDateTime();
-//			nearDateTime.setDateTime(today.getTime());
-//			nearDateTime.setDate(dateMade);
-//			nearDateTime.setIsToday(isToday);
-//			nearDateTime.setTime(onTime);
-//			nearestDateTimes.add(nearDateTime);
-//		}
-//
-//		if(nearestDateTimes.size() > 0){
-//			return nearestDateTimes.get(nearPosition);
-//		}else {
-//			return null;
-//		}
-
 		return null;
 	}
 

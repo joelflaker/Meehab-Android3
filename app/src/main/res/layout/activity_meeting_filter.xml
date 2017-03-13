@@ -106,6 +106,8 @@
                 android:layout_height="wrap_content"
                 android:animateLayoutChanges="true"
                 android:divider="@null"
+                android:scrollbars="none"
+                android:scrollbarSize="0dp"
                 android:dividerHeight="0dp"
                 android:groupIndicator="@null" />
 
@@ -191,7 +193,6 @@
                     android:id="@+id/rating"
                     android:layout_width="wrap_content"
                     android:layout_height="26.8dp"
-                    style="@style/customRatingBarLightGrayMedium"
                     android:progressDrawable="@drawable/rating_bar_light_gray_layer_list_medium"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
