@@ -21,6 +21,7 @@ import android.support.v4.view.ViewPager;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.text.method.KeyListener;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.KeyEvent;
@@ -96,6 +97,7 @@ public class FriendsFragment extends Fragment implements
 
 	public static FriendFilterResultHolder fFilterResultHolder = new FriendFilterResultHolder();
 	private TextView btnFilter;
+	private boolean startSearchEditing;
 
 	public FriendsFragment() {
 	}
@@ -144,11 +146,18 @@ public class FriendsFragment extends Fragment implements
 			@Override
 			public void afterTextChanged(Editable s) {
 				String inputText = s.toString().trim().toLowerCase();
-				if (inputText.trim().length() == 0) {
-					btnFilter.setText(R.string.filter);
-				}else{
-					btnFilter.setText("Cancel");
-				}
+//				if (startSearchEditing) {
+//					btnFilter.setText("Cancel");
+//					if(inputText.length() == 0){
+//						btnFilter.setText("Cancel");
+//					}else {
+//						btnFilter.setText("Clear");
+//					}
+//				}else if (inputText.length() == 0){
+//
+//					btnFilter.setText(R.string.filter);
+//				}
+
 				userAccounts.clear();
 				for (UserAccount account : userAccountsCache) {
 					String name = account.getUsername();
@@ -176,9 +185,6 @@ public class FriendsFragment extends Fragment implements
                 return false;
             }
         });
-		int width = (int) TypedValue.applyDimension(
-				TypedValue.COMPLEX_UNIT_DIP, 100, getActivity().getResources()
-						.getDisplayMetrics());
 
 		int grid_spacing = (int) TypedValue.applyDimension(
 				TypedValue.COMPLEX_UNIT_DIP, 10, getActivity().getResources()
@@ -238,6 +244,8 @@ public class FriendsFragment extends Fragment implements
 			public void onPageScrollStateChanged(int arg0) {
 			}
 		});
+
+		setSearchEditing(false);
 
 		getFriends();
 
@@ -711,13 +719,25 @@ public class FriendsFragment extends Fragment implements
 					homeActivity.changeDrawerVisibility(true);
 				}
 				break;
+			case R.id.editTopCenter:
+				setSearchEditing(true);
+				break;
 			case R.id.btnFilter:
 
-				if(editTopCenter.getText().length() > 0){
-					editTopCenter.setText("");
-					UtilityClass.hideSoftKeyboard(getContext(), editTopCenter);
+				if(startSearchEditing){
+					setSearchEditing(false);
 					return;
 				}
+
+//				int count = editTopCenter.getText().length();
+//				if(count >= 0){
+//					editTopCenter.setText("");
+//					if(startSearchEditing && count == 0) {
+//						startSearchEditing = false;
+//						UtilityClass.hideSoftKeyboard(getContext(), editTopCenter);
+//					}
+//					return;
+//				}
 
 				Intent intent = new Intent(getActivity(),
 						FriendsFilterActivity.class);
@@ -744,6 +764,34 @@ public class FriendsFragment extends Fragment implements
 				break;
 			default:
 				break;
+		}
+	}
+
+	private void setSearchEditing(boolean enable) {
+		startSearchEditing = enable;
+		if (enable) {
+			editTopCenter.setOnClickListener(null);
+			editTopCenter.setFocusable(true);
+			editTopCenter.setFocusableInTouchMode(true);
+			editTopCenter.setCursorVisible(true);
+			editTopCenter.setKeyListener((KeyListener) editTopCenter.getTag());
+			btnFilter.setText("Cancel");
+			editTopCenter.requestFocus();
+
+			UtilityClass.showSoftKeyboard(getContext(), editTopCenter);
+			emptyList.setPadding(0,0,0,getActivity().getResources().getDimensionPixelSize(R.dimen.softkeyboard_height));
+		}else {
+			emptyList.setPadding(0,0,0,0);
+			UtilityClass.hideSoftKeyboard(getContext(), editTopCenter);
+
+			btnFilter.setText(R.string.filter);
+			editTopCenter.setText("");
+			editTopCenter.setOnClickListener(this);
+			editTopCenter.setFocusable(false);
+			editTopCenter.setFocusableInTouchMode(false);
+			editTopCenter.setCursorVisible(false);
+			editTopCenter.setTag(editTopCenter.getKeyListener());
+			editTopCenter.setKeyListener(null);
 		}
 	}
 

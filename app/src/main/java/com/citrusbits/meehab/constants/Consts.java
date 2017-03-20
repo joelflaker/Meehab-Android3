@@ -35,5 +35,5 @@ public class Consts {
 	public static final String TwilioSecret = "993084372175c482d81d5571aa75af3d";
 	public static final String FromNumber = "+12017205413";
 
-	public static final int IMAGE_BLURR_RADIUS = 8;
+	public static final int IMAGE_BLURR_RADIUS = 25;
 }

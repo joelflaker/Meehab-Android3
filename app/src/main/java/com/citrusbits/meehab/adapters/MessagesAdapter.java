@@ -7,6 +7,7 @@ import java.util.List;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -119,8 +120,10 @@ public class MessagesAdapter extends ArrayAdapter<MessageModel> {
 		});
 		
 		if(DatabaseHandler.getInstance(mContext).getUnreadMessageCount(message.getFromID()) > 0){
+			holder.tvMessage.setTextColor(ContextCompat.getColor(mContext,R.color.black));
 			holder.tvMessage.setTypeface(null, Typeface.BOLD);
 		}else{
+			holder.tvMessage.setTextColor(ContextCompat.getColor(mContext,R.color.text_color_gray));
 			holder.tvMessage.setTypeface(null, Typeface.NORMAL);
 		}
 

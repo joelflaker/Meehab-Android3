@@ -23,6 +23,7 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.text.method.KeyListener;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.KeyEvent;
@@ -118,6 +119,7 @@ public class MyFavoritesFragment extends Fragment implements
 	protected int mReqPosition;
 	protected int mAccountPosition;
     private int preIbEditImage;
+	private boolean startSearchEditing;
 //	private View textViewCross;
 
 	public MyFavoritesFragment() {
@@ -197,13 +199,13 @@ public class MyFavoritesFragment extends Fragment implements
 			@Override
 			public void afterTextChanged(Editable s) {
 				String inputText = s.toString().trim().toLowerCase();
-				if(inputText.length() == 0){
+//				if(inputText.length() == 0){
 //					textViewCross.setVisibility(View.INVISIBLE);
-                    ibEdit.setImageResource(preIbEditImage == 0 ? R.drawable.edit_btn : preIbEditImage);
-                }else{
+//                    ibEdit.setImageResource(preIbEditImage == 0 ? R.drawable.edit_btn : preIbEditImage);
+//                }else{
 //					textViewCross.setVisibility(View.VISIBLE);
-                    ibEdit.setImageResource(R.drawable.cancel_btn_small);
-                }
+//                    ibEdit.setImageResource(R.drawable.cancel_btn_small);
+//                }
 				if (currentTabPosition == 1) {
 					userAccounts.clear();
 					for (UserAccount account : userAccountsCache) {
@@ -317,6 +319,7 @@ public class MyFavoritesFragment extends Fragment implements
 
 		refreshMeetingList();
 
+		setSearchEditing(false);
 		getFriends();
 
 		return view;
@@ -619,17 +622,26 @@ public class MyFavoritesFragment extends Fragment implements
 			}
 
 			break;
+		case R.id.editTopCenter:
+            if (!friendsGridAdapter.isEdit()) {
+                setSearchEditing(true);
+            }
+            break;
 		case R.id.ibEdit:
 
 //			if(userAccounts.size() == 0 && meetings.size() == 0){
 //				MeehabApp.toast("Nothing to edit!");
 //			}
 
-            if(editTopCenter.getText().length() > 0){
-                editTopCenter.setText("");
-                UtilityClass.hideSoftKeyboard(getContext(), editTopCenter);
-                return;
-            }
+			if(startSearchEditing){
+				setSearchEditing(false);
+				return;
+			}
+//            if(editTopCenter.getText().length() > 0){
+//                editTopCenter.setText("");
+//                UtilityClass.hideSoftKeyboard(getContext(), editTopCenter);
+//                return;
+//            }
 
 			meetingsAdapter.setEdit(!meetingsAdapter.getEdit());
 			friendsGridAdapter.setEdit(!friendsGridAdapter.isEdit());
@@ -662,6 +674,33 @@ public class MyFavoritesFragment extends Fragment implements
 				break;
 		default:
 			break;
+		}
+	}
+
+	private void setSearchEditing(boolean enable) {
+		startSearchEditing = enable;
+		if (enable) {
+			ibEdit.setImageResource(R.drawable.cancel_btn_small);
+
+			editTopCenter.setOnClickListener(null);
+			editTopCenter.setFocusable(true);
+			editTopCenter.setFocusableInTouchMode(true);
+			editTopCenter.setCursorVisible(true);
+			editTopCenter.setKeyListener((KeyListener) editTopCenter.getTag());
+			editTopCenter.requestFocus();
+
+			UtilityClass.showSoftKeyboard(getContext(), editTopCenter);
+		}else {
+			UtilityClass.hideSoftKeyboard(getContext(), editTopCenter);
+			ibEdit.setImageResource(preIbEditImage == 0 ? R.drawable.edit_btn : preIbEditImage);
+
+			editTopCenter.setText("");
+			editTopCenter.setOnClickListener(this);
+			editTopCenter.setFocusable(false);
+			editTopCenter.setFocusableInTouchMode(false);
+			editTopCenter.setCursorVisible(false);
+			editTopCenter.setTag(editTopCenter.getKeyListener());
+			editTopCenter.setKeyListener(null);
 		}
 	}
 

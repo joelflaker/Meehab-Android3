@@ -54,7 +54,7 @@
                 android:src="@drawable/search_icon" />
 
             <EditText
-                android:id="@+id/etSearch"
+                android:id="@+id/editTopCenter"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
@@ -137,7 +137,7 @@
                 android:layout_centerInParent="true"
                 android:gravity="center"
                 android:orientation="vertical"
-                android:visibility="gone" >
+                android:visibility="visible" >
 
                 <TextView
                     android:layout_width="wrap_content"

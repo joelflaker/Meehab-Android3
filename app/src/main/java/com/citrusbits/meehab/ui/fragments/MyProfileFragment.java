@@ -148,14 +148,7 @@ public class MyProfileFragment extends Fragment implements
 		tvOriendation = (TextView) v.findViewById(R.id.tvOriendation);
 		tvMaritalStatus = (TextView) v.findViewById(R.id.tvMaritalStatus);
 
-		RelativeLayout.LayoutParams params = (android.widget.RelativeLayout.LayoutParams) ivBlurBg
-				.getLayoutParams();
-		int width = DeviceUtils.getDeviceWidth(getActivity());
-		params.height = (int) (width * 0.82f);
-		ivBlurBg.setLayoutParams(params);
-
 		// init meeting adapter
-
 		getUserReviews();
 
 		return v;

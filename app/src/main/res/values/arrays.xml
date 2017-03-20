@@ -182,7 +182,7 @@
 
     <!-- FriendType -->
     <string-array name="friend_type_arr">
-        <item>Favourites</item>
+        <item>Favorites</item>
         <item>From Facebook</item>
         <item>From My Contacts</item>
         <item>Blocked</item>

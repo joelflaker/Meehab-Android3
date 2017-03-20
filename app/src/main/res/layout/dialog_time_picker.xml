@@ -55,13 +55,19 @@
             android:orientation="vertical"
             android:background="#888888"
             >
+
+            <TimePicker
+            android:id="@+id/npTimeRange"
+            android:layout_width="match_parent"
+            android:calendarViewShown="false"
+            android:layout_height="150dp"/>
         
-        <NumberPicker
-                android:id="@+id/npTimeRange"
-                android:layout_width="match_parent"
-                android:layout_height="150dp"
-                android:calendarViewShown="false"
-                android:gravity="center_vertical" />
+        <!--<NumberPicker-->
+                <!--android:id="@+id/npTimeRange"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="150dp"-->
+                <!--android:calendarViewShown="false"-->
+                <!--android:gravity="center_vertical" />-->
         
         </LinearLayout>
     </LinearLayout>

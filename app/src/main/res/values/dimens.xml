@@ -7,12 +7,14 @@
     <dimen name="wall_margin">14dp</dimen>
     
     <dimen name="photo_grid_size">95dp</dimen>
-    
+    <dimen name="user_photo_size">100dp</dimen>
+
     <dimen name="dp2">2dp</dimen>
     
     <dimen name="small_margin">8dp</dimen>
     
     <dimen name="actionbar_height">50dp</dimen>
+    <dimen name="softkeyboard_height">200dp</dimen>
 
      <dimen name="usersettings_fragment_profile_picture_width">400dp</dimen>
     <dimen name="usersettings_fragment_profile_picture_height">400dp</dimen>

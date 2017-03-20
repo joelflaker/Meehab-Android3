@@ -45,7 +45,7 @@
         android:layout_toLeftOf="@+id/ivArrow"
         android:layout_toRightOf="@+id/flUserContainer"
         android:orientation="vertical"
-        android:paddingLeft="4dp" >
+        android:paddingLeft="8dp" >
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -77,7 +77,7 @@
             android:ellipsize="end"
             android:maxLines="1"
             android:maxLength="35"
-            android:textColor="#888888"
+            android:textColor="@color/text_color_gray"
             android:textSize="12sp" />
     </LinearLayout>
     

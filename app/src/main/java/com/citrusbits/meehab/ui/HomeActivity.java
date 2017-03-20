@@ -177,6 +177,11 @@ public class HomeActivity extends SocketActivity implements
 
 		tvUserName.setText(mUser.getUsername());
 
+		Picasso.with(this)
+				.load(R.drawable.img_place_holder)
+				.transform(new PicassoBlurTransform(HomeActivity.this, Consts.IMAGE_BLURR_RADIUS))
+				.into(ivPictureBig);
+
 		ivUserIcon.setImageResource(R.drawable.profile_pic_border);
 		if(!TextUtils.isEmpty(userImage)) {
 

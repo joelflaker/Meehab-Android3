@@ -19,6 +19,7 @@ import android.os.IBinder;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.text.method.KeyListener;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -142,6 +143,7 @@ public class MeetingsFragment extends Fragment implements
 
 	private View emptyList;
 	private TextView topRightBtn;
+	private boolean startSearchEditing;
 
 	public MeetingsFragment() {
 	}
@@ -153,18 +155,18 @@ public class MeetingsFragment extends Fragment implements
 			}
 //			location_point_black
 			MarkerOptions markerOptions = new MarkerOptions()
-			.title("mylocation")
-			.position(new LatLng(myLocation.getLatitude(), myLocation.getLongitude()))
-			.icon(BitmapDescriptorFactory.fromResource(R.drawable.location_point_black));
-			
+					.title("mylocation")
+					.position(new LatLng(myLocation.getLatitude(), myLocation.getLongitude()))
+					.icon(BitmapDescriptorFactory.fromResource(R.drawable.location_point_black));
+
 			myLocMarker = map.addMarker(markerOptions);
 			if(isMove){
 				map.moveCamera(CameraUpdateFactory.newLatLngZoom(
 						markerOptions.getPosition(), Consts.MAP_ZOOM));
-				}
+			}
 		}
 	}
-	
+
 
 	@Override
 	public void onDestroy() {
@@ -209,7 +211,7 @@ public class MeetingsFragment extends Fragment implements
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-			Bundle savedInstanceState) {
+							 Bundle savedInstanceState) {
 		View v = inflater.inflate(R.layout.fragment_meetings, container, false);
 
 		v.findViewById(R.id.topMenuBtn).setOnClickListener(this);
@@ -248,12 +250,12 @@ public class MeetingsFragment extends Fragment implements
 
 			@Override
 			public void onTextChanged(CharSequence s, int start, int before,
-					int count) {
+									  int count) {
 			}
 
 			@Override
 			public void beforeTextChanged(CharSequence s, int start, int count,
-					int after) {
+										  int after) {
 			}
 
 			@Override
@@ -261,26 +263,26 @@ public class MeetingsFragment extends Fragment implements
 				String inputText = s.toString().trim().toLowerCase();
 				searchMeetings(inputText);
 				if (inputText.trim().length() == 0) {
-					topRightBtn.setText(R.string.filter);
+//					topRightBtn.setText(R.string.filter);
 					if (listWasInvisible) {
 						switchList();
 						listWasInvisible = false;
 					}
 				}else{
-					topRightBtn.setText("Cancel");
+//					topRightBtn.setText("Cancel");
 				}
 				updateEmptyViewVisibility();
 			}
 		});
-        editTopCenter.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                    UtilityClass.hideSoftKeyboard(getContext(),getActivity().getCurrentFocus());
-                }
-                return false;
-            }
-        });
+		editTopCenter.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+			@Override
+			public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+				if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+					UtilityClass.hideSoftKeyboard(getContext(),getActivity().getCurrentFocus());
+				}
+				return false;
+			}
+		});
 		btnList.setOnClickListener(this);
 		btnFindMe.setOnClickListener(this);
 		list.setOnItemClickListener(this);
@@ -312,7 +314,7 @@ public class MeetingsFragment extends Fragment implements
 
 				map = customMap.getMap();
 //				map.setMyLocationEnabled(true);
-				 map.getUiSettings().setMyLocationButtonEnabled(false);
+				map.getUiSettings().setMyLocationButtonEnabled(false);
 				map.getUiSettings().setMapToolbarEnabled(false);
 				map.setInfoWindowAdapter(new MeetingInfoWindowAdapter());
 				map.getUiSettings().setScrollGesturesEnabled(true);
@@ -322,6 +324,9 @@ public class MeetingsFragment extends Fragment implements
 			}
 
 		}
+
+		setSearchEditing(false);
+
 		onBackendConnected();
 
 		return v;
@@ -349,7 +354,7 @@ public class MeetingsFragment extends Fragment implements
 	}
 
 	/**
-	 * 
+	 *
 	 */
 	protected void addMarkers() {
 		if(map == null) return;
@@ -362,9 +367,9 @@ public class MeetingsFragment extends Fragment implements
 		// add marker
 		for (int i = 0; i < meetings.size(); i++) {
 
-            MeetingModel m = meetings.get(i);
+			MeetingModel m = meetings.get(i);
 
-            if (!m.isTodayMeeting()) {
+			if (!m.isTodayMeeting()) {
 				continue;
 			}
 
@@ -395,7 +400,7 @@ public class MeetingsFragment extends Fragment implements
 //		moveCamera(
 //				new LatLng(myLocation.getLatitude(), myLocation.getLongitude()),
 //				false);
-		
+
 		refreshMyLocationMarker(true);
 
 		// fitBounds();
@@ -452,7 +457,7 @@ public class MeetingsFragment extends Fragment implements
 		marker.showInfoWindow();
 		return false;
 	}
-	
+
 	@Override
 	public void onInfoWindowClick(Marker marker) {
 		MeetingModel m = spots.get(marker);
@@ -563,7 +568,7 @@ public class MeetingsFragment extends Fragment implements
 
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position,
-			long id) {
+							long id) {
 		// startDetailActivity(position);
 		int _position = getPostion(meetings.get(position).getMeetingId());
 
@@ -591,46 +596,77 @@ public class MeetingsFragment extends Fragment implements
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
-		case R.id.topMenuBtn:
+			case R.id.topMenuBtn:
 
-			if (homeActivity.isDrawerOpen()) {
-				homeActivity.changeDrawerVisibility(false);
-			} else {
-				homeActivity.changeDrawerVisibility(true);
-			}
-			break;
-		case R.id.topRightBtn:
+				if (homeActivity.isDrawerOpen()) {
+					homeActivity.changeDrawerVisibility(false);
+				} else {
+					homeActivity.changeDrawerVisibility(true);
+				}
+				break;
+			case R.id.editTopCenter:
+				setSearchEditing(true);
+				break;
+			case R.id.topRightBtn:
 
-			if(editTopCenter.getText().length() > 0){
-				editTopCenter.setText("");
-				UtilityClass.hideSoftKeyboard(getContext(), editTopCenter);
-				return;
-			}
+				if(startSearchEditing){
+					setSearchEditing(false);
+					return;
+				}
 
-			// filter
-			Intent intent = new Intent(getActivity(),
-					MeetingsFilterActivity.class);
-			intent.putExtra(MeetingsFilterActivity.MEETING_FILTER, resultHolder);
-			// put user id
-			startActivityForResult(intent, Filter_request);
-			getActivity().overridePendingTransition(R.anim.activity_back_in,
-					R.anim.activity_back_out);
-			break;
-		case R.id.btnList:
+				// filter
+				Intent intent = new Intent(getActivity(),
+						MeetingsFilterActivity.class);
+				intent.putExtra(MeetingsFilterActivity.MEETING_FILTER, resultHolder);
+				// put user id
+				startActivityForResult(intent, Filter_request);
+				getActivity().overridePendingTransition(R.anim.activity_back_in,
+						R.anim.activity_back_out);
+				break;
+			case R.id.btnList:
 
-			switchList();
-
-			break;
-		case R.id.btnFindMe:
-			if (list.getVisibility() == View.VISIBLE) {
 				switchList();
-			}
-			moveMapCamera(new LatLng(myLocation.getLatitude(),
-					myLocation.getLongitude()));
 
-			break;
-		default:
-			break;
+				break;
+			case R.id.btnFindMe:
+				if (list.getVisibility() == View.VISIBLE) {
+					switchList();
+				}
+				moveMapCamera(new LatLng(myLocation.getLatitude(),
+						myLocation.getLongitude()));
+
+				break;
+			default:
+				break;
+		}
+	}
+
+	private void setSearchEditing(boolean enable) {
+		startSearchEditing = enable;
+		if (enable) {
+			editTopCenter.setOnClickListener(null);
+			editTopCenter.setFocusable(true);
+			editTopCenter.setFocusableInTouchMode(true);
+			editTopCenter.setCursorVisible(true);
+			editTopCenter.setKeyListener((KeyListener) editTopCenter.getTag());
+			editTopCenter.requestFocus();
+
+			topRightBtn.setText("Cancel");
+			UtilityClass.showSoftKeyboard(getContext(), editTopCenter);
+
+			emptyList.setPadding(0,0,0,getActivity().getResources().getDimensionPixelSize(R.dimen.softkeyboard_height));
+		}else {
+			emptyList.setPadding(0,0,0,0);
+			UtilityClass.hideSoftKeyboard(getContext(), editTopCenter);
+			topRightBtn.setText(R.string.filter);
+
+			editTopCenter.setText("");
+			editTopCenter.setOnClickListener(this);
+			editTopCenter.setFocusable(false);
+			editTopCenter.setFocusableInTouchMode(false);
+			editTopCenter.setCursorVisible(false);
+			editTopCenter.setTag(editTopCenter.getKeyListener());
+			editTopCenter.setKeyListener(null);
 		}
 	}
 
@@ -815,7 +851,7 @@ public class MeetingsFragment extends Fragment implements
 
 	public class MeetingProcessingTask extends AsyncTask<Void, Void, Void> {
 
-		   
+
 		@Override
 		protected Void doInBackground(Void... params) {
 
@@ -837,7 +873,7 @@ public class MeetingsFragment extends Fragment implements
 					double distance = results[0] * 0.000621371192f;
 //					double distance = distance(meeting.getLatitude(), meeting.getLongitude(),
 //							myLocation.getLatitude(), myLocation.getLongitude());
-					
+
 //					
 //					Location pinLocation = new Location("");
 //					pinLocation.setLatitude(meeting.getLatitude());
@@ -846,7 +882,7 @@ public class MeetingsFragment extends Fragment implements
 //							.distanceTo(pinLocation) * 0.000621371192f);
 //
 					distance = Math.floor(distance * 10) / 10f;
-					
+
 					meeting.setDistanceInMiles(distance);
 
 					NearestDateTime nearDateTime = MeetingUtils.getNearestDate(meeting.getOnDay(),

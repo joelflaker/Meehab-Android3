@@ -47,8 +47,6 @@ public class ChangePasswordActivity extends SocketActivity implements OnSocketRe
 			}});
 		pd = UtilityClass.getProgressDialog(this);
 		
-		
-		
 		editOldPassword = (EditText)findViewById(R.id.editOldPassword);
 		editNewPassword = (EditText)findViewById(R.id.editNewPassword);
 		editReNewPassword = (EditText)findViewById(R.id.editReNewPassword);
@@ -56,7 +54,6 @@ public class ChangePasswordActivity extends SocketActivity implements OnSocketRe
 		textResponse = (TextView) findViewById(R.id.textResponse);
 		
 		btnSave.setOnClickListener(this);
-		
 	}
 
 	@Override
@@ -88,6 +85,11 @@ public class ChangePasswordActivity extends SocketActivity implements OnSocketRe
 		}
 		if(!oldassword.equals(AccountUtils.getPassword(this))){
 			textResponse.setText("Current password is incorrect!");
+			return;
+		}
+
+		if(newPassword.equals(AccountUtils.getPassword(this))){
+			textResponse.setText("Please try a new password that doesn't match your old one!");
 			return;
 		}
 

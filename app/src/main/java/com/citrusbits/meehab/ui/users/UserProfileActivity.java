@@ -10,6 +10,9 @@ import org.json.JSONObject;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -58,6 +61,7 @@ import com.citrusbits.meehab.utils.RecoverClockDateUtils;
 import com.citrusbits.meehab.utils.UtilityClass;
 import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
 
 public class UserProfileActivity extends SocketActivity implements
 		OnSocketResponseListener, OnBackendConnectListener, OnClickListener {
@@ -137,16 +141,23 @@ public class UserProfileActivity extends SocketActivity implements
 		tvOriendation = (TextView) findViewById(R.id.tvOriendation);
 		tvMaritalStatus = (TextView) findViewById(R.id.tvMaritalStatus);
 
-		RelativeLayout.LayoutParams params = (android.widget.RelativeLayout.LayoutParams) ivBlurBg
-				.getLayoutParams();
-		int width = DeviceUtils.getDeviceWidth(this);
-		params.height = (int) (width * 0.82f);
-		ivBlurBg.setLayoutParams(params);
+//		RelativeLayout.LayoutParams params = (android.widget.RelativeLayout.LayoutParams) ivBlurBg
+//				.getLayoutParams();
+//		int width = DeviceUtils.getDeviceWidth(this);
+//		params.height = (int) (width * 0.82f);
+//		ivBlurBg.setLayoutParams(params);
 		llSendMessage.setOnClickListener(this);
 
 		// init meeting adapter
 
 		// Log.e("Date of Birth ", user.getDateOfBirth() + " Date Of Birth");
+
+		Picasso.with(this)
+				.load(R.drawable.img_place_holder)
+				.transform(
+						new PicassoBlurTransform(
+								UserProfileActivity.this, Consts.IMAGE_BLURR_RADIUS))
+				.into(ivBlurBg);
 
 		resetUserInfo();
 		getUserReviews();
@@ -164,6 +175,8 @@ public class UserProfileActivity extends SocketActivity implements
 	private void resetUserInfo() {
 		if (user != null) {
 
+
+
 			if (!TextUtils.isEmpty(user.getImage())) {
 				/*
 				 * profileNetworkImageView.setImageUrl(getString(R.string.url) +
@@ -172,7 +185,6 @@ public class UserProfileActivity extends SocketActivity implements
 				String userImage = user.getImage();
 
 				Picasso.with(this).load(userImage)
-						.placeholder(R.drawable.img_place_holder).resize(100, 100)
 						.error(R.drawable.img_place_holder)
 						.transform(new PicassoCircularTransform())
 						.into(ivUserIcon);
@@ -180,15 +192,7 @@ public class UserProfileActivity extends SocketActivity implements
 				Picasso.with(this)
 						.load(userImage)
 						.placeholder(R.drawable.img_place_holder)
-						// .resize(300, 200)
 						.error(R.drawable.img_place_holder)
-						.transform(
-								new PicassoBlurTransform(
-										UserProfileActivity.this, Consts.IMAGE_BLURR_RADIUS))
-						.into(ivBlurBg);
-			}else {
-				Picasso.with(this)
-						.load(R.drawable.img_place_holder)
 						.transform(
 								new PicassoBlurTransform(
 										UserProfileActivity.this, Consts.IMAGE_BLURR_RADIUS))

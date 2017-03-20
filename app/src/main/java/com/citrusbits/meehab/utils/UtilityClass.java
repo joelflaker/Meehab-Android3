@@ -436,8 +436,14 @@ public class UtilityClass {
 	}
 
 	public static void hideSoftKeyboard(Context context, View view){
+		if(view == null) return;
 		InputMethodManager imm = (InputMethodManager)context.getSystemService(Context.INPUT_METHOD_SERVICE);
 		imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+	}
+	public static void showSoftKeyboard(Context context, View view){
+		if(view == null) return;
+		InputMethodManager imm = (InputMethodManager)context.getSystemService(Context.INPUT_METHOD_SERVICE);
+		imm.showSoftInput(view, InputMethodManager.SHOW_IMPLICIT);
 	}
 
 	public static Bitmap resize(Bitmap bm, int newHeight, int newWidth) {

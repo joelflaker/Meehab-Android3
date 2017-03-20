@@ -293,7 +293,6 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="Willing to Sponsor"
-                        android:textColor="#666666"
                         android:textSize="16sp" />
 
                     <CheckBox

@@ -23,6 +23,7 @@ import android.os.IBinder;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.text.method.KeyListener;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -77,8 +78,8 @@ public class RehabsFragment extends Fragment implements
 		GoogleMap.OnInfoWindowClickListener {
 
 	/**
-* 
-*/
+	 *
+	 */
 	public static final int Filter_request = 200;
 	private static final int REQUEST_REHAB_DETAILS = 234;
 	// Google Map
@@ -93,7 +94,7 @@ public class RehabsFragment extends Fragment implements
 	private HomeActivity homeActivity;
 	private Dialog pd;
 	private boolean rehabsUpdated;
-	private EditText etSearch;
+	private EditText editTopCenter;
 	private View focus_thief;
 
 	AppPrefs prefs;
@@ -137,6 +138,7 @@ public class RehabsFragment extends Fragment implements
 	private Marker myLocMarker;
 	private View emptyList;
 	private TextView topRightBtn;
+	private boolean startSearchEditing;
 
 	public RehabsFragment() {
 	}
@@ -148,14 +150,14 @@ public class RehabsFragment extends Fragment implements
 			}
 //			location_point_black
 			MarkerOptions markerOptions = new MarkerOptions()
-			.title("mylocation")
-			.position(new LatLng(myLocation.getLatitude(), myLocation.getLongitude()))
-			.icon(BitmapDescriptorFactory.fromResource(R.drawable.location_point_black));
-			
+					.title("mylocation")
+					.position(new LatLng(myLocation.getLatitude(), myLocation.getLongitude()))
+					.icon(BitmapDescriptorFactory.fromResource(R.drawable.location_point_black));
+
 			myLocMarker = map.addMarker(markerOptions);
 			if(isMove){
-			map.moveCamera(CameraUpdateFactory.newLatLngZoom(
-					markerOptions.getPosition(), Consts.MAP_ZOOM));
+				map.moveCamera(CameraUpdateFactory.newLatLngZoom(
+						markerOptions.getPosition(), Consts.MAP_ZOOM));
 			}
 		}
 	}
@@ -197,7 +199,7 @@ public class RehabsFragment extends Fragment implements
 	@Override
 	public View
 	onCreateView(LayoutInflater inflater, ViewGroup container,
-			Bundle savedInstanceState) {
+				 Bundle savedInstanceState) {
 		View v = inflater.inflate(R.layout.fragment_rehabs, container, false);
 
 		this.homeActivity = (HomeActivity) getActivity();
@@ -210,19 +212,19 @@ public class RehabsFragment extends Fragment implements
 		emptyList = v.findViewById(R.id.emptyList);
 		btnList = (ImageButton) v.findViewById(R.id.btnList);
 		btnFindMe = (ImageButton) v.findViewById(R.id.btnFindMe);
-		etSearch = (EditText) v.findViewById(R.id.etSearch);
+		editTopCenter = (EditText) v.findViewById(R.id.editTopCenter);
 
-		etSearch.addTextChangedListener(new TextWatcher() {
+		editTopCenter.addTextChangedListener(new TextWatcher() {
 
 			@Override
 			public void onTextChanged(CharSequence s, int start, int before,
-					int count) {
+									  int count) {
 
 			}
 
 			@Override
 			public void beforeTextChanged(CharSequence s, int start, int count,
-					int after) {
+										  int after) {
 
 			}
 
@@ -231,27 +233,27 @@ public class RehabsFragment extends Fragment implements
 				String inputText = s.toString().trim().toLowerCase();
 				searchRehabs(inputText);
 				if (inputText.trim().length() == 0) {
-					topRightBtn.setText(R.string.filter);
+//					topRightBtn.setText(R.string.filter);
 					if (listWasInvisible) {
 						switchList();
 						listWasInvisible = false;
 					}
 				}else{
-					topRightBtn.setText("Cancel");
+//					topRightBtn.setText("Cancel");
 				}
-				
+
 				updateEmptyViewVisibility();
 			}
 		});
-        etSearch.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                    UtilityClass.hideSoftKeyboard(getContext(),getActivity().getCurrentFocus());
-                }
-                return false;
-            }
-        });
+		editTopCenter.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+			@Override
+			public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+				if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+					UtilityClass.hideSoftKeyboard(getContext(),getActivity().getCurrentFocus());
+				}
+				return false;
+			}
+		});
 		focus_thief = v.findViewById(R.id.focus_thief);
 
 		rehabAdapter = new RehabListAdapter(getActivity(),
@@ -274,7 +276,7 @@ public class RehabsFragment extends Fragment implements
 						map = arg;
 
 						map.setInfoWindowAdapter(new RehabInfoWindowAdapter());
-						 map.getUiSettings().setMyLocationButtonEnabled(false);
+						map.getUiSettings().setMyLocationButtonEnabled(false);
 						map.getUiSettings().setMapToolbarEnabled(false);
 //						map.setMyLocationEnabled(false);
 						map.setOnMarkerClickListener(RehabsFragment.this);
@@ -286,6 +288,8 @@ public class RehabsFragment extends Fragment implements
 			}
 
 		}
+
+		setSearchEditing(false);
 		onBackendConnected();
 
 		return v;
@@ -311,10 +315,10 @@ public class RehabsFragment extends Fragment implements
 
 	protected void addMarkers() {
 		if(map == null) return;
-		
+
 		map.clear();
 		spots.clear();
-		
+
 //		BitmapDescriptor icon = BitmapDescriptorFactory
 //				.fromResource(R.drawable.pin);
 		// add marker
@@ -323,7 +327,7 @@ public class RehabsFragment extends Fragment implements
 			RehabModel rehab = rehabs.get(i);
 
 			// Creating an instance of MarkerOptions to set position
-			
+
 			int resourceId = RehabResponseModel.getMarkDrawableId(""+rehab.getPackageName());
 			/*
 			 * if (m.getMarkertypeColor() == MarkerColorType.GREEN) { resourceId
@@ -345,7 +349,7 @@ public class RehabsFragment extends Fragment implements
 			Marker marker = map.addMarker(markerOptions);
 			spots.put(marker, rehab);
 		}
-		
+
 		refreshMyLocationMarker(true);
 
 //		moveCamera(
@@ -432,7 +436,7 @@ public class RehabsFragment extends Fragment implements
 
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position,
-			long id) {
+							long id) {
 		mReqPosition = position;
 
 		RehabModel rehab = rehabAdapter.getItem(position);
@@ -447,45 +451,74 @@ public class RehabsFragment extends Fragment implements
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
-		case R.id.topMenuBtn:
-			if (homeActivity.isDrawerOpen()) {
-				homeActivity.changeDrawerVisibility(false);
-			} else {
-				homeActivity.changeDrawerVisibility(true);
-			}
-			break;
-		case R.id.topRightBtn:
+			case R.id.topMenuBtn:
+				if (homeActivity.isDrawerOpen()) {
+					homeActivity.changeDrawerVisibility(false);
+				} else {
+					homeActivity.changeDrawerVisibility(true);
+				}
+				break;
+			case R.id.editTopCenter:
+				setSearchEditing(true);
+				break;
+			case R.id.topRightBtn:
 
-			if(etSearch.getText().length() > 0){
-				etSearch.setText("");
-				UtilityClass.hideSoftKeyboard(getContext(), etSearch);
-				return;
-			}
+				if(startSearchEditing){
+					setSearchEditing(false);
+					return;
+				}
 
-			// filter
-			Intent intent = new Intent(getActivity(),
-					RehabsFilterActivity.class);
-			// put user id
-			startActivityForResult(intent, Filter_request);
-			getActivity().overridePendingTransition(R.anim.activity_back_in,
-					R.anim.activity_back_out);
-			break;
-		case R.id.btnList:
+				// filter
+				Intent intent = new Intent(getActivity(),
+						RehabsFilterActivity.class);
+				// put user id
+				startActivityForResult(intent, Filter_request);
+				getActivity().overridePendingTransition(R.anim.activity_back_in,
+						R.anim.activity_back_out);
+				break;
+			case R.id.btnList:
 
-			switchList();
-
-			break;
-		case R.id.btnFindMe:
-			if (list.getVisibility() == View.VISIBLE) {
 				switchList();
-			}
-			moveMapCamera(new LatLng(myLocation.getLatitude(),
-					myLocation.getLongitude()));
 
-			break;
+				break;
+			case R.id.btnFindMe:
+				if (list.getVisibility() == View.VISIBLE) {
+					switchList();
+				}
+				moveMapCamera(new LatLng(myLocation.getLatitude(),
+						myLocation.getLongitude()));
 
-		default:
-			break;
+				break;
+
+			default:
+				break;
+		}
+	}
+
+	private void setSearchEditing(boolean enable) {
+		startSearchEditing = enable;
+		if (enable) {
+			editTopCenter.setOnClickListener(null);
+			editTopCenter.setFocusable(true);
+			editTopCenter.setFocusableInTouchMode(true);
+			editTopCenter.setCursorVisible(true);
+			editTopCenter.setKeyListener((KeyListener) editTopCenter.getTag());
+			editTopCenter.requestFocus();
+
+			topRightBtn.setText("Cancel");
+			UtilityClass.showSoftKeyboard(getContext(), editTopCenter);
+			emptyList.setPadding(0,0,0,getActivity().getResources().getDimensionPixelSize(R.dimen.softkeyboard_height));
+		}else {
+			emptyList.setPadding(0,0,0,0);
+			UtilityClass.hideSoftKeyboard(getContext(), editTopCenter);
+			topRightBtn.setText(R.string.filter);
+			editTopCenter.setText("");
+			editTopCenter.setOnClickListener(this);
+			editTopCenter.setFocusable(false);
+			editTopCenter.setFocusableInTouchMode(false);
+			editTopCenter.setCursorVisible(false);
+			editTopCenter.setTag(editTopCenter.getKeyListener());
+			editTopCenter.setKeyListener(null);
 		}
 	}
 
@@ -507,7 +540,7 @@ public class RehabsFragment extends Fragment implements
 		}
 		updateEmptyViewVisibility();
 	}
-	
+
 	private void updateEmptyViewVisibility() {
 		if(list.getVisibility() == View.VISIBLE && rehabAdapter.getCount() == 0){
 			emptyList.setVisibility(View.VISIBLE);
@@ -553,7 +586,7 @@ public class RehabsFragment extends Fragment implements
 //		Toast.makeText(getActivity(), "onActivityResult is called ",
 //				Toast.LENGTH_SHORT).show();
 
-		
+
 		if (resultCode == getActivity().RESULT_OK) {
 			if (requestCode == Filter_request) {
 				/*
@@ -599,9 +632,9 @@ public class RehabsFragment extends Fragment implements
 			addMarkers();
 			updateEmptyViewVisibility();
 		}
-		
+
 		rehabAdapter.notifyDataSetChanged();
-			
+
 	}
 
 	public void makeListVisible() {
@@ -638,12 +671,12 @@ public class RehabsFragment extends Fragment implements
 		rehabsUpdating = false;
 
 		if (event.equals(EventParams.EVENT_GET_ALL_REHABS)) {
-			
+
 			if (pd != null) {
 				pd.dismiss();
 			}
 			rehabsUpdated = true;
-			
+
 			responseProcessinTask = new ResponseProcessingTask(obj);
 			responseProcessinTask.execute();
 		}
@@ -659,9 +692,9 @@ public class RehabsFragment extends Fragment implements
 
 	@Override
 	public void onBackendConnected() {
-			// refreshMeetingList();
+		// refreshMeetingList();
 
-			refreshRehab();
+		refreshRehab();
 
 	}
 
@@ -670,15 +703,15 @@ public class RehabsFragment extends Fragment implements
 
 		@Override
 		public View getInfoWindow(Marker marker) {
-			
+
 			//check for my location
-			
+
 //			if (marker.getId().equals(myLocMarker.getId())){ 
 //				View emptyView = new View(getContext());
 //				emptyView.setLayoutParams(new LinearLayout.LayoutParams(1, 1));
 //				return emptyView;
 //				}
-			
+
 			View v = RehabsFragment.this.getActivity().getLayoutInflater()
 					.inflate(R.layout.map_rehab_info_window, null);
 			TextView tvRehabName = (TextView) v.findViewById(R.id.tvRehabName);
@@ -686,7 +719,7 @@ public class RehabsFragment extends Fragment implements
 //					.findViewById(R.id.tvRehabLocation);
 			TextView tvRehabIns  = (TextView) v
 					.findViewById(R.id.tvRehabIns);
-			
+
 			TextView tvDistance = (TextView) v.findViewById(R.id.tvDistance);
 
 			TextView tvTime = (TextView) v.findViewById(R.id.tvTime);
@@ -703,7 +736,7 @@ public class RehabsFragment extends Fragment implements
 			tvRehabIns.setText(m.getTypeName());
 			tvTime.setText(m.getHours());
 			tvDistance.setText(m.getDistance() == 1f ? m.getDistance() + " MILE":m.getDistance() + " MILES");
-			
+
 			if(RehabResponseModel.getTodayRehabTiming(m.getRehabDays()) == null){
 				tvStatus.setVisibility(View.GONE);
 			}else if(rehabResponse.isOpenNow(m.getRehabDays())){
@@ -722,13 +755,13 @@ public class RehabsFragment extends Fragment implements
 			return null;
 		}
 	}
-	
+
 	public class ResponseProcessingTask extends AsyncTask<Void, Void, Void> {
 
 		private Object obj;
 
 		public ResponseProcessingTask(Object obj) {
-			this.obj = obj; 
+			this.obj = obj;
 		}
 
 		@Override
@@ -758,7 +791,7 @@ public class RehabsFragment extends Fragment implements
 					JSONObject rehab = rehabs.getJSONObject(i);
 
 					if(rehab == null) continue;
-					
+
 					String phone = rehab.getString("phone");
 					String about = rehab.getString("about");
 					String state = rehab.getString("state");
@@ -773,7 +806,7 @@ public class RehabsFragment extends Fragment implements
 					 */
 
 					String name = rehab.getString("name");
-					
+
 
 					double latitude = rehab.getDouble("latitude");
 					double longitude = rehab.getDouble("longitude");
@@ -781,7 +814,7 @@ public class RehabsFragment extends Fragment implements
 					String otherServices = rehab.getString("other_services");
 					String status = rehab.getString("status");
 					String website = rehab.getString("website");
-					
+
 					String zipCode = rehab.getString("zipcode");
 					String dateTimeAdded = rehab.getString("datetime_added");
 					String relation = rehab.getString("relation");
@@ -793,11 +826,11 @@ public class RehabsFragment extends Fragment implements
 
 					String userPhone = rehab.getString("user_phone");
 //					String codes = rehab.getString("codes");
-					
+
 					boolean isFavorite = rehab.getInt("favorite") == 1;
-					
+
 //					String days = rehab.getString("days");
-					
+
 					JSONArray rehabDays = rehab.getJSONArray("rehab_days");
 					List<RehabDayModel> rehabDayList = new ArrayList<>();
 
@@ -810,7 +843,7 @@ public class RehabsFragment extends Fragment implements
 
 						String startTime = rehabDayObjet.getString("start_time");
 						String dayName = rehabDayObjet.getString("name");
-						
+
 
 						int dayId = rehabDayObjet.getInt("day_id");
 
@@ -824,7 +857,7 @@ public class RehabsFragment extends Fragment implements
 						rehabDayList.add(rehabDay);
 
 					}
-					
+
 					JSONArray videosArray = rehab.getJSONArray("rehab_videos");
 					List<String> videoList = new ArrayList<>();
 
@@ -849,7 +882,7 @@ public class RehabsFragment extends Fragment implements
 						photoList.add(link);
 
 					}
-					
+
 					JSONArray rehab_paymentsJArray = rehab.getJSONArray("rehab_payments");
 					List<String> rehab_payments = new ArrayList<>();
 
@@ -859,7 +892,7 @@ public class RehabsFragment extends Fragment implements
 						rehab_payments.add(pname);
 
 					}
-					
+
 					//rehab_insurances
 					JSONArray rehab_insurancesArray = rehab.getJSONArray("rehab_insurances");
 					List<String> rehab_insurancesList = new ArrayList<>();
@@ -903,8 +936,8 @@ public class RehabsFragment extends Fragment implements
 					rehabModel.setZipCode(zipCode);
 					rehabModel.setUserPhone(userPhone);
 					rehabModel.setDistance(getDistance(latitude, longitude));
-					
-					
+
+
 					//today hours open and close
 					RehabDayModel rehabDay = RehabResponseModel.getTodayRehabTiming(rehabModel.getRehabDays());
 					if(rehabDay == null){
@@ -916,7 +949,7 @@ public class RehabsFragment extends Fragment implements
 						String closeTime = closeDate == null ? "hh:mm": amFormater.format(closeDate);
 						rehabModel.setHours(openTime + " - " + closeTime);
 					}
-					
+
 					rehabResponse.addRehabModel(rehabModel);
 
 				}
@@ -926,20 +959,20 @@ public class RehabsFragment extends Fragment implements
 			} catch (JSONException e) {
 				e.printStackTrace();
 			}
-			
+
 			return null;
 		}
 
 		@Override
 		protected void onPostExecute(Void result) {
 			super.onPostExecute(result);
-			
+
 			rehabAdapter = new RehabListAdapter(getActivity(),
 					R.layout.list_item_meeting, rehabResponse);
 			if(!isAdded()) return;
 			list.setAdapter(rehabAdapter);
 			if(RehabsFilterActivity.filterModel.isApplied()){
-				rehabAdapter.filter(RehabsFilterActivity.filterModel);				
+				rehabAdapter.filter(RehabsFilterActivity.filterModel);
 			}
 			rehabAdapter.notifyDataSetChanged();
 			addMarkers();
