@@ -80,7 +80,7 @@ public class ChangePasswordActivity extends SocketActivity implements OnSocketRe
 
 
 		if(!newPassword.equals(reNewPassword)){
-			textResponse.setText("Password does't match!");
+			textResponse.setText("Password doesn't match!");
 			return;
 		}
 		if(!oldassword.equals(AccountUtils.getPassword(this))){
@@ -89,7 +89,7 @@ public class ChangePasswordActivity extends SocketActivity implements OnSocketRe
 		}
 
 		if(newPassword.equals(AccountUtils.getPassword(this))){
-			textResponse.setText("Please try a new password that doesn't match your old one!");
+			textResponse.setText("Please try a new password that doesn't match your old one.");
 			return;
 		}
 
@@ -127,7 +127,7 @@ public class ChangePasswordActivity extends SocketActivity implements OnSocketRe
 	public void onSocketResponseSuccess(String event, Object obj) {
 		pd.dismiss();
 		if(event.equals(EventParams.EVENT_USER_UPDATE)){
-			textResponse.setText("Successfully updated!");
+			textResponse.setText("Successfully updated.");
 			textResponse.setTextColor(Color.GREEN);
 			showDialogWithMessage(R.string.msg_password_change);
 			AccountUtils.setPassword(this,newPassword);

@@ -198,7 +198,7 @@ public class HomeActivity extends SocketActivity implements
 				@Override
 				public void run() {
 					Picasso.with(HomeActivity.this).load(userImage)
-							.placeholder(R.drawable.profile_pic_border).resize(100, 100)
+							.placeholder(R.drawable.profile_pic_border)
 							.error(R.drawable.profile_pic_border)
 							.transform(new PicassoCircularTransform())
 							.into(ivUserIcon);

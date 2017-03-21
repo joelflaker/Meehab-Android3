@@ -157,6 +157,11 @@ public class MyProfileFragment extends Fragment implements
 	private void resetUserInfo() {
 		if (user != null) {
 
+			Picasso.with(getActivity())
+					.load(R.drawable.img_place_holder)
+					.transform(new PicassoBlurTransform(getActivity(), Consts.IMAGE_BLURR_RADIUS))
+					.into(ivBlurBg);
+
 			if (!TextUtils.isEmpty(user.getImage())) {
 				/*
 				 * profileNetworkImageView.setImageUrl(getString(R.string.url) +
@@ -165,7 +170,7 @@ public class MyProfileFragment extends Fragment implements
 				String userImage = user.getImage();
 
 				Picasso.with(getActivity()).load(userImage)
-						.placeholder(R.drawable.img_place_holder).resize(100, 100)
+						.placeholder(R.drawable.img_place_holder)
 						.error(R.drawable.img_place_holder)
 						.transform(new PicassoCircularTransform())
 						.into(ivUserIcon);
@@ -173,7 +178,6 @@ public class MyProfileFragment extends Fragment implements
 				Picasso.with(getActivity())
 						.load(userImage)
 						.placeholder(R.drawable.img_place_holder)
-						// .resize(300, 200)
 						.error(R.drawable.img_place_holder)
 						.transform(new PicassoBlurTransform(getActivity(), Consts.IMAGE_BLURR_RADIUS))
 						.into(ivBlurBg);

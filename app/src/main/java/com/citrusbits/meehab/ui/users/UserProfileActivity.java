@@ -175,7 +175,12 @@ public class UserProfileActivity extends SocketActivity implements
 	private void resetUserInfo() {
 		if (user != null) {
 
-
+			Picasso.with(this)
+					.load(R.drawable.img_place_holder)
+					.transform(
+							new PicassoBlurTransform(
+									UserProfileActivity.this, Consts.IMAGE_BLURR_RADIUS))
+					.into(ivBlurBg);
 
 			if (!TextUtils.isEmpty(user.getImage())) {
 				/*

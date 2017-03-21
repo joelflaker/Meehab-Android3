@@ -112,9 +112,10 @@ public class MeetingAdditionActivity extends SocketActivity implements
 	private View viewFocusHacker;
 	private List<String> selectedDays = new ArrayList<>();
 	private boolean isGoogleConnected;
+    private String mAddress;
 
 
-	@Override
+    @Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		this.mContext = this;
@@ -407,10 +408,21 @@ public class MeetingAdditionActivity extends SocketActivity implements
 				attributions = "";
 			}
 
+			if(name != null){
+                etAddress.setText(name);
+            }else if (address != null) {
+                String s = address.toString();
+                if(s.contains(",")) {
+                    etAddress.setText(s.substring(0, s.indexOf(',')));
+                }
+            }
+
 			if(TextUtils.isEmpty(address)){
 				address = "Pin point location";
-			}else {
-				if(place != null && !TextUtils.isEmpty(place.getId())) {
+                etAddress.setText(address);
+            }else {
+                this.mAddress = address.toString();
+                if(place != null && !TextUtils.isEmpty(place.getId())) {
 
 					Geocoder geocoder = new Geocoder(getApplicationContext(), Locale.getDefault());
 					List<Address> addresses;
@@ -435,6 +447,19 @@ public class MeetingAdditionActivity extends SocketActivity implements
 								ZIP = addresses.get(0).getPostalCode();
 								Log.d("ZIP", ZIP);
 								etZipcode.setText(ZIP);
+							}
+//							String streetAddress = addresses.get(0).getThoroughfare();
+//							if (streetAddress != null) {
+//								Log.d("streetAddress", streetAddress);
+//								etAddress.setText(streetAddress);
+//							}else {
+//								String s = address.toString();
+//								etAddress.setText(s.substring(0, s.indexOf(',')));
+//							}
+							if (addresses.get(0).getPostalCode() != null) {
+								ZIP = addresses.get(0).getPostalCode();
+								Log.d("ZIP", ZIP);
+								etZipcode.setText(ZIP);
 
 							}
 
@@ -454,6 +479,8 @@ public class MeetingAdditionActivity extends SocketActivity implements
 								Log.d("country", country);
 							}
 
+						}else {
+							etAddress.setText(address);
 						}
 
 					} catch (IOException e) {
@@ -461,10 +488,6 @@ public class MeetingAdditionActivity extends SocketActivity implements
 					}
 				}
 			}
-
-//	        mViewName.setText(name);
-			etAddress.setText(address);
-//	        mViewAttributions.setText(Html.fromHtml(attributions));
 
 		} else {
 			super.onActivityResult(requestCode, resultCode, data);
@@ -482,7 +505,7 @@ public class MeetingAdditionActivity extends SocketActivity implements
 		String meetingName = etMeetingName.getText().toString().trim();
 		String meetingDay = tvMeetingDay.getText().toString().trim();
 		String meetingTime = tvMeetingTime.getText().toString().trim();
-		String address = etAddress.getText().toString().trim();
+		String address = mAddress == null ? "": mAddress;
 		String meetingCity = etCity.getText().toString().trim();
 		String zipCode = etZipcode.getText().toString().trim();
 		String typeOfMeeting = tvTypeOfMeeting.getText().toString().trim();

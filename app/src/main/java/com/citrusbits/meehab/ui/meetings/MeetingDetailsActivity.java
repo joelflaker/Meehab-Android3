@@ -100,6 +100,7 @@ public class MeetingDetailsActivity extends SocketActivity implements
 		OnSocketResponseListener, OnClickListener, OnMapClickListener, AdapterView.OnItemClickListener {
 
 	public static final int CODE_FULL_SCREEN = 5;
+	private static final int REQUEST_RSVP_FRIENDS = 123;
 
 	private MeetingModel meeting;
 	private LinearLayout reviewsContainer;
@@ -839,6 +840,9 @@ public class MeetingDetailsActivity extends SocketActivity implements
 	@Override
 	protected void onActivityResult(int arg0, int arg1, Intent arg2) {
 		super.onActivityResult(arg0, arg1, arg2);
+		if(arg0 == REQUEST_RSVP_FRIENDS){
+			socketService.getMeetingById(""+meeting.getId());
+		}
 		if (arg1 == RESULT_OK && arg0 == CODE_FULL_SCREEN) {
 			meeting = (MeetingModel) arg2
 					.getSerializableExtra(FullScreenMapActivity.EXTRA_MEETING);
@@ -846,6 +850,7 @@ public class MeetingDetailsActivity extends SocketActivity implements
 					: R.drawable.star_white);
 		}
 	}
+
 
 	String calendarUri;
 	private boolean rsvp;
@@ -872,7 +877,7 @@ public class MeetingDetailsActivity extends SocketActivity implements
 			}*/
 			Intent rsvpIntent = new Intent(this, RsvpActivity.class);
 			rsvpIntent.putExtra(RsvpActivity.EXTRA_MEETING_ID, meeting.getId());
-			startActivity(rsvpIntent);
+			startActivityForResult(rsvpIntent,REQUEST_RSVP_FRIENDS);
 			overridePendingTransition(R.anim.activity_in, R.anim.activity_out);
 
 			break;
@@ -1262,7 +1267,13 @@ public class MeetingDetailsActivity extends SocketActivity implements
 	@Override
 	public void onSocketResponseSuccess(String event, Object obj) {
 		pd.dismiss();
-		if(EventParams.METHOD_USER_BY_ID.equals(event)){
+		if (event.equals(EventParams.METHOD_MEETING_BY_ID)) {
+			JSONObject data = ((JSONObject) obj);
+			MeetingModel m = new Gson().fromJson(data.optJSONObject("meeting").toString(), MeetingModel.class);
+			meeting.setRsvpCount(m.getRsvpCount());
+			updateUi();
+		}else
+			if(EventParams.METHOD_USER_BY_ID.equals(event)){
 			pd.dismiss();
 			JSONObject data = (JSONObject) obj;
 
