@@ -174,7 +174,8 @@ public class MeetingsFilterActivity extends SocketActivity implements
 		switch (v.getId()) {
 			case R.id.btnCancel:
 				editZipCode.setText("");
-				//break is intentional ignored
+				UtilityClass.hideSoftKeyboard(getCurrentFocus());
+				break;
 			case R.id.btnDone:
 				UtilityClass.hideSoftKeyboard(getCurrentFocus());
 				break;
@@ -216,6 +217,7 @@ public class MeetingsFilterActivity extends SocketActivity implements
 				break;
 			case R.id.btnZipCode:
 				editZipCode.requestFocus();
+				UtilityClass.showSoftKeyboard(getCurrentFocus());
 				break;
 			case R.id.btnDistance:
 				// presentDistancePicker();

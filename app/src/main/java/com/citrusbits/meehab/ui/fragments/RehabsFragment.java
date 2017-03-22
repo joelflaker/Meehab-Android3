@@ -389,7 +389,7 @@ public class RehabsFragment extends Fragment implements
 		}
 
 		CameraUpdate update = CameraUpdateFactory.newLatLngZoom(new LatLng(
-				myLocation.getLatitude(), myLocation.getLongitude()), 8);
+				myLocation.getLatitude(), myLocation.getLongitude()), Consts.MAP_ZOOM);
 
 		if (animate) {
 			map.animateCamera(update);

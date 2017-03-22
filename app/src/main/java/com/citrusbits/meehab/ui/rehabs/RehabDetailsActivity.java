@@ -78,7 +78,7 @@ OnSocketResponseListener, OnClickListener, OnMapClickListener {
 
 	private Dialog pd;
 	protected GoogleMap map;
-	protected float defaultZoom = 10;
+	protected float defaultZoom = 12;
 
 	UserDatasource userDatasource;
 	UserAccount user;
@@ -487,20 +487,28 @@ OnSocketResponseListener, OnClickListener, OnMapClickListener {
 		
 		if(payments.size() > 0){
 			textPayments.append("We accept ");
+			for (int i = 0; i < payments.size(); i++){
+				String payment = payments.get(i);
+				textPayments.append(payment);
+
+				if(i < payments.size() - 2) {
+					textPayments.append(", ");
+				}else if (i == payments.size() - 2) {
+					if(payments.size() != 5){
+						textPayments.append(" and ");
+					}else {
+						textPayments.append(", ");
+					}
+				}
+			}
 		}
-		
-		for (int i = 0; i < payments.size(); i++){
-			String payment = payments.get(i);
-			textPayments.append(payment);
-			
-			if(i + 1 != payments.size())
-			textPayments.append(", ");
-		}
-		
+
+
 		if(payments.size() == 5){
-			textPayments.append(" and all major credit cards.");
+			textPayments.append(" and all major credit cards");
 		}
-		
+		textPayments.append(".");
+
 		tvPayments.setText(textPayments.toString());
 		
 	}

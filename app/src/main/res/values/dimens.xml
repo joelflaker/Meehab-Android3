@@ -8,6 +8,7 @@
     
     <dimen name="photo_grid_size">95dp</dimen>
     <dimen name="user_photo_size">100dp</dimen>
+    <dimen name="review_image_size">45dp</dimen>
 
     <dimen name="dp2">2dp</dimen>
     
@@ -24,7 +25,6 @@
     
     <dimen name="fs_rehab_name_normal" >18sp</dimen>
     <dimen name="fs_rehab_name_full" >26sp</dimen>
-    <dimen name="review_image_size" >50dp</dimen>
 
     
 </resources>

@@ -75,14 +75,14 @@ public class RehabsFilterActivity extends SocketActivity implements
 
 		findViewById(R.id.btnOpenNow).setOnClickListener(this);
 		tglOpenNow = (CheckBox)findViewById(R.id.tglOpenNow);
-		
+
 		btnZipCode = (Button) findViewById(R.id.btnZipCode);
 		editZipCode = (EditText) findViewById(R.id.editZipCode);
 		btnDistance = (Button) findViewById(R.id.btnDistance);
 		txtDistance = (TextView) findViewById(R.id.txtDistance);
 
 		expListFilter = (ExpandableListView) findViewById(R.id.expListFilter);
-		
+
 		findViewById(R.id.ibClear).setOnClickListener(this);
 
 		findViewById(R.id.btnDone).setOnClickListener(this);
@@ -160,14 +160,14 @@ public class RehabsFilterActivity extends SocketActivity implements
 	}
 
 	private void presetFilter() {
-		
+
 		//open now?
 		if (filterModel.isOpenNow()) {
 			tglOpenNow.setChecked(true);
 		}else{
 			tglOpenNow.setChecked(false);
 		}
-		
+
 		//types
 		List<ExpChild> types = categories.get(0)
 				.getChildren();
@@ -195,7 +195,7 @@ public class RehabsFilterActivity extends SocketActivity implements
 //			filterModel.setanyInsuranceAccepted(false);
 //			filterModel.addInsuranceAccepted(name);
 //		}
-		
+
 		//insurance
 		List<ExpChild> insurances = categories.get(1)
 				.getChildren();
@@ -215,7 +215,7 @@ public class RehabsFilterActivity extends SocketActivity implements
 		}
 		//ZIP
 		editZipCode.setText(filterModel.getZipCode());
-		
+
 		//distance
 		if(filterModel.isAnyDistance()){
 			txtDistance.setText("Any");
@@ -248,7 +248,7 @@ public class RehabsFilterActivity extends SocketActivity implements
 
 			filterModel = mAdapter.getFilterResultHolder();
 			filterModel.apply(true);
-			
+
 			filterModel.setOpenNow(tglOpenNow.isChecked());
 			String zipCode = editZipCode.getText().toString().trim();
 			if (zipCode.isEmpty()) {
@@ -282,7 +282,8 @@ public class RehabsFilterActivity extends SocketActivity implements
 			break;
 		case R.id.btnZipCode:
 			editZipCode.requestFocus();
-			break;
+            UtilityClass.showSoftKeyboard(getCurrentFocus());
+            break;
 		case R.id.btnDistance:
 			presentDistancePicker();
 			break;
@@ -341,7 +342,7 @@ public class RehabsFilterActivity extends SocketActivity implements
 		parent.setValue("Any");
 		String[] rehabFacilityArr = getResources().getStringArray(
 				R.array.rehab_facility_arr);
-		
+
 //		final ExpChild topItem = new ExpChild();
 //		topItem.setName("Select All/Deselect All");
 //		parent.addChild(topItem);
@@ -365,7 +366,7 @@ public class RehabsFilterActivity extends SocketActivity implements
 		final ExpChild topItem1 = new ExpChild();
 		topItem1.setName("Select All/Deselect All");
 		parent2.addChild(topItem1);
-		
+
 		for (String value : insuranceValues) {
 			final ExpChild child = new ExpChild();
 			child.setName(value);

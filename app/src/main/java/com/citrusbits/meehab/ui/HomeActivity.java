@@ -182,7 +182,7 @@ public class HomeActivity extends SocketActivity implements
 				.transform(new PicassoBlurTransform(HomeActivity.this, Consts.IMAGE_BLURR_RADIUS))
 				.into(ivPictureBig);
 
-		ivUserIcon.setImageResource(R.drawable.profile_pic_border);
+		ivUserIcon.setImageResource(R.drawable.img_place_holder);
 		if(!TextUtils.isEmpty(userImage)) {
 
 			Picasso.with(this)
