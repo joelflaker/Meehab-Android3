@@ -223,6 +223,37 @@
             android:src="@drawable/apply_btn_big"
             android:scaleType="centerCrop"
             android:textColor="#000" />
+        <LinearLayout
+            android:id="@+id/inputAccessoryView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:alpha="0"
+            android:visibility="gone"
+            android:layout_alignParentBottom="true"
+            android:background="@android:color/white"
+            android:orientation="horizontal">
+            <ImageButton
+                android:id="@+id/btnDone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:src="@drawable/cancel_btn_small"
+                android:scaleType="centerCrop"
+                android:textColor="#000" />
+            <View
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="1px"/>
+            <ImageButton
+                android:id="@+id/btnCancel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:src="@drawable/done_btn_small"
+                android:scaleType="centerCrop"
+                android:textColor="#000" />
+        </LinearLayout>
     </RelativeLayout>
 
 </LinearLayout>

@@ -169,8 +169,9 @@
         <activity
             android:name=".ui.meetings.MeetingsFilterActivity"
             android:label="@string/app_name"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateAlwaysHidden" >
+            android:windowSoftInputMode="stateVisible|adjustResize|stateAlwaysHidden"
+            android:configChanges="keyboardHidden|screenSize"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".ui.meetings.MeetingDetailsActivity"
@@ -195,13 +196,14 @@
             android:name=".ui.rehabs.RehabsFilterActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateAlwaysHidden" >
+            android:windowSoftInputMode="stateVisible|adjustResize|stateAlwaysHidden"
+            android:configChanges="keyboardHidden|screenSize">
         </activity>
         <activity
             android:name=".ui.users.FriendsFilterActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateAlwaysHidden" >
+            android:windowSoftInputMode="stateHidden|adjustPan|adjustResize" >
         </activity>
         <activity
             android:name=".ui.users.UserProfileActivity"

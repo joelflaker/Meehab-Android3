@@ -19,12 +19,14 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Matrix;
+import android.graphics.Rect;
 import android.graphics.drawable.ColorDrawable;
 import android.location.Location;
 import android.media.MediaMetadataRetriever;
 import android.os.Build;
 import android.util.DisplayMetrics;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Spinner;
@@ -435,15 +437,69 @@ public class UtilityClass {
             return bitmap;
 	}
 
-	public static void hideSoftKeyboard(Context context, View view){
+	public static void hideSoftKeyboard(View view){
 		if(view == null) return;
-		InputMethodManager imm = (InputMethodManager)context.getSystemService(Context.INPUT_METHOD_SERVICE);
+		InputMethodManager imm = (InputMethodManager)view.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
 		imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
 	}
-	public static void showSoftKeyboard(Context context, View view){
+	public static void showSoftKeyboard(View view){
 		if(view == null) return;
-		InputMethodManager imm = (InputMethodManager)context.getSystemService(Context.INPUT_METHOD_SERVICE);
+		InputMethodManager imm = (InputMethodManager)view.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
 		imm.showSoftInput(view, InputMethodManager.SHOW_IMPLICIT);
+	}
+
+	public static void setKeyboardVisibilityListener(Activity activity, final KeyboardVisibilityListener keyboardVisibilityListener) {
+		final float screenDensity = activity.getResources().getDisplayMetrics().density;
+		final View contentView = activity.findViewById(android.R.id.content);
+		contentView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+			private int mPreviousHeight;
+
+			@Override
+			public void onGlobalLayout() {
+//				Rect r = new Rect();
+//				contentView.getWindowVisibleDisplayFrame(r);
+//				int screenHeight = contentView.getRootView().getHeight();
+//
+//				// r.bottom is the position above soft keypad or device button.
+//				// if keypad is shown, the r.bottom is smaller than that before.
+//				int keypadHeight = screenHeight - r.bottom;
+//
+//				if (keypadHeight > screenHeight * 0.15) { // 0.15 ratio is perhaps enough to determine keypad height.
+//					// keyboard is opened
+//					keyboardVisibilityListener.onKeyboardVisibilityChanged(true);
+//				}
+//				else {
+//					// keyboard is closed
+//					keyboardVisibilityListener.onKeyboardVisibilityChanged(false);
+//				}
+
+
+//				int newHeight = contentView.getHeight();
+//				if (mPreviousHeight != 0) {
+//					if (mPreviousHeight > newHeight) {
+//						// Height decreased: keyboard was shown
+//						keyboardVisibilityListener.onKeyboardVisibilityChanged(true);
+//					} else if (mPreviousHeight < newHeight) {
+//						// Height increased: keyboard was hidden
+//						keyboardVisibilityListener.onKeyboardVisibilityChanged(false);
+//					} else {
+//						// No change
+//					}
+//				}
+//				mPreviousHeight = newHeight;
+
+
+				Rect r = new Rect();
+				//r will be populated with the coordinates of your view that area still visible.
+				contentView.getWindowVisibleDisplayFrame(r);
+
+				int heightDiff = contentView.getRootView().getHeight() - (r.bottom - r.top);
+				float dp = heightDiff/ screenDensity;
+
+				if(keyboardVisibilityListener != null)
+					keyboardVisibilityListener.onKeyboardVisibilityChanged(dp > 200);
+			}
+		});
 	}
 
 	public static Bitmap resize(Bitmap bm, int newHeight, int newWidth) {

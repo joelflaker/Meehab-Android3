@@ -25,6 +25,8 @@ import com.citrusbits.meehab.model.ExpChild;
 import com.citrusbits.meehab.model.RehaabFilterResultHolder;
 import com.citrusbits.meehab.services.OnSocketResponseListener;
 import com.citrusbits.meehab.ui.SocketActivity;
+import com.citrusbits.meehab.utils.KeyboardVisibilityListener;
+import com.citrusbits.meehab.utils.UtilityClass;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -47,8 +49,10 @@ public class RehabsFilterActivity extends SocketActivity implements
 	private CheckBox tglOpenNow;
 	private boolean isFilterCleared;
 	private RehaabFilterResultHolder preFilterModel;
+	private View inputAccessoryView;
+    private View btnApply;
 
-	@Override
+    @Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		// requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -66,7 +70,8 @@ public class RehabsFilterActivity extends SocketActivity implements
 					}
 				});
 
-		findViewById(R.id.ibApply).setOnClickListener(this);
+        btnApply = findViewById(R.id.ibApply);
+        btnApply.setOnClickListener(this);
 
 		findViewById(R.id.btnOpenNow).setOnClickListener(this);
 		tglOpenNow = (CheckBox)findViewById(R.id.tglOpenNow);
@@ -79,6 +84,24 @@ public class RehabsFilterActivity extends SocketActivity implements
 		expListFilter = (ExpandableListView) findViewById(R.id.expListFilter);
 		
 		findViewById(R.id.ibClear).setOnClickListener(this);
+
+		findViewById(R.id.btnDone).setOnClickListener(this);
+		findViewById(R.id.btnCancel).setOnClickListener(this);
+		inputAccessoryView =  findViewById(R.id.inputAccessoryView);
+		UtilityClass.setKeyboardVisibilityListener(this, new KeyboardVisibilityListener() {
+			@Override
+			public void onKeyboardVisibilityChanged(boolean keyboardVisible) {
+				if(keyboardVisible){
+                    btnApply.setVisibility(View.GONE);
+                    inputAccessoryView.setVisibility(View.VISIBLE);
+                    inputAccessoryView.animate().alpha(1).setDuration(100).start();
+                }else {
+                    btnApply.setVisibility(View.VISIBLE);
+                    inputAccessoryView.setVisibility(View.GONE);
+                    inputAccessoryView.setAlpha(0);
+                }
+			}
+		});
 
 		btnZipCode.setOnClickListener(this);
 		btnDistance.setOnClickListener(this);
@@ -211,6 +234,12 @@ public class RehabsFilterActivity extends SocketActivity implements
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
+			case R.id.btnCancel:
+				editZipCode.setText("");
+				//break is intentional ignored
+			case R.id.btnDone:
+				UtilityClass.hideSoftKeyboard(getCurrentFocus());
+				break;
 		case R.id.btnMyFavorite:
 			tglOpenNow.setChecked(!tglOpenNow.isChecked());
 			break;

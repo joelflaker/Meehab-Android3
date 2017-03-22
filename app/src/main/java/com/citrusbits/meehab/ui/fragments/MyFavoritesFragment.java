@@ -231,7 +231,7 @@ public class MyFavoritesFragment extends Fragment implements
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                    UtilityClass.hideSoftKeyboard(getContext(),getActivity().getCurrentFocus());
+                    UtilityClass.hideSoftKeyboard(getActivity().getCurrentFocus());
                 }
                 return false;
             }
@@ -670,7 +670,7 @@ public class MyFavoritesFragment extends Fragment implements
 			break;
 			case R.id.textViewCross:
 				editTopCenter.setText("");
-				UtilityClass.hideSoftKeyboard(getContext(), editTopCenter);
+				UtilityClass.hideSoftKeyboard(editTopCenter);
 				break;
 		default:
 			break;
@@ -689,9 +689,9 @@ public class MyFavoritesFragment extends Fragment implements
 			editTopCenter.setKeyListener((KeyListener) editTopCenter.getTag());
 			editTopCenter.requestFocus();
 
-			UtilityClass.showSoftKeyboard(getContext(), editTopCenter);
+			UtilityClass.showSoftKeyboard(editTopCenter);
 		}else {
-			UtilityClass.hideSoftKeyboard(getContext(), editTopCenter);
+			UtilityClass.hideSoftKeyboard(editTopCenter);
 			ibEdit.setImageResource(preIbEditImage == 0 ? R.drawable.edit_btn : preIbEditImage);
 
 			editTopCenter.setText("");

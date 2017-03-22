@@ -46,6 +46,7 @@ public class FriendsFilterActivity extends Activity implements OnClickListener {
 		updateUi();
 
 		//record current filter
+		previousCategoies.clear();
 		previousCategoies.addAll(cacheCategories);
 	}
 
@@ -53,6 +54,7 @@ public class FriendsFilterActivity extends Activity implements OnClickListener {
 		if (cacheCategories.isEmpty()) {
 			categories = buildDefaultData();
 		} else {
+			categories.clear();
 			categories.addAll(cacheCategories);
 		}
 
@@ -225,6 +227,7 @@ public class FriendsFilterActivity extends Activity implements OnClickListener {
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.ibCancel:
+			cacheCategories.clear();
 			cacheCategories.addAll(previousCategoies);
 			finish();
 			break;
@@ -235,7 +238,7 @@ public class FriendsFilterActivity extends Activity implements OnClickListener {
 			FriendFilterResultHolder fFilterResultHolder = mAdapter
 					.getFilterResultHolder();
 			fFilterResultHolder.setOnlineNow(mAdapter.isOnline());
-			
+
 
 			fFilterResultHolder.setWillingToSponsor(mAdapter
 					.isWillingtoSponosr());

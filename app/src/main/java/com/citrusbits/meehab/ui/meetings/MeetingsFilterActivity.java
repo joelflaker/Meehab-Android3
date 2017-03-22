@@ -3,6 +3,7 @@ package com.citrusbits.meehab.ui.meetings;
 import java.util.ArrayList;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -12,6 +13,7 @@ import android.widget.EditText;
 import android.widget.ExpandableListView;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.citrusbits.meehab.R;
 import com.citrusbits.meehab.adapters.FilterExpondableAdapter;
@@ -20,8 +22,9 @@ import com.citrusbits.meehab.ui.dialog.DistancePickerDialog.DistancePickerDialog
 import com.citrusbits.meehab.ui.fragments.FilterResultHolder;
 import com.citrusbits.meehab.model.ExpCategory;
 import com.citrusbits.meehab.model.ExpChild;
-import com.citrusbits.meehab.model.MeetingFilterModel;
 import com.citrusbits.meehab.ui.SocketActivity;
+import com.citrusbits.meehab.utils.KeyboardVisibilityListener;
+import com.citrusbits.meehab.utils.UtilityClass;
 
 public class MeetingsFilterActivity extends SocketActivity implements
 		OnClickListener {
@@ -53,6 +56,8 @@ public class MeetingsFilterActivity extends SocketActivity implements
 	private int mPreRating;
 	private String mPreZipcode;
 	private boolean mPreFavorite;
+	private View inputAccessoryView;
+	private View btnApply;
 
 	// private ArrayList<Parent> parents;
 
@@ -69,6 +74,7 @@ public class MeetingsFilterActivity extends SocketActivity implements
 				new View.OnClickListener() {
 					@Override
 					public void onClick(View v) {
+						cacheCategories.clear();
 						cacheCategories.addAll(previousCategoies);
 						mDistance = mPreDistance;
 						mRating = mPreRating;
@@ -82,7 +88,9 @@ public class MeetingsFilterActivity extends SocketActivity implements
 
 		findViewById(R.id.ibClear).setOnClickListener(this);
 
-		findViewById(R.id.btnApply).setOnClickListener(this);
+		btnApply = findViewById(R.id.btnApply);
+		btnApply.setOnClickListener(this);
+
 
 		btnMyFavorite = (Button) findViewById(R.id.btnMyFavorite);
 		tglMyFavorite = (CheckBox) findViewById(R.id.tglMyFavorite);
@@ -90,6 +98,7 @@ public class MeetingsFilterActivity extends SocketActivity implements
 		editZipCode = (EditText) findViewById(R.id.editZipCode);
 		btnDistance = (Button) findViewById(R.id.btnDistance);
 		txtDistance = (TextView) findViewById(R.id.txtDistance);
+
 //		btnRating = (Button) findViewById(R.id.btnRating);
 //		txtRating = (TextView) findViewById(R.id.txtRating);
 		rating = (RatingBar) findViewById(R.id.rating);
@@ -98,16 +107,36 @@ public class MeetingsFilterActivity extends SocketActivity implements
 		btnMyFavorite.setOnClickListener(this);
 		btnZipCode.setOnClickListener(this);
 		btnDistance.setOnClickListener(this);
-//		btnRating.setOnClickListener(this);
+
+		findViewById(R.id.btnDone).setOnClickListener(this);
+		findViewById(R.id.btnCancel).setOnClickListener(this);
+		inputAccessoryView =  findViewById(R.id.inputAccessoryView);
+		UtilityClass.setKeyboardVisibilityListener(this, new KeyboardVisibilityListener() {
+			@Override
+			public void onKeyboardVisibilityChanged(boolean keyboardVisible) {
+				if(keyboardVisible){
+					btnApply.setVisibility(View.GONE);
+					inputAccessoryView.setVisibility(View.VISIBLE);
+					inputAccessoryView.animate().alpha(1).setDuration(100).start();
+				}else {
+					btnApply.setVisibility(View.VISIBLE);
+					inputAccessoryView.setVisibility(View.GONE);
+					inputAccessoryView.setAlpha(0);
+
+				}
+			}
+		});
 
 		if (cacheCategories.isEmpty()) {
 			categories = buildDefaultFilter();
 		} else {
+			categories.clear();
 			categories.addAll(cacheCategories);
 		}
 		updateUI();
 
 		//record current filter
+		previousCategoies.clear();
 		previousCategoies.addAll(categories);
 		mPreDistance = mDistance;
 		mPreRating = mRating;
@@ -143,64 +172,70 @@ public class MeetingsFilterActivity extends SocketActivity implements
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
-		case R.id.btnApply:
+			case R.id.btnCancel:
+				editZipCode.setText("");
+				//break is intentional ignored
+			case R.id.btnDone:
+				UtilityClass.hideSoftKeyboard(getCurrentFocus());
+				break;
+			case R.id.btnApply:
 
-			FilterResultHolder resultHolder = mAdapter.getFilterResultHolder();
-			cacheCategories.clear();
-			cacheCategories.addAll(categories);
-			resultHolder = appendFilter(resultHolder);
+				FilterResultHolder resultHolder = mAdapter.getFilterResultHolder();
+				cacheCategories.clear();
+				cacheCategories.addAll(categories);
+				resultHolder = appendFilter(resultHolder);
 
-			//this will clear filter
-			if(/*isFilterCleared || */!isThereAnyFilter(resultHolder)){
-				onBackPressed();
-				return;
-			}
+				//this will clear filter
+				if(/*isFilterCleared || */!isThereAnyFilter(resultHolder)){
+					onBackPressed();
+					return;
+				}
 
-			getIntent().putExtra(MEETING_FILTER, resultHolder);
-			setResult(RESULT_OK, getIntent());
-			finish();
-			break;
-		case R.id.ibClear:
-			cacheCategories.clear();
-			mDistance = "";
-			mRating = 0;
-			mZipcode = "";
-			mFavorite = false;
+				getIntent().putExtra(MEETING_FILTER, resultHolder);
+				setResult(RESULT_OK, getIntent());
+				finish();
+				break;
+			case R.id.ibClear:
+				cacheCategories.clear();
+				mDistance = "";
+				mRating = 0;
+				mZipcode = "";
+				mFavorite = false;
 
-			applyClear();
-			categories = buildDefaultFilter();
-			FilterResultHolder defaultFilter = new FilterResultHolder();
-			getIntent().putExtra(MEETING_FILTER, defaultFilter);
-			isFilterCleared = true;
-			mAdapter.setFilterResultHolder(defaultFilter);
-			updateUI();
-			mAdapter.notifyDataSetChanged();
-			break;
-		case R.id.btnMyFavorite:
-			tglMyFavorite.setChecked(!tglMyFavorite.isChecked());
-			break;
-		case R.id.btnZipCode:
-			editZipCode.requestFocus();
-			break;
-		case R.id.btnDistance:
-			// presentDistancePicker();
-			String distance = txtDistance.getText().toString().trim();
-			new DistancePickerDialog(this).setDistancePickerListener(
-					new DistancePickerDialogListener() {
+				applyClear();
+				categories = buildDefaultFilter();
+				FilterResultHolder defaultFilter = new FilterResultHolder();
+				getIntent().putExtra(MEETING_FILTER, defaultFilter);
+				isFilterCleared = true;
+				mAdapter.setFilterResultHolder(defaultFilter);
+				updateUI();
+				mAdapter.notifyDataSetChanged();
+				break;
+			case R.id.btnMyFavorite:
+				tglMyFavorite.setChecked(!tglMyFavorite.isChecked());
+				break;
+			case R.id.btnZipCode:
+				editZipCode.requestFocus();
+				break;
+			case R.id.btnDistance:
+				// presentDistancePicker();
+				String distance = txtDistance.getText().toString().trim();
+				new DistancePickerDialog(this).setDistancePickerListener(
+						new DistancePickerDialogListener() {
 
-						@Override
-						public void onDoneClick(DistancePickerDialog dialog,
-								String distanceSelected) {
-							dialog.dismiss();
-							txtDistance.setText(distanceSelected);
-						}
+							@Override
+							public void onDoneClick(DistancePickerDialog dialog,
+													String distanceSelected) {
+								dialog.dismiss();
+								txtDistance.setText(distanceSelected);
+							}
 
-						@Override
-						public void onCancelClick(DistancePickerDialog dialog) {
-							dialog.dismiss();
-						}
-					}, distance).show();
-			break;
+							@Override
+							public void onCancelClick(DistancePickerDialog dialog) {
+								dialog.dismiss();
+							}
+						}, distance).show();
+				break;
 //		case R.id.btnRating:
 //			// presentRatingPicker();
 //			String rating = txtRating.getText().toString().trim();
@@ -221,8 +256,8 @@ public class MeetingsFilterActivity extends SocketActivity implements
 //					}, rating).show();
 //			break;
 
-		default:
-			break;
+			default:
+				break;
 		}
 	}
 

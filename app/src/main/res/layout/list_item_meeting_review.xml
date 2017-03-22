@@ -74,15 +74,14 @@
                             android:layout_alignParentRight="true"
                             android:gravity="center_vertical"
                             android:orientation="horizontal"
-                            android:paddingLeft="8dp"
-                            android:paddingRight="8dp" >
+                            android:paddingLeft="4dp" >
 
                             <TextView
                                 android:id="@+id/tvMeetingName"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Meeting Name"
-                                android:padding="3dp"
+                                android:padding="2dp"
                                 android:textColor="@color/light_blue"
                                 android:textSize="12sp" />
 

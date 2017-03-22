@@ -278,7 +278,7 @@ public class MeetingsFragment extends Fragment implements
 			@Override
 			public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
 				if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-					UtilityClass.hideSoftKeyboard(getContext(),getActivity().getCurrentFocus());
+					UtilityClass.hideSoftKeyboard(getActivity().getCurrentFocus());
 				}
 				return false;
 			}
@@ -652,12 +652,12 @@ public class MeetingsFragment extends Fragment implements
 			editTopCenter.requestFocus();
 
 			topRightBtn.setText("Cancel");
-			UtilityClass.showSoftKeyboard(getContext(), editTopCenter);
+			UtilityClass.showSoftKeyboard(editTopCenter);
 
 			emptyList.setPadding(0,0,0,getActivity().getResources().getDimensionPixelSize(R.dimen.softkeyboard_height));
 		}else {
 			emptyList.setPadding(0,0,0,0);
-			UtilityClass.hideSoftKeyboard(getContext(), editTopCenter);
+			UtilityClass.hideSoftKeyboard(editTopCenter);
 			topRightBtn.setText(R.string.filter);
 
 			editTopCenter.setText("");
