@@ -246,6 +246,7 @@ public class MeetingsFragment extends Fragment implements
 				return false;
 			}
 		});*/
+		setSearchEditing(false);
 		editTopCenter.addTextChangedListener(new TextWatcher() {
 
 			@Override
@@ -324,8 +325,6 @@ public class MeetingsFragment extends Fragment implements
 			}
 
 		}
-
-		setSearchEditing(false);
 
 		onBackendConnected();
 
@@ -624,9 +623,7 @@ public class MeetingsFragment extends Fragment implements
 						R.anim.activity_back_out);
 				break;
 			case R.id.btnList:
-
 				switchList();
-
 				break;
 			case R.id.btnFindMe:
 				if (list.getVisibility() == View.VISIBLE) {

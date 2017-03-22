@@ -128,6 +128,7 @@ public class FriendsFragment extends Fragment implements
 		ivListBar = (ImageView) v.findViewById(R.id.ivListBar);
 
 		editTopCenter = (EditText) v.findViewById(R.id.editTopCenter);
+		setSearchEditing(false);
 		editTopCenter.addTextChangedListener(new TextWatcher() {
 
 			@Override
@@ -245,10 +246,7 @@ public class FriendsFragment extends Fragment implements
 			}
 		});
 
-		setSearchEditing(false);
-
 		getFriends();
-
 		return v;
 	}
 

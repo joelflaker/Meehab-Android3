@@ -28,6 +28,7 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
 import com.google.android.gms.maps.model.LatLng;
+import com.instabug.library.Instabug;
 
 public class MeehabApp extends Application {
 	

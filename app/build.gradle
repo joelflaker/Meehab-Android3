@@ -2,12 +2,12 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 23
-    buildToolsVersion '25.0.0'
+    buildToolsVersion '25.0.2'
 
     defaultConfig {
         applicationId "com.citrusbits.meehab"
-        versionCode = 10
-        versionName = "v1 build 20"
+        versionCode = 11
+        versionName = "v1 build 21"
         minSdkVersion 16
         targetSdkVersion 21
 //        multiDexEnabled = true

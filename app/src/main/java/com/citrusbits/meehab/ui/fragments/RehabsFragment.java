@@ -214,6 +214,7 @@ public class RehabsFragment extends Fragment implements
 		btnFindMe = (ImageButton) v.findViewById(R.id.btnFindMe);
 		editTopCenter = (EditText) v.findViewById(R.id.editTopCenter);
 
+		setSearchEditing(false);
 		editTopCenter.addTextChangedListener(new TextWatcher() {
 
 			@Override
@@ -289,9 +290,7 @@ public class RehabsFragment extends Fragment implements
 
 		}
 
-		setSearchEditing(false);
 		onBackendConnected();
-
 		return v;
 	}
 
