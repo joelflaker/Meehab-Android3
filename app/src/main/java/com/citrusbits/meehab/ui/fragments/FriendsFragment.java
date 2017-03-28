@@ -904,6 +904,7 @@ public class FriendsFragment extends Fragment implements
 		if (event.equals(EventParams.METHOD_GET_ALL_FRIENDS)) {
 			isFriendsFetched = true;
 			userAccounts.clear();
+			userAccountsCache.clear();
 			Gson gson = new Gson();
 			JSONObject data = (JSONObject) obj;
 			Log.e("All Friends data is ", obj.toString());

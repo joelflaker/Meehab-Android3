@@ -72,8 +72,9 @@ public class HomeActivity extends SocketActivity implements
 	public static final String ACTION_LOGOUT = "com.citrusbits.meehab.logout";
 	public static final String ACTION_PROFILE_UPDATE = "com.citrusbits.meehab.profile_updated";
 	private static final String CURRENT_FRAGMENT_TAG = "currentFragment";
+	public static final String EXTRA_FRAGMENT_POSITION = "fragment_position";
 
-	DrawerLayout drawer;
+    DrawerLayout drawer;
 	ListView navList;
 
 	private boolean isDrawerOpen = false;
@@ -97,10 +98,11 @@ public class HomeActivity extends SocketActivity implements
 		filter.addAction(ACTION_PROFILE_UPDATE);
 		this.registerReceiver(receiver, filter);
 		userDatasource = new UserDatasource(HomeActivity.this);
-		mUser = userDatasource.findUser(AccountUtils.getUserId(this));
 
 		FacebookSdk.sdkInitialize(this.getApplicationContext());
+
 		setContentView(R.layout.activity_home);
+
 		ivUserIcon = (ImageView) findViewById(R.id.ivUserIcon);
 		ivPictureBig = (ImageView) findViewById(R.id.ivPictureBig);
 		// drawer
@@ -135,40 +137,30 @@ public class HomeActivity extends SocketActivity implements
 				navDrawerItems);
 		navList.setAdapter(adapter);
 
+		initUser();
+
 		// default fragment
 		Bundle extra = getIntent().getExtras();
 		if (extra != null) {
-			if (extra.containsKey(TwoOptionActivity.M_DEFAULT_FRAGMENT) && extra.getString(TwoOptionActivity.M_DEFAULT_FRAGMENT).equals(
-					"friends")) {
-				// mCurrentFragment = new FriendsFragment();
-			//	displayFragment(4);
-				mCurrentFragment = new FriendsFragment();
-			} else if (extra.containsKey(ChatActivity.KEY_PUSH_CHAT)){
-				
-				mCurrentFragment = new MessagesFragment();
-//				((MessagesFragment)mCurrentFragment).setPushExtra(extra);
-			}else{
-				mCurrentFragment = new MeetingsFragment();
-//				mCurrentFragment = new RehabsFragment();
-//				mCurrentFragment = new MyFavoritesFragment(this);
-				//displayFragment(3);
-			}
+			//default 3 is for meetings
+			int fragmentPosition = extra.getInt(HomeActivity.EXTRA_FRAGMENT_POSITION,0);
+			displayFragment(fragmentPosition);
 		} else {
-			mCurrentFragment = new MyProfileFragment();
+			displayFragment(0);
 		}
 		
 		getSupportFragmentManager().beginTransaction()
 				.replace(R.id.container, mCurrentFragment).commit();
-		initUser();
 
 		registerReceiver(receiver,
 				new IntentFilter(ACTION_MESSAGE_COUNT_UPDATE));
 
 	}
 
-
 	public void initUser() {
-		
+
+		mUser = userDatasource.findUser(AccountUtils.getUserId(this));
+
 		if(mUser == null) return;
 
 		final String userImage = mUser.getImage();
@@ -254,8 +246,16 @@ public class HomeActivity extends SocketActivity implements
 	protected void onNewIntent(Intent intent) {
 		super.onNewIntent(intent);
 		changeDrawerVisibility(false);
-		mCurrentFragment = new RehabsFragment();
-		switchFragment(mCurrentFragment);
+//		Bundle extra = intent.getExtras();
+//		if (extra != null) {
+//			//default 3 is for meetings
+//			int fragmentPosition = extra.getInt(HomeActivity.EXTRA_FRAGMENT_POSITION,0);
+//			displayFragment(fragmentPosition);
+//		} else {
+//			displayFragment(0);
+//		}
+
+		initUser();
 	}
 
 	/**
@@ -431,12 +431,6 @@ public class HomeActivity extends SocketActivity implements
 			fragment = mCurrentFragment;
 		}
 		fragmentManager.beginTransaction().replace(R.id.container, fragment, CURRENT_FRAGMENT_TAG)
-				.commit();
-	}
-
-	public void switchFragment(Fragment fragment) {
-		android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
-		fragmentManager.beginTransaction().replace(R.id.container, fragment)
 				.commit();
 	}
 

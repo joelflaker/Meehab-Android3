@@ -57,9 +57,9 @@ public class InsuranceActivity extends SocketActivity implements
 		setContentView(R.layout.activity_insurance);
 		pd = UtilityClass.getProgressDialog(this);
 		mode = (InsuranceMode) getIntent().getSerializableExtra(_mode);
-		if (mode == null) {
-			mode = InsuranceMode.ADD;
-		}
+//		if (mode == null) {
+//			mode = InsuranceMode.ADD;
+//		}
 
 		userDatasource = new UserDatasource(this);
 		user = userDatasource.findUser(AccountUtils.getUserId(this));
@@ -244,12 +244,18 @@ public class InsuranceActivity extends SocketActivity implements
 			user.setInsurance(mInsurance);
 			uds.update(user);
 			Toast.makeText(InsuranceActivity.this, "Insurance added successfully!", Toast.LENGTH_SHORT).show();
-//			if(fromOptions){ finish(); return; }
+
+//            if(mode == InsuranceMode.EDIT){ finish(); return; }
+
 			Intent i = new Intent(InsuranceActivity.this, HomeActivity.class);
 			i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
 					| Intent.FLAG_ACTIVITY_NEW_TASK);
+			//9 for options
+			i.putExtra(HomeActivity.EXTRA_FRAGMENT_POSITION,9);
 			startActivity(i);
-			overridePendingTransition(R.anim.activity_in, R.anim.activity_out);
+			overridePendingTransition(R.anim.activity_back_in,
+					R.anim.activity_back_out);
+//			overridePendingTransition(R.anim.activity_in, R.anim.activity_out);
 		}
 	}
 

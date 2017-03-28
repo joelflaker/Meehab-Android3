@@ -186,8 +186,14 @@ public class MyProfileFragment extends Fragment implements
 			usernameText.setText(""+user.getUsername());
 
 			if(!TextUtils.isEmpty(user.getDateOfBirth())){
-				tvAge.setText(""+AgeHelper.calculateAge(user.getDateOfBirth()) + " "+getString(R.string.label_years));
-				getView().findViewById(R.id.tvLine1).setVisibility(View.VISIBLE);
+				int yearsOld = AgeHelper.calculateAge(user.getDateOfBirth());
+				if(yearsOld > 0) {
+					tvAge.setText("" + yearsOld + " " + getString(R.string.label_years));
+					getView().findViewById(R.id.tvLine1).setVisibility(View.VISIBLE);
+				}else {
+					tvAge.setText("");
+					getView().findViewById(R.id.tvLine1).setVisibility(View.GONE);
+				}
 			}else {
 				tvAge.setText("");
 				getView().findViewById(R.id.tvLine1).setVisibility(View.GONE);
@@ -224,7 +230,7 @@ public class MyProfileFragment extends Fragment implements
 			SoberDateText.setText(""+RecoverClockDateUtils.getSoberDifference(
 					user.getSoberSence(), true, getActivity()));
 
-			if (user.getIntrestedIn().isEmpty()){
+			if (TextUtils.isEmpty(user.getIntrestedIn())){
 				interestedInText.setText("Interested in Nothing!");
 			} else if ("both".toString().equalsIgnoreCase(user.getIntrestedIn())) {
 				interestedInText.setText(R.string.dating_and_fellowshiping);
@@ -244,7 +250,7 @@ public class MyProfileFragment extends Fragment implements
 
 			String aaStoryTxt = user.getAboutStory();
 			if (!TextUtils.isEmpty(aaStoryTxt) && aaStoryTxt.length() > 100) {
-				aaStoryText.setText(aaStoryTxt.substring(0, 100).trim());
+				aaStoryText.setText(aaStoryTxt.substring(0, 100).trim()+"...");
 				ibSeeMore.setVisibility(View.VISIBLE);
 			} else {
 				aaStoryText.setText(aaStoryTxt == null? "" : aaStoryTxt.trim());

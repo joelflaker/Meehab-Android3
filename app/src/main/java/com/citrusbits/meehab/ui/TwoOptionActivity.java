@@ -18,8 +18,6 @@ import android.widget.Toast;
 
 public class TwoOptionActivity extends Activity implements OnClickListener {
 
-	public static final String M_DEFAULT_FRAGMENT = "default_fragment";
-
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -32,6 +30,7 @@ public class TwoOptionActivity extends Activity implements OnClickListener {
 		//if null then logout
 		if( user == null || user.getUsername() == null) {
 			new LogoutHelper(this).attemptLogout();
+			return;
 		}
 		TextView tvUserName = (TextView) findViewById(R.id.tvUserName);
 		String userName = user.getUsername();
@@ -101,13 +100,17 @@ public class TwoOptionActivity extends Activity implements OnClickListener {
 		// PopupWindow(tv,LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT);
 		// popupWindow.showAsDropDown(findViewById(R.id.jump2Friends));
 
-		String jump2String = "friends";
+		//5 is for friends
+		int jump2 = 4;
 		if (v.getId() == R.id.ivMeetingsRehab) {
-			jump2String = "meetings";
+			//3 is for meeting
+			jump2 = 3;
 		}
 
 		Intent intent = new Intent(TwoOptionActivity.this, HomeActivity.class);
-		intent.putExtra(M_DEFAULT_FRAGMENT, jump2String);
+		intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
+                | Intent.FLAG_ACTIVITY_NEW_TASK);
+		intent.putExtra(HomeActivity.EXTRA_FRAGMENT_POSITION,jump2);
 		startActivity(intent);
 		overridePendingTransition(R.anim.activity_in, R.anim.activity_out);
 		setResult(RESULT_OK);

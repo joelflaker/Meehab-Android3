@@ -309,6 +309,7 @@
                 android:textColor="@color/text_color_dark_gray"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:drawableRight="@drawable/right_arrow"
                 android:background="@drawable/simple_button_selector"
                 android:gravity="left|center_vertical"
                 android:paddingLeft="@dimen/activity_horizontal_margin"

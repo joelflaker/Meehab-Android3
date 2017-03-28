@@ -346,6 +346,7 @@ public class RsvpActivity extends SocketActivity implements
 			try {
 
 				object.put("meeting_id", meetingId);
+				object.put("type", "unblocked");
 				Log.e("json send ", object.toString());
 
 				socketService.getAllRSVPUsers(object);
@@ -375,8 +376,7 @@ public class RsvpActivity extends SocketActivity implements
 					GetRsvpFriendsResponse.class);
 			List<UserAccount> friends = response.getFriends();
 			for (int i = 0; i < friends.size(); i++) {
-				friends.get(i).setAge(
-						calculateAge(friends.get(i).getDateOfBirth()));
+				friends.get(i).setAge(calculateAge(friends.get(i).getDateOfBirth()));
 			}
 			userAccounts.addAll(friends);
 			userAccountsCache.addAll(friends);

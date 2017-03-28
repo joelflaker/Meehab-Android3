@@ -24,6 +24,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.media.MediaScannerConnection;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.PersistableBundle;
@@ -579,23 +580,29 @@ public class EditMyProfileActivity extends SocketActivity implements
 	}
 
 	private void resetUserInfo() {
+		Picasso.with(this)
+				.load(R.drawable.img_place_holder)
+				.transform(
+						new PicassoBlurTransform(
+								EditMyProfileActivity.this, Consts.IMAGE_BLURR_RADIUS))
+				.into(ivBlurBg);
 		if (mUser != null) {
-
+			
 			// UtilityClass.setDefaultIfNull(mUser);
 			if (!TextUtils.isEmpty(mUser.getImage())) {
 
 				String userImage = mUser.getImage();
 				Picasso.with(EditMyProfileActivity.this).load(userImage)
-						.placeholder(R.drawable.profile_pic_border).resize(100, 100)
-						.error(R.drawable.profile_pic_border)
+						.placeholder(R.drawable.img_place_holder).resize(100, 100)
+						.error(R.drawable.img_place_holder)
 						.transform(new PicassoCircularTransform())
 						.into(profilePic);
 
 				Picasso.with(this)
 						.load(userImage)
-						.placeholder(R.drawable.profile_pic_border)
+						.placeholder(R.drawable.img_place_holder)
 						// .resize(300, 200)
-						.error(R.drawable.profile_pic_border)
+						.error(R.drawable.img_place_holder)
 						.transform(
 								new PicassoBlurTransform(
 										EditMyProfileActivity.this, Consts.IMAGE_BLURR_RADIUS))

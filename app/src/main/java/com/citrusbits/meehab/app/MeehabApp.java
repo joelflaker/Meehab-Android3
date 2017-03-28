@@ -90,10 +90,6 @@ public class MeehabApp extends Application {
 //		Instabug.initialize(this, "2dfe3b005171f96ba7b6151aa82be713")
 //                    .setInvocationEvent(Instabug.IBGInvocationEvent.IBGInvocationEventShake);
 
-	//	UserAccount user = new UserDatasource(this).findUser();
-	//	accountId = (user != null )? user.getId(): -1;
-		// initialize the singleton
-
 		if (Build.VERSION.SDK_INT >= 14) {
 			registerActivityLifecycleCallbacks(new MyLifecycleHandler());
 		}

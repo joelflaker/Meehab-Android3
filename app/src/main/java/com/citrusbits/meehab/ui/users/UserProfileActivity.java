@@ -213,14 +213,20 @@ public class UserProfileActivity extends SocketActivity implements
 			usernameText.setText(user.getUsername());
 			// String ageGenderEtcString = "24";
 
-			tvAge.setText(String.valueOf(user.getAge()) + " YEAR"+(user.getAge() > 1 ? "S" :""));
+//			tvAge.setText(String.valueOf(user.getAge()) + " YEAR"+(user.getAge() > 1 ? "S" :""));
 			tvGender.setText(user.getGender());
 			tvOriendation.setText(user.getSexualOrientation() == null? "" : user.getSexualOrientation());
 			tvMaritalStatus.setText(user.getMaritalStatus() == null? "" : user.getMaritalStatus());
 
 			if(!TextUtils.isEmpty(user.getDateOfBirth())){
-				tvAge.setText(""+ AgeHelper.calculateAge(user.getDateOfBirth()) + " "+getString(R.string.label_years));
-				findViewById(R.id.tvLine1).setVisibility(View.VISIBLE);
+				int yearsOld = AgeHelper.calculateAge(user.getDateOfBirth());
+				if(yearsOld > 0) {
+					tvAge.setText("" + yearsOld + " " + getString(R.string.label_years));
+					findViewById(R.id.tvLine1).setVisibility(View.VISIBLE);
+				}else {
+					tvAge.setText("");
+					findViewById(R.id.tvLine1).setVisibility(View.GONE);
+				}
 			}else {
 				tvAge.setText("");
 				findViewById(R.id.tvLine1).setVisibility(View.GONE);
@@ -246,15 +252,18 @@ public class UserProfileActivity extends SocketActivity implements
 			ethnicityText.setText(user.getEthnicity() == null? "" : user.getEthnicity());
 			occupationText.setText(user.getAccupation() == null? "" : user.getAccupation());
 
-			if ("Choose Not to Answer".toLowerCase().toString()
+			if (TextUtils.isEmpty(user.getIntrestedIn())){
+				interestedInText.setText("Interested in Nothing!");
+			} else if ("both".toLowerCase().toString()
 					.equals(user.getIntrestedIn().toLowerCase())) {
 				interestedInText.setText(R.string.dating_and_fellowshiping);
 			} else {
 				interestedInText.setText(user.getIntrestedIn());
 			}
 			kidsText.setText(user.getHaveKids());
-			// homegroupText.setText(user.getWillingSponsor())
-			homegroupText.setText(user.getMeetingHomeGroup() == null? "" : user.getMeetingHomeGroup());
+
+			homegroupText.setText(TextUtils.isEmpty(user.getMeetingHomeGroup()) ? getString(R.string.label_not_assign) : user.getMeetingHomeGroup());
+
 			aaStoryText.setText(user.getAboutStory() == null? "" : user.getAboutStory());
 
 			String aaStoryTxt = user.getAboutStory();
