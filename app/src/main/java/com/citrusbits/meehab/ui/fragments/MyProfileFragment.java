@@ -250,7 +250,7 @@ public class MyProfileFragment extends Fragment implements
 
 			String aaStoryTxt = user.getAboutStory();
 			if (!TextUtils.isEmpty(aaStoryTxt) && aaStoryTxt.length() > 100) {
-				aaStoryText.setText(aaStoryTxt.substring(0, 100).trim()+"...");
+				aaStoryText.setText(aaStoryTxt.substring(0, 100).trim());
 				ibSeeMore.setVisibility(View.VISIBLE);
 			} else {
 				aaStoryText.setText(aaStoryTxt == null? "" : aaStoryTxt.trim());

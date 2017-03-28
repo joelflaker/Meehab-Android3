@@ -701,7 +701,7 @@ public class UserProfileActivity extends SocketActivity implements
 					getMeetingById("" + myReview.getMeetingId());
 				}
 			});
-			tvDateTime.setText(DateTimeUtils.getDatetimeAdded(
+			tvDateTime.setText(DateTimeUtils.getDatetimeReview(
 					myReview.getDatetimeUpdated(), timeZoneOffest));
 
 			tvComment.setText(myReview.getComment());

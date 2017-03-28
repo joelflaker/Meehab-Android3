@@ -187,7 +187,7 @@ public class VerificationActivity extends SocketActivity implements
 			</SMSMessage>
 			</TwilioResponse>*/
         final int randomNum = (int)(Math.random()*90000)+10000;
-        smsCode= String.format("%05d",randomNum);
+        smsCode= "Please enter verification "+String.format("%05d",randomNum) + " code.";
         Map<String, String> params = new HashMap<String, String>();
         params.put("From", Consts.FromNumber);
         params.put("To", phoneNumber);

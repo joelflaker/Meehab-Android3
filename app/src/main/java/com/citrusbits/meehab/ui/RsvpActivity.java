@@ -370,6 +370,7 @@ public class RsvpActivity extends SocketActivity implements
 		if (event.equals(EventParams.METHOD_RSVP_USERS)) {
 			rsvpFriendsUpdated = true;
 			userAccounts.clear();
+			userAccountsCache.clear();
 			Gson gson = new Gson();
 			JSONObject data = (JSONObject) obj;
 			GetRsvpFriendsResponse response = gson.fromJson(data.toString(),
