@@ -58,6 +58,7 @@ import com.citrusbits.meehab.utils.MeetingUtils;
 import com.citrusbits.meehab.utils.NetworkUtil;
 import com.citrusbits.meehab.utils.NetworkUtils;
 import com.citrusbits.meehab.utils.RecoverClockDateUtils;
+import com.citrusbits.meehab.utils.TimestampUtils;
 import com.citrusbits.meehab.utils.UtilityClass;
 import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
@@ -106,7 +107,7 @@ public class UserProfileActivity extends SocketActivity implements
 		setContentView(R.layout.activity_user_profile);
 		ibSeeMore = (ImageButton) this.findViewById(R.id.ibSeeMore);
 		ibSeeMore.setOnClickListener(this);
-		timeZoneOffest = MeetingUtils.getTimeZoneOffset();
+		timeZoneOffest = TimestampUtils.getTimeZoneOffset();
 
 		pd = UtilityClass.getProgressDialog(this);
 		user = (UserAccount) getIntent().getSerializableExtra(

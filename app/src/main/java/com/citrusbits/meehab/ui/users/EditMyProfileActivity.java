@@ -593,7 +593,7 @@ public class EditMyProfileActivity extends SocketActivity implements
 
 				String userImage = mUser.getImage();
 				Picasso.with(EditMyProfileActivity.this).load(userImage)
-						.placeholder(R.drawable.img_place_holder).resize(100, 100)
+						.placeholder(R.drawable.img_place_holder)
 						.error(R.drawable.img_place_holder)
 						.transform(new PicassoCircularTransform())
 						.into(profilePic);

@@ -187,11 +187,11 @@ public class VerificationActivity extends SocketActivity implements
 			</SMSMessage>
 			</TwilioResponse>*/
         final int randomNum = (int)(Math.random()*90000)+10000;
-        smsCode= "Please enter verification "+String.format("%05d",randomNum) + " code.";
+        smsCode= String.format("%05d",randomNum) ;
         Map<String, String> params = new HashMap<String, String>();
         params.put("From", Consts.FromNumber);
         params.put("To", phoneNumber);
-        params.put("Body", smsCode);
+        params.put("Body", "Please enter verification "+ smsCode + " code.");
 
         RequestQueue requestQueue = MeehabApp.getInstance().getRequestQueue();
 

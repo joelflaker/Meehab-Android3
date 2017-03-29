@@ -55,6 +55,7 @@ import com.citrusbits.meehab.services.OnSocketResponseListener;
 import com.citrusbits.meehab.utils.AccountUtils;
 import com.citrusbits.meehab.utils.NetworkUtil;
 import com.citrusbits.meehab.utils.NetworkUtils;
+import com.citrusbits.meehab.utils.TimestampUtils;
 import com.citrusbits.meehab.utils.UtilityClass;
 import com.google.gson.Gson;
 
@@ -96,18 +97,9 @@ public class MessagesFragment extends Fragment implements
 		super.onCreate(savedInstanceState);
 		prefs = AppPrefs.getAppPrefs(getActivity());
 		prefs.saveBooleanPrefs(AppPrefs.KEY_CONVERSATION_FRAG_OPEN, true);
-		timezone = getTimeZoneOffset();
+		timezone = TimestampUtils.getTimeZoneOffset();
 	}
 	
-	public long getTimeZoneOffset() {
-		Calendar mCalendar = new GregorianCalendar();
-		TimeZone mTimeZone = mCalendar.getTimeZone();
-		int mGMTOffset = mTimeZone.getRawOffset();
-		long hours = TimeUnit.HOURS.convert(mGMTOffset, TimeUnit.MILLISECONDS);
-		System.out.printf("GMT offset is %s hours", hours);
-		return hours;
-	}
-
 	public MessagesFragment() {
 	}
 

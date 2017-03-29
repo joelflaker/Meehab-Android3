@@ -143,7 +143,7 @@
     <string name="no_blocked_friend_list">No Blocked Friends</string>
     <string name="sober_date_diff_formate">%1$d years, %2$d days, %3$d hours, %4$d minutes, %5$d seconds</string>
     <string name="sober_date_diff_formate_profile">%1$d Y, %2$d D, %3$d H, %4$d M, %5$d S</string>
-    <string name="num_favourites_attending">%1$d favorites Attending!</string>
+    <string name="num_favourites_attending">%1$d favorites attending!</string>
     <string name="no_favourite_attending">No favorite Attending!</string>
     <string name="rsvp_d">RSVP\'d</string>
     <string name="rsvp_title">RSVP\'d Friends</string>

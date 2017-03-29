@@ -59,6 +59,7 @@ import com.citrusbits.meehab.services.OnSocketResponseListener;
 import com.citrusbits.meehab.utils.AccountUtils;
 import com.citrusbits.meehab.utils.MeetingUtils;
 import com.citrusbits.meehab.utils.NetworkUtils;
+import com.citrusbits.meehab.utils.TimestampUtils;
 import com.citrusbits.meehab.utils.UtilityClass;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -196,7 +197,7 @@ public class MeetingsFragment extends Fragment implements
 		pd = UtilityClass.getProgressDialog(homeActivity);
 
 		userDatasource = new UserDatasource(getActivity());
-		timeZone = MeetingUtils.getTimeZoneOffset();
+		timeZone = TimestampUtils.getTimeZoneOffset();
 		user = userDatasource.findUser(AccountUtils.getUserId(getActivity()));
 		mContext = getActivity();
 		meetings = new ArrayList<>();

@@ -141,14 +141,14 @@ public class MeetingUtils {
 		}
 	}
 
-	public static long getTimeZoneOffset() {
-		Calendar mCalendar = new GregorianCalendar();
-		TimeZone mTimeZone = mCalendar.getTimeZone();
-		int mGMTOffset = mTimeZone.getRawOffset();
-		long hours = TimeUnit.HOURS.convert(mGMTOffset, TimeUnit.MILLISECONDS);
-		System.out.printf("GMT offset is %s hours", hours);
-		return hours;
-	}
+//	public static long getTimeZoneOffset() {
+//		Calendar mCalendar = new GregorianCalendar();
+//		TimeZone mTimeZone = mCalendar.getTimeZone();
+//		int mGMTOffset = mTimeZone.getRawOffset();
+//		long hours = TimeUnit.HOURS.convert(mGMTOffset, TimeUnit.MILLISECONDS);
+//		System.out.printf("GMT offset is %s hours", hours);
+//		return hours + 1;
+//	}
 
 	public static final NearestDateTime getNearestDate(String days, String times) {
 

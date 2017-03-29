@@ -55,6 +55,7 @@ import com.citrusbits.meehab.utils.MeetingUtils;
 import com.citrusbits.meehab.utils.NetworkUtil;
 import com.citrusbits.meehab.utils.NetworkUtils;
 import com.citrusbits.meehab.utils.RecoverClockDateUtils;
+import com.citrusbits.meehab.utils.TimestampUtils;
 import com.citrusbits.meehab.utils.UtilityClass;
 import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
@@ -118,8 +119,7 @@ public class MyProfileFragment extends Fragment implements
 		View v = inflater.inflate(R.layout.fragment_my_profile, container,
 				false);
 		
-		timeZone = MeetingUtils.getTimeZoneOffset();
-
+		timeZone = TimestampUtils.getTimeZoneOffset();
 
 		v.findViewById(R.id.topMenuBtn).setOnClickListener(this);
 		v.findViewById(R.id.topRightBtn).setOnClickListener(this);

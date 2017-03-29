@@ -12,6 +12,7 @@ import java.util.Locale;
 
 import com.citrusbits.meehab.R;
 import com.citrusbits.meehab.utils.MeetingUtils;
+import com.citrusbits.meehab.utils.TimestampUtils;
 
 import android.text.TextUtils;
 
@@ -105,7 +106,7 @@ public class RehabResponseModel {
 		//getting today timing or near future day of week
 
 
-		long timeZone = MeetingUtils.getTimeZoneOffset();
+		long timeZone = TimestampUtils.getTimeZoneOffset();
 		Calendar now = Calendar.getInstance();
 		Calendar onCal = Calendar.getInstance();
 		Calendar offCal = Calendar.getInstance();

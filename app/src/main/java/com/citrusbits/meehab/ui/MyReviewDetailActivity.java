@@ -37,6 +37,7 @@ import com.citrusbits.meehab.utils.DateTimeUtils;
 import com.citrusbits.meehab.utils.MeetingUtils;
 import com.citrusbits.meehab.utils.NetworkUtil;
 import com.citrusbits.meehab.utils.NetworkUtils;
+import com.citrusbits.meehab.utils.TimestampUtils;
 import com.citrusbits.meehab.utils.UtilityClass;
 import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
@@ -58,7 +59,7 @@ public class MyReviewDetailActivity extends SocketActivity implements
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		timeZoneOffset = MeetingUtils.getTimeZoneOffset();
+		timeZoneOffset = TimestampUtils.getTimeZoneOffset();
 		pd = UtilityClass.getProgressDialog(MyReviewDetailActivity.this);
 		setContentView(R.layout.activity_my_review_detail);
 		object = getIntent().getSerializableExtra(MyReview.EXTRA_REVIEW);

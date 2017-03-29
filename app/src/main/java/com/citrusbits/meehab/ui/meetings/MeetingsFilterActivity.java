@@ -1,10 +1,15 @@
 package com.citrusbits.meehab.ui.meetings;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.location.Address;
+import android.location.Geocoder;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -185,6 +190,26 @@ public class MeetingsFilterActivity extends SocketActivity implements
 				cacheCategories.clear();
 				cacheCategories.addAll(categories);
 				resultHolder = appendFilter(resultHolder);
+
+				if(!TextUtils.isEmpty(resultHolder.getZipCode()) && resultHolder.getZipCode().length() >= 5){
+					final Geocoder geocoder = new Geocoder(this);
+					final String zip = "90210";
+					try {
+						List<Address> addresses = geocoder.getFromLocationName(zip, 1);
+						if (addresses != null && !addresses.isEmpty()) {
+							Address address = addresses.get(0);
+							// Use the address as needed
+							String message = String.format("Latitude: %f, Longitude: %f",
+									address.getLatitude(), address.getLongitude());
+							Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+						} else {
+							// Display appropriate message when Geocoder services are not available
+							Toast.makeText(this, "Unable to geocode zipcode", Toast.LENGTH_LONG).show();
+						}
+					} catch (IOException e) {
+						// handle exception
+					}
+				}
 
 				//this will clear filter
 				if(/*isFilterCleared || */!isThereAnyFilter(resultHolder)){

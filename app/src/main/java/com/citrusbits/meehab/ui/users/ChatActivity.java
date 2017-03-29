@@ -51,6 +51,7 @@ import com.citrusbits.meehab.ui.SocketActivity;
 import com.citrusbits.meehab.utils.AccountUtils;
 import com.citrusbits.meehab.utils.DeviceUtils;
 import com.citrusbits.meehab.utils.NetworkUtils;
+import com.citrusbits.meehab.utils.TimestampUtils;
 import com.citrusbits.meehab.utils.UtilityClass;
 import com.google.gson.Gson;
 
@@ -158,7 +159,7 @@ public class ChatActivity extends SocketActivity implements OnClickListener,
 
 		prefs.saveBooleanPrefs(AppPrefs.KEY_CHAT_ACTIVITY_OPEN, true);
 
-		timeZoneOffset = getTimeZoneOffset();
+		timeZoneOffset = TimestampUtils.getTimeZoneOffset();
 
 	}
 
@@ -188,15 +189,6 @@ public class ChatActivity extends SocketActivity implements OnClickListener,
 			}
 		}
 		return checkCount;
-	}
-
-	public long getTimeZoneOffset() {
-		Calendar mCalendar = new GregorianCalendar();
-		TimeZone mTimeZone = mCalendar.getTimeZone();
-		int mGMTOffset = mTimeZone.getRawOffset();
-		long hours = TimeUnit.HOURS.convert(mGMTOffset, TimeUnit.MILLISECONDS);
-		System.out.printf("GMT offset is %s hours", hours);
-		return hours;
 	}
 
 	@Override
@@ -599,7 +591,7 @@ public class ChatActivity extends SocketActivity implements OnClickListener,
 
 		} else if (event.equals(EventParams.METHOD_DELETE_CHAT_MESSAGE)) {
 			JSONObject data = ((JSONObject) obj);
-			Log.e("Delete Message Response is ", data.toString());
+			Log.e("Delete Message Response", data.toString());
 			for (int i = 0; i < chatMessages.size(); i++) {
 				ChatModel chat = chatMessages.get(i);
 				if (chat.isChecked()) {

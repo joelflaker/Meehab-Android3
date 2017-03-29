@@ -5,10 +5,13 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
+import java.util.TimeZone;
 import java.util.concurrent.TimeUnit;
 
 import android.util.Log;
 
+import com.citrusbits.meehab.utils.TimestampUtils;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -105,21 +108,23 @@ public class ChatModel implements Serializable {
 		return this.chatId;
 	}
 
-	public static final long SECONDS_IN_WEEK = 1 * 60 * 60 * 24 * 7;
-	public static final long SECONDS_IN_DAY = 1 * 60 * 60 * 24;
-	public static final long SECONDS_IN_HOUR = 1 * 60 * 60;
-	public static final long SECONDS_IN_MINUTE = 1 * 60;
+	public static final long SECONDS_IN_WEEK = 60 * 60 * 24 * 7;
+	public static final long SECONDS_IN_DAY = 60 * 60 * 24;
+	public static final long SECONDS_IN_HOUR = 60 * 60;
+	public static final long SECONDS_IN_MINUTE = 60;
 
 	public String convertToDisplayFormat(String dateTime,
 			long timeZoneOffsetHours) {
-		SimpleDateFormat oldFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-
-		SimpleDateFormat newFormat = new SimpleDateFormat("EEE, MMM dd");
+//		2017-03-29 14:35:35 for ihave
+		//2017-03-29 14:43:16 for lol
+		SimpleDateFormat oldFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US);
+		SimpleDateFormat newFormat = new SimpleDateFormat("EEE, MMM dd"/*, Locale.US*/);
 
 		try {
 			Date date = oldFormat.parse(dateTime);
-			date.setHours((int) (date.getHours() + timeZoneOffsetHours));
+//			date.setHours(date.getHours() - (int) timeZoneOffsetHours);
 			Calendar calendar = Calendar.getInstance();
+			calendar.add(Calendar.HOUR_OF_DAY, - (int) timeZoneOffsetHours);
 			long millis = calendar.getTimeInMillis() - date.getTime();
 			long seconds = TimeUnit.MILLISECONDS.toSeconds(millis);
 

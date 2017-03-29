@@ -83,6 +83,7 @@ import com.citrusbits.meehab.utils.MeetingUtils;
 import com.citrusbits.meehab.utils.MettingCodes;
 import com.citrusbits.meehab.utils.NetworkUtil;
 import com.citrusbits.meehab.utils.NetworkUtils;
+import com.citrusbits.meehab.utils.TimestampUtils;
 import com.citrusbits.meehab.utils.UtilityClass;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -141,7 +142,7 @@ public class MeetingDetailsActivity extends SocketActivity implements
 
 	DatabaseHandler dbHandler;
 
-	private long timeZone = 0;
+	private long timeZoneOffset = 0;
 
 	LinearLayout llMultipleMeetings;
 
@@ -162,7 +163,7 @@ public class MeetingDetailsActivity extends SocketActivity implements
 		setContentView(R.layout.activity_meeting_details);
 		llMultipleMeetings = (LinearLayout) findViewById(R.id.llMultipleMeetings);
 		tvChooseADifferentDate = (TextView) findViewById(R.id.tvChooseADifferentDate);
-		timeZone = MeetingUtils.getTimeZoneOffset();
+		timeZoneOffset = TimestampUtils.getTimeZoneOffset();
 
 		btnSeeMoreReviews = (Button) findViewById(R.id.btnSeeMoreReviews);
 		rlAddReview = (RelativeLayout) findViewById(R.id.rlAddReview);
@@ -1239,7 +1240,7 @@ public class MeetingDetailsActivity extends SocketActivity implements
 			tvMeetingName.setText(m.getUsername());
 
 			final String datetimeAdded = DateTimeUtils.getDatetimeReview(
-					m.getDatetimeAdded(), timeZone);
+					m.getDatetimeAdded(), timeZoneOffset);
 
 			tvDateTime.setText(datetimeAdded);
 

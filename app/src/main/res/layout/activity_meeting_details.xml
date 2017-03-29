@@ -386,7 +386,7 @@
                                 android:background="@android:color/transparent"
                                 android:textColor="@color/light_dark_detail"
                                 android:gravity="center_vertical"
-                                android:text="44 favorites Attending!" />
+                                android:text="44 favorites attending!" />
                         </RelativeLayout>
 
                         <ImageView

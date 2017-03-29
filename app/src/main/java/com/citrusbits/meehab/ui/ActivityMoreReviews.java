@@ -15,6 +15,7 @@ import com.citrusbits.meehab.ui.users.UserProfileActivity;
 import com.citrusbits.meehab.utils.AccountUtils;
 import com.citrusbits.meehab.utils.DateTimeUtils;
 import com.citrusbits.meehab.utils.MeetingUtils;
+import com.citrusbits.meehab.utils.TimestampUtils;
 import com.citrusbits.meehab.utils.UtilityClass;
 import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
@@ -46,7 +47,7 @@ public class ActivityMoreReviews extends SocketActivity implements OnSocketRespo
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		timeZoneOffset = MeetingUtils.getTimeZoneOffset();
+		timeZoneOffset = TimestampUtils.getTimeZoneOffset();
 		setContentView(R.layout.activity_more_reviews);
 		findViewById(R.id.btnBack).setOnClickListener(this);
 		meetingReviewModels = (ArrayList<MeetingReviewModel>) getIntent()
@@ -154,7 +155,7 @@ public class ActivityMoreReviews extends SocketActivity implements OnSocketRespo
 
 			tvMeetingName.setText(m.getUsername());
 
-			String datetimeAdded = DateTimeUtils.getDatetimeAdded(
+			String datetimeAdded = DateTimeUtils.getDatetimeReview(
 					m.getDatetimeAdded(), timeZoneOffset);
 
 			tvDateTime.setText(datetimeAdded);
